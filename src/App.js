@@ -10,9 +10,11 @@ import {
   Alert,
 } from "react-bootstrap";
 import React from "react";
+import Changabletext from "./Components/ChangableText";
+
 function App() {
   //var  font_color_style = {"--color": "#f0f0f0"} as React.CSSProperties;
-  const police = new AcademyEntity("pompieri", "#f0f0f0");
+  const police = new AcademyEntity("politie", "#f0f0f0");
   const firefighters = new AcademyEntity("pompieri", "#f0f0f0");
   const special_forces = new AcademyEntity("jandarmerie", "#f0f0f0");
   var academies = [police, firefighters, special_forces];
@@ -38,14 +40,10 @@ function App() {
             <div className="col-lg">
               <h2 className="hero-title col-4 p-3">
                 Te pregatesti pentru admitere la
-                <div className="col col-md">
-                  <ul className="flip3 list-group-item">
-                    <li className=" hero-item">politie</li>
-                    <li className=" hero-item">jandarmerie</li>
-                    <li className=" hero-item">pompieri</li>
-                  </ul>
-                </div>
               </h2>
+              <div className="col col-md">
+                <Changabletext text_choices={academies} />
+              </div>
             </div>
           </div>
         </div>
