@@ -13,30 +13,25 @@
   color: #f0f0f0;
 }
 
-.list-group-item {
-  background-color: #1e002e !important;
-  display: block !important;
-  height: 9vh;
-  margin-left: 2vh;
-}
-
-.hero-item {
-  list-style-type: none;
+.hero-item h3 {
   font-family: Georgia, "Times New Roman", Times, serif;
   font-size: 10vh;
   color: #f0f0f0 !important;
-  border: 0px !important;
   margin-left: 2vh;
-  margin-top: -2vh;
   font-weight: 700;
+  overflow: hidden;
+  margin-top: -3vh;
+  width: 100%;
+  border-right: solid #01fe87;
+  animation: typing-forward 2s steps(30, end) infinite,
+    typing-forward 2s 2s steps(30, end) reverse infinite;
 }
-.m-fadeOut {
-  visibility: hidden;
-  opacity: 0;
-  transition: visibility 0s linear 300ms, opacity 300ms;
-}
-.m-fadeIn {
-  visibility: visible;
-  opacity: 1;
-  transition: visibility 0s linear 0s, opacity 300ms;
+
+@keyframes typing-forward {
+  from {
+    width: 0;
+  }
+  to {
+    width: 25%;
+  }
 }

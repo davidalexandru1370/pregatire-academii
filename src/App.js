@@ -41,7 +41,7 @@ function App() {
               <h2 className="hero-title col-4 p-3">
                 Te pregatesti pentru admitere la
               </h2>
-              <div className="col col-md">
+              <div className="col-md w-100">
                 <Changabletext text_choices={academies} />
               </div>
             </div>

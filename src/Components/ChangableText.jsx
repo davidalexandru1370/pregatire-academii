@@ -13,7 +13,7 @@ class Changabletext extends React.Component {
         this.timeout  = setInterval(() => {
             let _current_id = this.state.current_id;
             this.setState({current_id : _current_id >= 2 ? 0 : _current_id+1   });
-        }, 1500);
+        }, 4000);
     }
 
     componentWillUnmount(){
@@ -24,8 +24,8 @@ class Changabletext extends React.Component {
         let _current_value = this.state.current_id;
         let text = this._text_choices[_current_value].name;
         return (
-            <div>
-                <h3 className="hero-item ">{text}</h3>
+            <div className="hero-item" >
+                <h3  data-text={text}>{text}</h3>
             </div>
         );
     }
