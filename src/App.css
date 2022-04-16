@@ -1,9 +1,12 @@
+* {
+  margin: 0;
+}   
+
 .nav-item {
   color: #f0f0f0;
 }
 
 .hero-section {
-  display: block;
   background-color: #1e002e;
 }
 
@@ -13,25 +16,48 @@
   color: #f0f0f0;
 }
 
-.hero-item h3 {
+.hero-item {
   font-family: Georgia, "Times New Roman", Times, serif;
-  font-size: 10vh;
+  font-size: 6vh;
   color: #f0f0f0 !important;
-  margin-left: 2vh;
-  font-weight: 700;
+  text-align: center;
+  font-weight: 500;
   overflow: hidden;
-  margin-top: -3vh;
+}
+.avatars {
   width: 100%;
-  border-right: solid #01fe87;
-  animation: typing-forward 2s steps(30, end) infinite,
-    typing-forward 2s 2s steps(30, end) reverse infinite;
+  padding: 0px;
+  display: flex;
+  justify-content: space-evenly;
+}
+.avatar {
+  pointer-events: none;
+  user-select: none;
 }
 
-@keyframes typing-forward {
-  from {
-    width: 0;
-  }
-  to {
-    width: 25%;
+.academies-text {
+  word-spacing: 2vh;
+}
+
+.card-deck, .card{
+  border: none !important;
+  
+}
+
+@media (min-width: 576px){
+.card-deck {
+  display: flex;
+  flex-flow: row wrap;
+  margin-left: -15px;
+  margin-right: -15px;
+}
+}
+
+
+@media (min-width: 576px){
+  .card-deck .card{
+    flex: 1 0 0%;
+    margin-right: 25px;
+    margin-left: 25px;
   }
 }
