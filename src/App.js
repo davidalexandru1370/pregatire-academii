@@ -32,14 +32,11 @@ function App() {
     <div className="">
       <Navbar className="bg-dark">
         <Nav className="ms-auto ">
-          <Nav.Item href="#" className="p-3 nav-item">
+          <Nav.Item href="#" className="p-3 nav-item me-5">
             Acasa
           </Nav.Item>
-          <Nav.Item href="#" className="p-3 nav-item">
-            Subiecte
-          </Nav.Item>
-          <Nav.Item className="p-3 nav-item">
-            <img src="" alt="cont utilizator" />
+          <Nav.Item href="#" className="p-3 nav-item me-5">
+            Contact
           </Nav.Item>
         </Nav>
       </Navbar>
@@ -114,14 +111,26 @@ function App() {
           </div>
         </div>
       </section>
-
-      <section className="bg-dark">
+      <section className="bg-dark pb-2">
+        
         <div className="container">
-          <h3 className="text-white">
-            Indeplineste-ti visul si incepe prin crearea contului. Este totul
-            gratis. Pentru viitorul ofiter !
-            <EmojiSmileUpsideDown style={{ color: "#FFCB4C" }} />
+          <div className="row">
+            <div className="col-lg-12 d-flex flex-row justify-content-between">
+              <div className="d-flex flex-column align-items-left">
+                <h3 className="text-white fs-1" style={{paddingTop: "5rem"}}>
+            Incepe prin a-ti crea <br/>
+            propriul cont.  <br/>
           </h3>
+          <h3 className="text-white fs-1 mt-4">
+            Este complet gratis
+            <EmojiSmileUpsideDown size={24} style={{ color: "#FFCB4C" }} className=" ms-2"/>
+          </h3>
+            </div>
+            <div className="d-grip my-auto ">
+            <button type="button" className="btn btn-primary btn-lg col-12" style={{borderRadius: "50px"}}>Creeaza cont</button>
+            </div>
+            </div>
+          </div>
         </div>
       </section>
     </div>
