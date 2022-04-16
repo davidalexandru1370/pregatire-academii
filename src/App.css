@@ -1,6 +1,9 @@
 * {
-  margin: 0;
+  margin: 0%;
+  padding: 0%;
+  box-sizing: border-box;
 }   
+
 
 .nav-item {
   color: #f0f0f0;
@@ -8,6 +11,7 @@
 
 .hero-section {
   background-color: #1e002e;
+  width: 100%;
 }
 
 .hero-title {
@@ -60,4 +64,34 @@
     margin-right: 25px;
     margin-left: 25px;
   }
+}
+
+.bg-purple{
+  background-color: purple;
+}
+
+.changeColorAnim{
+ animation: changeColor 0.4s linear infinite alternate;
+}
+
+@keyframes changeColor{
+    100%{
+      color:  turquoise;
+    }
+    0%{
+      color:antiquewhite
+    }
+}
+
+.delay1{
+  animation-delay: 1s;
+}
+
+.delay2{
+  animation-delay: 2s;
+}
+
+.border-tb{
+  border-bottom: 4px solid #444;
+  border-top: 4px solid #444;
 }

@@ -12,6 +12,12 @@ import {
 import React from "react";
 import Changabletext from "./Components/ChangableText";
 import TextCard from "./Components/TextCard";
+import {
+  ChevronDoubleDown,
+  ChevronDown,
+  EmojiSmileUpsideDown,
+} from "react-bootstrap-icons";
+import "react-bootstrap-icons";
 
 function App() {
   //var  font_color_style = {"--color": "#f0f0f0"} as React.CSSProperties;
@@ -45,8 +51,8 @@ function App() {
             </h2>
           </div>
           <div className="row">
-            <div className="row-lg col d-flex justify-content-evenly">
-              <div className="col-sm d-flex flex-column element">
+            <div className="row-lg col d-flex justify-content-center">
+              <div className="col-sm d-flex flex-column " style={{marginLeft: "-5px"}}>
                 <img
                   src={`${connection_pompier}`}
                   alt="pompier"
@@ -55,7 +61,7 @@ function App() {
                 <h2 className="hero-item">Pompieri</h2>
               </div>
 
-              <div className="col-sm d-flex flex-column element">
+              <div className="col-sm d-flex flex-column ">
                 <img
                   src={`${connection_politie}`}
                   alt="politie"
@@ -77,8 +83,13 @@ function App() {
             <div className="hero-title"></div>
           </div>
         </div>
+        <div className="d-flex align-items-center flex-column mt-5">
+          <ChevronDown size={24} className="changeColorAnim"/>
+          <ChevronDown size={24} className="changeColorAnim delay1"/>
+          <ChevronDown size={24} className="changeColorAnim delay2"/>
+        </div>
       </section>
-      <section className="bg-info">
+      <section className="bg-dark border-tb">
         <div className="container">
           <div className="row">
             <div className="col-lg-12 mt-4">
@@ -94,8 +105,23 @@ function App() {
                 <TextCard text="Subiecte matematica" />
                 <TextCard text="Subiecte istorie" />
               </div>
+              <div className="card-deck">
+                <TextCard text="Rezolvari la probleme" />
+                <TextCard text="Explicatii ale raspunsurilor" />
+                <TextCard text="Support live" />
+              </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      <section className="bg-dark">
+        <div className="container">
+          <h3 className="text-white">
+            Indeplineste-ti visul si incepe prin crearea contului. Este totul
+            gratis. Pentru viitorul ofiter !
+            <EmojiSmileUpsideDown style={{ color: "#FFCB4C" }} />
+          </h3>
         </div>
       </section>
     </div>
