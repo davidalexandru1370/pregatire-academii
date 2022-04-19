@@ -96,14 +96,17 @@ function App() {
                 </h3>
               </div>
             </div>
-            <div className="col-lg-12 mt-5">
+            <div className="col-lg-12 mt-5 pb-5">
               <div className="card-deck">
                 <TextCard text="Subiecte romana" />
                 <TextCard text="Subiecte matematica" />
-                <TextCard text="Subiecte istorie" />
+                
               </div>
-              <div className="card-deck">
+              <div className="card-deck mt-5">
+                <TextCard text="Subiecte istorie"/>
                 <TextCard text="Rezolvari la probleme" />
+              </div>
+                <div className="card-deck mt-5">
                 <TextCard text="Explicatii ale raspunsurilor" />
                 <TextCard text="Support live" />
               </div>

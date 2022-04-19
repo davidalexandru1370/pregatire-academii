@@ -6,8 +6,8 @@ import { Check } from 'react-bootstrap-icons';
 
 function TextCard(props) {
   return (
-    <div className="card mb-3">
-    <div className="card-body bg-purple">
+    <div className="card mb-3 me-5 ">
+    <div className="card-body bg-purple rounded-3">
     <Check size={48} className="float-end"/>
     <p className='card-text text-white text-uppercase text-left fs-4 mt-1'>{props.text}</p>
     </div>
