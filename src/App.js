@@ -1,23 +1,17 @@
-import "./App.css";
-import AcademyEntity from "./ObjectsTemplates/AcademyEntity.js";
 import "bootstrap/dist/css/bootstrap.min.css";
+import React from "react";
 import {
   Nav,
-  Navbar,
-  Container,
-  NavDropdown,
-  Button,
-  Alert,
+  Navbar
 } from "react-bootstrap";
-import React from "react";
-import Changabletext from "./Components/ChangableText";
-import TextCard from "./Components/TextCard";
-import {
-  ChevronDoubleDown,
-  ChevronDown,
-  EmojiSmileUpsideDown,
-} from "react-bootstrap-icons";
 import "react-bootstrap-icons";
+import {
+  ChevronDown,
+  EmojiSmileUpsideDown
+} from "react-bootstrap-icons";
+import "./App.css";
+import TextCard from "./Components/TextCard";
+import AcademyEntity from "./ObjectsTemplates/AcademyEntity.js";
 
 function App() {
   //var  font_color_style = {"--color": "#f0f0f0"} as React.CSSProperties;
@@ -28,10 +22,11 @@ function App() {
   let connection_politie = "http://172.23.240.1:8080/militist.png";
   let connection_pompier = "http://172.23.240.1:8080/pomper.png";
   let connection_jandarmerie = "http://172.23.240.1:8080/jendar.png";
+
   return (
     <div className="">
-      <Navbar className="bg-dark">
-        <Nav className="ms-auto ">
+      <Navbar className="bg-dark sticky-top">
+        <Nav className="ms-auto position-sticky">
           <Nav.Item href="#" className="p-3 nav-item me-5">
             Acasa
           </Nav.Item>
@@ -129,8 +124,8 @@ function App() {
             <EmojiSmileUpsideDown size={24} style={{ color: "#FFCB4C" }} className=" ms-2"/>
           </h3>
             </div>
-            <div className="d-grip my-auto ">
-            <button type="button" className="btn btn-primary btn-lg col-12" style={{borderRadius: "50px"}}>Creeaza cont</button>
+            <div className="d-grip my-auto">  
+            <button type="button" className="btn btn-primary btn-lg col-12 mt-5" style={{borderRadius: "50px"}}>Creeaza cont</button>
             </div>
             </div>
           </div>
