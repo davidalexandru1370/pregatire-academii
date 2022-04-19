@@ -22,7 +22,7 @@ function App() {
   let connection_politie = "http://172.23.240.1:8080/militist.png";
   let connection_pompier = "http://172.23.240.1:8080/pomper.png";
   let connection_jandarmerie = "http://172.23.240.1:8080/jendar.png";
-
+   
   return (
     <div className="">
       <Navbar className="bg-dark sticky-top">
