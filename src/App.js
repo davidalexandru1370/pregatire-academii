@@ -12,6 +12,8 @@ import {
 import "./App.css";
 import TextCard from "./Components/TextCard";
 import AcademyEntity from "./ObjectsTemplates/AcademyEntity.js";
+import Register from './pages/Register'
+import {BrowserRouter, BrowserRouter as Router,Route, Routes} from 'react-router-dom'
 
 function App() {
   //var  font_color_style = {"--color": "#f0f0f0"} as React.CSSProperties;
@@ -19,12 +21,12 @@ function App() {
   const firefighters = new AcademyEntity("pompieri", "#f0f0f0");
   const special_forces = new AcademyEntity("jandarmerie", "#f0f0f0");
   var academies = [police, firefighters, special_forces];
-  let connection_politie = "http://172.23.240.1:8080/militist.png";
-  let connection_pompier = "http://172.23.240.1:8080/pomper.png";
-  let connection_jandarmerie = "http://172.23.240.1:8080/jendar.png";
+  let connection_politie = "http://172.22.0.1:8080/militist.png";
+  let connection_pompier = "http://172.22.0.1:8080/pomper.png";
+  let connection_jandarmerie = "http://172.22.0.1:8080/jendar.png";
    
   return (
-    <div className="">
+    <Router>
       <Navbar className="bg-dark sticky-top">
         <Nav className="ms-auto position-sticky">
           <Nav.Item href="#" className="p-3 nav-item me-5">
@@ -35,6 +37,11 @@ function App() {
           </Nav.Item>
         </Nav>
       </Navbar>
+    <Routes>
+      
+      <Route path='/acasa' exact element={
+        <>
+      
       <section className="hero-section">
         <div className="container">
           <div className="col-lg">
@@ -131,7 +138,12 @@ function App() {
           </div>
         </div>
       </section>
-    </div>
+      </>}/>
+
+    <Route exact path='Register' element={<Register/>}/>
+
+    </Routes>
+    </Router>
   );
 }
 
