@@ -33,11 +33,11 @@ function App() {
         <>
       <Navbar className="bg-dark sticky-top">
         <Nav className="ms-auto position-sticky">
-          <Nav.Item className="p-2 nav-item me-5 ">
-           <NLink to="/acasa"  className={({isActive}) => (isActive ? "selected fw-bold" : "fw-light") + " h5 text-decoration-none"}>Acasa</NLink>
+          <Nav.Item className="p-2  me-5 ">
+           <NLink to="/acasa"  className={({isActive}) => (isActive ? "selected fw-bold" : "nav-item  fw-light white-text") + " h5 text-decoration-none"}>Acasa</NLink>
           </Nav.Item>
-          <Nav.Item  className="p-2 nav-item me-5">
-          <NLink to="/contact"  className={({isActive}) => (isActive ? "selected fw-bold" : "fw-light white-text") + "   h5 text-decoration-none"} >Contact</NLink>
+          <Nav.Item  className="p-2 me-5">
+          <NLink to="/contact"  className={({isActive}) => (isActive ? "selected fw-bold" : "nav-item fw-light white-text") + "   h5 text-decoration-none"} >Contact</NLink>
 
           </Nav.Item>
         </Nav>

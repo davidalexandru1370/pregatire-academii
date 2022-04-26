@@ -104,17 +104,17 @@
 
 
 .nav-item:hover{
-  animation: changeNavBarItemColor 0.3s linear forwards !important;
+  animation: changeNavBarItemColor 0.3s linear forwards;
   cursor: pointer;
-
 }
+
 
 @keyframes changeNavBarItemColor{
   0%{
-    color:#f0f0f0 !important;
+    color: whitesmoke;
   }
   100%{
-    color :rgb(102, 102, 102) !important;
+    color :rgb(102, 102, 102) ;
     text-shadow: 0 0 5px rgba(0, 0, 0, 1);
   }
 }
@@ -125,5 +125,5 @@
 }
 
 .white-text{
-  color: whitesmoke;
+  color: whitesmoke ;
 }
