@@ -102,18 +102,28 @@
   
 }
 
+
 .nav-item:hover{
-  animation: changeNavBarItemColor 0.3s linear forwards;
+  animation: changeNavBarItemColor 0.3s linear forwards !important;
   cursor: pointer;
-  transform: scale(1.05);
+
 }
 
 @keyframes changeNavBarItemColor{
   0%{
-    color:#f0f0f0;
+    color:#f0f0f0 !important;
   }
   100%{
-    color :blanchedalmond;
+    color :rgb(102, 102, 102) !important;
     text-shadow: 0 0 5px rgba(0, 0, 0, 1);
   }
+}
+
+.selected{
+  color : bisque !important;
+  text-shadow: 0 0 5px rgba(0, 0, 0, 1) !important;
+}
+
+.white-text{
+  color: whitesmoke;
 }

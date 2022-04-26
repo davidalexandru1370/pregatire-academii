@@ -2,7 +2,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import React from "react";
 import {
   Nav,
-  Navbar
+  Navbar,
+  NavLink
 } from "react-bootstrap";
 import "react-bootstrap-icons";
 import {
@@ -13,7 +14,7 @@ import "./App.css";
 import TextCard from "./Components/TextCard";
 import AcademyEntity from "./ObjectsTemplates/AcademyEntity.js";
 import Register from './pages/Register'
-import {BrowserRouter, BrowserRouter as Router,Route, Routes} from 'react-router-dom'
+import {BrowserRouter, BrowserRouter as Router,Route, Routes, NavLink as NLink} from 'react-router-dom'
 
 function App() {
   //var  font_color_style = {"--color": "#f0f0f0"} as React.CSSProperties;
@@ -21,27 +22,26 @@ function App() {
   const firefighters = new AcademyEntity("pompieri", "#f0f0f0");
   const special_forces = new AcademyEntity("jandarmerie", "#f0f0f0");
   var academies = [police, firefighters, special_forces];
-  let connection_politie = "http://172.22.0.1:8080/militist.png";
-  let connection_pompier = "http://172.22.0.1:8080/pomper.png";
-  let connection_jandarmerie = "http://172.22.0.1:8080/jendar.png";
-   
+  let connection_politie = "http://192.168.1.6:8080/militist.png";
+  let connection_pompier = "http://192.168.1.6:8080/pomper.png";
+  let connection_jandarmerie = "http://192.168.1.6:8080/jendar.png";
+
   return (
-    <Router>
+    <Router>    
+    <Routes>
+      <Route path='/acasa' exact element={
+        <>
       <Navbar className="bg-dark sticky-top">
         <Nav className="ms-auto position-sticky">
-          <Nav.Item href="#" className="p-3 nav-item me-5">
-            Acasa
+          <Nav.Item className="p-2 nav-item me-5 ">
+           <NLink to="/acasa"  className={({isActive}) => (isActive ? "selected fw-bold" : "fw-light") + " h5 text-decoration-none"}>Acasa</NLink>
           </Nav.Item>
-          <Nav.Item href="#" className="p-3 nav-item me-5">
-            Contact
+          <Nav.Item  className="p-2 nav-item me-5">
+          <NLink to="/contact"  className={({isActive}) => (isActive ? "selected fw-bold" : "fw-light white-text") + "   h5 text-decoration-none"} >Contact</NLink>
+
           </Nav.Item>
         </Nav>
       </Navbar>
-    <Routes>
-      
-      <Route path='/acasa' exact element={
-        <>
-      
       <section className="hero-section">
         <div className="container">
           <div className="col-lg">
