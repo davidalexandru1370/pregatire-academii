@@ -108,13 +108,16 @@
   cursor: pointer;
 }
 
+.nav-item{
+  animation: changeNavBarItemColor 0.3s linear backwards;
+}
 
 @keyframes changeNavBarItemColor{
   0%{
     color: whitesmoke;
   }
   100%{
-    color :rgb(102, 102, 102) ;
+    color :bisque;
     text-shadow: 0 0 5px rgba(0, 0, 0, 1);
   }
 }
