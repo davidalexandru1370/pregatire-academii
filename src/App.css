@@ -102,7 +102,6 @@
   
 }
 
-
 .nav-item:hover{
   animation: changeNavBarItemColor 0.3s linear forwards;
   cursor: pointer;
