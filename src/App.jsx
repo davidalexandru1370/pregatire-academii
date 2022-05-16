@@ -22,14 +22,13 @@ function App() {
   const firefighters = new AcademyEntity("pompieri", "#f0f0f0");
   const special_forces = new AcademyEntity("jandarmerie", "#f0f0f0");
   var academies = [police, firefighters, special_forces];
-  let connection_politie = "http://172.30.96.1:8080/militist.png";
-  let connection_pompier = "http://172.30.96.1:8080/pomper.png";
-  let connection_jandarmerie = "http://172.30.96.1:8080/jendar.png";
+  let connection_politie = "http://172.27.0.1:8080/militist.png";
+  let connection_pompier = "http://172.27.0.1:8080/pomper.png";
+  let connection_jandarmerie = "http://172.27.0.1:8080/jendar.png";
   let navigation = useNavigate();
 
   const onRegisterClick = () =>{
     navigation("/Register");
-    //console.log("button click");
   }
 
   return (
