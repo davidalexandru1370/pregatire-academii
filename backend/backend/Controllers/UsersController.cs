@@ -9,7 +9,9 @@ using backend.Model;
 
 namespace backend.Controllers
 {
-    public class UsersController : Controller
+    [ApiController]
+    [Route("api/[controller]")]
+    public class UsersController : ControllerBase
     {
         private readonly UserDbContext _context;
 
@@ -18,19 +20,20 @@ namespace backend.Controllers
             _context = context;
         }
 
+
         [HttpPost]
         public async Task<ActionResult<User>> add_user(User user)
         {
-            if (!ModelState.IsValid)
+            /*if (!ModelState.IsValid)
             {
                 return BadRequest("invalid data");
             }
+            */
             _context.Add(user);
             await _context.SaveChangesAsync();
-
             return Ok(user);
+            //return View()
         }
-
     }
 }
 // GET: Users

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Register.scss";
+import { createAPIEndpoint } from "./api";
 
 function Register() {
   const [start_validate, set_start_validate] = useState(false);
@@ -8,36 +9,39 @@ function Register() {
   const [password, setPassword] = useState(false);
   const form_ref = useRef(0);
   const pass_ref = useRef({});
+  let values = useRef({});
   const passwordRegex = new RegExp("(.*[A-Z]+.*[0-9]+)|(.*[0-9].*[A-Z].*)");
   let name_error_text = "Adresa de email este invalida";
-  let password_error_text =
-    "Parola trebuie sa indeplineasca conditiile: \n O litera majuscula \n O cifra\nLungime minima de 5 caractere";
 
   //check if input name field it is correct
   const nameInputField = () => {
     const my_form = form_ref.current;
+    //console.log(String(my_form["name"].value));
     if (String(my_form["name"].value).length < 3) {
       setname(false);
       return;
     }
 
     setname(true);
+    values["name"] = String(my_form["name"].value);
   };
 
   const passwordInputFields = () => {
     const my_form = form_ref.current;
     const field_caps = pass_ref.current["pass-caps"];
     const field_digit = pass_ref.current["pass-digit"];
-
+    values["password"] = my_form["password"].value;
     if (String(my_form["password"].value).length > 5) {
       const field = pass_ref.current["pass-length"];
       if (field) {
         field.style.color = "green";
+        setPassword(true);
       }
     } else {
       const field = pass_ref.current["pass-length"];
       if (field) {
         field.style.color = "red";
+        setPassword(false);
       }
     }
 
@@ -45,10 +49,12 @@ function Register() {
     if (has_caps !== null) {
       if (field_caps) {
         field_caps.style.color = "green";
+        setPassword(true);
       }
     } else {
       if (field_caps) {
         field_caps.style.color = "red";
+        setPassword(false);
       }
     }
 
@@ -56,17 +62,35 @@ function Register() {
     if (has_digit !== null) {
       if (field_digit) {
         field_digit.style.color = "green";
+        setPassword(true);
       }
     } else {
       if (field_digit) {
         field_digit.style.color = "red";
+        setPassword(false);
       }
     }
   };
 
   const checkInputFields = () => {
-    set_start_validate(true);
+    //set_start_validate(true);
     nameInputField();
+    console.log("name=" + name + " " + values["name"]);
+    console.log("pass=" + password + " " + values["password"]);
+    if (name === true && password === true) {
+      console.log("merge");
+      //let obj = { ...values["name"], ...values["password"], ..."name" };
+      let obj = {
+        email: values["name"],
+        password: values["password"],
+        name: "vasile",
+      };
+      createAPIEndpoint("Users")
+        .post(obj)
+        .then((obj) => {
+          console.log(obj);
+        });
+    }
     // passwordInputFields();
   };
 
@@ -88,24 +112,14 @@ function Register() {
               id="name"
               placeholder="Email"
               aria-label="email"
-              onChange={start_validate === true ? nameInputField : null}
+              onChange={nameInputField}
             />
             <p
               style={{
-                display: ` ${
-                  start_validate === false
-                    ? "none"
-                    : name === true
-                    ? "none"
-                    : "initial"
-                }`,
+                display: ` ${name === true ? "none" : "initial"}`,
               }}
               className={`${
-                start_validate === false
-                  ? null
-                  : name === true
-                  ? "valid-field-text"
-                  : "invalid-field-text"
+                name === true ? "valid-field-text" : "invalid-field-text"
               }`}
             >
               {name_error_text}
@@ -159,6 +173,7 @@ function Register() {
           <button
             className="register-btn btn mt-3 d-flex justify-content-center "
             type="button"
+            onClick={checkInputFields}
           >
             Creeaza cont
           </button>
