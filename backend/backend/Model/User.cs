@@ -13,5 +13,8 @@ namespace backend.Model
 
         [Column(TypeName = "nvarchar(250)")]
         public string password { get; set; } = string.Empty;
+
+        [Column(TypeName = "nvarchar(250)")]
+        public string name { get; set; } = string.Empty;
     }
 }
