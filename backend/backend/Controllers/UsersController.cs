@@ -24,15 +24,15 @@ namespace backend.Controllers
         [HttpPost]
         public async Task<ActionResult<User>> add_user(User user)
         {
-            /*if (!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return BadRequest("invalid data");
             }
-            */
+            
             _context.Add(user);
             await _context.SaveChangesAsync();
             return Ok(user);
-            //return View()
+
         }
     }
 }

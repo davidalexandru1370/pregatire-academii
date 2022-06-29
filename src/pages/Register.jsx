@@ -89,6 +89,9 @@ function Register() {
         .post(obj)
         .then((obj) => {
           console.log(obj);
+        })
+        .catch((obj) => {
+          console.log(obj);
         });
     }
     // passwordInputFields();
