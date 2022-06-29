@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using backend.Model;
+using Microsoft.AspNetCore.Identity;
+using backend.Validators;
 
 namespace backend.Controllers
 {
@@ -20,19 +22,13 @@ namespace backend.Controllers
             _context = context;
         }
 
-
         [HttpPost]
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<ActionResult<User>> add_user(User user)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest("invalid data");
-            }
-            
             _context.Add(user);
             await _context.SaveChangesAsync();
             return Ok(user);
-
         }
     }
 }

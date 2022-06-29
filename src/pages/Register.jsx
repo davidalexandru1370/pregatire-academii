@@ -30,18 +30,20 @@ function Register() {
     const my_form = form_ref.current;
     const field_caps = pass_ref.current["pass-caps"];
     const field_digit = pass_ref.current["pass-digit"];
+    const field_same_passwords = pass_ref.current["pass-same"];
     values["password"] = my_form["password"].value;
+    let valid_password = true;
+
     if (String(my_form["password"].value).length > 5) {
       const field = pass_ref.current["pass-length"];
       if (field) {
         field.style.color = "green";
-        setPassword(true);
       }
     } else {
       const field = pass_ref.current["pass-length"];
       if (field) {
         field.style.color = "red";
-        setPassword(false);
+        valid_password = false;
       }
     }
 
@@ -49,12 +51,11 @@ function Register() {
     if (has_caps !== null) {
       if (field_caps) {
         field_caps.style.color = "green";
-        setPassword(true);
       }
     } else {
       if (field_caps) {
         field_caps.style.color = "red";
-        setPassword(false);
+        valid_password = false;
       }
     }
 
@@ -62,28 +63,41 @@ function Register() {
     if (has_digit !== null) {
       if (field_digit) {
         field_digit.style.color = "green";
-        setPassword(true);
       }
     } else {
       if (field_digit) {
         field_digit.style.color = "red";
-        setPassword(false);
+        valid_password = false;
       }
     }
+    let are_equal =
+      String(my_form["repeatpassword"].value) ===
+        String(my_form["password"].value) &&
+      String(my_form["password"].value).length > 0 &&
+      String(my_form["repeatpassword"].value).length > 0;
+    if (are_equal === false) {
+      if (field_same_passwords) {
+        field_same_passwords.style.color = "red";
+        valid_password = false;
+      }
+    } else {
+      if (field_same_passwords) {
+        field_same_passwords.style.color = "green";
+      }
+    }
+    setPassword(valid_password);
   };
 
   const checkInputFields = () => {
     //set_start_validate(true);
     nameInputField();
-    console.log("name=" + name + " " + values["name"]);
-    console.log("pass=" + password + " " + values["password"]);
+    // console.log("name=" + name + " " + values["name"]);
+    // console.log("pass=" + password + " " + values["password"]);
     if (name === true && password === true) {
-      console.log("merge");
-      //let obj = { ...values["name"], ...values["password"], ..."name" };
       let obj = {
         email: values["name"],
         password: values["password"],
-        name: "vasile",
+        name: "",
       };
       createAPIEndpoint("Users")
         .post(obj)
@@ -117,25 +131,25 @@ function Register() {
               aria-label="email"
               onChange={nameInputField}
             />
-            <p
+            <li
               style={{
-                display: ` ${name === true ? "none" : "initial"}`,
+                listStyleType: ` ${name === true ? "none" : "initial"}`,
               }}
               className={`${
                 name === true ? "valid-field-text" : "invalid-field-text"
               }`}
             >
-              {name_error_text}
-            </p>
+              {name === false ? "Adresa de email este invalida" : ""}
+            </li>
           </div>
           <div className="mt-5">
             <label htmlFor="password">Parola:</label>
             <input
               type="password"
               id="password"
-              //className="form-control"
-              className="form-control"
+              className={`form-control`}
               placeholder="Parola"
+              style={{ borderBlockColor: `${password === true ? "red" : "green"}` }}
               aria-label="password"
               onChange={() => passwordInputFields()}
             />
@@ -161,6 +175,13 @@ function Register() {
               >
                 Parola trebuie sa contina cel putin o cifra!
               </li>
+              <li
+                id="pass-same"
+                style={{ color: "red" }}
+                ref={(element) => (pass_ref.current["pass-same"] = element)}
+              >
+                Parolele trebuie sa coincida!
+              </li>
             </div>
           </div>
           <div className="mt-5">
@@ -171,6 +192,7 @@ function Register() {
               className="form-control"
               placeholder="Repeta parola"
               aria-label="password"
+              onChange={() => passwordInputFields()}
             />
           </div>
           <button

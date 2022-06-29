@@ -8,11 +8,12 @@ namespace backend.Model
         [Key]
         public int id { get; set; }
 
-        [Required]
+        [EmailAddress(ErrorMessage ="Invalid email address")]
+        [Required( ErrorMessage ="Email cannot be empty!")]
         [Column(TypeName = "nvarchar(250)")]
         public string email { get; set; } = string.Empty;
 
-        [Required]
+        [Required(ErrorMessage ="Password cannot be empty")]
         [Column(TypeName = "nvarchar(250)")]
         public string password { get; set; } = string.Empty;
 

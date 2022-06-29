@@ -1,8 +1,8 @@
 $input-focus : #c71585;
 $btn-color : #781abb;
 $btn-hover : #972ae6;
-$invalid-field : rgb(226, 11, 11);
-$valid-field : rgb(50, 194, 74);
+$invalid-field : red;
+$valid-field : green;
 * {
     margin:  0;
     padding: 0%;
