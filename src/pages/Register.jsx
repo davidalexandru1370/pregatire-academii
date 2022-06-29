@@ -11,13 +11,21 @@ function Register() {
   const pass_ref = useRef({});
   let values = useRef({});
   const passwordRegex = new RegExp("(.*[A-Z]+.*[0-9]+)|(.*[0-9].*[A-Z].*)");
-  let name_error_text = "Adresa de email este invalida";
 
   //check if input name field it is correct
   const nameInputField = () => {
     const my_form = form_ref.current;
     //console.log(String(my_form["name"].value));
     if (String(my_form["name"].value).length < 3) {
+      setEmail(false);
+      return;
+    }
+
+    var email_regex = new RegExp(
+      /([a-zA-Z])[a-zA-Z0-9.-]+@[a-zA-Z0-9](.[a-zA-Z0-9]+)*[.][a-zA-Z]{2,3}/
+    );
+    let is_email = email_regex.test(String(my_form["name"].value));
+    if (is_email === false) {
       setEmail(false);
       return;
     }
