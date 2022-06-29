@@ -5,7 +5,7 @@ import { createAPIEndpoint } from "./api";
 
 function Register() {
   const [start_validate, set_start_validate] = useState(false);
-  const [name, setname] = useState(false);
+  const [email, setEmail] = useState(false);
   const [password, setPassword] = useState(false);
   const form_ref = useRef(0);
   const pass_ref = useRef({});
@@ -18,11 +18,11 @@ function Register() {
     const my_form = form_ref.current;
     //console.log(String(my_form["name"].value));
     if (String(my_form["name"].value).length < 3) {
-      setname(false);
+      setEmail(false);
       return;
     }
 
-    setname(true);
+    setEmail(true);
     values["name"] = String(my_form["name"].value);
   };
 
@@ -93,7 +93,7 @@ function Register() {
     nameInputField();
     // console.log("name=" + name + " " + values["name"]);
     // console.log("pass=" + password + " " + values["password"]);
-    if (name === true && password === true) {
+    if (email === true && password === true) {
       let obj = {
         email: values["name"],
         password: values["password"],
@@ -122,7 +122,7 @@ function Register() {
               className={`form-control ${
                 start_validate === false
                   ? ""
-                  : name === true
+                  : email === true
                   ? "valid-field"
                   : "invalid-field"
               }`}
@@ -130,16 +130,17 @@ function Register() {
               placeholder="Email"
               aria-label="email"
               onChange={nameInputField}
+              style={{ borderColor: `${email === true ? "green" : "red"}` }}
             />
             <li
               style={{
-                listStyleType: ` ${name === true ? "none" : "initial"}`,
+                listStyleType: ` ${email === true ? "none" : "initial"}`,
               }}
               className={`${
-                name === true ? "valid-field-text" : "invalid-field-text"
+                email === true ? "valid-field-text" : "invalid-field-text"
               }`}
             >
-              {name === false ? "Adresa de email este invalida" : ""}
+              {email === false ? "Adresa de email este invalida" : ""}
             </li>
           </div>
           <div className="mt-5">
@@ -149,7 +150,9 @@ function Register() {
               id="password"
               className={`form-control`}
               placeholder="Parola"
-              style={{ borderBlockColor: `${password === true ? "red" : "green"}` }}
+              style={{
+                borderColor: `${password === true ? "green" : "red"}`,
+              }}
               aria-label="password"
               onChange={() => passwordInputFields()}
             />
@@ -193,6 +196,7 @@ function Register() {
               placeholder="Repeta parola"
               aria-label="password"
               onChange={() => passwordInputFields()}
+              style={{ borderColor: `${password === true ? "green" : "red"}` }}
             />
           </div>
           <button

@@ -21,7 +21,7 @@ namespace backend.Controllers
         {
             _context = context;
         }
-
+            
         [HttpPost]
         [ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<ActionResult<User>> add_user(User user)
@@ -30,6 +30,8 @@ namespace backend.Controllers
             await _context.SaveChangesAsync();
             return Ok(user);
         }
+
+
     }
 }
 // GET: Users
