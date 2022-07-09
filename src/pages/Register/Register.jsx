@@ -122,7 +122,7 @@ function Register() {
             else{
               document.getElementById("register_error_message_id").innerText="";
             }
-         
+            console.clear();
 
           //register_error_message = error.response.data;
         });
