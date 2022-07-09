@@ -6,7 +6,7 @@ import { ChevronDown, EmojiSmileUpsideDown } from "react-bootstrap-icons";
 import "./App.css";
 import TextCard from "./Components/TextCard";
 import AcademyEntity from "./ObjectsTemplates/AcademyEntity.js";
-import Register from "./pages/Register";
+import Register from "./pages/Register/Register";
 import {
   Route,
   Routes,

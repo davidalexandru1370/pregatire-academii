@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Register.scss";
-import { createAPIEndpoint } from "../api";
+import { createAPIEndpoint, ENDPOINTS } from "../api";
 
 function Register() {
   const [start_validate, set_start_validate] = useState(false);
@@ -11,7 +11,6 @@ function Register() {
   const pass_ref = useRef({});
   let values = useRef({});
   const passwordRegex = new RegExp("(.*[A-Z]+.*[0-9]+)|(.*[0-9].*[A-Z].*)");
-  let register_error_message = "";
 
   //check if input name field it is correct
   const nameInputField = () => {
@@ -106,18 +105,26 @@ function Register() {
       let obj = {
         email: values["name"],
         password: values["password"],
-        name: "",
+        name: values["name"]
       };
-      createAPIEndpoint("Users")
+      createAPIEndpoint(ENDPOINTS.Register)
         .post(obj)
-        .then((obj) => {
-          //console.log(obj);
-          register_error_message = "";
+        .then((token) => {
+          console.log(token);
         })
-        .catch((obj) => {
+        .catch(error => {
           //console.log(obj);
           //register_error_message=obj.
-          register_error_message = obj;
+          if(error.response){
+              //set_register_error_message(error.response.data.errors[0]);
+              document.getElementById("register_error_message_id").innerText=error.response.data.errors[0];
+            }
+            else{
+              document.getElementById("register_error_message_id").innerText="";
+            }
+         
+
+          //register_error_message = error.response.data;
         });
     }
     // passwordInputFields();
@@ -218,7 +225,7 @@ function Register() {
           >
             Creeaza cont
           </button>
-          <p className="invalid-field">{register_error_message}</p>
+          <p className="invalid-field-text mt-4" id="register_error_message_id"></p>
         </div>
       </form>
     </div>

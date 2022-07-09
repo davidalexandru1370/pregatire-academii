@@ -3,8 +3,12 @@ import axios from "axios";
 
 export const base_url = "https://localhost:7199/";
 
+export const ENDPOINTS = {
+  Register: "Register",
+};
+
 export const createAPIEndpoint = (endpoint) => {
-  let url = base_url + "api/" + endpoint;
+  let url = base_url + "api/Users/" + endpoint;
 
   return {
     post: (newRecord) => {

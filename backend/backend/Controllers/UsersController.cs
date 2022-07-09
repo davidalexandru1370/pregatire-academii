@@ -41,14 +41,7 @@ namespace backend.Controllers
         {
             if (ModelState.IsValid)
             {
-                //var existingUser = userManager.FindByEmailAsync(user.email);
-                //Console.Write(context.Users.)
-                // bool res=context.Database.CanConnect();
-                // Console.WriteLine(res.ToString());
-
                 var existingUser = await context.Users.FirstOrDefaultAsync(x => x.email == user.email);
-
-                //object existingUser = null;
 
                 if (existingUser != null)
                 {
@@ -57,7 +50,7 @@ namespace backend.Controllers
                         result = false,
                         errors = new List<string>()
                     {
-                        "Email already exists"
+                        "Exista deja aceasta adresa de email inregistrata!"
                     }
                     });
                 }
@@ -102,12 +95,20 @@ namespace backend.Controllers
                     }
                 }
             }
-            return BadRequest();
+
+            return BadRequest(new AuthResult()
+            {
+                errors = new List<string>()
+                {
+                    "Datele sunt invalide"
+                },
+                result = false
+
+            });
 
         }
         private string generateToken(IdentityUser user)
         {
-
             var jwtTokenHandler = new JwtSecurityTokenHandler();
 
             var key = Encoding.UTF8.GetBytes(configuration.GetSection("JWT:Secret").Value);
@@ -128,10 +129,6 @@ namespace backend.Controllers
             var jwtToken = jwtTokenHandler.WriteToken(token);
 
             return jwtToken.ToString();
-
-
         }
     }
 }
-
-
