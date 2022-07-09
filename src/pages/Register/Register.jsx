@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Register.scss";
-import { createAPIEndpoint } from "./api";
+import { createAPIEndpoint } from "../api";
 
 function Register() {
   const [start_validate, set_start_validate] = useState(false);
@@ -11,6 +11,7 @@ function Register() {
   const pass_ref = useRef({});
   let values = useRef({});
   const passwordRegex = new RegExp("(.*[A-Z]+.*[0-9]+)|(.*[0-9].*[A-Z].*)");
+  let register_error_message = "";
 
   //check if input name field it is correct
   const nameInputField = () => {
@@ -110,10 +111,13 @@ function Register() {
       createAPIEndpoint("Users")
         .post(obj)
         .then((obj) => {
-          console.log(obj);
+          //console.log(obj);
+          register_error_message = "";
         })
         .catch((obj) => {
-          console.log(obj);
+          //console.log(obj);
+          //register_error_message=obj.
+          register_error_message = obj;
         });
     }
     // passwordInputFields();
@@ -214,6 +218,7 @@ function Register() {
           >
             Creeaza cont
           </button>
+          <p className="invalid-field">{register_error_message}</p>
         </div>
       </form>
     </div>

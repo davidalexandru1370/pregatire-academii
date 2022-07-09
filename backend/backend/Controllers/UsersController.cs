@@ -6,8 +6,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using backend.Model;
+using System.Text.Encodings;
 using Microsoft.AspNetCore.Identity;
 using backend.Validators;
+using backend.Model.DTOs;
+using System.IdentityModel.Tokens.Jwt;
+using System.Text;
+using Microsoft.IdentityModel.Tokens;
+using System.Security.Claims;
 
 namespace backend.Controllers
 {
@@ -15,25 +21,109 @@ namespace backend.Controllers
     [Route("api/[controller]")]
     public class UsersController : ControllerBase
     {
-        private readonly UserDbContext _context;
+        private UserManager<User> userManager;
+        private RoleManager<User> roleManager;
+        private IConfiguration configuration;
 
-        public UsersController(UserDbContext context)
+        //  private readonly UserDbContext _context;
+
+        public UsersController(UserManager<User> userManager, RoleManager<User> roleManager, IConfiguration configuration)
         {
-            _context = context;
+            this.userManager = userManager;
+            this.roleManager = roleManager;
+            this.configuration = configuration;
         }
-            
+
         [HttpPost]
         [ServiceFilter(typeof(ValidationFilterAttribute))]
-        public async Task<ActionResult<User>> add_user(User user)
+        public async Task<ActionResult<User>> registerUser(UserDto user)
         {
-            _context.Add(user);
-            await _context.SaveChangesAsync();
+            var existingUser = userManager.FindByEmailAsync(user.email);
             return Ok(user);
+
+            if (existingUser != null)
+            {
+                return BadRequest(new AuthResult()
+                {
+                    result = false,
+                    errors = new List<string>()
+                    {
+                        "Email already exists"
+                    }
+
+                });
+
+            }
+            else
+            {
+                //create a user
+                var new_user = new User()
+                {
+                    email = user.email,
+                };
+
+                var is_created = await userManager.CreateAsync(new_user, user.password);
+
+                if (is_created.Succeeded)
+                {
+                    //generate token
+                    var token = generateToken(new_user);
+                    return Ok(new AuthResult()
+                    {
+                        result = true,
+                        token = token
+                    }); 
+                    
+                }
+                else
+                {
+                    return BadRequest(new AuthResult()
+                    {
+                        errors = new List<string>()
+                        {
+                            "server error"
+                        },
+                        result = false
+                    });
+                }
+            }
+            return BadRequest();
+
         }
+        private string generateToken(User user)
+        {
+
+            var jwtTokenHandler = new JwtSecurityTokenHandler();
+
+            var key = Encoding.UTF8.GetBytes(configuration.GetSection("JWT:Secret").Value);
+
+            var tokenDescriptor = new SecurityTokenDescriptor()
+            {
+                Subject = new ClaimsIdentity(new[]
+                {
+                    new Claim(JwtRegisteredClaimNames.Email, user.email),
+                }),
+
+                Expires = DateTime.Now.AddHours(1),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256)
+            };
+
+            var token = jwtTokenHandler.CreateToken(tokenDescriptor);
+
+            var jwtToken = jwtTokenHandler.WriteToken(token);
+
+            return jwtToken.ToString();
 
 
+        }
     }
+
+
+
+
 }
+
+
 // GET: Users
 /*public async Task<IActionResult> Index()
 {
