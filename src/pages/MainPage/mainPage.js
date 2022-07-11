@@ -1,7 +1,11 @@
 import React from "react";
 
-function mainPage() {
-  return <div></div>;
+function MainPage() {
+  return (
+    <div>
+      <p>Suntem pe main page</p>
+    </div>
+  );
 }
 
-export default mainPage;
+export default MainPage;

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Register.scss";
 import { createAPIEndpoint, ENDPOINTS } from "../api";
+import { Route, Routes } from "react-router-dom";
 
 function Register() {
   const [start_validate, set_start_validate] = useState(false);
@@ -96,39 +97,35 @@ function Register() {
     setPassword(valid_password);
   };
 
-  const checkInputFields = () => {
-    //set_start_validate(true);
+  function checkInputFields() {
     nameInputField();
-    // console.log("name=" + name + " " + values["name"]);
-    // console.log("pass=" + password + " " + values["password"]);
     if (email === true && password === true) {
       let obj = {
         email: values["name"],
         password: values["password"],
-        name: values["name"]
+        name: values["name"],
       };
       createAPIEndpoint(ENDPOINTS.Register)
         .post(obj)
         .then((token) => {
-          console.log(token);
+          return (
+            <Routes>
+              <Route exact path="\mainPage" />
+            </Routes>
+          );
         })
-        .catch(error => {
-          //console.log(obj);
-          //register_error_message=obj.
-          if(error.response){
-              //set_register_error_message(error.response.data.errors[0]);
-              document.getElementById("register_error_message_id").innerText=error.response.data.errors[0];
-            }
-            else{
-              document.getElementById("register_error_message_id").innerText="";
-            }
-            console.clear();
-
-          //register_error_message = error.response.data;
+        .catch((error) => {
+          if (error.response) {
+            document.getElementById("register_error_message_id").innerText =
+              error.response.data.errors[0];
+          } else {
+            document.getElementById("register_error_message_id").innerText = "";
+          }
+          console.clear();
         });
     }
     // passwordInputFields();
-  };
+  }
 
   return (
     <div className="col-sm register">
@@ -215,7 +212,9 @@ function Register() {
               placeholder="Repeta parola"
               aria-label="password"
               onChange={() => passwordInputFields()}
-              style={{ borderColor: `${password === true ? "green" : "red"}` }}
+              style={{
+                borderColor: `${password === true ? "green" : "red"}`,
+              }}
             />
           </div>
           <button
@@ -225,7 +224,10 @@ function Register() {
           >
             Creeaza cont
           </button>
-          <p className="invalid-field-text mt-4" id="register_error_message_id"></p>
+          <p
+            className="invalid-field-text mt-4"
+            id="register_error_message_id"
+          ></p>
         </div>
       </form>
     </div>

@@ -13,7 +13,7 @@ import {
   NavLink as NLink,
   useNavigate
 } from "react-router-dom";
-
+import MainPage from "./pages/MainPage/MainPage";
 
 
 function App() {
@@ -28,7 +28,7 @@ function App() {
   let navigation = useNavigate();
 
   const onRegisterClick = () =>{
-    navigation("/Register");
+    navigation("Register");
   }
 
   return (
@@ -182,7 +182,8 @@ function App() {
             </>
           }
         />
-        <Route exact path="Register" element={<Register />} />
+        <Route exact path="Register/*" element={<Register />} />
+        <Route exact path="mainPage/" element = {<MainPage/>}/>
       </Routes>
   );
 }
