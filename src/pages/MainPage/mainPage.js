@@ -1,11 +1,7 @@
 import React from "react";
-
+import { Nav, NavBar } from "react-bootstrap";
 function MainPage() {
-  return (
-    <div>
-      <p>Suntem pe main page</p>
-    </div>
-  );
+  return <div></div>;
 }
 
 export default MainPage;

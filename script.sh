@@ -1,7 +1,5 @@
 #!/bin/bash
 
-
-
 count1=0
 echo "" > README.md
 echo "| C# written lines | ReactJS written lines | Total written lines | " >> README.md
