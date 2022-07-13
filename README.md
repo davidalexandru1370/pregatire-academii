@@ -1,4 +1,4 @@
 
 | C# written lines | ReactJS written lines | Total written lines | 
 | :---: | :---: | :---: | 
-| 608 | 672 | 1280|
+| 608 | 697 | 1305|

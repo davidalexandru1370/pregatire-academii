@@ -65,7 +65,7 @@ function MainPage() {
           Alege categoria pentru care vrei sa te pregatesti
         </p>
         <div className="row d-flex justify-content-between">
-          <FlipBox />
+          <FlipBox width="300" height="450" />
         </div>
       </div>
 
