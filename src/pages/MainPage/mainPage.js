@@ -16,6 +16,7 @@ import { Button } from "react-bootstrap";
 import FlipBox from "../../Components/FlipBox";
 
 function MainPage() {
+  let currentYear = new Date();
   return (
     <div>
       <div className="d-none d-md-block d-lg-block d-xl-block d-xxl-block">
@@ -35,7 +36,7 @@ function MainPage() {
           </Containter>
         </Navbar>
       </div>
-      <div className="col mt-4 d-flex ">
+      <div className="col p-3 d-flex " style={{ backgroundColor: "#e0e0e0" }}>
         <div className="card row-md bg-dark text-light p-3 border">
           <div className="card-title ms-4">
             <b>Bine ai venit, @cont</b>
@@ -99,7 +100,13 @@ function MainPage() {
               <img src={connectionJandarmLogo} style={{ width: "200px" }} />,
               <span className="text-primary fs fw-bold">JANDARMERIE</span>,
             ]}
-            rearText={[<Button>Incepe!</Button>]}
+            rearText={[
+              <img
+                src={connectionTestLogo}
+                style={{ width: "150px", marginLeft: "30px" }}
+              />,
+              <Button>Incepe!</Button>,
+            ]}
           />
         </div>
       </div>
@@ -107,6 +114,12 @@ function MainPage() {
       {/*mobile navbar */}
       <div className="d-sm-none">
         <p>telefon</p>
+      </div>
+      <div className="bg-dark d-flex justify-content-center">
+        <p className="text-white mt-2">
+          {" "}
+          © Copyright {currentYear.getFullYear()}. All rights reserved.
+        </p>
       </div>
     </div>
   );

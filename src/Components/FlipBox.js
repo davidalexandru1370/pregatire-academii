@@ -1,10 +1,5 @@
 import React from "react";
 import "./FlipBox.scss";
-import {
-  connectionJandarmLogo,
-  connectionPolitistLogo,
-  connectionPompierLogo,
-} from "../Utilities/index";
 function FlipBox(props) {
   //   if (texts != null) {
   //     listTexts = texts.map((txt) => <p key={txt}>{txt}</p>);
