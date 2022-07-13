@@ -9,8 +9,8 @@ import "./mainPage.scss";
 function MainPage() {
   return (
     <div>
-      <div className="d-sm-lg">
-        <Navbar>
+      <div className="d-none d-md-block d-lg-none">
+        <Navbar bg="dark" variant="dark">
           <Containter>
             <Nav className="me-5">
               <Nav.Link className="me-4">Modul de pregatire</Nav.Link>
