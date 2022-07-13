@@ -5,3 +5,21 @@
 .text-decoration-none{
     text-shadow: none !important;
 }
+
+@media  (min-width: 768px) {
+    .row-md{
+        margin-left: 5%;
+        margin-right: 5%;
+    }   
+}
+@media (max-width:768px){
+    .row-md{
+        margin-right: 2%;
+        margin-left:2%
+    }
+}
+ 
+.border{
+    border-radius: 20px !important;
+    box-shadow: none;
+}

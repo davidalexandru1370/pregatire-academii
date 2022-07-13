@@ -6,6 +6,9 @@ import Navbar from "react-bootstrap/Navbar";
 import { NavDropdown } from "react-bootstrap";
 import "./mainPage.scss";
 import ProfileCard from "../../Components/ProfileCard";
+import { connectionTestLogo } from "../../Utilities/index";
+import { Button } from "react-bootstrap";
+
 function MainPage() {
   return (
     <div>
@@ -19,14 +22,42 @@ function MainPage() {
                 <NavDropdown.Item href="\">Pompieri</NavDropdown.Item>
                 <NavDropdown.Item href="\">Jandarmerie</NavDropdown.Item>
               </NavDropdown>
-              <Nav.Link className="ms-auto">
+              <Nav.Item className="ms-auto">
                 <ProfileCard />
-              </Nav.Link>
+              </Nav.Item>
             </Nav>
           </Containter>
         </Navbar>
       </div>
-
+      <div className="col mt-4 d-flex ">
+        <div className="card row-md bg-dark text-light p-3 border">
+          <div className="card-title ms-4">
+            <b>Bine ai venit, @cont</b>
+          </div>
+          <div className="card-body ms-2 me-2">
+            <p>Din data crearii contului si pana acum ai obtinut:</p>
+            <p className="mt-2">
+              <span>
+                <img
+                  src={`${connectionTestLogo}`}
+                  width="24px"
+                  className="bg-white"
+                ></img>
+                <span>x teste completate</span>
+              </span>
+            </p>
+            <p className="mt-2">
+              <span>
+                <img />
+                <span>y exercitii rezolvate</span>
+              </span>
+            </p>
+            <Button variant="primary" className="mt-3 border">
+              Incepe un nou test!
+            </Button>
+          </div>
+        </div>
+      </div>
       <div className="d-sm-none">
         <p>telefon</p>
       </div>
