@@ -11,7 +11,6 @@ import { Button } from "react-bootstrap";
 import FlipBox from "../../Components/FlipBox";
 
 function MainPage() {
-  let txt = ["text1,", "text2", "text3"];
   return (
     <div>
       <div className="d-none d-md-block d-lg-block d-xl-block d-xxl-block">
@@ -64,7 +63,12 @@ function MainPage() {
         <p className="fs" style={{ color: "blueviolet" }}>
           Alege categoria pentru care vrei sa te pregatesti
         </p>
-        <div className="row d-flex justify-content-between">
+        <div
+          className="row d-flex justify-content-evenly"
+          style={{ width: "100%" }}
+        >
+          <FlipBox width="300" height="450" />
+          <FlipBox width="300" height="450" />
           <FlipBox width="300" height="450" />
         </div>
       </div>
