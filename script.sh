@@ -3,7 +3,7 @@
 count1=0
 echo "" > README.md
 echo "| C# written lines | ReactJS written lines | Total CSS/SCSS written lines | Total written lines | " >> README.md
-echo "| :---: | :---: |:---: | :---: | " >> README.md
+echo "| :---: | :---: | :---: | :---: | " >> README.md
 
 for f in $(find backend -maxdepth 3 -type f | grep -E ".*(\.cs)$" ); do
 	lines=`wc -l "$f" | cut -d' ' -f1`
