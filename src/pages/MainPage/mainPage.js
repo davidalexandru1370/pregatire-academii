@@ -6,7 +6,12 @@ import Navbar from "react-bootstrap/Navbar";
 import { Card, NavDropdown } from "react-bootstrap";
 import "./mainPage.scss";
 import ProfileCard from "../../Components/ProfileCard";
-import { connectionTestLogo } from "../../Utilities/index";
+import {
+  connectionPolitistLogo,
+  connectionPompierLogo,
+  connectionTestLogo,
+  connectionJandarmLogo,
+} from "../../Utilities/index";
 import { Button } from "react-bootstrap";
 import FlipBox from "../../Components/FlipBox";
 
@@ -64,12 +69,38 @@ function MainPage() {
           Alege categoria pentru care vrei sa te pregatesti
         </p>
         <div
-          className="row d-flex justify-content-evenly"
+          className="row d-flex justify-content-around"
           style={{ width: "100%" }}
         >
-          <FlipBox width="300" height="450" />
-          <FlipBox width="300" height="450" />
-          <FlipBox width="300" height="450" />
+          <FlipBox
+            width="300"
+            height="450"
+            frontText={[
+              <img src={connectionPolitistLogo} style={{ width: "200px" }} />,
+              <span className="text-primary fs fw-bold">POLITIE</span>,
+            ]}
+            rearText={[<Button>Incepe!</Button>]}
+          />
+          <FlipBox
+            width="300"
+            height="450"
+            className=""
+            frontText={[
+              <img src={connectionPompierLogo} style={{ width: "200px" }} />,
+              <span className="text-danger fs fw-bold">POMPIERI</span>,
+            ]}
+            rearText={[<Button>Incepe!</Button>]}
+          />
+          <FlipBox
+            width="300"
+            height="450"
+            className=""
+            frontText={[
+              <img src={connectionJandarmLogo} style={{ width: "200px" }} />,
+              <span className="text-primary fs fw-bold">JANDARMERIE</span>,
+            ]}
+            rearText={[<Button>Incepe!</Button>]}
+          />
         </div>
       </div>
 
