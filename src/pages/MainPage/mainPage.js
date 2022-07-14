@@ -48,7 +48,7 @@ function MainPage() {
                 <img
                   src={`${connectionTestLogo}`}
                   width="24px"
-                  className="bg-white"
+                  className=""
                 ></img>
                 <span>x teste completate</span>
               </span>
@@ -59,6 +59,7 @@ function MainPage() {
                 <span>y exercitii rezolvate</span>
               </span>
             </p>
+            <p>Continua sa te pregatesti!</p>
             <Button variant="primary" className="mt-3 border">
               Incepe un nou test!
             </Button>

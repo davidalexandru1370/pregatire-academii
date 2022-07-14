@@ -15,6 +15,7 @@ import {
 } from "react-router-dom";
 import MainPage from "./pages/MainPage/MainPage";
 import NotFound from "./pages/NotFound/NotFound";
+import Login from "./pages/Login/Login";
 
 function App() {
   //var  font_color_style = {"--color": "#f0f0f0"} as React.CSSProperties;
@@ -182,9 +183,11 @@ function App() {
             </>
           }
         />
-        <Route exact path="Register/*" element={<Register />} />
+        <Route exact path="Register/" element={<Register />} />
         <Route exact path="mainPage/" element = {<MainPage/>}/>
+        <Route exact path="Login" element={<Login/>}/>
         <Route path='*' element={<NotFound/>}/>
+        
       </Routes>
   );
 }

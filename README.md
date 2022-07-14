@@ -1,4 +1,4 @@
 
-| C# written lines | ReactJS written lines | Total CSS/SCSS written lines | Total written lines | 
+| C# written lines | ReactJS written lines | CSS/SCSS written lines | Total written lines | 
 | :---: | :---: | :---: | :---: | 
-| 608 | 764 | 290 | 1662|
+| 608 | 772 | 290 | 1670|

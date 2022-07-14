@@ -5,9 +5,9 @@ import "./ProfileCard.scss"
 const ProfileCard = () => {
     return (
         <div className='d-flex'>
-            <img src={`${connectionUserLogo}`} width="45px"/>
+            <img src={`${connectionUserLogo}`} width="35px" onClick={() => document.getElementById('item').click()}/>
             {/*Aici trebuie schimbat in numele utilizatorului in loc de "Contul meu"*/}
-            <NavDropdown title="Contul meu" className="text-decoration-none">
+            <NavDropdown title="Contul meu" className="text-decoration-none " id="item">
                 <NavDropdown.Item >
                     Contul meu
                 </NavDropdown.Item>
