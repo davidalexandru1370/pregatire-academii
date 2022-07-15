@@ -1,0 +1,16 @@
+html{
+    height: 100%;
+}
+* {
+    margin: 0;
+    padding: 0;
+
+}
+.transform{
+    -ms-transform: translateY(100%);
+    transform: translateY(100%);
+
+}
+.input{
+    width: 15rem !important;
+}

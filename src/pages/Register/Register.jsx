@@ -128,7 +128,7 @@ function Register() {
   }
 
   return (
-    <div className="col-sm register">
+    <div className="col register">
       <form ref={form_ref}>
         <div className=" form-group">
           <div className="mt-5">
