@@ -13,7 +13,7 @@ import {
   NavLink as NLink,
   useNavigate
 } from "react-router-dom";
-import MainPage from "./pages/MainPage/MainPage";
+import MainPage from "./pages/MainPage/mainPage";
 import NotFound from "./pages/NotFound/NotFound";
 import Login from "./pages/Login/Login";
 

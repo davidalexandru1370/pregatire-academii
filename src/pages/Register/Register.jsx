@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Register.scss";
 import { createAPIEndpoint, ENDPOINTS } from "../api";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 
 function Register() {
   const [start_validate, set_start_validate] = useState(false);
@@ -108,20 +108,16 @@ function Register() {
       createAPIEndpoint(ENDPOINTS.Register)
         .post(obj)
         .then((token) => {
-          return (
-            <Routes>
-              <Route exact path="\mainPage" />
-            </Routes>
-          );
+          console.log(token);
+          document.getElementById("register_error_message_id").innerText="";
+          window.location.replace("/mainPage");
         })
         .catch((error) => {
           if (error.response) {
             document.getElementById("register_error_message_id").innerText =
               error.response.data.errors[0];
-          } else {
-            document.getElementById("register_error_message_id").innerText = "";
-          }
-          console.clear();
+          } 
+          //console.clear();
         });
     }
     // passwordInputFields();

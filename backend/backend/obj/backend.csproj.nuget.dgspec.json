@@ -1,27 +1,21 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\David\\Desktop\\pregatire-academii\\pregatire-academii\\pregatire-academii\\backend\\backend\\backend.csproj": {}
+    "C:\\Users\\alexandru.pop\\Desktop\\app\\pregatire-academii\\backend\\backend\\backend.csproj": {}
   },
   "projects": {
-    "C:\\Users\\David\\Desktop\\pregatire-academii\\pregatire-academii\\pregatire-academii\\backend\\backend\\backend.csproj": {
+    "C:\\Users\\alexandru.pop\\Desktop\\app\\pregatire-academii\\backend\\backend\\backend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\David\\Desktop\\pregatire-academii\\pregatire-academii\\pregatire-academii\\backend\\backend\\backend.csproj",
+        "projectUniqueName": "C:\\Users\\alexandru.pop\\Desktop\\app\\pregatire-academii\\backend\\backend\\backend.csproj",
         "projectName": "backend",
-        "projectPath": "C:\\Users\\David\\Desktop\\pregatire-academii\\pregatire-academii\\pregatire-academii\\backend\\backend\\backend.csproj",
-        "packagesPath": "C:\\Users\\David\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\David\\Desktop\\pregatire-academii\\pregatire-academii\\pregatire-academii\\backend\\backend\\obj\\",
+        "projectPath": "C:\\Users\\alexandru.pop\\Desktop\\app\\pregatire-academii\\backend\\backend\\backend.csproj",
+        "packagesPath": "C:\\Users\\alexandru.pop\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\alexandru.pop\\Desktop\\app\\pregatire-academii\\backend\\backend\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
-        ],
         "configFilePaths": [
-          "C:\\Users\\David\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\alexandru.pop\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
@@ -48,7 +42,7 @@
           "dependencies": {
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
-              "version": "[6.0.6, )"
+              "version": "[6.0.7, )"
             },
             "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
               "target": "Package",
@@ -60,17 +54,17 @@
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[6.0.6, )"
+              "version": "[6.0.7, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
-              "version": "[6.0.6, )"
+              "version": "[6.0.7, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[6.0.6, )"
+              "version": "[6.0.7, )"
             },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
@@ -99,7 +93,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.301\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.302\\RuntimeIdentifierGraph.json"
         }
       }
     }

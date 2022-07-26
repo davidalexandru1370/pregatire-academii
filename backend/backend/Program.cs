@@ -31,14 +31,12 @@ builder.Services.AddAuthentication(options =>
      options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
      options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
  })
-//adding jwt bearer
-
 .AddJwtBearer(options =>
 {
     options.SaveToken = true;
     options.RequireHttpsMetadata = false;
     options.TokenValidationParameters = new TokenValidationParameters()
-    {
+    {   
         ValidateIssuer = false,
         ValidateAudience = false,    
         ValidAudience = builder.Configuration["JWT:Audience"],
