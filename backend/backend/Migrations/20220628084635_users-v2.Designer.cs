@@ -10,7 +10,7 @@ using backend.Model;
 
 namespace backend.Migrations
 {
-    [DbContext(typeof(UserDbContext))]
+    [DbContext(typeof(Model.EntitiesDbContext))]
     [Migration("20220628084635_users-v2")]
     partial class usersv2
     {

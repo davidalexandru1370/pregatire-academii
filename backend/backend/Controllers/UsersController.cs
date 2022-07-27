@@ -25,9 +25,9 @@ namespace backend.Controllers
         //private RoleManager<User> roleManager;
         private IConfiguration configuration;
 
-        private readonly UserDbContext context;
+        private readonly Model.EntitiesDbContext context;
 
-        public UsersController(UserDbContext _context, IConfiguration configuration)
+        public UsersController(Model.EntitiesDbContext _context, IConfiguration configuration)
         {
             //this.userManager = userManager;
             context = _context;

@@ -7,7 +7,8 @@ namespace backend.Utilities.JWT
         public string GenerateToken(User user);
         public int? ValidateJwtToken(string token);
 
-        public RefreshToken RefreshToken { get; set; }
+        public Token RefreshToken { get; set; }
+
 
     }
 }

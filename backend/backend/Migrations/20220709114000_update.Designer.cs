@@ -10,7 +10,7 @@ using backend.Model;
 
 namespace backend.Migrations
 {
-    [DbContext(typeof(UserDbContext))]
+    [DbContext(typeof(Model.EntitiesDbContext))]
     [Migration("20220709114000_update")]
     partial class update
     {
