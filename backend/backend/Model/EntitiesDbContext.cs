@@ -13,5 +13,11 @@ namespace backend.Model
 
         }
 
+        protected  override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+        }
+
+
+
     }
 }

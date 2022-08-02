@@ -55,30 +55,18 @@ namespace backend.Migrations
 
             modelBuilder.Entity("backend.Model.Tokens", b =>
                 {
-                    b.Property<int>("UserIdFK")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserIdFK"), 1L, 1);
 
                     b.Property<string>("AccessToken")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RefreshToken")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TokenValue")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("id")
-                        .HasColumnType("int");
+                    b.HasKey("UserId");
 
-                    b.HasKey("UserIdFK");
-
-                    b.HasIndex("TokenValue");
-
-                    b.HasIndex("id");
+                    b.HasIndex("RefreshToken");
 
                     b.ToTable("Tokens");
                 });
@@ -112,13 +100,11 @@ namespace backend.Migrations
                 {
                     b.HasOne("backend.Model.Token", "token")
                         .WithMany()
-                        .HasForeignKey("TokenValue")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("RefreshToken");
 
                     b.HasOne("backend.Model.User", "user")
                         .WithMany()
-                        .HasForeignKey("id")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
