@@ -31,10 +31,30 @@ namespace backend.Controllers
             {
                 return Forbid();
             }
+
             setTokenCookie("accessToken", response.Result.AccessToken);
             setTokenCookie("refreshToken", response.Result.RefreshToken);
 
             return Ok(response);
+        }
+        [AllowAnonymous]
+        [HttpPost("register")]
+        public IActionResult Register([FromBody] UserDto user)
+        {
+            var response = _userService.Register(new User()
+            {
+                email = user.email,
+                name = user.name,
+                password = user.password
+            }, HttpContext.Connection.RemoteIpAddress.MapToIPv4().ToString());
+
+            if (response.Result.result==false)
+            {
+                return BadRequest(response.Result.errors);
+            }
+            setTokenCookie("accessToken", response.Result.AccessToken);
+            setTokenCookie("refreshToken", response.Result.RefreshToken);
+            return Ok();
         }
 
         private void setTokenCookie(string tokenName, string tokenValue)
@@ -45,6 +65,7 @@ namespace backend.Controllers
                 Secure = true,
                 Expires = DateTime.Now.AddDays(7),
             };
+
             Response.Cookies.Append(tokenName, tokenValue, cookieOptions);
             Response.Cookies.Append(tokenName, tokenValue, cookieOptions);
         }

@@ -6,9 +6,9 @@ namespace backend.Model
     public class Tokens
     {
         [ForeignKey("TokenValue")]
-        public Token token { get; set; }
+        public virtual Token token { get; set; }
         [ForeignKey("id")]
-        public User user { get; set; }
+        public virtual User user { get; set; }
         [Key]
         [Display(Name ="User")]
         public virtual int UserIdFK { get; set; }

@@ -20,10 +20,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 //builder.Services.AddScoped<ValidationFilterAttribute>();
 builder.Services.Configure<ApiBehaviorOptions>(options => options.SuppressModelStateInvalidFilter = true);
+builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IJwtUtils, JwtUtils>();
 builder.Services.AddDbContext<EntitiesDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DevConnection")));
-builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
 //for identity
 
 //builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<UserDbContext>().AddDefaultTokenProviders();
@@ -50,7 +50,6 @@ builder.Services.AddAuthentication(options =>
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Secret"]))
     };
 });
-
 
 var app = builder.Build();
 

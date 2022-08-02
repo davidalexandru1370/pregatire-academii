@@ -26,7 +26,7 @@ namespace backend.Controllers
         //private RoleManager<User> roleManager;
         private IConfiguration configuration;
 
-        private readonly Model.EntitiesDbContext context;
+        private readonly EntitiesDbContext context;
 
         public UsersController(Model.EntitiesDbContext _context, IConfiguration configuration)
         {
@@ -43,7 +43,6 @@ namespace backend.Controllers
             if (ModelState.IsValid)
             {
                 var existingUser = await context.Users.FirstOrDefaultAsync(x => x.email == user.email);
-
                 if (existingUser != null)
                 {
                     return BadRequest(new AuthResult()
