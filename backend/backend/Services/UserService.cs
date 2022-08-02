@@ -41,7 +41,8 @@ namespace backend.Services
                 errors = new List<string>()
             };
 
-            if (_user == null || BCrypt.Net.BCrypt.HashPassword(_user.password) != BCrypt.Net.BCrypt.HashPassword(user.email))
+            //if (_user == null || _user.password != BCrypt.Net.BCrypt.HashPassword(user.password))
+            if (_user == null || BCrypt.Net.BCrypt.Verify(user.password, _user.password) == false)
             {
                 badResult.errors.Add("Adresa de email sau parola gresita!");
                 return badResult;
@@ -53,14 +54,14 @@ namespace backend.Services
             var jwtToken = _jwtUtils.GenerateJwtToken(user, AccessTokenExpireTimeInMinutes, ipAddress);
             var refreshToken = _jwtUtils.GenerateRefreshToken(ipAddress, RefreshTokenExpireTimeInMinutes);
 
-            await _dataContext.Tokens.AddAsync(new Tokens()
+            /*await _dataContext.Tokens.AddAsync(new Tokens()
             {
                 AccessToken = jwtToken.TokenValue,
                 RefreshToken = refreshToken.TokenValue,
                 UserIdFK = user.id,
-            });
+            });*/
 
-            await _dataContext.TokenDetails.AddAsync(refreshToken);
+           // await _dataContext.TokenDetails.AddAsync(refreshToken);
 
             await _dataContext.SaveChangesAsync();
 
@@ -91,6 +92,7 @@ namespace backend.Services
             }
 
             user.password = BCrypt.Net.BCrypt.HashPassword(user.password);
+            user.name = user.email.Split("@")[0];
             var IsCreated = await _dataContext.Users.AddAsync(user);
 
             await _dataContext.SaveChangesAsync();

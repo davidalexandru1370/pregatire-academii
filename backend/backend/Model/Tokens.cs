@@ -5,6 +5,7 @@ namespace backend.Model
 {
     public class Tokens
     {
+        
         [ForeignKey("TokenValue")]
         public virtual Token token { get; set; }
         [ForeignKey("id")]
