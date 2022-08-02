@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "EHnsL1Eh6jz8xPXBdxiqgxyDezdvxoe/gnh9pJ8IRF5PjOqQwnSGHClIE0wiZplRsSCB4netYjCEXM/OZxautQ==",
+  "dgSpecHash": "JteKluyo55j1yQ399GDn36o9YPUTrK6vBUPAaAIO1Uc10DbRg4Agxo/PDnB1K1T325d9NhGwPd5MB7V9hRIVxQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\alexandru.pop\\Desktop\\app\\pregatire-academii\\backend\\backend\\backend.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\alexandru.pop\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\alexandru.pop\\.nuget\\packages\\entityframework\\6.4.4\\entityframework.6.4.4.nupkg.sha512",
     "C:\\Users\\alexandru.pop\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\alexandru.pop\\.nuget\\packages\\messagepack\\2.1.152\\messagepack.2.1.152.nupkg.sha512",

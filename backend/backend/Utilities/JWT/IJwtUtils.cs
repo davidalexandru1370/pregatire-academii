@@ -4,11 +4,9 @@ namespace backend.Utilities.JWT
 {
     public interface IJwtUtils
     {
-        public string GenerateToken(User user);
+        public string GenerateJwtToken(User user, int expiredTimeInMinutes);
         public int? ValidateJwtToken(string token);
 
-        public Token RefreshToken { get; set; }
-
-
+        public Token GenerateRefreshToken(string ipAddress, int expiredTimesInMinutes);
     }
 }

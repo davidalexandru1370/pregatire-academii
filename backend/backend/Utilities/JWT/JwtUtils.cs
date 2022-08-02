@@ -3,6 +3,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using System.Security.Claims;
+using Microsoft.Extensions.Options;
 
 namespace backend.Utilities.JWT
 {
@@ -10,14 +11,13 @@ namespace backend.Utilities.JWT
     {
         private EntitiesDbContext _context;
         private readonly AppSettings _appSettings;
-        public JwtUtils(EntitiesDbContext context)
+        public JwtUtils(EntitiesDbContext context, IOptions<AppSettings> appSettings)
         {
             _context = context;
+            _appSettings = appSettings.Value;
         }
 
-        public Token RefreshToken { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-
-        public string GenerateToken(User user, int expiredTimeInMinutes)
+        public string GenerateJwtToken(User user, int expiredTimeInMinutes)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
@@ -59,22 +59,22 @@ namespace backend.Utilities.JWT
             }
             catch (Exception)
             {
-                return null;
+
             }
+         
+            return null;
         }
 
         public Token GenerateRefreshToken(string ipAddress, int expiredTimesInMinutes)
         {
             var refreshToken = new Token
             {
-
                 Expires = DateTime.UtcNow.AddMinutes(expiredTimesInMinutes),
                 Created = DateTime.UtcNow,
                 CreatedByIp = ipAddress,
+                TokenValue = GenerateUniqueToken()
             };
-
             return refreshToken;
-
         }
 
         string GenerateUniqueToken()
@@ -91,7 +91,7 @@ namespace backend.Utilities.JWT
                 .ForEach(e => builder.Append(e));
 
             var token = Convert.ToBase64String(System.Text.Encoding.ASCII.GetBytes(builder.ToString()));
-            bool isUnique = !_context.RefreshTokens.Any(usedToken => usedToken.JWTToken == token);
+            bool isUnique = !_context.Tokens.Any(usedToken => usedToken.RefreshToken == token);
 
             if (isUnique == false)
             {
@@ -99,11 +99,6 @@ namespace backend.Utilities.JWT
             }
 
             return token;
-        }
-
-        public string GenerateToken(User user)
-        {
-            throw new NotImplementedException();
         }
     }
 }

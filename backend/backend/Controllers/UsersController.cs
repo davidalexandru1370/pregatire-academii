@@ -14,6 +14,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace backend.Controllers
 {
@@ -79,7 +80,7 @@ namespace backend.Controllers
                         return Ok(new AuthResult()
                         {
                             result = true,
-                            token = token
+                            AccessToken = token
                         });
                     }
                     else
@@ -105,7 +106,6 @@ namespace backend.Controllers
                 result = false
 
             });
-
         }
         private string generateToken(IdentityUser user)
         {

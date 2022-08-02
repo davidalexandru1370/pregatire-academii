@@ -8,12 +8,9 @@ namespace backend.Model
     public class Token
     {
         [Key]
-        [JsonIgnore]
-        public int Id { get; set; }
-        [Column(TypeName = "nvarchar(500)")]
-        public string? JWTToken { get; set; }
-        [Column(TypeName = "Datetime")]
+        public string? TokenValue { get; set; }
 
+        [Column(TypeName = "Datetime")]
         public DateTime Expires { get; set; }
 
         [Column(TypeName = "Datetime")]
@@ -35,12 +32,15 @@ namespace backend.Model
         public string? ReasonRevoked { get; set; }
 
         [NotMapped]
+        [JsonIgnore]
         public bool IsExpired => DateTime.UtcNow >= Expires;
 
         [NotMapped]
+        [JsonIgnore]
         public bool IsRevoked => Revoked != null;
 
         [NotMapped]
+        [JsonIgnore]
         public bool IsActive => IsRevoked == false && IsExpired == false;
     }
 }
