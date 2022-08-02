@@ -26,4 +26,6 @@ for f in $(find src -type f | grep -E ".*(\.s?css)$"); do
 done
 
 echo -n "| ``$count1`` | ``$count2`` | ``$count3`` | ``$(($count1+$count2+$count3))``|" >> README.md
+git add .
+git commit -m "$1"
 git push 

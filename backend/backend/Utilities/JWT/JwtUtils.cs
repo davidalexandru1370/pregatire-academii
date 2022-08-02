@@ -17,7 +17,7 @@ namespace backend.Utilities.JWT
             _appSettings = appSettings.Value;
         }
 
-        public string GenerateJwtToken(User user, int expiredTimeInMinutes)
+        public Token GenerateJwtToken(User user, int expiredTimeInMinutes,string ipAddress)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
@@ -28,7 +28,16 @@ namespace backend.Utilities.JWT
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
-            return tokenHandler.WriteToken(token);
+            //return tokenHandler.WriteToken(token);
+            return new Token()
+            {
+                Created = DateTime.Now,
+                TokenValue = tokenHandler.WriteToken(token),
+                CreatedByIp = ipAddress,
+                Expires = tokenDescriptor.Expires.GetValueOrDefault(),
+                ReasonRevoked = "",
+                ReplacedByToken = "",
+            };
         }
 
         public int? ValidateJwtToken(string token)
