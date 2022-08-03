@@ -1,4 +1,5 @@
 ﻿using backend.Model;
+using backend.Repository;
 using backend.Utilities;
 using backend.Utilities.JWT;
 using BCrypt.Net;
@@ -22,12 +23,14 @@ namespace backend.Services
         private EntitiesDbContext _dataContext;
         private IJwtUtils _jwtUtils;
         private readonly AppSettings _appSettings;
+        private readonly IRepository<Tokens> _tokensRepository;
 
-        public UserService(EntitiesDbContext dataContext, IJwtUtils jwtUtils, IOptions<AppSettings> appSettings)
+        public UserService(EntitiesDbContext dataContext, IJwtUtils jwtUtils, IOptions<AppSettings> appSettings, IRepository<Tokens> tokensRepository)
         {
             _dataContext = dataContext;
             _jwtUtils = jwtUtils;
             _appSettings = appSettings.Value;
+            _tokensRepository = tokensRepository;
         }
 
         public async Task<AuthResult> Authentificate(User user, string ipAddress)
@@ -61,7 +64,7 @@ namespace backend.Services
                 UserIdFK = user.id,
             });*/
 
-           // await _dataContext.TokenDetails.AddAsync(refreshToken);
+            // await _dataContext.TokenDetails.AddAsync(refreshToken);
 
             await _dataContext.SaveChangesAsync();
 
@@ -93,27 +96,27 @@ namespace backend.Services
 
             user.password = BCrypt.Net.BCrypt.HashPassword(user.password);
             user.name = user.email.Split("@")[0];
+            
             var IsCreated = await _dataContext.Users.AddAsync(user);
-
             await _dataContext.SaveChangesAsync();
+
             if (IsCreated != null)
             {
                 var jwtToken = _jwtUtils.GenerateJwtToken(user, _appSettings.AccessTokenTTL, ipAddress);
                 var refreshToken = _jwtUtils.GenerateRefreshToken(ipAddress, _appSettings.RefreshTokenTTL);
-                /*await _dataContext.Tokens.AddAsync(new Tokens()
-                {
-                    UserIdFK=user.id,
-                    AccessToken = jwtToken.TokenValue,
-                    RefreshToken = refreshToken.TokenValue,
 
-                });*/
-                
+                await _dataContext.TokenDetails.AddAsync(jwtToken);
+
+                await _dataContext.TokenDetails.AddAsync(refreshToken);
+
                 await _dataContext.Tokens.AddAsync(new Tokens()
                 {
                     AccessToken = jwtToken.TokenValue,
-                    RefreshToken=refreshToken.TokenValue,
-                    UserId=user.id,
+                    RefreshToken = refreshToken.TokenValue,
+                    UserId = user.id,
                 });
+
+                await _dataContext.SaveChangesAsync();
 
                 return new AuthResult()
                 {

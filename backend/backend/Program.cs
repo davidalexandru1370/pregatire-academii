@@ -9,6 +9,7 @@ using System.Text;
 using backend.Services;
 using backend.Utilities.JWT;
 using backend.Utilities;
+using backend.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +25,8 @@ builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSet
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IJwtUtils, JwtUtils>();
 builder.Services.AddDbContext<EntitiesDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DevConnection")));
+builder.Services.AddTransient<IRepository<Tokens>, TokensRepository>();
+
 //for identity
 
 //builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<UserDbContext>().AddDefaultTokenProviders();

@@ -52,6 +52,7 @@ namespace backend.Repository
                 RefreshToken = new_entity.RefreshToken,
                 UserId = new_entity.UserId,
             };
+
             _dataContext.Tokens.Update(tokens);
 
             /*if (tokens == null)
