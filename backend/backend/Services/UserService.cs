@@ -107,6 +107,13 @@ namespace backend.Services
                     RefreshToken = refreshToken.TokenValue,
 
                 });*/
+                
+                await _dataContext.Tokens.AddAsync(new Tokens()
+                {
+                    AccessToken = jwtToken.TokenValue,
+                    RefreshToken=refreshToken.TokenValue,
+                    UserId=user.id,
+                });
 
                 return new AuthResult()
                 {

@@ -7,7 +7,6 @@ namespace backend.Model
 {
     public class Token
     {
-        
         [Key]
         public string? TokenValue { get; set; }
 

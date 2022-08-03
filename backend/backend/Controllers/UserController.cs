@@ -37,6 +37,7 @@ namespace backend.Controllers
 
             return Ok(response);
         }
+
         [AllowAnonymous]
         [HttpPost("register")]
         public IActionResult Register([FromBody] UserDto user)
@@ -48,7 +49,7 @@ namespace backend.Controllers
                 password = user.password
             }, HttpContext.Connection.RemoteIpAddress.MapToIPv4().ToString());
 
-            if (response.Result.result==false)
+            if (response.Result.result == false)
             {
                 return BadRequest(response.Result.errors);
             }
@@ -69,6 +70,5 @@ namespace backend.Controllers
             Response.Cookies.Append(tokenName, tokenValue, cookieOptions);
             Response.Cookies.Append(tokenName, tokenValue, cookieOptions);
         }
-
     }
 }
