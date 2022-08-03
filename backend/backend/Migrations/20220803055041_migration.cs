@@ -46,39 +46,40 @@ namespace backend.Migrations
                 name: "Tokens",
                 columns: table => new
                 {
-                    UserIdFK = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    TokenValue = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    id = table.Column<int>(type: "int", nullable: false),
-                    AccessToken = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    RefreshToken = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    AccessToken = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    RefreshToken = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Tokens", x => x.UserIdFK);
+                    table.PrimaryKey("PK_Tokens", x => x.UserId);
                     table.ForeignKey(
-                        name: "FK_Tokens_TokenDetails_TokenValue",
-                        column: x => x.TokenValue,
+                        name: "FK_Tokens_TokenDetails_AccessToken",
+                        column: x => x.AccessToken,
                         principalTable: "TokenDetails",
-                        principalColumn: "TokenValue",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "TokenValue");
                     table.ForeignKey(
-                        name: "FK_Tokens_Users_id",
-                        column: x => x.id,
+                        name: "FK_Tokens_TokenDetails_RefreshToken",
+                        column: x => x.RefreshToken,
+                        principalTable: "TokenDetails",
+                        principalColumn: "TokenValue");
+                    table.ForeignKey(
+                        name: "FK_Tokens_Users_UserId",
+                        column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Tokens_id",
+                name: "IX_Tokens_AccessToken",
                 table: "Tokens",
-                column: "id");
+                column: "AccessToken");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Tokens_TokenValue",
+                name: "IX_Tokens_RefreshToken",
                 table: "Tokens",
-                column: "TokenValue");
+                column: "RefreshToken");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

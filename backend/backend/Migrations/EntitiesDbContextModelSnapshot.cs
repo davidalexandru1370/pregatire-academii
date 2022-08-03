@@ -59,12 +59,14 @@ namespace backend.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("AccessToken")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("RefreshToken")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("UserId");
+
+                    b.HasIndex("AccessToken");
 
                     b.HasIndex("RefreshToken");
 
@@ -98,7 +100,11 @@ namespace backend.Migrations
 
             modelBuilder.Entity("backend.Model.Tokens", b =>
                 {
-                    b.HasOne("backend.Model.Token", "token")
+                    b.HasOne("backend.Model.Token", "AccessTokenLink")
+                        .WithMany()
+                        .HasForeignKey("AccessToken");
+
+                    b.HasOne("backend.Model.Token", "RefreshTokenLink")
                         .WithMany()
                         .HasForeignKey("RefreshToken");
 
@@ -108,7 +114,9 @@ namespace backend.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("token");
+                    b.Navigation("AccessTokenLink");
+
+                    b.Navigation("RefreshTokenLink");
 
                     b.Navigation("user");
                 });

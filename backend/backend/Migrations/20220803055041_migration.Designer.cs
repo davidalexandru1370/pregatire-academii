@@ -12,8 +12,8 @@ using backend.Model;
 namespace backend.Migrations
 {
     [DbContext(typeof(EntitiesDbContext))]
-    [Migration("20220802113747_migration2")]
-    partial class migration2
+    [Migration("20220803055041_migration")]
+    partial class migration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -57,30 +57,20 @@ namespace backend.Migrations
 
             modelBuilder.Entity("backend.Model.Tokens", b =>
                 {
-                    b.Property<int>("UserIdFK")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserIdFK"), 1L, 1);
 
                     b.Property<string>("AccessToken")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("RefreshToken")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TokenValue")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("id")
-                        .HasColumnType("int");
+                    b.Property<string>("RefreshToken")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("UserIdFK");
+                    b.HasKey("UserId");
 
-                    b.HasIndex("TokenValue");
+                    b.HasIndex("AccessToken");
 
-                    b.HasIndex("id");
+                    b.HasIndex("RefreshToken");
 
                     b.ToTable("Tokens");
                 });
@@ -112,19 +102,23 @@ namespace backend.Migrations
 
             modelBuilder.Entity("backend.Model.Tokens", b =>
                 {
-                    b.HasOne("backend.Model.Token", "token")
+                    b.HasOne("backend.Model.Token", "AccessTokenLink")
                         .WithMany()
-                        .HasForeignKey("TokenValue")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("AccessToken");
+
+                    b.HasOne("backend.Model.Token", "RefreshTokenLink")
+                        .WithMany()
+                        .HasForeignKey("RefreshToken");
 
                     b.HasOne("backend.Model.User", "user")
                         .WithMany()
-                        .HasForeignKey("id")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("token");
+                    b.Navigation("AccessTokenLink");
+
+                    b.Navigation("RefreshTokenLink");
 
                     b.Navigation("user");
                 });
