@@ -5,7 +5,7 @@ namespace backend.Unit_Of_Work
     public class UnitOfWork : IUnitOfWork
     {
         public TokensRepository _tokensRepository { get; }
-
+        
         public UnitOfWork(TokensRepository tokensRepository)
         {
             _tokensRepository = tokensRepository;
@@ -13,8 +13,11 @@ namespace backend.Unit_Of_Work
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            GC.SuppressFinalize(this);
         }
+
+
+
         
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using En = System.Data.Entity ;
 
 namespace backend.Model
 {
@@ -7,6 +8,8 @@ namespace backend.Model
         public DbSet<User> Users { set; get; }
         public DbSet<Tokens> Tokens { get; set; }
         public DbSet<Token> TokenDetails { get; set; }
+
+        public En.DbContextTransaction dbContextTransaction { get; set; }
 
         public EntitiesDbContext(DbContextOptions<EntitiesDbContext> options) : base(options)
         {
