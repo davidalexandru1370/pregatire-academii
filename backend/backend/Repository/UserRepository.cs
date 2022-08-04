@@ -67,10 +67,12 @@ namespace backend.Repository
         public async Task<User> GetByEmail(User entity)
         {
             var user = await _context.Users.FirstOrDefaultAsync(u => u.email == entity.email);
+            
             if (user == null)
             {
                 throw new RepositoryException("User not found");
             }
+            
             return user;
         }
 
