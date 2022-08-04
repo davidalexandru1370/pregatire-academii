@@ -3,10 +3,9 @@ using System.Data.Entity;
 
 namespace backend.Unit_Of_Work
 {
-    public class UnitOfWork<TContext> : IUnitOfWork<TContext>, IDisposable where TContext : DbContext, new()
+    public class UnitOfWork<TContext> : IUnitOfWork<TContext>, IDisposable where TContext : DbContext
     {
         public TokensRepository _tokensRepository { get; }
-
 
         private DbContextTransaction _dbContextTransaction;
         public readonly TContext _context;
@@ -28,7 +27,6 @@ namespace backend.Unit_Of_Work
             _dbContextTransaction = _context.Database.BeginTransaction();
         }
 
-
         public void Commit()
         {
             _dbContextTransaction.Commit();
@@ -38,7 +36,6 @@ namespace backend.Unit_Of_Work
         {
             _dbContextTransaction.Rollback();
             _dbContextTransaction.Dispose();
-
         }
 
         public async void SaveAsync()

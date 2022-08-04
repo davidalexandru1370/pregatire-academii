@@ -30,9 +30,9 @@ namespace backend.Repository
             await _dataContext.SaveChangesAsync();
         }
 
-        public Tokens GetById(Tokens id)
+        public async Task<Tokens> GetById(Tokens id)
         {
-            var tokens = _dataContext.Tokens.FirstOrDefault(token => token.UserId == id.UserId);
+            var tokens = await _dataContext.Tokens.FirstOrDefaultAsync(token => token.UserId == id.UserId);
 
             if (tokens == null)
             {
