@@ -1,5 +1,6 @@
 ﻿using backend.Model;
 using backend.Repository;
+using backend.Unit_Of_Work;
 using backend.Utilities;
 using backend.Utilities.JWT;
 using BCrypt.Net;
@@ -24,6 +25,7 @@ namespace backend.Services
         private IJwtUtils _jwtUtils;
         private readonly AppSettings _appSettings;
         private readonly IRepository<Tokens> _tokensRepository;
+        private readonly IUnitOfWork<EntitiesDbContext> _unitOfWork;
 
         public UserService(EntitiesDbContext dataContext, IJwtUtils jwtUtils, IOptions<AppSettings> appSettings, IRepository<Tokens> tokensRepository)
         {

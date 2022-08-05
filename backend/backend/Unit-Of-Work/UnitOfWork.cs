@@ -1,6 +1,7 @@
 ﻿using backend.Exceptions;
 using backend.Repository;
-using System.Data.Entity;
+using Microsoft.EntityFrameworkCore;
+//using en = System.Data.Entity;
 
 namespace backend.Unit_Of_Work
 {
@@ -10,12 +11,10 @@ namespace backend.Unit_Of_Work
         public TokenDetailsRepository TokenDetailsRepository { get; }
         public UserRepository UserRepository { get; }
 
-        private DbContextTransaction _dbContextTransaction;
         public readonly TContext _context;
 
         public UnitOfWork(TokensRepository tokensRepository,
             TContext context,
-            DbContextTransaction dbContextTransaction,
             TokenDetailsRepository tokenDetailsRepository,
             UserRepository userRepository
             )
@@ -24,7 +23,6 @@ namespace backend.Unit_Of_Work
             TokenDetailsRepository = tokenDetailsRepository;
             UserRepository = userRepository;
             _context = context;
-            _dbContextTransaction = dbContextTransaction;
         }
 
         public void Dispose()
@@ -34,19 +32,21 @@ namespace backend.Unit_Of_Work
 
         public void CreateTransaction()
         {
-            _dbContextTransaction = _context.Database.BeginTransaction();
+            _context.Database.BeginTransaction();
+            
+            //_dbContextTransaction = _context.Database.BeginTransaction();
         }
 
         public void Commit()
         {
-            _dbContextTransaction.Commit();
+            _context.Database.CommitTransaction();
         }
 
         public void RollBack()
         {
-            _dbContextTransaction.Rollback();
-            _dbContextTransaction.Dispose();
+            _context.Database.RollbackTransaction();
         }
+
 
         public async void SaveAsync()
         {

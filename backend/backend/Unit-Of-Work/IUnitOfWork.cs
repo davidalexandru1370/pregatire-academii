@@ -1,5 +1,6 @@
-﻿using backend.Repository;
-using System.Data.Entity;
+﻿using backend.Model;
+using backend.Repository;
+using Microsoft.EntityFrameworkCore;
 
 namespace backend.Unit_Of_Work
 {
