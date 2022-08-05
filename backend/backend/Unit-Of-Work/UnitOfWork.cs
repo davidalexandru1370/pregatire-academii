@@ -1,18 +1,28 @@
-﻿using backend.Repository;
+﻿using backend.Exceptions;
+using backend.Repository;
 using System.Data.Entity;
 
 namespace backend.Unit_Of_Work
 {
     public class UnitOfWork<TContext> : IUnitOfWork<TContext>, IDisposable where TContext : DbContext
     {
-        public TokensRepository _tokensRepository { get; }
+        public TokensRepository TokensRepository { get; }
+        public TokenDetailsRepository TokenDetailsRepository { get; }
+        public UserRepository UserRepository { get; }
 
         private DbContextTransaction _dbContextTransaction;
         public readonly TContext _context;
 
-        public UnitOfWork(TokensRepository tokensRepository, TContext context, DbContextTransaction dbContextTransaction)
+        public UnitOfWork(TokensRepository tokensRepository,
+            TContext context,
+            DbContextTransaction dbContextTransaction,
+            TokenDetailsRepository tokenDetailsRepository,
+            UserRepository userRepository
+            )
         {
-            _tokensRepository = tokensRepository;
+            TokensRepository = tokensRepository;
+            TokenDetailsRepository = tokenDetailsRepository;
+            UserRepository = userRepository;
             _context = context;
             _dbContextTransaction = dbContextTransaction;
         }
@@ -46,10 +56,9 @@ namespace backend.Unit_Of_Work
             }
             catch (Exception ex)
             {
-
+                throw new UnitOfWorkException(ex.Message, ex.InnerException!);
             }
         }
-
         public TContext Context
         {
             get

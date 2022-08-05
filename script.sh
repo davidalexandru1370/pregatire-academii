@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [ $# -lt 1 ]; then
+	echo "No commit message"
+	exit 1
+fi
+
 count1=0
 echo "" > README.md
 echo "| C# written lines | ReactJS written lines | CSS/SCSS written lines | Total written lines | " >> README.md
@@ -9,7 +14,6 @@ for f in $(find backend -maxdepth 3 -type f | grep -E ".*(\.cs)$" ); do
 	lines=`wc -l "$f" | cut -d' ' -f1`
 	count1=$(($count1+$lines))
 done
-		#echo "C# written lines $count1"
 
 count2=0
 for f in $(find src -type f | grep -E ".*(\.jsx?)$"); do
@@ -17,7 +21,6 @@ for f in $(find src -type f | grep -E ".*(\.jsx?)$"); do
 	count2=$(($count2+$lines))
 done
 
-#	echo "ReactJs written lines $count2"
 
 count3=0
 for f in $(find src -type f | grep -E ".*(\.s?css)$"); do

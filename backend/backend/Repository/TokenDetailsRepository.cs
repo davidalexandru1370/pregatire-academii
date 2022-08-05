@@ -41,8 +41,6 @@ namespace backend.Repository
                 _errorMessage = FormatErrorMessage(dbException);
                 throw new RepositoryException(_errorMessage);
             }
-
-
         }
 
         public void Dispose()
@@ -61,7 +59,6 @@ namespace backend.Repository
 
             return token;
         }
-
 
         public async void Update(Token old_entity, Token new_entity)
         {

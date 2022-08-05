@@ -5,7 +5,6 @@ namespace backend.Unit_Of_Work
 {
     public interface IUnitOfWork<TContext> where TContext : DbContext
     {
-        public TokensRepository _tokensRepository { get; }
         public void CreateTransaction();
         public void Commit();
         public void RollBack();
