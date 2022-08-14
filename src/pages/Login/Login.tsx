@@ -43,11 +43,12 @@ function Login() {
   };
 
   const loginButtonClick = async () => {
-    console.log("aici");
+    // console.log(emailInputRef.current?.value);
+    // console.log(passwordInputRef.current?.value);
 
     let user: User = {
       Email: emailInputRef.current?.value || "",
-      Password: emailInputRef.current?.value || "",
+      Password: passwordInputRef.current?.value || "",
       Name: "",
     };
 
@@ -86,7 +87,6 @@ function Login() {
             disabled={loginButton}
             ref={buttonInputRef}
             onClick={() => {
-              console.log("123213");
               loginButtonClick();
             }}
           >

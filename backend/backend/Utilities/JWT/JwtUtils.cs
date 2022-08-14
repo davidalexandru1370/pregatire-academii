@@ -100,6 +100,7 @@ namespace backend.Utilities.JWT
                 .ForEach(e => builder.Append(e));
 
             var token = Convert.ToBase64String(System.Text.Encoding.ASCII.GetBytes(builder.ToString()));
+            token = token.Substring(0, token.Length - 1);
             bool isUnique = !_context.Tokens.Any(usedToken => usedToken.RefreshToken == token);
 
             if (isUnique == false)

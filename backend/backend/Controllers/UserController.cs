@@ -2,7 +2,6 @@
 using backend.Model.DTOs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-
 namespace backend.Controllers
 {
     [ApiController]
