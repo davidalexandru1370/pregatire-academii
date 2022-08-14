@@ -110,7 +110,7 @@ function Register() {
         .then((token) => {
           console.log(token);
           document.getElementById("register_error_message_id").innerText="";
-          window.location.replace("/mainPage");
+          //window.location.replace("/mainPage");
         })
         .catch((error) => {
           if (error.response) {

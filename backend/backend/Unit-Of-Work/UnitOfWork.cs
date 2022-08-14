@@ -10,7 +10,7 @@ namespace backend.Unit_Of_Work
         public TokensRepository TokensRepository { get; }
         public TokenDetailsRepository TokenDetailsRepository { get; }
         public UserRepository UserRepository { get; }
-
+        
         public readonly TContext _context;
 
         public UnitOfWork(TokensRepository tokensRepository,
@@ -33,8 +33,6 @@ namespace backend.Unit_Of_Work
         public void CreateTransaction()
         {
             _context.Database.BeginTransaction();
-            
-            //_dbContextTransaction = _context.Database.BeginTransaction();
         }
 
         public void Commit()
@@ -47,13 +45,12 @@ namespace backend.Unit_Of_Work
             _context.Database.RollbackTransaction();
         }
 
-
         public async void SaveAsync()
         {
             try
             {
                 await _context.SaveChangesAsync();
-            }
+            }   
             catch (Exception ex)
             {
                 throw new UnitOfWorkException(ex.Message, ex.InnerException!);

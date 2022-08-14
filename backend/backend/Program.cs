@@ -24,11 +24,10 @@ builder.Services.Configure<ApiBehaviorOptions>(options => options.SuppressModelS
 builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
 //builder.Services.AddScoped<IUserService, UserService>();
 //builder.Services.AddScoped<IJwtUtils, JwtUtils>();
-builder.Services.AddSingleton<IUserService, UserService>(); 
-builder.Services.AddSingleton<IJwtUtils, JwtUtils>(); 
-builder.Services.AddDbContext<EntitiesDbContext>(options =>  options.UseSqlServer(builder.Configuration.GetConnectionString("DevConnection")),ServiceLifetime.Singleton);
+builder.Services.AddSingleton<IUserService, UserService>();
+builder.Services.AddSingleton<IJwtUtils, JwtUtils>();
+builder.Services.AddDbContext<EntitiesDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DevConnection")), ServiceLifetime.Singleton);
 builder.Services.AddSingleton<IRepository<Tokens>, TokensRepository>();
-
 
 //for identity
 
@@ -59,8 +58,8 @@ builder.Services.AddAuthentication(options =>
 
 var app = builder.Build();
 
-app.UseCors(options => options.WithOrigins("http://localhost:3000").AllowAnyMethod().AllowAnyHeader());
-
+app.UseCors(options => options.WithOrigins("http://localhost:3000").AllowAnyMethod().AllowAnyHeader().AllowCredentials());
+//app.UseCors(host => host.SetIsOriginAllowed(host => true));
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

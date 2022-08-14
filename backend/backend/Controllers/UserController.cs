@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace backend.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class UserController : ControllerBase
     {
         private IUserService _userService;
@@ -16,7 +16,6 @@ namespace backend.Controllers
             _userService = userService;
         }
 
-        [AllowAnonymous]
         [HttpPost("authentificate")]
         public IActionResult Authentificate([FromBody] UserDto user)
         {
@@ -29,7 +28,7 @@ namespace backend.Controllers
 
             if (string.IsNullOrWhiteSpace(response.Result.AccessToken))
             {
-                return Forbid();
+                return StatusCode(403, response);
             }
 
             setTokenCookie("accessToken", response.Result.AccessToken);
@@ -38,23 +37,23 @@ namespace backend.Controllers
             return Ok(response);
         }
 
-        [AllowAnonymous]
         [HttpPost("register")]
-        public IActionResult Register([FromBody] UserDto user)
+        public async Task<IActionResult> Register([FromBody] UserDto user)
         {
-            var response = _userService.Register(new User()
+            var response = await _userService.Register(new User()
             {
                 email = user.email,
                 name = user.name,
                 password = user.password
-            }, HttpContext.Connection.RemoteIpAddress.MapToIPv4().ToString());
+            }, HttpContext.Connection.RemoteIpAddress!.MapToIPv4().ToString());
 
-            if (response.Result.result == false)
+            if (response.result == false)
             {
-                return BadRequest(response.Result.errors);
+                return BadRequest(response.errors);
             }
-            setTokenCookie("accessToken", response.Result.AccessToken);
-            setTokenCookie("refreshToken", response.Result.RefreshToken);
+
+            setTokenCookie("accessToken", response.AccessToken);
+            setTokenCookie("refreshToken", response.RefreshToken);
             return Ok();
         }
 
@@ -64,6 +63,8 @@ namespace backend.Controllers
             {
                 HttpOnly = true,
                 Secure = true,
+                SameSite=SameSiteMode.None,
+                IsEssential = true,
                 Expires = DateTime.Now.AddDays(7),
             };
 

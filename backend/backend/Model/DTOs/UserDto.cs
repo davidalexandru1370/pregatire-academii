@@ -13,6 +13,6 @@ namespace backend.Model.DTOs
         public string password { get; set; } = string.Empty;
 
         [Required]
-        public string name { get; set; } = string.Empty;
+        public string? name { get; set; } = string.Empty;
     }
 }
