@@ -59,14 +59,14 @@ namespace backend.Services
             var jwtToken = _jwtUtils.GenerateJwtToken(user, AccessTokenExpireTimeInMinutes, ipAddress);
             var refreshToken = _jwtUtils.GenerateRefreshToken(ipAddress, RefreshTokenExpireTimeInMinutes);
 
-            /*await _dataContext.Tokens.AddAsync(new Tokens()
+            await _dataContext.Tokens.AddAsync(new Tokens()
             {
                 AccessToken = jwtToken.TokenValue,
                 RefreshToken = refreshToken.TokenValue,
-                UserIdFK = user.id,
-            });*/
+                UserId = user.id,
+            });
 
-            // await _dataContext.TokenDetails.AddAsync(refreshToken);
+             await _dataContext.TokenDetails.AddAsync(refreshToken);
 
             await _dataContext.SaveChangesAsync();
 

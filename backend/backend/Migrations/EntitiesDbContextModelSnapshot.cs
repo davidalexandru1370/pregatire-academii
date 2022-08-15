@@ -50,13 +50,16 @@ namespace backend.Migrations
 
                     b.HasKey("TokenValue");
 
-                    b.ToTable("TokenDetails");
+                    b.ToTable("TokenDetails", (string)null);
                 });
 
             modelBuilder.Entity("backend.Model.Tokens", b =>
                 {
-                    b.Property<int>("UserId")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("AccessToken")
                         .HasColumnType("nvarchar(450)");
@@ -64,13 +67,18 @@ namespace backend.Migrations
                     b.Property<string>("RefreshToken")
                         .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("UserId");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("AccessToken");
 
                     b.HasIndex("RefreshToken");
 
-                    b.ToTable("Tokens");
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Tokens", (string)null);
                 });
 
             modelBuilder.Entity("backend.Model.User", b =>
@@ -95,7 +103,7 @@ namespace backend.Migrations
 
                     b.HasKey("id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("backend.Model.Tokens", b =>

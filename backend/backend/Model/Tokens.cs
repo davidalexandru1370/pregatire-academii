@@ -5,12 +5,12 @@ namespace backend.Model
 {
     public class Tokens
     {
+        public int Id { get; set; }
         [ForeignKey("AccessToken")]
         public virtual Token? AccessTokenLink { get; set; }
         [ForeignKey("RefreshToken")]
         public virtual Token? RefreshTokenLink { get; set; }
         public User user { get; set; }
-        [Key]
         [ForeignKey("user")]
         public int UserId { get; set; }
         public string? AccessToken { get; set; }
