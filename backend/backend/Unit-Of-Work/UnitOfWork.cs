@@ -7,19 +7,18 @@ namespace backend.Unit_Of_Work
 {
     public class UnitOfWork<TContext> : IUnitOfWork<TContext>, IDisposable where TContext : DbContext
     {
-        public TokensRepository TokensRepository { get; }
         public TokenDetailsRepository TokenDetailsRepository { get; }
         public UserRepository UserRepository { get; }
         
         public readonly TContext _context;
 
-        public UnitOfWork(TokensRepository tokensRepository,
+        public UnitOfWork(
             TContext context,
             TokenDetailsRepository tokenDetailsRepository,
             UserRepository userRepository
             )
         {
-            TokensRepository = tokensRepository;
+            
             TokenDetailsRepository = tokenDetailsRepository;
             UserRepository = userRepository;
             _context = context;

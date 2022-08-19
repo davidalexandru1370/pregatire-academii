@@ -27,7 +27,6 @@ builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSet
 builder.Services.AddSingleton<IUserService, UserService>();
 builder.Services.AddSingleton<IJwtUtils, JwtUtils>();
 builder.Services.AddDbContext<EntitiesDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DevConnection")), ServiceLifetime.Singleton);
-builder.Services.AddSingleton<IRepository<Tokens>, TokensRepository>();
 
 //for identity
 
