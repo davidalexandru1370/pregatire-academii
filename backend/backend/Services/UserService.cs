@@ -24,15 +24,13 @@ namespace backend.Services
         private EntitiesDbContext _dataContext;
         private IJwtUtils _jwtUtils;
         private readonly AppSettings _appSettings;
-        private readonly IRepository<Tokens> _tokensRepository;
         private readonly IUnitOfWork<EntitiesDbContext> _unitOfWork;
 
-        public UserService(EntitiesDbContext dataContext, IJwtUtils jwtUtils, IOptions<AppSettings> appSettings, IRepository<Tokens> tokensRepository)
+        public UserService(EntitiesDbContext dataContext, IJwtUtils jwtUtils, IOptions<AppSettings> appSettings)
         {
             _dataContext = dataContext;
             _jwtUtils = jwtUtils;
             _appSettings = appSettings.Value;
-            _tokensRepository = tokensRepository;
         }
 
         public async Task<AuthResult> Authentificate(User user, string ipAddress)
@@ -53,20 +51,11 @@ namespace backend.Services
                 return badResult;
             }
 
-            int AccessTokenExpireTimeInMinutes = 15;
-            int RefreshTokenExpireTimeInMinutes = 7 * 24 * 60;
+            int AccessTokenExpireTimeInMinutes = _appSettings.AccessTokenTTL;
+            int RefreshTokenExpireTimeInMinutes = _appSettings.RefreshTokenTTL;
 
             var jwtToken = _jwtUtils.GenerateJwtToken(user, AccessTokenExpireTimeInMinutes, ipAddress);
             var refreshToken = _jwtUtils.GenerateRefreshToken(ipAddress, RefreshTokenExpireTimeInMinutes);
-
-            /*await _dataContext.Tokens.AddAsync(new Tokens()
-            {
-                AccessToken = jwtToken.TokenValue,
-                RefreshToken = refreshToken.TokenValue,
-                UserIdFK = user.id,
-            });*/
-
-            // await _dataContext.TokenDetails.AddAsync(refreshToken);
 
             await _dataContext.SaveChangesAsync();
 
@@ -106,17 +95,6 @@ namespace backend.Services
             {
                 var jwtToken = _jwtUtils.GenerateJwtToken(user, _appSettings.AccessTokenTTL, ipAddress);
                 var refreshToken = _jwtUtils.GenerateRefreshToken(ipAddress, _appSettings.RefreshTokenTTL);
-
-                await _dataContext.TokenDetails.AddAsync(jwtToken);
-
-                await _dataContext.TokenDetails.AddAsync(refreshToken);
-
-                await _dataContext.Tokens.AddAsync(new Tokens()
-                {
-                    AccessToken = jwtToken.TokenValue,
-                    RefreshToken = refreshToken.TokenValue,
-                    UserId = user.id,
-                });
 
                 await _dataContext.SaveChangesAsync();
 

@@ -55,7 +55,7 @@ namespace backend.Controllers
             setTokenCookie("refreshToken", response.RefreshToken);
             return Ok();
         }
-
+        
         private void setTokenCookie(string tokenName, string tokenValue)
         {
             var cookieOptions = new CookieOptions

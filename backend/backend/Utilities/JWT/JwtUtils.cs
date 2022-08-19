@@ -31,12 +31,8 @@ namespace backend.Utilities.JWT
             //return tokenHandler.WriteToken(token);
             return new Token()
             {
-                Created = DateTime.Now,
+                CreatedAt = DateTime.Now,
                 TokenValue = tokenHandler.WriteToken(token),
-                CreatedByIp = ipAddress,
-                Expires = tokenDescriptor.Expires.GetValueOrDefault(),
-                ReasonRevoked = "",
-                ReplacedByToken = "",
             };
         }
 
@@ -78,9 +74,7 @@ namespace backend.Utilities.JWT
         {
             var refreshToken = new Token
             {
-                Expires = DateTime.UtcNow.AddMinutes(expiredTimesInMinutes),
-                Created = DateTime.UtcNow,
-                CreatedByIp = ipAddress,
+                CreatedAt = DateTime.UtcNow,
                 TokenValue = GenerateUniqueToken()
             };
             return refreshToken;
@@ -98,10 +92,9 @@ namespace backend.Utilities.JWT
                 .Take(11)
                 .ToList()
                 .ForEach(e => builder.Append(e));
-
             var token = Convert.ToBase64String(System.Text.Encoding.ASCII.GetBytes(builder.ToString()));
             token = token.Substring(0, token.Length - 1);
-            bool isUnique = !_context.Tokens.Any(usedToken => usedToken.RefreshToken == token);
+            bool isUnique = !_context.TokenDetails.Any(usedToken => usedToken.TokenValue == token);
 
             if (isUnique == false)
             {
