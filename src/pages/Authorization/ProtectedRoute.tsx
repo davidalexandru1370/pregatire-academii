@@ -5,7 +5,10 @@ import { ProtectedRouteProps } from "../../Models/ProtectedRouteProps";
 //@ts-ignore
 import { AuthorizeUser } from "../api/UserAPI.ts";
 
-export const ProtectedRoute = ({ page, redirectPage }: ProtectedRouteProps) => {
+export const ProtectedRoutes = ({
+  page,
+  redirectPage,
+}: ProtectedRouteProps) => {
   if (AuthorizeUser() === false) {
     return <Navigate to={redirectPage!} replace />;
   }

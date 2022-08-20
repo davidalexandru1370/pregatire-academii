@@ -14,6 +14,7 @@ import NotFound from "./pages/NotFound/NotFound";
 import Login from "./pages/Login/Login.tsx";
 // @ts-ignore
 import { ProtectedRoute } from "./pages/Authorization/ProtectedRoute.tsx";
+import { ProtectedRoutes } from "./pages/Authorization/ProtectedRoutes";
 
 function App() {
   //var  font_color_style = {"--color": "#f0f0f0"} as React.CSSProperties;
@@ -184,7 +185,9 @@ function App() {
       <Route
         path="mainpage"
         element={
-          <ProtectedRoute page={<MainPage />} redirectPage={<Login />} />
+          <ProtectedRoutes>
+            <MainPage />
+          </ProtectedRoutes>
         }
       />
       <Route path="Login" element={<Login />} />
