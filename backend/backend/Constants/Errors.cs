@@ -1,9 +1,7 @@
 ﻿using System.Runtime.Serialization;
 
 namespace backend.Constants
-{
-    public class Errors
-    {
+{    
         public enum AuthErrors
         {
             [EnumMember(Value = "Adresa de email este deja inregistrata!")]
@@ -16,4 +14,3 @@ namespace backend.Constants
             EmailOrPasswordWrong
         }
     }
-}

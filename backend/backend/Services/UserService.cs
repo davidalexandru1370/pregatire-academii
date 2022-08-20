@@ -5,7 +5,7 @@ using backend.Utilities;
 using backend.Utilities.JWT;
 using BCrypt.Net;
 using Microsoft.Extensions.Options;
-
+using backend.Constants;
 public interface IUserService
 {
     public Task<AuthResult> Authentificate(User user, string ipAddress);
@@ -26,6 +26,7 @@ namespace backend.Services
         private readonly AppSettings _appSettings;
         private readonly IUnitOfWork<EntitiesDbContext> _unitOfWork;
         private readonly IUserRepository _userRepository;
+        private readonly AuthErrors _authErrors;
 
         public UserService(EntitiesDbContext dataContext,
             IJwtUtils jwtUtils,
@@ -76,14 +77,16 @@ namespace backend.Services
         public async Task<AuthResult> Register(User user, string ipAddress)
         {
             User existingUser;
+            
             try
             {
                 existingUser = await _userRepository.GetByEmail(user);
             }
             catch (RepositoryException repositoryException)
             {
-                throw;
+                existingUser = null;
             }
+
             var badResult = new AuthResult()
             {
                 AccessToken = string.Empty,
@@ -94,7 +97,7 @@ namespace backend.Services
 
             if (existingUser != null)
             {
-                badResult.errors.Add("Adresa de email inregistrata!");
+                badResult.errors.Add( AuthErrors.emailTaken.ToString());
                 return badResult;
             }
 

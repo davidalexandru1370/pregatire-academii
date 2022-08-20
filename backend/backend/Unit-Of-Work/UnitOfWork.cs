@@ -1,7 +1,6 @@
 ﻿using backend.Exceptions;
 using backend.Repository;
 using Microsoft.EntityFrameworkCore;
-//using en = System.Data.Entity;
 
 namespace backend.Unit_Of_Work
 {

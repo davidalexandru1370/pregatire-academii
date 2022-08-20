@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using En = System.Data.Entity ;
 
 namespace backend.Model
 {

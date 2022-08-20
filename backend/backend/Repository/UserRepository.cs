@@ -1,13 +1,12 @@
 ﻿using backend.Model;
 using backend.Unit_Of_Work;
-using System.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 using System.Data.Entity.Validation;
 
 namespace backend.Repository
 {
     public class UserRepository :  IUserRepository
     {
-        private bool _isDisposed;
         private string _errorMessages = string.Empty;
         private EntitiesDbContext _context;
 
@@ -30,6 +29,9 @@ namespace backend.Repository
             {
 
             }
+
+            await _context.SaveChangesAsync();
+
             return entity;
         }
 
@@ -48,6 +50,8 @@ namespace backend.Repository
                 _errorMessages = FormatErrorMessage(dbException);
                 throw new RepositoryException(_errorMessages);
             }
+            await _context.SaveChangesAsync();
+
         }
 
         public async Task<User> GetById(User entity)
@@ -57,6 +61,7 @@ namespace backend.Repository
             {
                 throw new RepositoryException("User not found");
             }
+
             return user;
         }
 
@@ -83,6 +88,9 @@ namespace backend.Repository
 
             new_entity.Id = old_entity.Id;
             user = new_entity;
+
+            await _context.SaveChangesAsync();
+
             return user;
         }
 

@@ -48,7 +48,7 @@ namespace backend.Controllers
 
             if (response.result == false)
             {
-                return BadRequest(response.errors);
+                return BadRequest(response);
             }
 
             setTokenCookie("accessToken", response.AccessToken);

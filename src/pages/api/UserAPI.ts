@@ -17,7 +17,8 @@ export const Register = async (user: User) => {
     },
     mode: "cors",
   };
-  return await fetch(url, header);
+  let response = await fetch(url, header);
+  return await response;
 };
 
 export const Login = async (user: User) => {

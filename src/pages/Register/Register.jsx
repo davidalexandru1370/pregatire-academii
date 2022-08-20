@@ -123,16 +123,17 @@ function Register() {
       //     //console.clear();
       //   });
       await RegisterUser(obj)
-        .then(() => {
+        .then(async (response) => {
+          if (response.status >= 400) {
+            throw await response.json();
+          }
           document.getElementById("register_error_message_id").innerText = "";
           <Navigate to={pages.mainpage} />;
         })
-        .catch((error) => {
-          if (error.response) {
-            for (const e of error) {
-              document.getElementById("register_error_message_id").innerText +=
-                e;
-            }
+        .catch(async (errors) => {
+          for (const error of errors.errors) {
+            document.getElementById("register_error_message_id").innerText +=
+              error;
           }
         });
     }
