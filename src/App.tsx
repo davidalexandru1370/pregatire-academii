@@ -185,9 +185,10 @@ function App() {
       <Route
         path="mainpage"
         element={
-          <ProtectedRoutes>
-            <MainPage />
-          </ProtectedRoutes>
+          // <ProtectedRoutes>
+          //   <MainPage />
+          // </ProtectedRoutes>
+          <ProtectedRoute page={<MainPage />} redirectPage={"/login"} />
         }
       />
       <Route path="Login" element={<Login />} />
