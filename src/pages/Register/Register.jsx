@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Register.scss";
-import { createAPIEndpoint, ENDPOINTS } from "../api";
+//@ts-ignore
+import {} from "../api/UserAPI.ts"
 import { Route, Routes, Navigate } from "react-router-dom";
 
 function Register() {
@@ -105,20 +106,20 @@ function Register() {
         password: values["password"],
         name: values["name"],
       };
-      createAPIEndpoint(ENDPOINTS.Register)
-        .post(obj)
-        .then((token) => {
-          console.log(token);
-          document.getElementById("register_error_message_id").innerText="";
-          //window.location.replace("/mainPage");
-        })
-        .catch((error) => {
-          if (error.response) {
-            document.getElementById("register_error_message_id").innerText =
-              error.response.data.errors[0];
-          } 
-          //console.clear();
-        });
+      // createAPIEndpoint(ENDPOINTS.Register)
+      //   .post(obj)
+      //   .then(() => {
+      //     document.getElementById("register_error_message_id").innerText="";
+      //     //window.location.replace("/mainPage");
+      //   })
+      //   .catch((error) => {
+      //     if (error.response) {
+      //       document.getElementById("register_error_message_id").innerText =
+      //         error.response.data.errors[0];
+      //     } 
+      //     //console.clear();
+      //   });
+      Register()
     }
     // passwordInputFields();
   }

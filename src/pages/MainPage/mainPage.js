@@ -25,9 +25,9 @@ function MainPage() {
             <Nav className="me-5 container-fluid">
               <Nav.Link className="me-4">Modul de pregatire</Nav.Link>
               <NavDropdown title="Teste" className="text-decoration-none">
-                <NavDropdown.Item href="\">Politie</NavDropdown.Item>
-                <NavDropdown.Item href="\">Pompieri</NavDropdown.Item>
-                <NavDropdown.Item href="\">Jandarmerie</NavDropdown.Item>
+                <NavDropdown.Item href="/">Politie</NavDropdown.Item>
+                <NavDropdown.Item href="/">Pompieri</NavDropdown.Item>
+                <NavDropdown.Item href="/">Jandarmerie</NavDropdown.Item>
               </NavDropdown>
               <Nav.Item className="ms-auto">
                 <ProfileCard />

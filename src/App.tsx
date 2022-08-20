@@ -12,6 +12,8 @@ import MainPage from "./pages/MainPage/mainPage";
 import NotFound from "./pages/NotFound/NotFound";
 // @ts-ignore
 import Login from "./pages/Login/Login.tsx";
+// @ts-ignore
+import { ProtectedRoute } from "./pages/Authorization/ProtectedRoute.tsx";
 
 function App() {
   //var  font_color_style = {"--color": "#f0f0f0"} as React.CSSProperties;
@@ -179,7 +181,12 @@ function App() {
         }
       />
       <Route path="Register/" element={<Register />} />
-      <Route path="mainPage/" element={<MainPage />} />
+      <Route
+        path="mainpage"
+        element={
+          <ProtectedRoute page={<MainPage />} redirectPage={<Login />} />
+        }
+      />
       <Route path="Login" element={<Login />} />
       <Route path="*" element={<NotFound />} />
     </Routes>

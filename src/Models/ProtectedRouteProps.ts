@@ -1,8 +1,6 @@
-import React, { FC } from "react";
-import { User } from "./User";
+import { To } from "react-router-dom";
 
 export interface ProtectedRouteProps {
-  user: User;
-  children: string;
-  redirectPage?: string;
+  page: To;
+  redirectPage?: To;
 }
