@@ -25,17 +25,23 @@ namespace backend.Services
         private IJwtUtils _jwtUtils;
         private readonly AppSettings _appSettings;
         private readonly IUnitOfWork<EntitiesDbContext> _unitOfWork;
+        private readonly IUserRepository _userRepository;
 
-        public UserService(EntitiesDbContext dataContext, IJwtUtils jwtUtils, IOptions<AppSettings> appSettings)
+        public UserService(EntitiesDbContext dataContext,
+            IJwtUtils jwtUtils,
+            IOptions<AppSettings> appSettings,
+            IUserRepository userRepository
+            )
         {
             _dataContext = dataContext;
             _jwtUtils = jwtUtils;
             _appSettings = appSettings.Value;
+            _userRepository = userRepository;
         }
 
         public async Task<AuthResult> Authentificate(User user, string ipAddress)
         {
-            var _user = _dataContext.Users.SingleOrDefault(x => x.email == user.email);
+            var _user = _dataContext.Users.SingleOrDefault(x => x.Email == user.Email);
             AuthResult badResult = new AuthResult
             {
                 result = false,
@@ -44,8 +50,7 @@ namespace backend.Services
                 errors = new List<string>()
             };
 
-            //if (_user == null || _user.password != BCrypt.Net.BCrypt.HashPassword(user.password))
-            if (_user == null || BCrypt.Net.BCrypt.Verify(user.password, _user.password) == false)
+            if (_user == null || BCrypt.Net.BCrypt.Verify(user.Password, _user.Password) == false)
             {
                 badResult.errors.Add("Adresa de email sau parola gresita!");
                 return badResult;
@@ -70,7 +75,7 @@ namespace backend.Services
 
         public async Task<AuthResult> Register(User user, string ipAddress)
         {
-            var existingUser = _dataContext.Users.FirstOrDefault(x => x.email == user.email); ;
+            var existingUser = _dataContext.Users.FirstOrDefault(x => x.Email == user.Email); ;
             var badResult = new AuthResult()
             {
                 AccessToken = string.Empty,
@@ -85,11 +90,12 @@ namespace backend.Services
                 return badResult;
             }
 
-            user.password = BCrypt.Net.BCrypt.HashPassword(user.password);
-            user.name = user.email.Split("@")[0];
-            
-            var IsCreated = await _dataContext.Users.AddAsync(user);
-            await _dataContext.SaveChangesAsync();
+            user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
+            user.Name = user.Email.Split("@")[0];
+
+
+            var IsCreated = await _userRepository.Add(user);
+            //await _dataContext.SaveChangesAsync();
 
             if (IsCreated != null)
             {
@@ -106,7 +112,6 @@ namespace backend.Services
                     errors = new List<string>()
                 };
             }
-
             badResult.errors.Add("Unknown problem");
             return badResult;
         }
@@ -120,12 +125,5 @@ namespace backend.Services
         {
             _dataContext.TokenDetails.Remove(new Token() { TokenValue = token });
         }
-
-        //private async User GetUserAsyncByRefreshToken(string RefreshToken)
-        //{
-        //var user = _dataContext.
-        //}
-
-
     }
 }

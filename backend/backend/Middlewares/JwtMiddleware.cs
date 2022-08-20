@@ -19,7 +19,7 @@ namespace backend.Middlewares
         public Task Invoke(HttpContext httpContext, IUserService userService, IJwtUtils jwtUtils)
         {
             var token = httpContext.Request.Cookies["accessToken"];
-            int? userId = jwtUtils.ValidateJwtToken(token);
+            Guid? userId = jwtUtils.ValidateJwtToken(token);
 
             if (userId == null)
             {

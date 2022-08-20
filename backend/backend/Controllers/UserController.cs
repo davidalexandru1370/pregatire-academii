@@ -20,9 +20,9 @@ namespace backend.Controllers
         {
             var response = _userService.Authentificate(new Model.User()
             {
-                email = user.email,
-                name = user.name,
-                password = user.password
+                Email = user.email,
+                Name = user.name,
+                Password = user.password
             }, HttpContext.Connection.RemoteIpAddress.MapToIPv4().ToString());
 
             if (string.IsNullOrWhiteSpace(response.Result.AccessToken))
@@ -41,9 +41,9 @@ namespace backend.Controllers
         {
             var response = await _userService.Register(new User()
             {
-                email = user.email,
-                name = user.name,
-                password = user.password
+                Email = user.email,
+                Name = user.name,
+                Password = user.password
             }, HttpContext.Connection.RemoteIpAddress!.MapToIPv4().ToString());
 
             if (response.result == false)

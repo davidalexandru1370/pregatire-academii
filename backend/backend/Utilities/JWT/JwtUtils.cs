@@ -23,7 +23,7 @@ namespace backend.Utilities.JWT
             var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new[] { new Claim("id", user.id.ToString()) }),
+                Subject = new ClaimsIdentity(new[] { new Claim("id", user.Id.ToString()) }),
                 Expires = DateTime.UtcNow.AddMinutes(expiredTimeInMinutes),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
@@ -36,7 +36,7 @@ namespace backend.Utilities.JWT
             };
         }
 
-        public int? ValidateJwtToken(string token)
+        public Guid? ValidateJwtToken(string token)
         {
             if (token == null)
             {
@@ -57,7 +57,7 @@ namespace backend.Utilities.JWT
                 }, out SecurityToken validatedToken);
 
                 var jwtToken = (JwtSecurityToken)validatedToken;
-                var userId = int.Parse(jwtToken.Claims.First(x => x.Type == "id").Value);
+                var userId = Guid.Parse(jwtToken.Claims.First(x => x.Type == "id").Value);
 
                 return userId;
 

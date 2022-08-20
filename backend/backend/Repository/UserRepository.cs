@@ -5,7 +5,7 @@ using System.Data.Entity.Validation;
 
 namespace backend.Repository
 {
-    public class UserRepository : IRepository<User>, IDisposable
+    public class UserRepository : IDisposable, IUserRepository
     {
         private bool _isDisposed;
         private string _errorMessages = string.Empty;
@@ -16,7 +16,7 @@ namespace backend.Repository
             _context = context;
         }
 
-        public async void Add(User entity)
+        public async Task<User> Add(User entity)
         {
             if (entity == null)
             {
@@ -30,9 +30,10 @@ namespace backend.Repository
             {
 
             }
+            return entity;
         }
 
-        public void Delete(User entity)
+        public async Task Delete(User entity)
         {
             if (entity == null)
             {
@@ -56,7 +57,7 @@ namespace backend.Repository
 
         public async Task<User> GetById(User entity)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.id == entity.id);
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == entity.Id);
             if (user == null)
             {
                 throw new RepositoryException("User not found");
@@ -66,27 +67,28 @@ namespace backend.Repository
 
         public async Task<User> GetByEmail(User entity)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.email == entity.email);
-            
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == entity.Email);
+
             if (user == null)
             {
                 throw new RepositoryException("User not found");
             }
-            
+
             return user;
         }
 
-        public async void Update(User old_entity, User new_entity)
+        public async Task<User> Update(User old_entity, User new_entity)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.id == old_entity.id);
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == old_entity.Id);
 
             if (user == null)
             {
                 throw new RepositoryException("User not found");
             }
 
-            new_entity.id = old_entity.id;
+            new_entity.Id = old_entity.Id;
             user = new_entity;
+            return user;
         }
 
 

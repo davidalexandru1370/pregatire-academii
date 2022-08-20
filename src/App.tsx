@@ -184,12 +184,7 @@ function App() {
       <Route path="Register/" element={<Register />} />
       <Route
         path="mainpage"
-        element={
-          // <ProtectedRoutes>
-          //   <MainPage />
-          // </ProtectedRoutes>
-          <ProtectedRoute page={<MainPage />} redirectPage={"/login"} />
-        }
+        element={<ProtectedRoute page={<MainPage />} redirectPage={"/login"} />}
       />
       <Route path="Login" element={<Login />} />
       <Route path="*" element={<NotFound />} />
