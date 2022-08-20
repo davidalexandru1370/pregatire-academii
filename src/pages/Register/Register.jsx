@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Register.scss";
 //@ts-ignore
-import {} from "../api/UserAPI.ts"
+import { Register as RegisterUser } from "../api/UserAPI.ts";
 import { Route, Routes, Navigate } from "react-router-dom";
 
 function Register() {
@@ -98,7 +98,7 @@ function Register() {
     setPassword(valid_password);
   };
 
-  function checkInputFields() {
+  async function checkInputFields() {
     nameInputField();
     if (email === true && password === true) {
       let obj = {
@@ -116,10 +116,16 @@ function Register() {
       //     if (error.response) {
       //       document.getElementById("register_error_message_id").innerText =
       //         error.response.data.errors[0];
-      //     } 
+      //     }
       //     //console.clear();
       //   });
-      Register()
+      await RegisterUser(obj)
+        .then(() => {
+          console.log("merge");
+        })
+        .catch(() => {
+          console.log("error");
+        });
     }
     // passwordInputFields();
   }

@@ -92,27 +92,31 @@ namespace backend.Services
 
             user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
             user.Name = user.Email.Split("@")[0];
-
-
-            var IsCreated = await _userRepository.Add(user);
-            //await _dataContext.SaveChangesAsync();
-
-            if (IsCreated != null)
+            try
             {
-                var jwtToken = _jwtUtils.GenerateJwtToken(user, _appSettings.AccessTokenTTL, ipAddress);
-                var refreshToken = _jwtUtils.GenerateRefreshToken(ipAddress, _appSettings.RefreshTokenTTL);
+                var IsCreated = await _userRepository.Add(user);
+                //await _dataContext.SaveChangesAsync();
 
-                await _dataContext.SaveChangesAsync();
-
-                return new AuthResult()
+                if (IsCreated != null)
                 {
-                    AccessToken = jwtToken.TokenValue,
-                    RefreshToken = refreshToken.TokenValue,
-                    result = true,
-                    errors = new List<string>()
-                };
+                    var jwtToken = _jwtUtils.GenerateJwtToken(user, _appSettings.AccessTokenTTL, ipAddress);
+                    var refreshToken = _jwtUtils.GenerateRefreshToken(ipAddress, _appSettings.RefreshTokenTTL);
+
+
+                    return new AuthResult()
+                    {
+                        AccessToken = jwtToken.TokenValue,
+                        RefreshToken = refreshToken.TokenValue,
+                        result = true,
+                        errors = new List<string>()
+                    };
+                }
             }
-            badResult.errors.Add("Unknown problem");
+            catch (RepositoryException repositoryException)
+            {
+                badResult.errors.Add(repositoryException.StackTrace) ;
+            }
+
             return badResult;
         }
 

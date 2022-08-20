@@ -5,7 +5,7 @@ using System.Data.Entity.Validation;
 
 namespace backend.Repository
 {
-    public class UserRepository : IDisposable, IUserRepository
+    public class UserRepository :  IUserRepository
     {
         private bool _isDisposed;
         private string _errorMessages = string.Empty;
@@ -48,11 +48,6 @@ namespace backend.Repository
                 _errorMessages = FormatErrorMessage(dbException);
                 throw new RepositoryException(_errorMessages);
             }
-        }
-
-        public void Dispose()
-        {
-            _context.Dispose();
         }
 
         public async Task<User> GetById(User entity)

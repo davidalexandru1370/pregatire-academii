@@ -22,10 +22,10 @@ builder.Services.AddSwaggerGen();
 //builder.Services.AddScoped<ValidationFilterAttribute>();
 builder.Services.Configure<ApiBehaviorOptions>(options => options.SuppressModelStateInvalidFilter = true);
 builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
-//builder.Services.AddScoped<IUserService, UserService>();
-//builder.Services.AddScoped<IJwtUtils, JwtUtils>();
-builder.Services.AddSingleton<IUserService, UserService>();
-builder.Services.AddSingleton<IJwtUtils, JwtUtils>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IJwtUtils, JwtUtils>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+
 builder.Services.AddDbContext<EntitiesDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DevConnection")), ServiceLifetime.Singleton);
 
 //for identity
