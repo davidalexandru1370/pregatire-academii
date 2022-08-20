@@ -75,7 +75,15 @@ namespace backend.Services
 
         public async Task<AuthResult> Register(User user, string ipAddress)
         {
-            var existingUser = _dataContext.Users.FirstOrDefault(x => x.Email == user.Email); ;
+            User existingUser;
+            try
+            {
+                existingUser = await _userRepository.GetByEmail(user);
+            }
+            catch (RepositoryException repositoryException)
+            {
+                throw;
+            }
             var badResult = new AuthResult()
             {
                 AccessToken = string.Empty,

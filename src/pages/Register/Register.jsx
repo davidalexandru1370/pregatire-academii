@@ -4,6 +4,9 @@ import "./Register.scss";
 //@ts-ignore
 import { Register as RegisterUser } from "../api/UserAPI.ts";
 import { Route, Routes, Navigate } from "react-router-dom";
+import pages from "../../Constants/pages.json";
+
+import { AuthResult } from "../../Models/AuthResult.ts";
 
 function Register() {
   const [start_validate, set_start_validate] = useState(false);
@@ -121,10 +124,16 @@ function Register() {
       //   });
       await RegisterUser(obj)
         .then(() => {
-          console.log("merge");
+          document.getElementById("register_error_message_id").innerText = "";
+          <Navigate to={pages.mainpage} />;
         })
-        .catch(() => {
-          console.log("error");
+        .catch((error) => {
+          if (error.response) {
+            for (const e of error) {
+              document.getElementById("register_error_message_id").innerText +=
+                e;
+            }
+          }
         });
     }
     // passwordInputFields();
