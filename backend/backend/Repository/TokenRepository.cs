@@ -13,7 +13,7 @@ namespace backend.Repository
 
         public async void Add(Token token)
         {
-            if (token == null)
+            if (token is null)
             {
                 throw new RepositoryException("invalid token");
             }
@@ -23,13 +23,13 @@ namespace backend.Repository
 
         public async void Delete(Token token)
         {
-            if (token == null)
+            if (token is null)
             {
                 throw new RepositoryException("invalid token");
             }
 
             var result = _entitiesDbContext.Remove(token);
-            if (result == null)
+            if (result is null)
             {
                 throw new RepositoryException("No token found!");
             }
@@ -75,14 +75,14 @@ namespace backend.Repository
 
         public async Task<Token> Update(Token oldToken, Token newToken)
         {
-            if (oldToken == null || newToken == null)
+            if (oldToken is null || newToken is null)
             {
                 throw new RepositoryException("One of the tokens does not exists!");
             }
 
             var modifedToken = _entitiesDbContext.TokenDetails.FirstOrDefault(t => t.TokenValue == oldToken.TokenValue);
 
-            if (modifedToken == null)
+            if (modifedToken is null)
             {
                 throw new RepositoryException("User is not logged in");
             }
