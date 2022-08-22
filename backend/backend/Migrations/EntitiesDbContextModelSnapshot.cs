@@ -31,6 +31,9 @@ namespace backend.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("OldTokenValue")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("TokenValue")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");

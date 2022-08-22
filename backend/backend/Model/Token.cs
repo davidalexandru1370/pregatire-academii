@@ -14,6 +14,8 @@ namespace backend.Model
 
         public string TokenValue { get; set; }
 
+        public string? OldTokenValue { get; set; }
+
         public DateTime CreatedAt { get; set; }
     }
 }

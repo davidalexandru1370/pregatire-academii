@@ -8,12 +8,11 @@ using Microsoft.Extensions.Options;
 using backend.Constants;
 public interface IUserService
 {
-    public Task<AuthResult> Authentificate(User user, string ipAddress);
-    public Task<AuthResult> RefreshToken(string token, string ipAddress);
+    public Task<AuthResult> Authentificate(User user);
 
-    void RevokeToken(string token, string ipAddress);
-
-    public Task<AuthResult> Register(User user, string ipAddress);
+    //public Task<Token> RotateRefreshToken(string token);
+    void RevokeToken(string token);
+    public Task<AuthResult> Register(User user);
 }
 
 
@@ -40,7 +39,7 @@ namespace backend.Services
             _userRepository = userRepository;
         }
 
-        public async Task<AuthResult> Authentificate(User user, string ipAddress)
+        public async Task<AuthResult> Authentificate(User user)
         {
             var _user = _dataContext.Users.SingleOrDefault(x => x.Email == user.Email);
             AuthResult badResult = new AuthResult
@@ -60,8 +59,8 @@ namespace backend.Services
             int AccessTokenExpireTimeInMinutes = _appSettings.AccessTokenTTL;
             int RefreshTokenExpireTimeInMinutes = _appSettings.RefreshTokenTTL;
 
-            var jwtToken = _jwtUtils.GenerateJwtToken(user, AccessTokenExpireTimeInMinutes, ipAddress);
-            var refreshToken = _jwtUtils.GenerateRefreshToken(ipAddress, RefreshTokenExpireTimeInMinutes);
+            var jwtToken = _jwtUtils.GenerateJwtToken(user, AccessTokenExpireTimeInMinutes);
+            var refreshToken = _jwtUtils.GenerateRefreshToken( RefreshTokenExpireTimeInMinutes);
 
             await _dataContext.SaveChangesAsync();
 
@@ -74,7 +73,7 @@ namespace backend.Services
             };
         }
 
-        public async Task<AuthResult> Register(User user, string ipAddress)
+        public async Task<AuthResult> Register(User user)
         {
             User existingUser;
             
@@ -110,8 +109,8 @@ namespace backend.Services
 
                 if (IsCreated != null)
                 {
-                    var jwtToken = _jwtUtils.GenerateJwtToken(user, _appSettings.AccessTokenTTL, ipAddress);
-                    var refreshToken = _jwtUtils.GenerateRefreshToken(ipAddress, _appSettings.RefreshTokenTTL);
+                    var jwtToken = _jwtUtils.GenerateJwtToken(user, _appSettings.AccessTokenTTL);
+                    var refreshToken = _jwtUtils.GenerateRefreshToken( _appSettings.RefreshTokenTTL);
 
 
                     return new AuthResult()
@@ -131,14 +130,10 @@ namespace backend.Services
             return badResult;
         }
 
-        public Task<AuthResult> RefreshToken(string token, string ipAddress)
+        public void RevokeToken(string token)
         {
             throw new NotImplementedException();
         }
 
-        public void RevokeToken(string token, string ipAddress)
-        {
-            _dataContext.TokenDetails.Remove(new Token() { TokenValue = token });
-        }
     }
 }

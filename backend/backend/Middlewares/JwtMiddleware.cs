@@ -1,4 +1,5 @@
-﻿using backend.Utilities.JWT;
+﻿using backend.Model;
+using backend.Utilities.JWT;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using System.Net;
@@ -42,6 +43,8 @@ namespace backend.Middlewares
                     await httpContext.Response.WriteAsync("Forbidden");
                     return;
                 }
+                
+                
             }
             httpContext.Response.ContentType = saveResponseContentType;
             await _next(httpContext);

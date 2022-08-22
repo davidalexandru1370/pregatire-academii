@@ -18,12 +18,12 @@ namespace backend.Controllers
         [HttpPost("authentificate")]
         public IActionResult Authentificate([FromBody] UserDto user)
         {
-            var response = _userService.Authentificate(new Model.User()
+            var response = _userService.Authentificate(new User()
             {
                 Email = user.email,
                 Name = user.name,
                 Password = user.password
-            }, HttpContext.Connection.RemoteIpAddress.MapToIPv4().ToString());
+            });
 
             if (string.IsNullOrWhiteSpace(response.Result.AccessToken))
             {
@@ -44,7 +44,7 @@ namespace backend.Controllers
                 Email = user.email,
                 Name = user.name,
                 Password = user.password
-            }, HttpContext.Connection.RemoteIpAddress!.MapToIPv4().ToString());
+            });
 
             if (response.result == false)
             {
@@ -55,14 +55,14 @@ namespace backend.Controllers
             setTokenCookie("refreshToken", response.RefreshToken);
             return Ok();
         }
-        
+
         private void setTokenCookie(string tokenName, string tokenValue)
         {
             var cookieOptions = new CookieOptions
             {
                 HttpOnly = true,
                 Secure = true,
-                SameSite=SameSiteMode.None,
+                SameSite = SameSiteMode.None,
                 IsEssential = true,
                 Expires = DateTime.Now.AddDays(7),
             };

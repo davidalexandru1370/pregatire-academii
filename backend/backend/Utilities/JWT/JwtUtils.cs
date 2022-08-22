@@ -17,7 +17,7 @@ namespace backend.Utilities.JWT
             _appSettings = appSettings.Value;
         }
 
-        public Token GenerateJwtToken(User user, int expiredTimeInMinutes,string ipAddress)
+        public Token GenerateJwtToken(User user, int expiredTimeInMinutes)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
@@ -27,8 +27,9 @@ namespace backend.Utilities.JWT
                 Expires = DateTime.UtcNow.AddMinutes(expiredTimeInMinutes),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
+            
             var token = tokenHandler.CreateToken(tokenDescriptor);
-            //return tokenHandler.WriteToken(token);
+            
             return new Token()
             {
                 CreatedAt = DateTime.Now,
@@ -70,13 +71,14 @@ namespace backend.Utilities.JWT
             return null;
         }
 
-        public Token GenerateRefreshToken(string ipAddress, int expiredTimesInMinutes)
+        public Token GenerateRefreshToken( int expiredTimesInMinutes)
         {
             var refreshToken = new Token
             {
                 CreatedAt = DateTime.UtcNow,
                 TokenValue = GenerateUniqueToken()
             };
+            
             return refreshToken;
         }
 
