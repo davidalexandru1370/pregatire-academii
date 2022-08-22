@@ -131,7 +131,7 @@ function Register() {
           <Navigate to={pages.mainpage} />;
         })
         .catch(async (errors) => {
-          for (const error of errors.errors) {
+          for (const error of errors.errors ) {
             document.getElementById("register_error_message_id").innerText +=
               error;
           }
