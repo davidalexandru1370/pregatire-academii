@@ -112,7 +112,6 @@ namespace backend.Services
                     var jwtToken = _jwtUtils.GenerateJwtToken(user, _appSettings.AccessTokenTTL);
                     var refreshToken = _jwtUtils.GenerateRefreshToken( _appSettings.RefreshTokenTTL);
 
-
                     return new AuthResult()
                     {
                         AccessToken = jwtToken.TokenValue,
