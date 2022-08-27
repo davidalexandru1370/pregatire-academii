@@ -1,4 +1,6 @@
 ﻿using backend.Model;
+using backend.Repository;
+using backend.Utilities;
 using backend.Utilities.JWT;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
@@ -12,12 +14,22 @@ namespace backend.Middlewares
     {
         private readonly RequestDelegate _next;
         private readonly List<string> MiddlewareFor = new List<string> { "mainpage" };
-        public JwtMiddleware(RequestDelegate next)
+        private readonly ITokenRepository _tokenRepository;
+        private readonly IJwtUtils _jwtUtils;
+
+        public JwtMiddleware(RequestDelegate next, ITokenRepository tokenRepository, IJwtUtils jwtUtils)
         {
             _next = next;
+            _tokenRepository = tokenRepository;
+            _jwtUtils = jwtUtils;
         }
 
-        public async Task Invoke(HttpContext httpContext, IUserService userService, IJwtUtils jwtUtils)
+        private void RotateRefreshToken()
+        {
+            //var newRefreshToken =
+        }
+
+        public async Task Invoke(HttpContext httpContext)
         {
             char delimitator = '/';
             var path = httpContext.Request.Path.Value?.Split(delimitator).Where(s => String.IsNullOrWhiteSpace(s) == false).ToList();
@@ -34,17 +46,30 @@ namespace backend.Middlewares
 
             if (MiddlewareFor.Contains(path[0]))
             {
-                var token = httpContext.Request.Cookies["accessToken"];
-                Guid? userId = jwtUtils.ValidateJwtToken(token);
+                var accessToken = httpContext.Request.Cookies["accessToken"];
+                var refreshToken = httpContext.Request.Cookies["accessToken"];
 
-                if (userId == null)
+                if (refreshToken is null || accessToken is null)
                 {
                     httpContext.Response.StatusCode = (int)HttpStatusCode.Forbidden;
                     await httpContext.Response.WriteAsync("Forbidden");
                     return;
                 }
-                
-                
+
+                Guid? userId = _jwtUtils.ValidateJwtToken(accessToken);
+
+                Guid? isRefreshTokenValid = _jwtUtils.ValidateJwtToken(refreshToken);
+
+                if (!(isRefreshTokenValid is null) && _jwtUtils.GetIdFromToken(refreshToken) == _jwtUtils.GetIdFromToken(accessToken))
+                {
+                    RotateRefreshToken();
+                }
+                else
+                {
+                    httpContext.Response.StatusCode = (int)HttpStatusCode.Forbidden;
+                    await httpContext.Response.WriteAsync("Forbidden");
+                    return;
+                }
             }
             httpContext.Response.ContentType = saveResponseContentType;
             await _next(httpContext);

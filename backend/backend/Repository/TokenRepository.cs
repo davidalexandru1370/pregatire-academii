@@ -11,7 +11,7 @@ namespace backend.Repository
             _entitiesDbContext = entitiesDbContext;
         }
 
-        public async void Add(Token token)
+        public async Task Add(Token token)
         {
             if (token is null)
             {
@@ -21,7 +21,7 @@ namespace backend.Repository
             await _entitiesDbContext.SaveChangesAsync();
         }
 
-        public async void Delete(Token token)
+        public async Task Delete(Token token)
         {
             if (token is null)
             {
@@ -80,19 +80,19 @@ namespace backend.Repository
                 throw new RepositoryException("One of the tokens does not exists!");
             }
 
-            var modifedToken = _entitiesDbContext.TokenDetails.FirstOrDefault(t => t.TokenValue == oldToken.TokenValue);
+            var modifiedToken = _entitiesDbContext.TokenDetails.FirstOrDefault(t => t.TokenValue == oldToken.TokenValue);
 
-            if (modifedToken is null)
+            if (modifiedToken is null)
             {
                 throw new RepositoryException("User is not logged in");
             }
 
-            modifedToken.OldTokenValue = modifedToken.TokenValue;
-            modifedToken.TokenValue = newToken.TokenValue;
+            modifiedToken.OldTokenValue = modifiedToken.TokenValue;
+            modifiedToken.TokenValue = newToken.TokenValue;
 
             await _entitiesDbContext.SaveChangesAsync();
 
-            return modifedToken;
+            return modifiedToken;
         }
     }
 }

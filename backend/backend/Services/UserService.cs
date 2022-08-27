@@ -26,17 +26,19 @@ namespace backend.Services
         private readonly IUnitOfWork<EntitiesDbContext> _unitOfWork;
         private readonly IUserRepository _userRepository;
         private readonly AuthErrors _authErrors;
-
+        private readonly ITokenRepository _tokenRepository;
         public UserService(EntitiesDbContext dataContext,
             IJwtUtils jwtUtils,
             IOptions<AppSettings> appSettings,
-            IUserRepository userRepository
+            IUserRepository userRepository,
+            ITokenRepository tokenRepository
             )
         {
             _dataContext = dataContext;
             _jwtUtils = jwtUtils;
             _appSettings = appSettings.Value;
             _userRepository = userRepository;
+            _tokenRepository = tokenRepository;
         }
 
         public async Task<AuthResult> Authentificate(User user)
@@ -60,7 +62,7 @@ namespace backend.Services
             int RefreshTokenExpireTimeInMinutes = _appSettings.RefreshTokenTTL;
 
             var jwtToken = _jwtUtils.GenerateJwtToken(user, AccessTokenExpireTimeInMinutes);
-            var refreshToken = _jwtUtils.GenerateRefreshToken( RefreshTokenExpireTimeInMinutes);
+            var refreshToken = _jwtUtils.GenerateJwtToken(user,RefreshTokenExpireTimeInMinutes);
 
             return new AuthResult()
             {
@@ -75,7 +77,7 @@ namespace backend.Services
         public async Task<AuthResult> Register(User user)
         {
             User existingUser;
-            
+
             try
             {
                 existingUser = await _userRepository.GetByEmail(user);
@@ -95,7 +97,7 @@ namespace backend.Services
 
             if (existingUser != null)
             {
-                badResult.errors.Add( AuthErrors.emailTaken.ToString());
+                badResult.errors.Add(AuthErrors.emailTaken.ToString());
                 return badResult;
             }
 
@@ -109,7 +111,7 @@ namespace backend.Services
                 if (IsCreated != null)
                 {
                     var jwtToken = _jwtUtils.GenerateJwtToken(user, _appSettings.AccessTokenTTL);
-                    var refreshToken = _jwtUtils.GenerateRefreshToken( _appSettings.RefreshTokenTTL);
+                    var refreshToken = _jwtUtils.GenerateRefreshToken(_appSettings.RefreshTokenTTL);
 
                     return new AuthResult()
                     {
@@ -122,7 +124,7 @@ namespace backend.Services
             }
             catch (RepositoryException repositoryException)
             {
-                badResult.errors.Add(repositoryException.StackTrace) ;
+                badResult.errors.Add(repositoryException.StackTrace);
             }
 
             return badResult;

@@ -12,9 +12,6 @@ namespace backend.Utilities
             {
                 byte[] bytes = sha256.ComputeHash(System.Text.Encoding.UTF8.GetBytes(text));
             }
-
-            
-
             return "";
         }
     }

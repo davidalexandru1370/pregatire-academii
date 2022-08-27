@@ -23,7 +23,7 @@ namespace backend.Utilities.JWT
             var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new[] { new Claim("id", user.Id.ToString()) }),
+                Subject = new ClaimsIdentity(new[] { new Claim("Id", user.Id.ToString()) }),
                 Expires = DateTime.UtcNow.AddMinutes(expiredTimeInMinutes),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
@@ -58,7 +58,7 @@ namespace backend.Utilities.JWT
                 }, out SecurityToken validatedToken);
 
                 var jwtToken = (JwtSecurityToken)validatedToken;
-                var userId = Guid.Parse(jwtToken.Claims.First(x => x.Type == "id").Value);
+                var userId = Guid.Parse(jwtToken.Claims.First(x => x.Type == "Id").Value);
 
                 return userId;
 
@@ -69,6 +69,16 @@ namespace backend.Utilities.JWT
             }
          
             return null;
+        }
+
+        public Guid GetIdFromToken(string token)
+        {
+            var handler = new JwtSecurityTokenHandler();
+            var jsonToken = handler.ReadJwtToken(token);
+
+            var tokens = jsonToken as JwtSecurityToken;
+
+            return Guid.Parse(tokens.Claims.First(x => x.Type == "Id").Value);
         }
 
         public Token GenerateRefreshToken( int expiredTimesInMinutes)
