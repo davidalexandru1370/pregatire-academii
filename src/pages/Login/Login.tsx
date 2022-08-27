@@ -5,11 +5,13 @@ import { Axios } from "axios";
 //@ts-ignore
 import { Login as _Login } from "../api/UserAPI.ts";
 import { User } from "../../Models/User";
+import { AuthResult } from "../../Models/AuthResult";
 
 function Login() {
   const emailInputRef = useRef<HTMLInputElement | null>(null);
   const passwordInputRef = useRef<HTMLInputElement | null>(null);
   const buttonInputRef = useRef<HTMLButtonElement | null>(null);
+  const [errorMessages, setErrorMessages] = useState<string>("");
   const [loginButton, setLoginButton] = useState(true);
 
   const IsNullOrWhitespace = (text: string) => {
@@ -52,8 +54,20 @@ function Login() {
       Name: "",
     };
 
-    let response = await _Login(user);
-    console.log(response);
+    let response: Response = await _Login(user);
+    let data: AuthResult = await response.json();
+    console.log(data);
+
+    if (data.errors.length > 0) {
+      let allErrors: string = "";
+      for (let error of data.errors) {
+        allErrors += error;
+        allErrors += "\n";
+      }
+      setErrorMessages(allErrors);
+    } else {
+      setErrorMessages("");
+    }
   };
 
   return (
@@ -92,6 +106,7 @@ function Login() {
           >
             Intra in cont
           </Button>
+          <p className="LoginError">{errorMessages}</p>
         </div>
       </div>
     </div>

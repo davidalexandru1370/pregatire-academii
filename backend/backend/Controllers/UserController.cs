@@ -25,9 +25,15 @@ namespace backend.Controllers
                 Password = user.password
             });
 
+            AuthResultDTO authResult = new AuthResultDTO()
+            {
+                errors = response.Result.errors,
+                result = response.Result.result
+            };
+
             if (string.IsNullOrWhiteSpace(response.Result.AccessToken))
             {
-                return StatusCode(403, response);
+                return StatusCode(403, authResult);
             }
 
             setTokenCookie("accessToken", response.Result.AccessToken);

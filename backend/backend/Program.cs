@@ -24,8 +24,8 @@ builder.Services.Configure<ApiBehaviorOptions>(options => options.SuppressModelS
 builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IJwtUtils, JwtUtils>();
+builder.Services.AddScoped<ITokenRepository, TokenRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
-
 builder.Services.AddDbContext<EntitiesDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DevConnection")), ServiceLifetime.Singleton);
 
 //for identity

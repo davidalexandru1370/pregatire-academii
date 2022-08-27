@@ -1,10 +1,11 @@
+$invalid-field : red;
+
 html{
     height: 100%;
 }
 * {
     margin: 0;
     padding: 0;
-
 }
 .transform{
     -ms-transform: translateY(100%);
@@ -13,4 +14,9 @@ html{
 }
 .input{
     width: 15rem !important;
+}
+
+.LoginError{
+    color: $invalid-field;
+    margin-top: 5px;
 }

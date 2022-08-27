@@ -62,8 +62,6 @@ namespace backend.Services
             var jwtToken = _jwtUtils.GenerateJwtToken(user, AccessTokenExpireTimeInMinutes);
             var refreshToken = _jwtUtils.GenerateRefreshToken( RefreshTokenExpireTimeInMinutes);
 
-            await _dataContext.SaveChangesAsync();
-
             return new AuthResult()
             {
                 result = true,
@@ -71,6 +69,7 @@ namespace backend.Services
                 RefreshToken = refreshToken.TokenValue,
                 errors = new List<string>(),
             };
+
         }
 
         public async Task<AuthResult> Register(User user)
