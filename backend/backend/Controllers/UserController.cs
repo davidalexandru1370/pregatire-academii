@@ -16,7 +16,7 @@ namespace backend.Controllers
         }
 
         [HttpPost("authentificate")]
-        public IActionResult Authentificate([FromBody] UserDto user)
+        public async Task<ActionResult> Authentificate([FromBody] UserDto user)
         {
             var response = _userService.Authentificate(new User()
             {
@@ -39,11 +39,11 @@ namespace backend.Controllers
             setTokenCookie("accessToken", response.Result.AccessToken);
             setTokenCookie("refreshToken", response.Result.RefreshToken);
 
-            return Ok(response);
+            return Ok(authResult);
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody] UserDto user)
+        public async Task<ActionResult> Register([FromBody] UserDto user)
         {
             var response = await _userService.Register(new User()
             {
@@ -73,7 +73,6 @@ namespace backend.Controllers
                 Expires = DateTime.Now.AddDays(7),
             };
 
-            Response.Cookies.Append(tokenName, tokenValue, cookieOptions);
             Response.Cookies.Append(tokenName, tokenValue, cookieOptions);
         }
     }

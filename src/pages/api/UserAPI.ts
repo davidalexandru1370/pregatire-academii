@@ -27,9 +27,9 @@ export const Login = async (user: User) => {
     body: JSON.stringify(user),
     method: "POST",
     credentials: "include",
-    headers: {
-      "Content-type": "application/json",
-    },
+    // headers: {
+    //   "Content-type": "application/json",
+    // },
     mode: "cors",
   };
   return await fetch(url, header);

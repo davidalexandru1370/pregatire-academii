@@ -23,7 +23,7 @@ namespace backend.Services
         private readonly AppSettings _appSettings;
         private readonly IUnitOfWork<EntitiesDbContext> _unitOfWork;
         private readonly IUserRepository _userRepository;
-        private readonly AuthErrors _authErrors;
+        //private readonly AuthErrors _authErrors;
         private readonly ITokenRepository _tokenRepository;
         public UserService(EntitiesDbContext dataContext,
             IJwtUtils jwtUtils,
@@ -107,7 +107,7 @@ namespace backend.Services
 
             if (existingUser != null)
             {
-                badResult.errors.Add(AuthErrors.emailTaken.ToString());
+               // badResult.errors.Add(AuthErrors.emailTaken.ToString());
                 return badResult;
             }
 
