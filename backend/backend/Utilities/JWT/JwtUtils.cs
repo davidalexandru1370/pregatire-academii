@@ -27,9 +27,9 @@ namespace backend.Utilities.JWT
                 Expires = DateTime.UtcNow.AddMinutes(expiredTimeInMinutes),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
-            
+
             var token = tokenHandler.CreateToken(tokenDescriptor);
-            
+
             return new Token()
             {
                 CreatedAt = DateTime.Now,
@@ -67,53 +67,45 @@ namespace backend.Utilities.JWT
             {
 
             }
-         
+
             return null;
         }
 
-        public Guid GetIdFromToken(string token)
+        public string GetFieldFromToken(string token, string field)
         {
             var handler = new JwtSecurityTokenHandler();
             var jsonToken = handler.ReadJwtToken(token);
 
             var tokens = jsonToken as JwtSecurityToken;
 
-            return Guid.Parse(tokens.Claims.First(x => x.Type == "Id").Value);
+            //return Guid.Parse(tokens.Claims.First(x => x.Type == "Id").Value);
+            return tokens.Claims.First(x => x.Type == field).Value;
         }
 
-        public Token GenerateRefreshToken( int expiredTimesInMinutes)
+        public Token RotateRefreshToken(string oldToken)
         {
-            var refreshToken = new Token
+            DateTime expirationTime = GetExpirationDate(oldToken);
+            int differenceInMinutes = ((int)(expirationTime - DateTime.Now).TotalMinutes);
+            Guid userId = Guid.Parse(GetFieldFromToken(oldToken, "Id"));
+            User tempUser = new User()
             {
-                CreatedAt = DateTime.UtcNow,
-                TokenValue = GenerateUniqueToken()
+                Id = userId
             };
-            
-            return refreshToken;
+            Token newRefreshToken = GenerateJwtToken(tempUser, differenceInMinutes);
+            return newRefreshToken;
         }
 
-        string GenerateUniqueToken()
+        public DateTime GetExpirationDate(string token)
         {
-            StringBuilder builder = new StringBuilder();
-
-            Enumerable.Range(65, 26)
-                .Select(e => ((char)e).ToString())
-                .Concat(Enumerable.Range(97, 26).Select(e => ((char)e).ToString()))
-                .Concat(Enumerable.Range(0, 10).Select(e => e.ToString()))
-                .OrderBy(e => Guid.NewGuid())
-                .Take(11)
-                .ToList()
-                .ForEach(e => builder.Append(e));
-            var token = Convert.ToBase64String(System.Text.Encoding.ASCII.GetBytes(builder.ToString()));
-            token = token.Substring(0, token.Length - 1);
-            bool isUnique = !_context.TokenDetails.Any(usedToken => usedToken.TokenValue == token);
-
-            if (isUnique == false)
-            {
-                return GenerateUniqueToken();
-            }
-
-            return token;
+            return ConvertFromUnixTimeStamp(Int32.Parse(GetFieldFromToken(token, "exp")));
         }
+
+        private DateTime ConvertFromUnixTimeStamp(int amount)
+        {
+            DateTime startDate = new DateTime(1970, 1, 1, 0, 0, 0, 0);
+            startDate.AddSeconds(amount).ToLocalTime();
+            return startDate;
+        }
+
     }
 }
