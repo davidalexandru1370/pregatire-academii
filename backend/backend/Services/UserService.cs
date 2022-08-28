@@ -9,8 +9,6 @@ using backend.Constants;
 public interface IUserService
 {
     public Task<AuthResult> Authentificate(User user);
-
-    //public Task<Token> RotateRefreshToken(string token);
     void RevokeToken(string token);
     public Task<AuthResult> Register(User user);
 }
@@ -62,7 +60,19 @@ namespace backend.Services
             int RefreshTokenExpireTimeInMinutes = _appSettings.RefreshTokenTTL;
 
             var jwtToken = _jwtUtils.GenerateJwtToken(user, AccessTokenExpireTimeInMinutes);
-            var refreshToken = _jwtUtils.GenerateJwtToken(user,RefreshTokenExpireTimeInMinutes);
+            var refreshToken = _jwtUtils.GenerateJwtToken(user, RefreshTokenExpireTimeInMinutes);
+
+            refreshToken.UserId = _user.Id;
+
+            try
+            {
+                await _tokenRepository.Add(refreshToken);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
 
             return new AuthResult()
             {
@@ -111,7 +121,9 @@ namespace backend.Services
                 if (IsCreated != null)
                 {
                     var jwtToken = _jwtUtils.GenerateJwtToken(user, _appSettings.AccessTokenTTL);
-                    var refreshToken = _jwtUtils.GenerateJwtToken(user,_appSettings.RefreshTokenTTL);
+                    var refreshToken = _jwtUtils.GenerateJwtToken(user, _appSettings.RefreshTokenTTL);
+                    refreshToken.UserId = user.Id;
+                    _tokenRepository.Add(refreshToken);
 
                     return new AuthResult()
                     {

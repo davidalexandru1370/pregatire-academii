@@ -17,7 +17,7 @@ namespace backend.Repository
             {
                 throw new RepositoryException("invalid token");
             }
-            await _entitiesDbContext.AddAsync(token);
+            await _entitiesDbContext.TokenDetails.AddAsync(token);
             await _entitiesDbContext.SaveChangesAsync();
         }
 
