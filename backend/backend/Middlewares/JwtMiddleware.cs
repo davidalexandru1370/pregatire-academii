@@ -4,6 +4,7 @@ using backend.Utilities;
 using backend.Utilities.JWT;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Options;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -17,12 +18,15 @@ namespace backend.Middlewares
         private readonly ITokenRepository _tokenRepository;
         private readonly IJwtUtils _jwtUtils;
         private readonly ICookieUtilities _cookieUtilities;
-        public JwtMiddleware(RequestDelegate next, ITokenRepository tokenRepository, IJwtUtils jwtUtils, ICookieUtilities cookieUtilities)
+        private readonly AppSettings _appSettings;
+
+        public JwtMiddleware(RequestDelegate next, ITokenRepository tokenRepository, IJwtUtils jwtUtils, ICookieUtilities cookieUtilities, IOptions<AppSettings> options)
         {
             _next = next;
             _tokenRepository = tokenRepository;
             _jwtUtils = jwtUtils;
             _cookieUtilities = cookieUtilities;
+            _appSettings = options.Value;
         }
 
         public async Task Invoke(HttpContext httpContext)
@@ -56,18 +60,23 @@ namespace backend.Middlewares
 
                 Guid? isRefreshTokenValid = _jwtUtils.ValidateJwtToken(refreshToken);
 
-                if ((isRefreshTokenValid is null) == false)
+                if (isRefreshTokenValid is null)
+                {
+                    httpContext.Response.StatusCode = (int)HttpStatusCode.Forbidden;
+                    await httpContext.Response.WriteAsync("Forbidden");
+                    return;
+                }
+                else
                 {
                     Token newRefreshToken = _jwtUtils.RotateRefreshToken(refreshToken);
                     await _tokenRepository.Update(new Token { TokenValue = refreshToken }, newRefreshToken);
                     var cookieExpirationDate = ((int)(DateTime.Now - _jwtUtils.GetExpirationDate(refreshToken)).TotalDays);
                     _cookieUtilities.setCookiePrivate("refreshToken", newRefreshToken.TokenValue, cookieExpirationDate);
-                }
-                else
-                {
-                    httpContext.Response.StatusCode = (int)HttpStatusCode.Forbidden;
-                    await httpContext.Response.WriteAsync("Forbidden");
-                    return;
+                    if (userId is null)
+                    {
+                        Token newAccessToken = _jwtUtils.GenerateJwtToken(new User { Id = Guid.Parse(_jwtUtils.GetFieldFromToken(accessToken, "Id")) }, _appSettings.AccessTokenTTL);
+                        _cookieUtilities.setCookiePrivate("accessToken", newAccessToken.TokenValue, cookieExpirationDate);
+                    }
                 }
             }
             httpContext.Response.ContentType = saveResponseContentType;
