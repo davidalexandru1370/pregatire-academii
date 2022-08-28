@@ -77,6 +77,7 @@ namespace backend.Middlewares
                         Token newAccessToken = _jwtUtils.GenerateJwtToken(new User { Id = Guid.Parse(_jwtUtils.GetFieldFromToken(accessToken, "Id")) }, _appSettings.AccessTokenTTL);
                         _cookieUtilities.setCookiePrivate("accessToken", newAccessToken.TokenValue, cookieExpirationDate);
                     }
+                    await _tokenRepository.Update(new Token() { TokenValue = refreshToken }, newRefreshToken);
                 }
             }
             httpContext.Response.ContentType = saveResponseContentType;
