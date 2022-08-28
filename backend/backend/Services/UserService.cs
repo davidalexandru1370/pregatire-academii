@@ -111,7 +111,7 @@ namespace backend.Services
                 if (IsCreated != null)
                 {
                     var jwtToken = _jwtUtils.GenerateJwtToken(user, _appSettings.AccessTokenTTL);
-                    var refreshToken = _jwtUtils.GenerateRefreshToken(_appSettings.RefreshTokenTTL);
+                    var refreshToken = _jwtUtils.GenerateJwtToken(user,_appSettings.RefreshTokenTTL);
 
                     return new AuthResult()
                     {

@@ -6,8 +6,9 @@ namespace backend.Utilities.JWT
     {
         public Token GenerateJwtToken(User user, int expiredTimeInMinutes);
         public Guid? ValidateJwtToken(string token);
-        public Token GenerateRefreshToken( int expiredTimesInMinutes);
-        public Guid GetIdFromToken(string token);
+        public string GetFieldFromToken(string token, string field);
+        public Token RotateRefreshToken(string oldToken);
+        public DateTime GetExpirationDate(string token);
 
     }
 }

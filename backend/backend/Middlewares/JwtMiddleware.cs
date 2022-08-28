@@ -16,17 +16,13 @@ namespace backend.Middlewares
         private readonly List<string> MiddlewareFor = new List<string> { "mainpage" };
         private readonly ITokenRepository _tokenRepository;
         private readonly IJwtUtils _jwtUtils;
-
-        public JwtMiddleware(RequestDelegate next, ITokenRepository tokenRepository, IJwtUtils jwtUtils)
+        private readonly ICookieUtilities _cookieUtilities;
+        public JwtMiddleware(RequestDelegate next, ITokenRepository tokenRepository, IJwtUtils jwtUtils, ICookieUtilities cookieUtilities)
         {
             _next = next;
             _tokenRepository = tokenRepository;
             _jwtUtils = jwtUtils;
-        }
-
-        private void RotateRefreshToken()
-        {
-            //var newRefreshToken =
+            _cookieUtilities = cookieUtilities;
         }
 
         public async Task Invoke(HttpContext httpContext)
@@ -47,7 +43,7 @@ namespace backend.Middlewares
             if (MiddlewareFor.Contains(path[0]))
             {
                 var accessToken = httpContext.Request.Cookies["accessToken"];
-                var refreshToken = httpContext.Request.Cookies["accessToken"];
+                var refreshToken = httpContext.Request.Cookies["refreshToken"];
 
                 if (refreshToken is null || accessToken is null)
                 {
@@ -60,9 +56,12 @@ namespace backend.Middlewares
 
                 Guid? isRefreshTokenValid = _jwtUtils.ValidateJwtToken(refreshToken);
 
-                if (!(isRefreshTokenValid is null) && _jwtUtils.GetIdFromToken(refreshToken) == _jwtUtils.GetIdFromToken(accessToken))
+                if ((isRefreshTokenValid is null) == false)
                 {
-                    RotateRefreshToken();
+                    Token newRefreshToken = _jwtUtils.RotateRefreshToken(refreshToken);
+                    await _tokenRepository.Update(new Token { TokenValue = refreshToken }, newRefreshToken);
+                    var cookieExpirationDate = ((int)(DateTime.Now - _jwtUtils.GetExpirationDate(refreshToken)).TotalDays);
+                    _cookieUtilities.setCookiePrivate("refreshToken", newRefreshToken.TokenValue, cookieExpirationDate);
                 }
                 else
                 {
