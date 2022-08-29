@@ -8,7 +8,7 @@ namespace backend.Utilities
 
         public CookieUtilities(IHttpContextAccessor httpContext)
         {
-            _httpContext = (HttpContext)httpContext;
+            _httpContext = httpContext.HttpContext;
         }
 
         public void setCookiePrivate(string cookieName, string cookieValue, int expirationTimeInDays = -1)

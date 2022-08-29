@@ -1,12 +1,10 @@
-import React, { useState, useEffect, useRef } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import React, { useRef, useState } from "react";
 import "./Register.scss";
 //@ts-ignore
-import { Register as RegisterUser } from "../api/UserAPI.ts";
-import { Route, Routes, Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import pages from "../../Constants/pages.json";
-
-import { AuthResult } from "../../Models/AuthResult.ts";
+import { Register as RegisterUser } from "../api/UserAPI.ts";
 
 function Register() {
   const [start_validate, set_start_validate] = useState(false);
@@ -15,20 +13,20 @@ function Register() {
   const form_ref = useRef(0);
   const pass_ref = useRef({});
   let values = useRef({});
+  const navigate = useNavigate();
   const passwordRegex = new RegExp("(.*[A-Z]+.*[0-9]+)|(.*[0-9].*[A-Z].*)");
 
-  //check if input name field it is correct
   const nameInputField = () => {
     const my_form = form_ref.current;
-    //console.log(String(my_form["name"].value));
     if (String(my_form["name"].value).length < 3) {
       setEmail(false);
       return;
     }
 
     var email_regex = new RegExp(
-      /([a-zA-Z])[a-zA-Z0-9.-]+@[a-zA-Z0-9](.[a-zA-Z0-9]+)*[.][a-zA-Z]{2,3}/
+      /([a-zA-Z])[a-zA-Z0-9.-]+@[a-zA-Z0-9](.[a-zA-Z0-9]+)*[.][a-zA-Z]{2,3}$/
     );
+
     let is_email = email_regex.test(String(my_form["name"].value));
     if (is_email === false) {
       setEmail(false);
@@ -109,35 +107,23 @@ function Register() {
         password: values["password"],
         name: values["name"],
       };
-      // createAPIEndpoint(ENDPOINTS.Register)
-      //   .post(obj)
-      //   .then(() => {
-      //     document.getElementById("register_error_message_id").innerText="";
-      //     //window.location.replace("/mainPage");
-      //   })
-      //   .catch((error) => {
-      //     if (error.response) {
-      //       document.getElementById("register_error_message_id").innerText =
-      //         error.response.data.errors[0];
-      //     }
-      //     //console.clear();
-      //   });
       await RegisterUser(obj)
         .then(async (response) => {
           if (response.status >= 400) {
             throw await response.json();
           }
           document.getElementById("register_error_message_id").innerText = "";
-          <Navigate to={pages.mainpage} />;
+          // <Navigate to={pages.mainpage} />;
+          navigate(pages.mainpage);
         })
         .catch(async (errors) => {
-          for (const error of errors.errors ) {
+          document.getElementById("register_error_message_id").innerText = "";
+          for (const error of errors.errors) {
             document.getElementById("register_error_message_id").innerText +=
               error;
           }
         });
     }
-    // passwordInputFields();
   }
 
   return (
@@ -234,6 +220,7 @@ function Register() {
             className="register-btn btn mt-3 d-flex justify-content-center "
             type="button"
             onClick={checkInputFields}
+            disabled={!(!!email && !!password)}
           >
             Creeaza cont
           </button>

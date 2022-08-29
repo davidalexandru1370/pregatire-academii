@@ -1,7 +1,10 @@
 ﻿using backend.Model;
 using backend.Model.DTOs;
+using backend.Utilities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+
 namespace backend.Controllers
 {
     [ApiController]
@@ -9,16 +12,20 @@ namespace backend.Controllers
     public class UserController : ControllerBase
     {
         private IUserService _userService;
+        private ICookieUtilities _cookieUtilities;
+        private AppSettings _appSettings;
 
-        public UserController(IUserService userService)
+        public UserController(IUserService userService, IOptions<AppSettings> options, ICookieUtilities cookieUtilities)
         {
             _userService = userService;
+            _cookieUtilities = cookieUtilities;
+            _appSettings = options.Value;
         }
 
         [HttpPost("authentificate")]
         public async Task<ActionResult> Authentificate([FromBody] UserDto user)
         {
-            var response = _userService.Authentificate(new User()
+            var response = await _userService.Authentificate(new User()
             {
                 Email = user.email,
                 Name = user.name,
@@ -27,17 +34,17 @@ namespace backend.Controllers
 
             AuthResultDTO authResult = new AuthResultDTO()
             {
-                errors = response.Result.errors,
-                result = response.Result.result
+                errors = response.errors,
+                result = response.result
             };
 
-            if (string.IsNullOrWhiteSpace(response.Result.AccessToken))
+            if (string.IsNullOrWhiteSpace(response.AccessToken))
             {
                 return StatusCode(403, authResult);
             }
 
-            setTokenCookie("accessToken", response.Result.AccessToken);
-            setTokenCookie("refreshToken", response.Result.RefreshToken);
+            _cookieUtilities.setCookiePrivate("accessToken", response.AccessToken, _appSettings.RefreshTokenTTL);
+            _cookieUtilities.setCookiePrivate("refreshToken", response.RefreshToken, _appSettings.RefreshTokenTTL);
 
             return Ok(authResult);
         }
@@ -57,9 +64,16 @@ namespace backend.Controllers
                 return BadRequest(response);
             }
 
-            setTokenCookie("accessToken", response.AccessToken);
-            setTokenCookie("refreshToken", response.RefreshToken);
+            _cookieUtilities.setCookiePrivate("accessToken", response.AccessToken, _appSettings.RefreshTokenTTL);
+            _cookieUtilities.setCookiePrivate("refreshToken", response.RefreshToken, _appSettings.RefreshTokenTTL);
             return Ok();
+        }
+
+        [Authorize]
+        [HttpGet("authorize")]
+        public Task Authorize()
+        {
+            return Task.CompletedTask;
         }
 
         private void setTokenCookie(string tokenName, string tokenValue)

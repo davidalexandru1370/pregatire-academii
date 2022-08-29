@@ -2,9 +2,7 @@ import { User } from "../../Models/User";
 //@ts-ignore
 import { baseUrl, Endpoints } from "./Constants.ts";
 
-export const AuthorizeUser = () => {
-  return false;
-};
+export const AuthorizeUser = () => {};
 
 export const Register = async (user: User) => {
   let url = baseUrl + Endpoints.Register;

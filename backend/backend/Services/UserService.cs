@@ -107,7 +107,7 @@ namespace backend.Services
 
             if (existingUser != null)
             {
-               // badResult.errors.Add(AuthErrors.emailTaken.ToString());
+                badResult.errors.Add("Exista deja un cont inregistrat cu acest email!");
                 return badResult;
             }
 
@@ -116,7 +116,6 @@ namespace backend.Services
             try
             {
                 var IsCreated = await _userRepository.Add(user);
-                //await _dataContext.SaveChangesAsync();
 
                 if (IsCreated != null)
                 {
