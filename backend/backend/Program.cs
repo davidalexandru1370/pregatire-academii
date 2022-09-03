@@ -10,6 +10,7 @@ using backend.Services;
 using backend.Utilities.JWT;
 using backend.Utilities;
 using backend.Repository;
+using backend.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,11 +24,11 @@ builder.Services.AddSwaggerGen();
 builder.Services.Configure<ApiBehaviorOptions>(options => options.SuppressModelStateInvalidFilter = true);
 builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
 builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddScoped<IJwtUtils, JwtUtils>();
-builder.Services.AddScoped<ITokenRepository, TokenRepository>();
+builder.Services.AddSingleton<IJwtUtils, JwtUtils>();
+builder.Services.AddSingleton<ITokenRepository, TokenRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddHttpContextAccessor();
-builder.Services.AddScoped<ICookieUtilities, CookieUtilities>();
+builder.Services.AddSingleton<ICookieUtilities, CookieUtilities>();
 builder.Services.AddDbContext<EntitiesDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DevConnection")), ServiceLifetime.Singleton);
 
 //for identity
@@ -73,5 +74,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseJwtMiddleware();
 
 app.Run();

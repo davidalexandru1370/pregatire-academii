@@ -14,7 +14,7 @@ namespace backend.Middlewares
     public class JwtMiddleware
     {
         private readonly RequestDelegate _next;
-        private readonly List<string> MiddlewareFor = new List<string> { "mainpage" };
+        private readonly List<string> MiddlewareFor = new List<string> { "mainpage","authorize" };
         private readonly ITokenRepository _tokenRepository;
         private readonly IJwtUtils _jwtUtils;
         private readonly ICookieUtilities _cookieUtilities;
@@ -39,8 +39,8 @@ namespace backend.Middlewares
 
             if (path is null)
             {
-                httpContext.Response.StatusCode = (int)StatusCodes.Status400BadRequest;
-                await httpContext.Response.WriteAsync("Bad request");
+                httpContext.Response.StatusCode = (int)StatusCodes.Status403Forbidden;
+                await httpContext.Response.WriteAsync("Forbidden");
                 return;
             }
 
@@ -93,4 +93,4 @@ namespace backend.Middlewares
             return builder.UseMiddleware<JwtMiddleware>();
         }
     }
-}
+}   

@@ -1,5 +1,4 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import React from "react";
 import { Nav, Navbar, NavLink } from "react-bootstrap";
 import "react-bootstrap-icons";
 import { ChevronDown, EmojiSmileUpsideDown } from "react-bootstrap-icons";
@@ -184,7 +183,7 @@ function App() {
       <Route path="Register/" element={<Register />} />
       <Route
         path="mainpage"
-        element={<ProtectedRoute page={<MainPage />} redirectPage={"/login"} />}
+        element={<ProtectedRoute page={<MainPage />} redirectPage={<Login />} />}
       />
       <Route path="Login" element={<Login />} />
       <Route path="*" element={<NotFound />} />

@@ -70,10 +70,11 @@ namespace backend.Controllers
         }
 
         [Authorize]
-        [HttpGet("authorize")]
-        public Task Authorize()
+        [HttpGet]
+        [Route("authorize")]
+        public async Task<ActionResult> Authorize()
         {
-            return Task.CompletedTask;
+            return Ok();
         }
 
         private void setTokenCookie(string tokenName, string tokenValue)
