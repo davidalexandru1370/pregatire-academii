@@ -113,7 +113,6 @@ function Register() {
             throw await response.json();
           }
           document.getElementById("register_error_message_id").innerText = "";
-          // <Navigate to={pages.mainpage} />;
           navigate(pages.mainpage);
         })
         .catch(async (errors) => {

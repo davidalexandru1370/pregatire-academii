@@ -1,9 +1,25 @@
+$--bs-dark-rgb: rgb(36, 39, 43);
+
 * {
     margin:0px;
 }
 
 .text-decoration-none{
     text-shadow: none !important;
+}
+
+ 
+.border{
+    border-radius: 20px !important;
+    box-shadow: none;
+}
+
+.fs{
+    font-size: 1.7rem;
+}
+
+.mainPageHeroSection{
+    background-color: $--bs-dark-rgb;
 }
 
 @media  (min-width: 768px) {
@@ -17,13 +33,4 @@
         margin-right: 2%;
         margin-left:2%
     }
-}
- 
-.border{
-    border-radius: 20px !important;
-    box-shadow: none;
-}
-
-.fs{
-    font-size: 1.7rem;
 }

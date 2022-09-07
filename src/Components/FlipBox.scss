@@ -33,13 +33,12 @@
 }
 
 .flip-box-front {
-  background-color: #bbb;
-  
+  background-color: rgb(130, 130, 130);
   color: black;
 }
 
 .flip-box-back {
-  background-color: dodgerblue;
+  background-color: rgb(176, 176, 176);
   color: white;
   transform: rotateY(180deg);
 }

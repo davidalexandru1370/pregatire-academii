@@ -36,7 +36,7 @@ function MainPage() {
           </Containter>
         </Navbar>
       </div>
-      <div className="col p-3 d-flex " style={{ backgroundColor: "#e0e0e0" }}>
+      <div className="col p-3 d-flex " style={{ backgroundColor: "#2a2d2f" }}>
         <div className="card row-md bg-dark text-light p-3 border">
           <div className="card-title ms-4">
             <b>Bine ai venit, @cont</b>
@@ -66,7 +66,7 @@ function MainPage() {
           </div>
         </div>
       </div>
-      <div className="col d-flex  flex-column align-items-center p-3 mt-4">
+      <div className="col d-flex  flex-column align-items-center p-3  mainPageHeroSection">
         <p className="fs" style={{ color: "blueviolet" }}>
           Alege categoria pentru care vrei sa te pregatesti
         </p>
