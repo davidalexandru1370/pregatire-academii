@@ -2,10 +2,10 @@
 
 namespace backend.Model
 {
-    public class EntitiesDbContext : DbContext
+    public partial class EntitiesDbContext : DbContext
     {
-        public DbSet<User> Users { set; get; }
-        public DbSet<Token> TokenDetails { get; set; }
+        public virtual DbSet<User> Users { set; get; }
+        public virtual DbSet<Token> TokenDetails { get; set; }
         
         //public En.DbContextTransaction dbContextTransaction { get; set; }
 

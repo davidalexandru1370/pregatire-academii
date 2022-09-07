@@ -23,13 +23,15 @@ builder.Services.AddSwaggerGen();
 //builder.Services.AddScoped<ValidationFilterAttribute>();
 builder.Services.Configure<ApiBehaviorOptions>(options => options.SuppressModelStateInvalidFilter = true);
 builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
+builder.Services.AddDbContext<EntitiesDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DevConnection")), ServiceLifetime.Scoped);
+//builder.Services.AddScoped<DbContext, EntitiesDbContext>();
 builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddSingleton<IJwtUtils, JwtUtils>();
-builder.Services.AddSingleton<ITokenRepository, TokenRepository>();
+builder.Services.AddScoped<IJwtUtils, JwtUtils>();
+builder.Services.AddScoped<ITokenRepository, TokenRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddHttpContextAccessor();
-builder.Services.AddSingleton<ICookieUtilities, CookieUtilities>();
-builder.Services.AddDbContext<EntitiesDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DevConnection")), ServiceLifetime.Singleton);
+builder.Services.AddScoped<ICookieUtilities, CookieUtilities>();
+//builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+//builder.Services.AddHttpContextAccessor();
 
 //for identity
 

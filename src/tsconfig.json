@@ -5,6 +5,7 @@
       "jsx": "react-jsx",
       "sourceMap": true,
       "esModuleInterop": true,
-      "allowSyntheticDefaultImports": true
+      "allowSyntheticDefaultImports": true,
+      "resolveJsonModule": true
     }
 }

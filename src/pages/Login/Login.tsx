@@ -6,6 +6,8 @@ import { Axios } from "axios";
 import { Login as _Login } from "../api/UserAPI.ts";
 import { User } from "../../Models/User";
 import { AuthResult } from "../../Models/AuthResult";
+import { useNavigate } from "react-router-dom";
+import redirects from "../../Constants/pages.json";
 
 function Login() {
   const emailInputRef = useRef<HTMLInputElement | null>(null);
@@ -13,6 +15,7 @@ function Login() {
   const buttonInputRef = useRef<HTMLButtonElement | null>(null);
   const [errorMessages, setErrorMessages] = useState<string>("");
   const [loginButton, setLoginButton] = useState(true);
+  const navigate = useNavigate();
 
   const IsNullOrWhitespace = (text: string) => {
     if (text === null) {
@@ -54,8 +57,17 @@ function Login() {
       Name: "",
     };
 
-    let response: Response = await _Login(user);
-    let data: AuthResult = await response.json();
+    // let res = await fetch("https://localhost:7199/api/User/authentificate", {
+    //   method: "POST",
+    //   body: JSON.stringify(user),
+    //   headers: {
+    //     "Content-type": "application/json"
+    //   },
+    //   credentials: "include"
+    // })
+    // console.log(await res.json())
+
+    let data: AuthResult = await _Login(user);
     console.log(data);
 
     if (data.errors.length > 0) {
@@ -66,6 +78,7 @@ function Login() {
       }
       setErrorMessages(allErrors);
     } else {
+      navigate(redirects.mainpage);
       setErrorMessages("");
     }
   };

@@ -4,19 +4,20 @@ namespace backend.Utilities
 {
     public class CookieUtilities : ICookieUtilities
     {
-        private HttpContext _httpContext;
 
-        public CookieUtilities(IHttpContextAccessor httpContext)
+        public CookieUtilities()
         {
-            _httpContext = httpContext.HttpContext;
+        
         }
 
-        public void setCookiePrivate(string cookieName, string cookieValue, int expirationTimeInDays = -1)
+        public void setCookiePrivate(string cookieName, string cookieValue, HttpContext httpContext, int expirationTimeInDays = -1)
         {
+            
             if (expirationTimeInDays == -1)
             {
                 expirationTimeInDays = 9999;
             }
+
             var cookieOptions = new CookieOptions
             {
                 HttpOnly = true,
@@ -25,8 +26,8 @@ namespace backend.Utilities
                 IsEssential = true,
                 Expires = DateTime.Now.AddDays(expirationTimeInDays),
             };
-            _httpContext.Response.Cookies.Append(cookieName, cookieValue, cookieOptions);
-        }
 
+            httpContext.Response.Cookies.Append(cookieName, cookieValue, cookieOptions);
+        }
     }
 }

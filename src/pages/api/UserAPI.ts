@@ -9,7 +9,7 @@ enum Methods {
   GET = "GET",
 }
 
-const createHeader = (method: Methods) => {
+const createHeader = (method: Methods, entity?: any) => {
   let headerOptions: RequestInit = {
     method: `${method}`,
     mode: "cors",
@@ -18,18 +18,20 @@ const createHeader = (method: Methods) => {
       "Content-type": "application/json",
       "Access-Control-Allow-Origin": "*",
     },
+    body: JSON.stringify(entity),
+    credentials: "include",
   };
   return headerOptions;
 };
 
 export const AuthorizeUser = async () => {
   let url = baseUrl + Endpoints.Authorize;
-  let header = createHeader(Methods.GET);
+  let header = createHeader(Methods.POST);
   let response: Response = await fetch(url, header);
   if (response.status >= 400) {
     return false;
   }
-  return false;
+  return true;
 };
 
 export const Register = async (user: User) => {
@@ -49,14 +51,7 @@ export const Register = async (user: User) => {
 
 export const Login = async (user: User) => {
   let url = baseUrl + Endpoints.Login;
-  let header: RequestInit = {
-    body: JSON.stringify(user),
-    method: "POST",
-    credentials: "include",
-    // headers: {
-    //   "Content-type": "application/json",
-    // },
-    mode: "cors",
-  };
-  return await fetch(url, header);
+  console.log(url);
+
+  return await (await fetch(url, createHeader(Methods.POST, user))).json();
 };

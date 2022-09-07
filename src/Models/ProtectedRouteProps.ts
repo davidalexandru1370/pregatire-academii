@@ -1,6 +1,6 @@
 import { To } from "react-router-dom";
 
 export interface ProtectedRouteProps {
-  page: To;
-  redirectPage?: To;
+  page: string;
+  redirectPage?: string;
 }

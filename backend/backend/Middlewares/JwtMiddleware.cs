@@ -14,23 +14,19 @@ namespace backend.Middlewares
     public class JwtMiddleware
     {
         private readonly RequestDelegate _next;
-        private readonly List<string> MiddlewareFor = new List<string> { "mainpage","authorize" };
-        private readonly ITokenRepository _tokenRepository;
-        private readonly IJwtUtils _jwtUtils;
-        private readonly ICookieUtilities _cookieUtilities;
-        private readonly AppSettings _appSettings;
+        private readonly List<string> MiddlewareFor = new List<string> { "mainpage", "authorize" };
 
-        public JwtMiddleware(RequestDelegate next, ITokenRepository tokenRepository, IJwtUtils jwtUtils, ICookieUtilities cookieUtilities, IOptions<AppSettings> options)
+        public JwtMiddleware(RequestDelegate next)
         {
             _next = next;
-            _tokenRepository = tokenRepository;
-            _jwtUtils = jwtUtils;
-            _cookieUtilities = cookieUtilities;
-            _appSettings = options.Value;
         }
 
-        public async Task Invoke(HttpContext httpContext)
+        public async Task Invoke(HttpContext httpContext, ITokenRepository tokenRepository, IJwtUtils jwtUtils, ICookieUtilities cookieUtilities, IOptions<AppSettings> options)
         {
+            ITokenRepository _tokenRepository = tokenRepository;
+            IJwtUtils _jwtUtils = jwtUtils;
+            ICookieUtilities _cookieUtilities = cookieUtilities;
+            AppSettings _appSettings = options.Value;
             char delimitator = '/';
             var path = httpContext.Request.Path.Value?.Split(delimitator).Where(s => String.IsNullOrWhiteSpace(s) == false).ToList();
             var saveResponseContentType = httpContext.Response.ContentType;
@@ -44,7 +40,7 @@ namespace backend.Middlewares
                 return;
             }
 
-            if (MiddlewareFor.Contains(path[0]))
+            if (path.Count > 0 && MiddlewareFor.Contains(path[path.Count - 1]))
             {
                 var accessToken = httpContext.Request.Cookies["accessToken"];
                 var refreshToken = httpContext.Request.Cookies["refreshToken"];
@@ -55,7 +51,7 @@ namespace backend.Middlewares
                     await httpContext.Response.WriteAsync("Forbidden");
                     return;
                 }
-
+                 
                 Guid? userId = _jwtUtils.ValidateJwtToken(accessToken);
 
                 Guid? isRefreshTokenValid = _jwtUtils.ValidateJwtToken(refreshToken);
@@ -66,19 +62,21 @@ namespace backend.Middlewares
                     await httpContext.Response.WriteAsync("Forbidden");
                     return;
                 }
-                else
+                
+                if (userId is null)
                 {
-                    Token newRefreshToken = _jwtUtils.RotateRefreshToken(refreshToken);
-                    await _tokenRepository.Update(new Token { TokenValue = refreshToken }, newRefreshToken);
-                    var cookieExpirationDate = ((int)(DateTime.Now - _jwtUtils.GetExpirationDate(refreshToken)).TotalDays);
-                    _cookieUtilities.setCookiePrivate("refreshToken", newRefreshToken.TokenValue, cookieExpirationDate);
-                    if (userId is null)
-                    {
-                        Token newAccessToken = _jwtUtils.GenerateJwtToken(new User { Id = Guid.Parse(_jwtUtils.GetFieldFromToken(accessToken, "Id")) }, _appSettings.AccessTokenTTL);
-                        _cookieUtilities.setCookiePrivate("accessToken", newAccessToken.TokenValue, cookieExpirationDate);
-                    }
-                    await _tokenRepository.Update(new Token() { TokenValue = refreshToken }, newRefreshToken);
+                    Token newAccessToken = _jwtUtils.GenerateJwtToken(new User { Id = Guid.Parse(_jwtUtils.GetFieldFromToken(accessToken, "Id")) }, _appSettings.AccessTokenTTL);
+                    _cookieUtilities.setCookiePrivate("accessToken", newAccessToken.TokenValue, httpContext, options.Value.AccessTokenTTL);
                 }
+                /* else
+                 {
+                     Token newRefreshToken = _jwtUtils.RotateRefreshToken(refreshToken);
+                     await _tokenRepository.Update(new Token { TokenValue = refreshToken }, newRefreshToken);
+                     var cookieExpirationDate = ((int)(DateTime.Now - _jwtUtils.GetExpirationDate(refreshToken)).TotalDays);
+                     _cookieUtilities.setCookiePrivate("refreshToken", newRefreshToken.TokenValue, httpContext, cookieExpirationDate);
+
+                     await _tokenRepository.Update(new Token() { TokenValue = refreshToken }, newRefreshToken);
+                 }*/
             }
             httpContext.Response.ContentType = saveResponseContentType;
             await _next(httpContext);
@@ -93,4 +91,4 @@ namespace backend.Middlewares
             return builder.UseMiddleware<JwtMiddleware>();
         }
     }
-}   
+}
