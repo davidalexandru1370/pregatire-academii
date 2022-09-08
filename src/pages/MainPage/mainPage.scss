@@ -22,6 +22,10 @@ $--bs-dark-rgb: rgb(36, 39, 43);
     background-color: $--bs-dark-rgb;
 }
 
+.mainPageContent{
+    width: 100%;
+}
+
 @media  (min-width: 768px) {
     .row-md{
         margin-left: 5%;
@@ -34,3 +38,4 @@ $--bs-dark-rgb: rgb(36, 39, 43);
         margin-left:2%
     }
 }
+

@@ -4,6 +4,7 @@ import Containter from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { Card, NavDropdown } from "react-bootstrap";
+import MobileNavBar from "../../Components/MobileNavigationBar/MobileNavBar.tsx";
 import "./mainPage.scss";
 import ProfileCard from "../../Components/ProfileCard";
 import {
@@ -17,8 +18,9 @@ import FlipBox from "../../Components/FlipBox";
 
 function MainPage() {
   let currentYear = new Date();
+
   return (
-    <div>
+    <div className="mainPageContent">
       <div className="d-none d-md-block d-lg-block d-xl-block d-xxl-block">
         <Navbar bg="dark" variant="dark">
           <Containter>
@@ -112,16 +114,13 @@ function MainPage() {
         </div>
       </div>
 
-      {/*mobile navbar */}
-      <div className="d-sm-none">
-        <p>telefon</p>
-      </div>
       <div className="bg-dark d-flex justify-content-center">
         <p className="text-white mt-2">
           {" "}
           © Copyright {currentYear.getFullYear()}. All rights reserved.
         </p>
       </div>
+      <MobileNavBar />
     </div>
   );
 }

@@ -8,11 +8,11 @@ function FlipBox(props) {
   const rearText = props.rearText;
   let frontListTexts = [];
   let rearListTexts = [];
-  if (frontText != null) {
+  if (frontText !== null) {
     frontListTexts = frontText.map((txt) => <p key={txt}>{txt}</p>);
   }
 
-  if (rearText != null) {
+  if (rearText !== null) {
     rearListTexts = rearText.map((txt) => <p key={txt}>{txt}</p>);
   }
 
