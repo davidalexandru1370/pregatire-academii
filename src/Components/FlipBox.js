@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useId } from "react";
 import "./FlipBox.scss";
 function FlipBox(props) {
   //   if (texts != null) {
@@ -6,14 +6,23 @@ function FlipBox(props) {
   //   }
   const frontText = props.frontText;
   const rearText = props.rearText;
+
+  const frontTextId = useId();
+  const rearTextId = useId();
+
   let frontListTexts = [];
   let rearListTexts = [];
+
   if (frontText !== null) {
-    frontListTexts = frontText.map((txt) => <p key={txt}>{txt}</p>);
+    frontListTexts = frontText.map((txt, index) => (
+      <p key={frontTextId.toString() + `${index}`}>{txt}</p>
+    ));
   }
 
   if (rearText !== null) {
-    rearListTexts = rearText.map((txt) => <p key={txt}>{txt}</p>);
+    rearListTexts = rearText.map((txt, index) => (
+      <p key={rearTextId + `${index}`}>{txt}</p>
+    ));
   }
 
   return (
