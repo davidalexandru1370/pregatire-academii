@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 //@ts-ignore
 import useCurrentPath from "../../Hooks/useCurrentPath.ts";
 import "./mobileNavBarStyle.scss";
@@ -15,9 +15,15 @@ const MobileNavBar = () => {
     const previousLIElement = useRef<HTMLLIElement | null>(null);
     const [distance, setDistance] = useState<number>(0);
     const location = useCurrentPath();
+    const [navBarWidth, setNavBarWidth] = useState<number>(100);
+    const initializedNavBar = useRef<boolean>(false);
 
     const computeDistance = (width: number, elementIndex: number): number => {
         return Math.trunc(width / navigationBarItems.current.length * elementIndex);
+    }
+
+    const computeNavItemsIndex = (index: number): number => {
+        return (-Math.trunc(navigationBarItems.current.length / 2) + index)
     }
 
     const toggleClassAtItemClick = (element: HTMLLIElement, index: number) => {
@@ -27,10 +33,9 @@ const MobileNavBar = () => {
 
         if (previousLIElement.current !== null && previousLIElement.current.classList.contains(clickItemClass) === true) {
             previousLIElement.current.classList.toggle(clickItemClass);
-            const navBarWidth: number = 100;
             // setDistance(Math.trunc(navBarWidth / navigationBarItems.current.length * parseInt(element.accessKey)));
-            setDistance(computeDistance(navBarWidth, parseInt(element.accessKey)));
         }
+        setDistance(computeDistance(navBarWidth, parseInt(element.accessKey)));
 
         element.classList.toggle(clickItemClass);
         previousLIElement.current = element;
@@ -41,15 +46,20 @@ const MobileNavBar = () => {
         transform: `translateX(${distance}vw)`,
     };
 
-    const initializeNavBar = () => {
-        for (let item of navigationBarItems.current) {
-            if (location === item.path) {
 
+    const initializeNavBar = useCallback(
+        (index: number): string => {
+            if (initializedNavBar.current === true) {
+                return clickItemClass;
             }
-        }
-    }
-
-    initializeNavBar();
+            if (distance !== computeDistance(navBarWidth, index)) {
+                setDistance(computeDistance(navBarWidth, index));
+            }
+            initializedNavBar.current = true;
+            return clickItemClass;
+        },
+        [initializedNavBar],
+    )
 
     return (
         <div className="mobileNavigationBar">
@@ -57,10 +67,10 @@ const MobileNavBar = () => {
                 <div className="navBarItemCircle" style={navBarItemCircle} ></div>
                 {(() => {
                     return navigationBarItems.current.map((element, index) => {
-                        return <div className="">
-                            <li key={index} accessKey={(-Math.trunc(navigationBarItems.current.length / 2) + index).toString()} onClick={(htmlElem) => {
+                        return <div id="navbar">
+                            <li key={index} accessKey={computeNavItemsIndex(index).toString()} onClick={(htmlElem) => {
                                 toggleClassAtItemClick(htmlElem.currentTarget, index);
-                            }} className="material-symbols-outlined navBarIcon navBarItem">{element.icon}
+                            }} ref={element.path.localeCompare(location) === 0 ? previousLIElement : null} className={`material-symbols-outlined navBarIcon navBarItem ${element.path.localeCompare(location) === 0 ? initializeNavBar(computeNavItemsIndex(index)) : ""}`}>{element.icon}
                                 <span className="navBarItemDesc">{element.name}</span>
                             </li>
                         </div>
