@@ -23,23 +23,49 @@
         justify-content: space-around;
     }
     
-    .navBarItem{
+    .navBarIcon{
+        transition: transform 0.3s;
         z-index: 15;
         font-size: 35px;
         color: rgb(218, 216, 216);
     }
     
     .navBarItemClicked{
-        z-index: 5;
-        transform: translateY(-1rem);
+        transition: transform 0.3s;
+        transform: translateY(-1.1rem);
+    }
+
+    .navBarItem{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .navBarItemDesc{
+        width: 10vw;
+        transition: opacity;
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        margin-top: 10px;
+        top: 100%;
+        opacity: 0;;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        color: white;
+        font-size: 15px;
     }
 
     .navBarItemCircle{
         position: absolute;
-        border: 25px solid rgb(90, 148, 90);
-        top: -25px;
+        border: 25px solid rgb(125, 178, 125);
+        top: -24px;
+        margin-left: -2px;
         z-index: -1;
         border-radius: 25px;
+    }
+
+    .navBarItemClicked .navBarItemDesc{
+        opacity: 1;
+        transition: opacity 0.3s;
     }
 
 }
