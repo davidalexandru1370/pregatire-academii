@@ -60,7 +60,7 @@ const MobileNavBar = () => {
         },
         [initializedNavBar],
     )
-
+    //removing hiding combining
     return (
         <div className="mobileNavigationBar">
             <ul className="listNoDecoration navBar">

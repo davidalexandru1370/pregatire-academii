@@ -25,9 +25,6 @@ export const ProtectedRoute = ({ page, redirectPage }: ProtectedRouteProps) => {
 
   if (isAuthorized !== undefined) {
     if (isAuthorized === false) {
-      console.log("fetched=" + fetched.current);
-      console.log(isAuthorized);
-
       return <Navigate to={redirectPage} replace />
     }
     return page;

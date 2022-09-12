@@ -1,19 +1,22 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Nav, Navbar, NavLink } from "react-bootstrap";
+import { Nav, Navbar } from "react-bootstrap";
 import "react-bootstrap-icons";
 import { ChevronDown, EmojiSmileUpsideDown } from "react-bootstrap-icons";
+import { NavLink as NLink, Route, Routes, useNavigate } from "react-router-dom";
 import "./App.css";
 import TextCard from "./Components/TextCard";
 import AcademyEntity from "./ObjectsTemplates/AcademyEntity.js";
-import Register from "./pages/Register/Register";
-import { Route, Routes, NavLink as NLink, useNavigate } from "react-router-dom";
 import MainPage from "./pages/MainPage/mainPage";
 import NotFound from "./pages/NotFound/NotFound";
+import Register from "./pages/Register/Register";
 // @ts-ignore
 import Login from "./pages/Login/Login.tsx";
 // @ts-ignore
 import { ProtectedRoute } from "./pages/Authorization/ProtectedRoute.tsx";
-import { ProtectedRoutes } from "./pages/Authorization/ProtectedRoutes";
+//@ts-ignore
+import BaseRouter from "./BaseRouter/BaseRouter.tsx";
+//@ts-ignore
+import { Teste } from "./pages/Teste/Teste.tsx";
 
 function App() {
   //var  font_color_style = {"--color": "#f0f0f0"} as React.CSSProperties;
@@ -180,12 +183,17 @@ function App() {
           </>
         }
       />
-      <Route path="Register/" element={<Register />} />
-      <Route path="Login" element={<Login />} />
-      <Route
-        path="mainpage"
-        element={<ProtectedRoute page={<MainPage />} redirectPage={"/login"} />}
-      />
+
+      <Route path="register" element={<Register />} />
+      <Route path="login" element={<Login />} />
+      <Route element={<BaseRouter />}>
+        <Route
+          path="mainpage"
+          element={<ProtectedRoute page={<MainPage />} redirectPage={"/login"} />} />
+        <Route
+          path="teste"
+          element={<ProtectedRoute page={<Teste />} redirectPage={"/login"} />} />
+      </Route>
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

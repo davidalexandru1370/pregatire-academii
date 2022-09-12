@@ -1,29 +1,26 @@
 import React from "react";
-import { Route, Routes, NavLink as Nlink, useNavigate } from "react-router-dom";
-import Containter from "react-bootstrap/Container";
+import { Button, Container, NavDropdown } from "react-bootstrap";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import { Card, NavDropdown } from "react-bootstrap";
+import FlipBox from "../../Components/FlipBox";
 import MobileNavBar from "../../Components/MobileNavigationBar/MobileNavBar.tsx";
-import "./mainPage.scss";
 import ProfileCard from "../../Components/ProfileCard";
 import {
+  connectionJandarmLogo,
   connectionPolitistLogo,
   connectionPompierLogo,
   connectionTestLogo,
-  connectionJandarmLogo,
 } from "../../Utilities/index";
-import { Button } from "react-bootstrap";
-import FlipBox from "../../Components/FlipBox";
+import "./mainPage.scss";
 
 function MainPage() {
   let currentYear = new Date();
 
   return (
     <div className="mainPageContent">
-      <div className="d-none d-md-block d-lg-block d-xl-block d-xxl-block">
+      <div className="d-none d-sm-block">
         <Navbar bg="dark" variant="dark">
-          <Containter>
+          <Container>
             <Nav className="me-5 container-fluid">
               <Nav.Link className="me-4">Modul de pregatire</Nav.Link>
               <NavDropdown title="Teste" className="text-decoration-none">
@@ -35,7 +32,7 @@ function MainPage() {
                 <ProfileCard />
               </Nav.Item>
             </Nav>
-          </Containter>
+          </Container>
         </Navbar>
       </div>
       <div className="col p-3 d-flex " style={{ backgroundColor: "#2a2d2f" }}>
@@ -46,12 +43,8 @@ function MainPage() {
           <div className="card-body ms-2 me-2">
             <p>Din data crearii contului si pana acum ai obtinut:</p>
             <p className="mt-2">
+              <span class="material-symbols-outlined">quiz</span>{" "}
               <span>
-                <img
-                  src={`${connectionTestLogo}`}
-                  width="24px"
-                  className=""
-                ></img>
                 <span>x teste completate</span>
               </span>
             </p>
@@ -113,7 +106,6 @@ function MainPage() {
           />
         </div>
       </div>
-
       <div className="bg-dark d-flex justify-content-center">
         <p className="text-white mt-2">
           {" "}

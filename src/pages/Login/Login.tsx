@@ -44,28 +44,16 @@ function Login() {
   const loginButtonState = () => {
     let buttonState = checkInputFields();
     setLoginButton(!buttonState);
-    //buttonInputRef.current!.disabled = !buttonState;
   };
 
   const loginButtonClick = async () => {
-    // console.log(emailInputRef.current?.value);
-    // console.log(passwordInputRef.current?.value);
+
 
     let user: User = {
       Email: emailInputRef.current?.value || "",
       Password: passwordInputRef.current?.value || "",
       Name: "",
     };
-
-    // let res = await fetch("https://localhost:7199/api/User/authentificate", {
-    //   method: "POST",
-    //   body: JSON.stringify(user),
-    //   headers: {
-    //     "Content-type": "application/json"
-    //   },
-    //   credentials: "include"
-    // })
-    // console.log(await res.json())
 
     let data: AuthResult = await _Login(user);
     console.log(data);
