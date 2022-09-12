@@ -1,4 +1,6 @@
-const NavigationBar = () => {
+import React, { FC } from "react";
+
+const NavigationBar: FC = () => {
     return (
         <div>NavigationBar</div>
     )
