@@ -95,7 +95,6 @@ function MainPage() {
           © Copyright {currentYear.getFullYear()}. All rights reserved.
         </p>
       </div>
-      <MobileNavBar />
     </div>
   );
 }
