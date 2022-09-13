@@ -21,7 +21,7 @@ function MainPage() {
       <div className="col p-3 d-flex " style={{ backgroundColor: "#2a2d2f" }}>
         <div className="card row-md bg-dark text-light p-3 border">
           <div className="card-title ms-4">
-            <b>Bine ai venit, @cont</b>
+            <b>Bine ai venit, {sessionStorage.getItem("name")}</b>
           </div>
           <div className="card-body ms-2 me-2">
             <p>Din data crearii contului si pana acum ai obtinut:</p>

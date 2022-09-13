@@ -65,8 +65,8 @@ namespace backend.Middlewares
                 
                 if (userId is null)
                 {
-                    Token newAccessToken = _jwtUtils.GenerateJwtToken(new User { Id = Guid.Parse(_jwtUtils.GetFieldFromToken(accessToken, "Id")) }, _appSettings.AccessTokenTTL);
-                    _cookieUtilities.setCookiePrivate("accessToken", newAccessToken.TokenValue, httpContext, options.Value.AccessTokenTTL);
+                    string newAccessToken = _jwtUtils.GenerateJwtToken(new User { Id = Guid.Parse(_jwtUtils.GetFieldFromToken(accessToken, "Id")) }, _appSettings.AccessTokenTTL);
+                    _cookieUtilities.setCookiePrivate("accessToken", newAccessToken, httpContext, options.Value.AccessTokenTTL);
                 }
                 /* else
                  {

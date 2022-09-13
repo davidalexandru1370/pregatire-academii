@@ -11,6 +11,9 @@ public interface IUserService
     public Task<AuthResult> Authentificate(User user);
     void RevokeToken(string token);
     public Task<AuthResult> Register(User user);
+    public Task<User?> GetByAccessToken(string accessToken);
+
+    public Task<User> GetById(Guid userId);
 }
 
 
@@ -59,14 +62,12 @@ namespace backend.Services
             int AccessTokenExpireTimeInMinutes = _appSettings.AccessTokenTTL;
             int RefreshTokenExpireTimeInMinutes = _appSettings.RefreshTokenTTL;
 
-            var jwtToken = _jwtUtils.GenerateJwtToken(user, AccessTokenExpireTimeInMinutes);
-            var refreshToken = _jwtUtils.GenerateJwtToken(user, RefreshTokenExpireTimeInMinutes);
-
-            refreshToken.UserId = _user.Id;
+            var jwtToken = _jwtUtils.GenerateJwtToken(_user, AccessTokenExpireTimeInMinutes);
+            var refreshToken = _jwtUtils.GenerateJwtToken(_user, RefreshTokenExpireTimeInMinutes);
 
             try
             {
-                await _tokenRepository.Add(refreshToken);
+                //await _tokenRepository.Add();
             }
             catch (Exception)
             {
@@ -77,8 +78,8 @@ namespace backend.Services
             return new AuthResult()
             {
                 result = true,
-                AccessToken = jwtToken.TokenValue,
-                RefreshToken = refreshToken.TokenValue,
+                AccessToken = jwtToken,
+                RefreshToken = refreshToken,
                 errors = new List<string>(),
             };
 
@@ -121,13 +122,13 @@ namespace backend.Services
                 {
                     var jwtToken = _jwtUtils.GenerateJwtToken(user, _appSettings.AccessTokenTTL);
                     var refreshToken = _jwtUtils.GenerateJwtToken(user, _appSettings.RefreshTokenTTL);
-                    refreshToken.UserId = user.Id;
-                    _tokenRepository.Add(refreshToken);
+                    //refreshToken.UserId = user.Id;
+                    //_tokenRepository.Add(refreshToken);
 
                     return new AuthResult()
                     {
-                        AccessToken = jwtToken.TokenValue,
-                        RefreshToken = refreshToken.TokenValue,
+                        AccessToken = jwtToken,
+                        RefreshToken = refreshToken,
                         result = true,
                         errors = new List<string>()
                     };
@@ -146,5 +147,35 @@ namespace backend.Services
             throw new NotImplementedException();
         }
 
+        public async Task<User?> GetById(Guid userId)
+        {
+            try
+            {
+                return await _userRepository.GetById(userId);
+            }
+            catch (RepositoryException repositoryException)
+            {
+                throw repositoryException;
+            }
+        }
+
+        public async Task<User?> GetByAccessToken(string accessToken)
+        {
+            var userId = _jwtUtils.ValidateJwtToken(accessToken);
+            if (userId is not null)
+            {
+                try
+                {
+                    return await GetById(userId.Value);
+                }
+                catch (RepositoryException repositoryException)
+                {
+                    throw repositoryException;
+                }
+            }
+
+            return null;
+            
+        }
     }
 }

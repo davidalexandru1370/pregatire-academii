@@ -54,9 +54,10 @@ namespace backend.Repository
 
         }
 
-        public async Task<User> GetById(User entity)
+        public async Task<User> GetById(Guid id)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == entity.Id);
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
+            
             if (user == null)
             {
                 throw new RepositoryException("User not found");

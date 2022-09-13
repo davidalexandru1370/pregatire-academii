@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useReducer, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 //@ts-ignore
 import useCurrentPath from "../../Hooks/useCurrentPath.ts";
 import "./mobileNavBarStyle.scss";
@@ -10,6 +11,7 @@ interface INavigationItem {
 }
 
 const MobileNavBar = () => {
+    const navigate = useNavigate();
     const clickItemClass: string = "navBarItemClicked";
     const navigationBarItems = useRef<INavigationItem[]>([{ icon: "home", name: "Acasa", path: "/mainpage" }, { icon: "article", name: "Teste", path: "/teste" }, { icon: "person", name: "Cont", path: "/contul_meu" }]);
     const previousLIElement = useRef<HTMLLIElement | null>(null);
@@ -50,8 +52,6 @@ const MobileNavBar = () => {
             return clickItemClass;
         }
 
-        console.log(index);
-
         if (distance !== computeDistance(navBarWidth, index)) {
             setDistance(computeDistance(navBarWidth, index));
         }
@@ -69,7 +69,14 @@ const MobileNavBar = () => {
                         return <div id="navbar">
                             <li key={index} accessKey={computeNavItemsIndex(index).toString()} onClick={(htmlElem) => {
                                 toggleClassAtItemClick(htmlElem.currentTarget, index);
-                            }} ref={element.path.localeCompare(location) === 0 ? previousLIElement : null} className={`material-symbols-outlined navBarIcon navBarItem ${element.path.localeCompare(location) === 0 ? initializeNavBar(computeNavItemsIndex(index)) : ""}`}>{element.icon}
+                            }}
+                                ref={element.path.localeCompare(location) === 0 ? previousLIElement : null}
+                                className={`material-symbols-outlined navBarIcon navBarItem ${element.path.localeCompare(location) === 0 ? initializeNavBar(computeNavItemsIndex(index)) : ""}`}
+                                onClickCapture={() => {
+                                    navigate(element.path, { replace: true })
+                                }}
+                            >
+                                {element.icon}
                                 <span className="navBarItemDesc">{element.name}</span>
                             </li>
                         </div>

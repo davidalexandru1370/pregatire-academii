@@ -1,5 +1,6 @@
 ﻿using backend.Model;
 using backend.Model.DTOs;
+using backend.Repository;
 using backend.Utilities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -21,7 +22,7 @@ namespace backend.Controllers
             _userService = userService;
             _cookieUtilities = cookieUtilities;
             _appSettings = options.Value;
-        
+
         }
 
         [HttpPost("authentificate")]
@@ -53,9 +54,6 @@ namespace backend.Controllers
             _cookieUtilities.setCookiePrivate("accessToken", response.AccessToken, HttpContext, _appSettings.RefreshTokenTTL);
             _cookieUtilities.setCookiePrivate("refreshToken", response.RefreshToken, HttpContext, _appSettings.RefreshTokenTTL);
 
-            //setTokenCookie("accessToken", response.AccessToken);
-            //setTokenCookie("refreshToken", response.RefreshToken);
-
             return Ok(authResult);
         }
 
@@ -83,7 +81,20 @@ namespace backend.Controllers
         [Route("authorize")]
         public async Task<ActionResult> Authorize()
         {
-            return Ok();
+            var accessToken = HttpContext.Request.Cookies["accessToken"];
+            if (accessToken is not null)
+            {
+                try
+                {
+                    var user = _userService.GetByAccessToken(accessToken).Result;
+                    return Ok(new UserDto() { email = user.Email, name = user.Name });
+                }
+                catch (RepositoryException repositoryException)
+                {
+
+                }
+            }
+            return BadRequest();
         }
 
         private void setTokenCookie(string tokenName, string tokenValue)

@@ -17,7 +17,7 @@ namespace backend.Utilities.JWT
             _appSettings = appSettings.Value;
         }
 
-        public Token GenerateJwtToken(User user, int expiredTimeInMinutes)
+        public string GenerateJwtToken(User user, int expiredTimeInMinutes)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
@@ -30,11 +30,7 @@ namespace backend.Utilities.JWT
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
-            return new Token()
-            {
-                CreatedAt = DateTime.Now,
-                TokenValue = tokenHandler.WriteToken(token),
-            };
+            return tokenHandler.WriteToken(token);
         }
 
         public Guid? ValidateJwtToken(string token)
@@ -82,7 +78,7 @@ namespace backend.Utilities.JWT
             return tokens.Claims.First(x => x.Type == field).Value;
         }
 
-        public Token RotateRefreshToken(string oldToken)
+        public string RotateRefreshToken(string oldToken)
         {
             DateTime expirationTime = GetExpirationDate(oldToken);
             int differenceInMinutes = ((int)(expirationTime - DateTime.Now).TotalMinutes);
@@ -91,7 +87,7 @@ namespace backend.Utilities.JWT
             {
                 Id = userId
             };
-            Token newRefreshToken = GenerateJwtToken(tempUser, differenceInMinutes);
+            string newRefreshToken = GenerateJwtToken(tempUser, differenceInMinutes);
             return newRefreshToken;
         }
 

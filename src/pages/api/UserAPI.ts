@@ -31,6 +31,9 @@ export const AuthorizeUser = async () => {
   if (response.status >= 400) {
     return false;
   }
+  let data = await response.json();
+  sessionStorage.setItem("email", data.email);
+  sessionStorage.setItem("name", data.name);
   return true;
 };
 
