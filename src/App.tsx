@@ -4,8 +4,12 @@ import "react-bootstrap-icons";
 import { ChevronDown, EmojiSmileUpsideDown } from "react-bootstrap-icons";
 import { NavLink as NLink, Route, Routes, useNavigate } from "react-router-dom";
 import "./App.css";
+import {
+  connectionJandarmLogo,
+  connectionPolitistLogo,
+  connectionPompierLogo,
+} from "./Utilities/index.js";
 import TextCard from "./Components/TextCard";
-import AcademyEntity from "./ObjectsTemplates/AcademyEntity.js";
 import MainPage from "./pages/MainPage/mainPage";
 import NotFound from "./pages/NotFound/NotFound";
 import Register from "./pages/Register/Register";
@@ -19,14 +23,6 @@ import BaseRouter from "./BaseRouter/BaseRouter.tsx";
 import { Teste } from "./pages/Teste/Teste.tsx";
 
 function App() {
-  //var  font_color_style = {"--color": "#f0f0f0"} as React.CSSProperties;
-  const police = new AcademyEntity("politie", "#f0f0f0");
-  const firefighters = new AcademyEntity("pompieri", "#f0f0f0");
-  const special_forces = new AcademyEntity("jandarmerie", "#f0f0f0");
-  var academies = [police, firefighters, special_forces];
-  let connection_politie = "http://172.27.0.1:8080/militist.png";
-  let connection_pompier = "http://172.27.0.1:8080/pomper.png";
-  let connection_jandarmerie = "http://172.27.0.1:8080/jendar.png";
   let navigation = useNavigate();
 
   const onRegisterClick = () => {
@@ -77,32 +73,27 @@ function App() {
                   </h2>
                 </div>
                 <div className="row">
-                  <div className="row-lg col d-flex justify-content-center">
+                  <div className="avatars">
                     <div
-                      className="col-sm d-flex flex-column "
-                      style={{ marginLeft: "-5px" }}
-                    >
+                      className="avatar">
                       <img
-                        src={`${connection_pompier}`}
+                        src={`${connectionPompierLogo}`}
                         alt="pompier"
-                        className="avatar border-end"
                       />
                       <h2 className="hero-item">Pompieri</h2>
                     </div>
-
-                    <div className="col-sm d-flex flex-column ">
+                    <div className="avatar">
                       <img
-                        src={`${connection_politie}`}
+                        src={`${connectionPolitistLogo}`}
                         alt="politie"
-                        className="avatar border-end "
                       />
                       <h2 className="hero-item">Politie</h2>
                     </div>
-                    <div className="col-sm d-flex flex-column element">
+                    <div className="avatar">
                       <img
-                        src={`${connection_jandarmerie}`}
+                        src={`${connectionJandarmLogo}`}
                         alt="jandarmerie"
-                        className=" avatar"
+                        className=" "
                       />
                       <h2 className="hero-item">Jandarmerie</h2>
                     </div>
@@ -122,68 +113,49 @@ function App() {
               <div className="container">
                 <div className="row">
                   <div className="col-lg-12 mt-4">
-                    <div className="text-center">
+                    <div className="text-center ">
                       <h3 className="text-white text-uppercase ">
                         ce iti putem oferi?
                       </h3>
                     </div>
                   </div>
-                  <div className="col-lg-12 mt-5 pb-5">
+                  <div className="mt-5 pb-5 cardsMainPage">
                     <div className="card-deck">
-                      <TextCard text="Subiecte romana" />
-                      <TextCard text="Subiecte matematica" />
+                      <TextCard text="Subiecte romana" className="cardStyle" />
+                      <TextCard text="Subiecte matematica" className="cardStyle" />
                     </div>
                     <div className="card-deck mt-5">
-                      <TextCard text="Subiecte istorie" />
-                      <TextCard text="Rezolvari la probleme" />
+                      <TextCard text="Subiecte istorie" className="cardStyle" />
+                      <TextCard text="Rezolvari la probleme" className="cardStyle" />
                     </div>
                     <div className="card-deck mt-5">
-                      <TextCard text="Explicatii ale raspunsurilor" />
-                      <TextCard text="Support live" />
+                      <TextCard text="Explicatii ale raspunsurilor" className="cardStyle" />
+                      <TextCard text="Support live" className="cardStyle" />
                     </div>
                   </div>
                 </div>
               </div>
             </section>
-            <section className="bg-dark pb-2">
-              <div className="container">
-                <div className="row">
-                  <div className="col-lg-12 d-flex flex-row justify-content-between">
-                    <div className="d-flex flex-column align-items-left">
-                      <h3
-                        className="text-white fs-1"
-                        style={{ paddingTop: "5rem" }}
-                      >
-                        Incepe prin a-ti crea <br />
-                        propriul cont. <br />
-                      </h3>
-                      <h3 className="text-white fs-1 mt-4">
-                        Este complet gratis
-                        <EmojiSmileUpsideDown
-                          size={24}
-                          style={{ color: "#FFCB4C" }}
-                          className=" ms-2"
-                        />
-                      </h3>
-                    </div>
-                    <div className="d-grip my-auto">
-                      <button
-                        type="button"
-                        className="btn btn-primary btn-lg col-12 mt-5"
-                        style={{ borderRadius: "50px" }}
-                        onClick={() => onRegisterClick()}
-                      >
-                        Creeaza cont
-                      </button>
-                    </div>
-                  </div>
-                </div>
+            <div className="footerApp">
+              <span
+                className="text-white"
+              >
+                Incepe prin a-ti crea
+                propriul cont.
+              </span>
+              <div className="my-auto">
+                <button
+                  type="button"
+                  className="btn btn-primary btn-lg createAccountButton"
+                  onClick={() => onRegisterClick()}
+                >
+                  Creeaza cont
+                </button>
               </div>
-            </section>
+            </div>
           </>
         }
       />
-
       <Route path="register" element={<Register />} />
       <Route path="login" element={<Login />} />
       <Route element={<BaseRouter />}>

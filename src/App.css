@@ -1,9 +1,3 @@
-* {
-  margin: 0%;
-  padding: 0%;
-  box-sizing: border-box;
-}   
-
 
 .nav-item {
   color: #f0f0f0;
@@ -16,7 +10,8 @@
 
 .hero-title {
   font-family: Georgia, "Times New Roman", Times, serif;
-  font-size: 10vh;
+  font-size: 5vw;
+  text-align: center;
   color: #f0f0f0;
 }
 
@@ -24,19 +19,20 @@
   font-family: Georgia, "Times New Roman", Times, serif;
   font-size: 6vh;
   color: #f0f0f0 !important;
-  text-align: center;
+  text-align: center ;
   font-weight: 500;
   overflow: hidden;
 }
 .avatars {
-  width: 100%;
-  padding: 0px;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: right;  
 }
 .avatar {
+  display: flex;
+  flex-direction: column;
   pointer-events: none;
   user-select: none;
+  max-width: 400px;
 }
 
 .academies-text {
@@ -99,7 +95,6 @@
 .card:hover{
   box-shadow: 0px 6px 10px rgba(0,0,0,0.4);
   transform: scale(1.01);
-  
 }
 
 .nav-item:hover{
@@ -128,4 +123,79 @@
 
 .white-text{
   color: whitesmoke ;
+}
+
+.footerApp{
+  display: flex;
+  justify-content: space-between;
+  padding-inline: 3vw;
+  box-sizing: border-box;
+  padding: 2.5vw;
+  font-size: 30px;
+  background-color:  rgb(36, 39, 43);;
+}
+
+
+@media screen and (max-width: 480px){
+  .hero-title{
+    font-size:15vw;
+  }
+  .avatars{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .avatar{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 5px;
+    border-bottom: 1px solid white;
+  }
+
+  .avatar:last-child{
+    border-bottom: 0px;
+  }
+
+  .cardsMainPage{
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .card-deck{
+    width: inherit;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .cardStyle{
+    margin-inline: 3%;
+    margin-bottom: 3%;
+  }
+
+  .createAccountButton{
+    margin-top: 10vw;
+    font-size: 30px;
+    border-radius: 7px ;
+    width: 100%;
+    height: 10vh;
+    margin-bottom: 5vh;
+  }
+
+  .hideOnMobile{
+    display: none;
+  }
+  
+  .footerApp{
+    font-size: 23px;
+    padding-inline: 0;
+    padding-top: 5vh;
+    background-color:  rgb(36, 39, 43);;
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+  }
 }

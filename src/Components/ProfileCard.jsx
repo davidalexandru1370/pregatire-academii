@@ -4,7 +4,7 @@ import { connectionPolitistLogo } from "../Utilities/index.js";
 import "./ProfileCard.scss";
 const ProfileCard = () => {
   return (
-    <div className="d-flex">
+    <div className="d-flex ">
       <img
         src={`${connectionPolitistLogo}`}
         width="45px"
