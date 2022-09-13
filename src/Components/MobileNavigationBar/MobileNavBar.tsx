@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useEffect, useReducer, useRef, useState } from "react";
 //@ts-ignore
 import useCurrentPath from "../../Hooks/useCurrentPath.ts";
 import "./mobileNavBarStyle.scss";
@@ -33,7 +33,6 @@ const MobileNavBar = () => {
 
         if (previousLIElement.current !== null && previousLIElement.current.classList.contains(clickItemClass) === true) {
             previousLIElement.current.classList.toggle(clickItemClass);
-            // setDistance(Math.trunc(navBarWidth / navigationBarItems.current.length * parseInt(element.accessKey)));
         }
         setDistance(computeDistance(navBarWidth, parseInt(element.accessKey)));
 
@@ -46,26 +45,26 @@ const MobileNavBar = () => {
         transform: `translateX(${distance}vw)`,
     };
 
-
-    const initializeNavBar = useCallback(
-        (index: number): string => {
-            if (initializedNavBar.current === true) {
-                return clickItemClass;
-            }
-            if (distance !== computeDistance(navBarWidth, index)) {
-                setDistance(computeDistance(navBarWidth, index));
-            }
-            initializedNavBar.current = true;
+    const initializeNavBar = (index: number): string => {
+        if (initializedNavBar.current === true) {
             return clickItemClass;
-        },
-        [initializedNavBar],
-    )
-    //removing hiding combining
+        }
+
+        console.log(index);
+
+        if (distance !== computeDistance(navBarWidth, index)) {
+            setDistance(computeDistance(navBarWidth, index));
+        }
+        initializedNavBar.current = true;
+        return clickItemClass;
+    }
+
     return (
         <div className="mobileNavigationBar">
             <ul className="listNoDecoration navBar">
                 <div className="navBarItemCircle" style={navBarItemCircle} ></div>
                 {(() => {
+                    initializedNavBar.current = false;
                     return navigationBarItems.current.map((element, index) => {
                         return <div id="navbar">
                             <li key={index} accessKey={computeNavItemsIndex(index).toString()} onClick={(htmlElem) => {
