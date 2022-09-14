@@ -17,9 +17,17 @@ const DropDown: FC<{ className?: string, style?: React.CSSProperties, items: str
             }
         }
 
+        const handleEscPressed = (event: KeyboardEvent) => {
+            if (dropDownClickedRef.current && showItems === true && event.code === 'Escape') {
+                setShowItems(false);
+            }
+        }
+
         document.addEventListener('click', handleClickOutside, true);
+        document.addEventListener('keydown', handleEscPressed, true);
         return () => {
             document.removeEventListener('click', handleClickOutside, true);
+            document.removeEventListener('keypress', handleEscPressed, true);
         }
     }, [showItems])
 
@@ -30,12 +38,14 @@ const DropDown: FC<{ className?: string, style?: React.CSSProperties, items: str
                 listRef.current.style.display = 'block'
             }}>
                 <span className='dropDownText'>{text}</span>
-                <span className="material-symbols-outlined text-black arrowIcon">
+                <div className='arrowIconBackground'>
+                </div>
+                <span className={`material-symbols-outlined text-black arrowIcon ${showItems === true ? "arrowIconTransition" : ""}`}>
                     keyboard_arrow_down
                 </span>
 
             </div>
-            <div ref={listRef} className='list'>
+            <div ref={listRef} className='list' style={{ display: `${showItems === true ? "block" : "none"}` }}>
                 {
                     items && items.map((element) => {
                         return <p className='item' onClick={() => {

@@ -1,6 +1,6 @@
 .field {
   position: relative;
-  min-width: 100px;
+  min-width: 125px;
   min-height: 25px;
   background-color: white;
   border-radius: 5px;
@@ -13,7 +13,7 @@
   position: absolute;
   left: 0;
   color: black;
-  margin-left: 5px;
+  margin-left: 7px;
 }
 
 .text-black {
@@ -23,14 +23,30 @@
 .arrowIcon {
   position: absolute;
   right: 0;
-  background-color: rgb(213, 213, 213);
+  z-index: 10;
+  background-color: transparent;
   font-size: 25px;
+  transition: 0.5s ease-in-out;
+}
+
+.arrowIconBackground {
+  right: 0;
+  height: 100%;
+  width: 25px;
+  z-index: 1;
   border-top-right-radius: 5px;
+  background-color: rgb(213, 213, 213);
+  position: absolute;
+}
+
+.arrowIconTransition {
+  transform: rotate(180deg);
 }
 
 .list {
   position: absolute;
   width: inherit;
+  min-width: 125px;
   background-color: white;
   color: black;
 }
