@@ -1,6 +1,10 @@
+import "./Teste.scss"
+
 export const Teste = () => {
     return (
-        <div>teste</div>
+        <div className="testePage">
+            <p style={{ color: "white" }}>ascuns</p>
+        </div>
     )
 }
 

@@ -5,7 +5,7 @@ import NavigationBar from "../Components/NavigationBar/NavigationBar.tsx";
 import MobileNavBar from "../Components/MobileNavigationBar/MobileNavBar.tsx";
 const BaseRouter = () => {
     return (
-        <div>
+        <div style={{ width: "100%", height: "100vh" }}>
             <NavigationBar></NavigationBar>
             <Outlet />
             <MobileNavBar />

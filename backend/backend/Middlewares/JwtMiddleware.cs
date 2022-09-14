@@ -10,7 +10,6 @@ using System.Threading.Tasks;
 
 namespace backend.Middlewares
 {
-    // You may need to install the Microsoft.AspNetCore.Http.Abstractions package into your project
     public class JwtMiddleware
     {
         private readonly RequestDelegate _next;
@@ -62,12 +61,16 @@ namespace backend.Middlewares
                     await httpContext.Response.WriteAsync("Forbidden");
                     return;
                 }
-                
+
+                httpContext.Items["accessToken"] = accessToken;
+
                 if (userId is null)
                 {
                     string newAccessToken = _jwtUtils.GenerateJwtToken(new User { Id = Guid.Parse(_jwtUtils.GetFieldFromToken(accessToken, "Id")) }, _appSettings.AccessTokenTTL);
                     _cookieUtilities.setCookiePrivate("accessToken", newAccessToken, httpContext, options.Value.AccessTokenTTL);
+                    httpContext.Items["accessToken"] = newAccessToken;
                 }
+
                 /* else
                  {
                      Token newRefreshToken = _jwtUtils.RotateRefreshToken(refreshToken);

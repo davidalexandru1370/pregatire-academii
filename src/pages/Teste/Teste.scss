@@ -1,0 +1,18 @@
+$--bs-dark-rgb: rgb(36, 39, 43);
+
+html,body{
+    margin: 0;
+    height: 100%;
+    background-color: $--bs-dark-rgb;
+
+}
+
+#root{
+    height: 100vh;
+}
+
+.testePage{
+    height: max-content;
+    width: 100%;
+    background-color: $--bs-dark-rgb;
+}

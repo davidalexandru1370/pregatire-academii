@@ -16,7 +16,6 @@ namespace backend.Controllers
         private ICookieUtilities _cookieUtilities;
         private AppSettings _appSettings;
 
-
         public UserController(IUserService userService, IOptions<AppSettings> options, ICookieUtilities cookieUtilities)
         {
             _userService = userService;
@@ -81,7 +80,8 @@ namespace backend.Controllers
         [Route("authorize")]
         public async Task<ActionResult> Authorize()
         {
-            var accessToken = HttpContext.Request.Cookies["accessToken"];
+            //var accessToken = HttpContext.Request.Cookies["accessToken"];
+            var accessToken = HttpContext.Items["accessToken"] as string;
             if (accessToken is not null)
             {
                 try
@@ -95,19 +95,6 @@ namespace backend.Controllers
                 }
             }
             return BadRequest();
-        }
-
-        private void setTokenCookie(string tokenName, string tokenValue)
-        {
-            var cookieOptions = new CookieOptions
-            {
-                HttpOnly = true,
-                Secure = true,
-                SameSite = SameSiteMode.None,
-                IsEssential = true,
-                Expires = DateTime.Now.AddDays(7),
-            };
-            Response.Cookies.Append(tokenName, tokenValue, cookieOptions);
         }
     }
 }

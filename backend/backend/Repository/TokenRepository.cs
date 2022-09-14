@@ -55,7 +55,6 @@ namespace backend.Repository
 
             return await Task.FromResult(tokens);
         }
-
         public Task<Token> GetByTokenValue(Token token)
         {
             if (token is null)

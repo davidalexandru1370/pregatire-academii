@@ -1,10 +1,6 @@
 import React from "react";
-import { Button, Container, NavDropdown } from "react-bootstrap";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
+import { Button } from "react-bootstrap";
 import FlipBox from "../../Components/FlipBox";
-import MobileNavBar from "../../Components/MobileNavigationBar/MobileNavBar.tsx";
-import ProfileCard from "../../Components/ProfileCard";
 import {
   connectionJandarmLogo,
   connectionPolitistLogo,
