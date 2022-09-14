@@ -1,19 +1,26 @@
 $--bs-dark-rgb: rgb(36, 39, 43);
 
-html,body{
-    margin: 0;
-    height: 100%;
-    background-color: $--bs-dark-rgb;
-
+html,
+body {
+  margin: 0;
+  height: 100%;
+  background-color: $--bs-dark-rgb;
 }
 
-#root{
-    height: 100vh;
+#root {
+  height: 100vh;
 }
 
-.testePage{
-    color: white;
-    height: max-content;
-    width: 100%;
-    background-color: $--bs-dark-rgb;
+.testePage {
+  color: white;
+  height: max-content;
+  width: 100%;
+  background-color: $--bs-dark-rgb;
+}
+
+.filterCard {
+  box-sizing: border-box;
+  display: flex;
+  margin: 2vw;
+  gap: 4vw;
 }
