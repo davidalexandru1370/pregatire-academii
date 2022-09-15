@@ -19,8 +19,35 @@ body {
 }
 
 .filterCard {
+  width: max-content;
+  padding-inline: 1vw;
+  padding-block: 1vw;
+  background-color: rgb(78, 84, 90);
+  border-radius: 15px;
   box-sizing: border-box;
-  display: flex;
   margin: 2vw;
   gap: 4vw;
+}
+
+.filterCard:hover {
+  box-shadow: 0px 6px 10px rgb(0 0 0 / 40%);
+  transform: scale(1.02);
+}
+
+.cardItem {
+  margin-block: 2vh;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.filterButton {
+  padding: 10px;
+  border: 0;
+  border-radius: 5px;
+  background-color: rgb(31, 37, 41);
+}
+
+.filterButton:hover {
+  background-color: rgb(42, 42, 42);
 }

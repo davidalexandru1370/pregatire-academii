@@ -10,9 +10,10 @@ const DropDown: FC<{ className?: string, style?: React.CSSProperties, items: str
     const listRef = useRef<HTMLDivElement>(null);
     const [showItems, setShowItems] = useState<boolean>(false);
     const [text, setText] = useState<string>("");
+
     useEffect(() => {
         const handleClickOutside = (event) => {
-            if (dropDownClickedRef.current && !dropDownClickedRef.current.contains(event.target) && showItems === true) {
+            if (dropDownClickedRef.current /*&& !dropDownClickedRef.current.contains(event.target)*/ && showItems === true) {
                 setShowItems(false);
             }
         }
@@ -33,7 +34,7 @@ const DropDown: FC<{ className?: string, style?: React.CSSProperties, items: str
 
     return (
         <div className={`${className}`} style={style}>
-            <div ref={dropDownClickedRef} className="field" onClick={() => {
+            <div ref={dropDownClickedRef} className="field" onClick={(e) => {
                 setShowItems(true);
                 listRef.current.style.display = 'block'
             }}>
@@ -41,9 +42,8 @@ const DropDown: FC<{ className?: string, style?: React.CSSProperties, items: str
                 <div className='arrowIconBackground'>
                 </div>
                 <span className={`material-symbols-outlined text-black arrowIcon ${showItems === true ? "arrowIconTransition" : ""}`}>
-                    keyboard_arrow_down
+                    arrow_drop_down
                 </span>
-
             </div>
             <div ref={listRef} className='list' style={{ display: `${showItems === true ? "block" : "none"}` }}>
                 {

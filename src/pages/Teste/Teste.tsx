@@ -7,8 +7,22 @@ export const Teste = () => {
         <div className="testePage">
             <div className="leftMenuBar">
                 <div className="filterCard">
-                    <span>Categoria</span>
-                    <DropDown style={{ width: "12vw" }} items={constants.academies} />
+                    <div className="cardItem">
+                        <span>Categoria</span>
+                        <DropDown items={constants.academies} />
+                    </div>
+                    <div className="cardItem">
+                        <span>Anul</span>
+                        <DropDown items={constants.academies} />
+                    </div>
+                    <div className="cardItem d-flex justify-content-center pt-3" >
+                        <button
+                            type="button"
+                            className=" text-white filterButton">
+                            Filtreaza
+                        </button>
+                    </div>
+
                 </div>
             </div>
         </div>
