@@ -12,10 +12,15 @@ body {
 }
 
 .testePage {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  display: flex;
   color: white;
   height: max-content;
   width: 100%;
   background-color: $--bs-dark-rgb;
+  padding-top: 25px;
 }
 
 .filterCard {
@@ -25,8 +30,12 @@ body {
   background-color: rgb(78, 84, 90);
   border-radius: 15px;
   box-sizing: border-box;
-  margin: 2vw;
+  margin: 0 2vw 2vw 2vw;
   gap: 4vw;
+}
+
+.content {
+  display: flex;
 }
 
 .filterCard:hover {
@@ -50,4 +59,28 @@ body {
 
 .filterButton:hover {
   background-color: rgb(42, 42, 42);
+}
+
+.testCards {
+  display: flex;
+  gap: 50px;
+  flex-wrap: wrap;
+  margin-bottom: 50px;
+}
+
+.testeItems {
+  display: flex;
+  justify-content: space-between;
+  padding-inline: 45px;
+}
+
+.filterAndSort {
+  display: flex;
+}
+
+@media screen and (max-width: 480px) {
+  .testePage {
+    flex-direction: column;
+    align-items: center;
+  }
 }

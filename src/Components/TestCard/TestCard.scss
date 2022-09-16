@@ -1,0 +1,60 @@
+.testCard {
+  min-width: 250px;
+  width: 20vw;
+  display: flex;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  flex-direction: column;
+  background-color: rgba(248, 249, 249, 0.84);
+  color: rgb(27, 27, 27);
+  border-radius: 10px;
+}
+
+.testTitle {
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  background-color: rgb(248, 249, 249);
+  text-align: center;
+  font-size: 26px;
+  font-weight: 500;
+  border-bottom: 1px solid black;
+}
+
+.testContent {
+  font-size: 15px;
+  margin-block: 10px;
+  margin-inline: 15px;
+}
+
+.testContent > p {
+  margin-block: 5px;
+}
+
+.testContent p:first-child {
+  margin-top: 0;
+}
+
+.testContent p:last-of-type {
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+
+.startButton {
+  background-color: rgb(93, 216, 225);
+  padding: 7px;
+  padding-inline: 25px;
+  width: fit-content;
+  height: max-content;
+  border: 1.4px solid black;
+  border-radius: 5px;
+}
+
+.startButton:hover {
+  background-color: rgba(93, 216, 225, 0.392);
+}
+
+.play {
+  border-top: 1px solid black;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
