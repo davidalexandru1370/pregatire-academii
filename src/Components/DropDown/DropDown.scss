@@ -1,5 +1,7 @@
 .dropDown {
   background-color: white;
+  width: auto;
+  border-top-right-radius: 15px;
 }
 
 .field {
@@ -49,8 +51,7 @@
 
 .list {
   position: absolute;
-  z-index: 190;
-  width: inherit;
+  z-index: 390;
   min-width: 125px;
   background-color: white;
   color: black;

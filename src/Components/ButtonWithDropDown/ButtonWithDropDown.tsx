@@ -13,7 +13,7 @@ interface IButtonWithDropDown {
 };
 
 const dropDownStyle: React.CSSProperties = {
-    width: "auto",
+    width: "100%",
     marginTop: "10px",
     backgroundColor: "#efefef"
 };

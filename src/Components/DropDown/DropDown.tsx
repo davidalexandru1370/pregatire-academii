@@ -53,7 +53,7 @@ const DropDown = ({
                     arrow_drop_down
                 </span>
             </div>
-            <div ref={listRef} className='list' style={{ display: `${showItems === true ? "block" : "none"}` }}>
+            <div ref={listRef} className='list' style={{ width: `${style?.width}`, display: `${showItems === true ? "" : "none"}` }}>
                 {
                     items && items.map((element) => {
                         return <p className='item' onClick={() => {
