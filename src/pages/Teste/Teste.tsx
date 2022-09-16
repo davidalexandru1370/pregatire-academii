@@ -4,17 +4,23 @@ import DropDown from "../../Components/DropDown/DropDown.tsx"
 import constants from "../../Constants/constants.json";
 //@ts-ignore
 import TestCard from "../../Components/TestCard/TestCard.tsx";
+//@ts-ignore
+import ButtonWithDropDown from "../../Components/ButtonWithDropDown/ButtonWithDropDown.tsx";
+import { Navbar } from "react-bootstrap";
 export const Teste = () => {
     return (
         <div className="testePage">
             <div className="testeItems">
                 <div className="filterAndSort">
                     <button type='button'
-                        className="btn btn-primary"
+                        className="filterHideButton"
                     >
-                        Filter
+                        <span className="material-symbols-outlined" style={{ fontSize: "18px", fontWeight: "2000" }}>
+                            filter_list
+                        </span>
+                        <span className="filterText">&nbsp;Filter</span>
                     </button>
-                    <p>sort</p>
+                    <ButtonWithDropDown title="Sort by" />
                 </div>
                 <p>0 rezultate</p>
             </div>

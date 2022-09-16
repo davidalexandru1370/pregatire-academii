@@ -74,6 +74,16 @@ body {
   padding-inline: 45px;
 }
 
+.filterText {
+  font-size: 20px;
+}
+
+.filterHideButton {
+  padding-block: 10px;
+  padding-inline: 15px;
+  border-radius: 5px;
+}
+
 .filterAndSort {
   display: flex;
 }

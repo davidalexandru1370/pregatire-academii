@@ -1,11 +1,19 @@
 import React, { FC, useEffect, useRef, useState } from 'react'
 import "./DropDown.scss";
 
-const DropDown: FC<{ className?: string, style?: React.CSSProperties, items: string[] }> = ({
+interface IDropDown {
+    className?: string,
+    style?: React.CSSProperties,
+    items: string[]
+    onChange: () => void;
+}
+
+const DropDown = ({
     className,
     style,
-    items
-}) => {
+    items,
+    onChange
+}: IDropDown) => {
     const dropDownClickedRef = useRef<HTMLDivElement>(null);
     const listRef = useRef<HTMLDivElement>(null);
     const [showItems, setShowItems] = useState<boolean>(false);
@@ -33,7 +41,7 @@ const DropDown: FC<{ className?: string, style?: React.CSSProperties, items: str
     }, [showItems])
 
     return (
-        <div className={`${className}`} style={style}>
+        <div className={`dropDown ${className}`} style={style}>
             <div ref={dropDownClickedRef} className="field" onClick={(e) => {
                 setShowItems(true);
                 listRef.current.style.display = 'block'
@@ -51,6 +59,7 @@ const DropDown: FC<{ className?: string, style?: React.CSSProperties, items: str
                         return <p className='item' onClick={() => {
                             setText(element)
                             listRef.current.style.display = "none";
+                            onChange && onChange();
                         }}>{element}</p>
                     })
                 }

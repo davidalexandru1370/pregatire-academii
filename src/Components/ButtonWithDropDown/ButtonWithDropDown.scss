@@ -1,0 +1,18 @@
+.buttonWithDropDown {
+  min-width: 100px;
+  width: 175px;
+  background-color: #efefef;
+  border-radius: 5px;
+  padding-block: 1em;
+  color: black;
+  position: relative;
+  border: 2px solid rgb(38, 38, 38);
+}
+
+.title {
+  position: absolute;
+  top: 0;
+  padding-left: 10px;
+  font-size: small;
+  font-weight: 500;
+}
