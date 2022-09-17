@@ -1,19 +1,21 @@
-import React, { FC, useEffect, useRef, useState } from 'react'
+import React, { FC, Ref, RefObject, useEffect, useRef, useState } from 'react'
 import "./DropDown.scss";
 
 interface IDropDown {
     className?: string,
     style?: React.CSSProperties,
     items: string[]
+    arrowStyle?: React.CSSProperties,
     onChange: () => void;
 }
 
-const DropDown = ({
+const DropDown = React.forwardRef<HTMLDivElement, IDropDown>(({
     className,
     style,
     items,
-    onChange
-}: IDropDown) => {
+    arrowStyle,
+    onChange,
+}: IDropDown, ref) => {
     const dropDownClickedRef = useRef<HTMLDivElement>(null);
     const listRef = useRef<HTMLDivElement>(null);
     const [showItems, setShowItems] = useState<boolean>(false);
@@ -41,15 +43,15 @@ const DropDown = ({
     }, [showItems])
 
     return (
-        <div className={`dropDown ${className}`} style={style}>
-            <div ref={dropDownClickedRef} className="field" onClick={(e) => {
-                setShowItems(true);
-                listRef.current.style.display = 'block'
-            }}>
+        <div ref={ref} className={`dropDown ${className}`} style={style} onClick={(e) => {
+            setShowItems(true);
+            listRef.current.style.display = 'block'
+        }}>
+            <div ref={dropDownClickedRef} className="field">
                 <span className='dropDownText'>{text}</span>
-                <div className='arrowIconBackground'>
+                <div className='arrowIconBackground' style={{ backgroundColor: `${arrowStyle?.backgroundColor}` }}>
                 </div>
-                <span className={`material-symbols-outlined text-black arrowIcon ${showItems === true ? "arrowIconTransition" : ""}`}>
+                <span className={`material-symbols-outlined text-black arrowIcon ${showItems === true ? "arrowIconTransition" : ""}`} style={arrowStyle}>
                     arrow_drop_down
                 </span>
             </div>
@@ -66,5 +68,5 @@ const DropDown = ({
             </div>
         </div >
     )
-}
+});
 export default DropDown;
