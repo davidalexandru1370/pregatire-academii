@@ -1,4 +1,5 @@
 import React, { FC, useEffect, useRef, useState } from 'react'
+import { IDropDown } from '../DropDown/DropDown';
 //@ts-ignore
 import DropDown from '../DropDown/DropDown.tsx'
 import "./ButtonWithDropDown.scss"
@@ -22,38 +23,45 @@ const dropDownArrowStyle: React.CSSProperties = {
     backgroundColor: 'transparent',
 }
 
-
 const ButtonWithDropDown: FC<IButtonWithDropDown> = ({ style, className, title, options, onChange, initialValue }: IButtonWithDropDown) => {
     const buttonWithDropDownRef = useRef<HTMLDivElement>(null);
-    const [clickedDiv, setClickedDiv] = useState<boolean>(false);
     const dropDownRef = useRef<HTMLDivElement>(null);
+    const [clicked, setClicked] = useState<boolean>(false);
+    const dropDownWrapperRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        const handleClick = (event) => {
-            if (buttonWithDropDownRef.current &&
-                dropDownRef.current.contains(event.target) === false &&
-                buttonWithDropDownRef.current.contains(event.target)) {
-                console.log('aci');
-
-                dropDownRef.current.click();
+        const handleClick = (event: MouseEvent) => {
+            if (dropDownWrapperRef.current.contains(event.target as Node) === false && buttonWithDropDownRef.current.contains(event.target as Node) === true) {
+                dropDownWrapperRef.current.click();
             }
         }
 
         document.addEventListener('click', handleClick, true);
 
         return () => {
-            document.removeEventListener('click', handleClick)
+            document.removeEventListener('click', handleClick, true);
         }
-
-    }, [clickedDiv])
-
+    }, [clicked])
 
     return (
         <div ref={buttonWithDropDownRef} style={style} className={`buttonWithDropDown ${className}`}
+            onClick={() => {
+                if (clicked === false) {
+                    setClicked(true);
+                }
+            }}
         >
             <div className="title">{title}</div>
-            <div className='dropDownSpace'>
-                <DropDown ref={dropDownRef} style={dropDownStyle} items={['da']} arrowStyle={dropDownArrowStyle} />
+            <div ref={dropDownWrapperRef} className='dropDownSpace' onClick={(event) => {
+                event.stopPropagation();
+                dropDownRef.current.click();
+                event.stopPropagation();
+            }}>
+                <DropDown ref={dropDownRef} style={dropDownStyle}
+                    items={['da']}
+                    arrowStyle={dropDownArrowStyle}
+                    onChange={() => { setClicked(false) }}
+                />
             </div>
         </div>
     )

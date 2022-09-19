@@ -21,7 +21,6 @@ namespace backend.Controllers
             _userService = userService;
             _cookieUtilities = cookieUtilities;
             _appSettings = options.Value;
-
         }
 
         [HttpPost("authentificate")]

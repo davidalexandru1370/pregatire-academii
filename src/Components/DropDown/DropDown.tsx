@@ -1,7 +1,7 @@
 import React, { FC, Ref, RefObject, useEffect, useRef, useState } from 'react'
 import "./DropDown.scss";
 
-interface IDropDown {
+export interface IDropDown {
     className?: string,
     style?: React.CSSProperties,
     items: string[]
@@ -22,10 +22,24 @@ const DropDown = React.forwardRef<HTMLDivElement, IDropDown>(({
     const [text, setText] = useState<string>("");
 
     useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (dropDownClickedRef.current /*&& !dropDownClickedRef.current.contains(event.target)*/ && showItems === true) {
+        if (showItems === false) {
+            return;
+        }
+        const handleClick = (event) => {
+
+            if (dropDownClickedRef.current.contains(event.target) && showItems === true) {
+                event.stopPropagation();
                 setShowItems(false);
             }
+            else if (listRef.current.contains(event.target)) {
+                onChange && onChange();
+                return;
+            }
+            else if (dropDownClickedRef.current.contains(event.target) === false) {
+                setShowItems(false);
+                onChange && onChange();
+            }
+
         }
 
         const handleEscPressed = (event: KeyboardEvent) => {
@@ -34,19 +48,20 @@ const DropDown = React.forwardRef<HTMLDivElement, IDropDown>(({
             }
         }
 
-        document.addEventListener('click', handleClickOutside, true);
+        document.addEventListener('click', handleClick, true);
         document.addEventListener('keydown', handleEscPressed, true);
         return () => {
-            document.removeEventListener('click', handleClickOutside, true);
+            document.removeEventListener('click', handleClick, true);
             document.removeEventListener('keypress', handleEscPressed, true);
         }
     }, [showItems])
 
     return (
-        <div ref={ref} className={`dropDown ${className}`} style={style} onClick={(e) => {
-            setShowItems(true);
-            listRef.current.style.display = 'block'
-        }}>
+        <div ref={ref} className={`dropDown ${className}`} style={style} onClick={() => {
+            if (showItems === false) {
+                setShowItems(true);
+            }
+        }} >
             <div ref={dropDownClickedRef} className="field">
                 <span className='dropDownText'>{text}</span>
                 <div className='arrowIconBackground' style={{ backgroundColor: `${arrowStyle?.backgroundColor}` }}>
@@ -55,12 +70,13 @@ const DropDown = React.forwardRef<HTMLDivElement, IDropDown>(({
                     arrow_drop_down
                 </span>
             </div>
-            <div ref={listRef} className='list' style={{ width: `${style?.width}`, display: `${showItems === true ? "" : "none"}` }}>
+            <div ref={listRef} className='list' style={{ width: `${style?.width}`, display: `${showItems === true ? "block" : "none"}` }}>
                 {
                     items && items.map((element) => {
                         return <p className='item' onClick={() => {
-                            setText(element)
-                            listRef.current.style.display = "none";
+                            console.log('item');
+                            setText(element);
+                            setShowItems(false);
                             onChange && onChange();
                         }}>{element}</p>
                     })
