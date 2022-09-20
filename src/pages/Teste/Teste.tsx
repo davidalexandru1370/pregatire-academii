@@ -1,21 +1,26 @@
-import "./Teste.scss"
+import "./Teste.scss";
 //@ts-ignore
-import DropDown from "../../Components/DropDown/DropDown.tsx"
+import DropDown from "../../Components/DropDown/DropDown.tsx";
 import constants from "../../Constants/constants.json";
 //@ts-ignore
 import TestCard from "../../Components/TestCard/TestCard.tsx";
 //@ts-ignore
 import ButtonWithDropDown from "../../Components/ButtonWithDropDown/ButtonWithDropDown.tsx";
-import { Navbar } from "react-bootstrap";
+import { useState } from "react";
 export const Teste = () => {
+    const [isLeftMenuVisible, setIsLeftMenuVisible] = useState<boolean>(true);
+
     return (
         <div className="testePage">
             <div className="testeItems">
                 <div className="filterAndSort">
                     <button type='button'
                         className="filterHideButton"
+                        onClick={() => {
+                            setIsLeftMenuVisible(!isLeftMenuVisible);
+                        }}
                     >
-                        <span className="material-symbols-outlined" style={{ fontSize: "18px", fontWeight: "2000" }}>
+                        <span className="material-symbols-outlined" style={{ fontSize: "20px" }}>
                             filter_list
                         </span>
                         <span className="filterText">&nbsp;Filter</span>
@@ -25,7 +30,7 @@ export const Teste = () => {
                 <p>0 rezultate</p>
             </div>
             <div className="content">
-                <div className="leftMenuBar">
+                <div className={`leftMenuBar ${isLeftMenuVisible === true ? "" : "leftMenuBarAnimation"}`}>
                     <div className="filterCard">
                         <div className="cardItem">
                             <span>Categoria</span>
@@ -57,11 +62,10 @@ export const Teste = () => {
                         <TestCard />
                         <TestCard />
                         <TestCard />
-                        <TestCard />
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 

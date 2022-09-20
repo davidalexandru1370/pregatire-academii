@@ -16,11 +16,13 @@ interface IButtonWithDropDown {
 const dropDownStyle: React.CSSProperties = {
     width: "100%",
     marginTop: "10px",
-    backgroundColor: "transparent"
+    backgroundColor: "whitesmoke",
+    color: "black"
 };
 
 const dropDownArrowStyle: React.CSSProperties = {
     backgroundColor: 'transparent',
+    color: "white"
 }
 
 const ButtonWithDropDown: FC<IButtonWithDropDown> = ({ style, className, title, options, onChange, initialValue }: IButtonWithDropDown) => {

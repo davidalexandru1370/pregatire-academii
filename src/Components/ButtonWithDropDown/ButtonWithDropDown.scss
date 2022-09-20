@@ -2,16 +2,12 @@
   cursor: pointer;
   min-width: 100px;
   width: 175px;
-  background-color: transparent;
+  background-color: whitesmoke;
   border-radius: 5px;
   padding-block: 1em;
-  color: white;
+  color: black;
   position: relative;
   border: 2px solid rgb(241, 241, 241);
-}
-
-.buttonWithDropDown:hover {
-  background-color: #444444;
 }
 
 .title {

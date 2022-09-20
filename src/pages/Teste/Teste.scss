@@ -1,4 +1,5 @@
 $--bs-dark-rgb: rgb(36, 39, 43);
+$--anim-time: 0.5s;
 
 html,
 body {
@@ -36,6 +37,7 @@ body {
 
 .content {
   display: flex;
+  transition: transform 0.5s;
 }
 
 .filterCard:hover {
@@ -61,11 +63,30 @@ body {
   background-color: rgb(42, 42, 42);
 }
 
+.leftMenuBar {
+  transition: all 400ms;
+  width: 100%;
+}
+
+.leftMenuBarAnimation {
+  transform: translateX(-100vw);
+  width: 0;
+}
+
 .testCards {
+  width: 100%;
+  flex-grow: 1;
   display: flex;
-  gap: 50px;
   flex-wrap: wrap;
+  justify-content: center;
+  row-gap: 5vw;
   margin-bottom: 50px;
+}
+
+.testCards > * {
+  margin-inline: 2vw;
+  flex-basis: 25%;
+  flex-shrink: 1;
 }
 
 .testeItems {
@@ -81,11 +102,17 @@ body {
 .filterHideButton {
   padding-block: 10px;
   padding-inline: 15px;
+  border: 0;
   border-radius: 5px;
+  font-weight: 500;
 }
 
 .filterAndSort {
+  gap: 20px;
   display: flex;
+}
+
+.rightPart {
 }
 
 @media screen and (max-width: 480px) {

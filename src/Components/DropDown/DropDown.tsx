@@ -63,7 +63,8 @@ const DropDown = React.forwardRef<HTMLDivElement, IDropDown>(({
             }
         }} >
             <div ref={dropDownClickedRef} className="field">
-                <span className='dropDownText'>{text}</span>
+                <span className='dropDownText' style={{ color: style?.color }}
+                >{text}</span>
                 <div className='arrowIconBackground' style={{ backgroundColor: `${arrowStyle?.backgroundColor}` }}>
                 </div>
                 <span className={`material-symbols-outlined text-black arrowIcon ${showItems === true ? "arrowIconTransition" : ""}`} style={arrowStyle}>
@@ -78,7 +79,8 @@ const DropDown = React.forwardRef<HTMLDivElement, IDropDown>(({
                             setText(element);
                             setShowItems(false);
                             onChange && onChange();
-                        }}>{element}</p>
+                        }}
+                        >{element}</p>
                     })
                 }
             </div>

@@ -51,7 +51,7 @@ namespace backend.Controllers
 
             _cookieUtilities.setCookiePrivate("accessToken", response.AccessToken, HttpContext, _appSettings.RefreshTokenTTL);
             _cookieUtilities.setCookiePrivate("refreshToken", response.RefreshToken, HttpContext, _appSettings.RefreshTokenTTL);
-
+            
             return Ok(authResult);
         }
 
