@@ -65,7 +65,7 @@ body {
 
 .leftMenuBar {
   transition: all 400ms;
-  width: 100%;
+  width: 40%;
 }
 
 .leftMenuBarAnimation {
@@ -75,18 +75,14 @@ body {
 
 .testCards {
   width: 100%;
-  flex-grow: 1;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  row-gap: 5vw;
-  margin-bottom: 50px;
-}
-
-.testCards > * {
-  margin-inline: 2vw;
-  flex-basis: 25%;
-  flex-shrink: 1;
+  --auto-grid-min-size: 16rem;
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(var(--auto-grid-min-size), 1fr)
+  );
+  justify-items: center;
+  row-gap: 2rem;
 }
 
 .testeItems {
@@ -113,6 +109,10 @@ body {
 }
 
 .rightPart {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 @media screen and (max-width: 480px) {
