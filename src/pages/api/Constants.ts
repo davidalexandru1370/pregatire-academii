@@ -2,14 +2,16 @@ export const baseUrl: string = "https://localhost:7199/";
 
 let userController = "api/User/";
 
-interface Endpoint{
-  Register:string,
-  Login:string,
-  Authorize:string
+interface Endpoint {
+  Register: string;
+  Login: string;
+  Authorize: string;
+  Logout: string;
 }
 
-export const Endpoints:Endpoint = {
+export const Endpoints: Endpoint = {
   Register: userController + "register",
   Login: userController + "authentificate",
-  Authorize: userController+"authorize",
+  Authorize: userController + "authorize",
+  Logout: userController + "logout",
 };

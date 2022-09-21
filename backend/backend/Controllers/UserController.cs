@@ -51,7 +51,7 @@ namespace backend.Controllers
 
             _cookieUtilities.setCookiePrivate("accessToken", response.AccessToken, HttpContext, _appSettings.RefreshTokenTTL);
             _cookieUtilities.setCookiePrivate("refreshToken", response.RefreshToken, HttpContext, _appSettings.RefreshTokenTTL);
-            
+
             return Ok(authResult);
         }
 
@@ -72,6 +72,25 @@ namespace backend.Controllers
 
             _cookieUtilities.setCookiePrivate("accessToken", response.AccessToken, HttpContext, _appSettings.RefreshTokenTTL);
             _cookieUtilities.setCookiePrivate("refreshToken", response.RefreshToken, HttpContext, _appSettings.RefreshTokenTTL);
+            return Ok();
+        }
+
+        [HttpPost]
+        [Route("logout")]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(statusCode:StatusCodes.Status200OK)]
+        public async Task<ActionResult> Logout()
+        {
+            var accessToken = HttpContext.Request.Cookies.Where(c => c.Key == "accessToken");
+            var refreshToken = HttpContext.Request.Cookies.Where(c => c.Key == "refreshToken");
+
+            if (accessToken == null || refreshToken == null)
+            {
+                return BadRequest();
+            }
+
+            _cookieUtilities.setCookiePrivate("accessToken", "", HttpContext, -2);
+            _cookieUtilities.setCookiePrivate("refreshToken", "", HttpContext, -2);
             return Ok();
         }
 

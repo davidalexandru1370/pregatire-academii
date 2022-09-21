@@ -56,7 +56,6 @@ function Login() {
     };
 
     let data: AuthResult = await _Login(user);
-    console.log(data);
 
     if (data.errors.length > 0) {
       let allErrors: string = "";

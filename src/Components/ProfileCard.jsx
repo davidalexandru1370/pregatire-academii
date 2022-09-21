@@ -2,7 +2,16 @@ import React from "react";
 import { NavDropdown } from "react-bootstrap";
 import { connectionPolitistLogo } from "../Utilities/index.js";
 import "./ProfileCard.scss";
+import { useNavigate } from "react-router-dom";
+//@ts-ignore
+import { Logout } from "../pages/api/UserAPI.ts";
+
 const ProfileCard = () => {
+  const navigate = useNavigate();
+  async function logout() {
+    await Logout();
+  }
+
   return (
     <div className="d-flex ">
       <img
@@ -22,7 +31,14 @@ const ProfileCard = () => {
           <span>Contul meu</span>
           <span class="material-symbols-outlined">person</span>
         </NavDropdown.Item>
-        <NavDropdown.Item className="navDropDownItem">
+        <NavDropdown.Item
+          className="navDropDownItem"
+          onClick={async () => {
+            await logout();
+            navigate("login", { replace: true });
+          }}
+          style={{ color: "#F64462" }}
+        >
           <span>Logout</span>
           <span class="material-symbols-outlined">logout</span>
         </NavDropdown.Item>

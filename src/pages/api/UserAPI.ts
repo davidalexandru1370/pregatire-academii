@@ -54,7 +54,11 @@ export const Register = async (user: User) => {
 
 export const Login = async (user: User) => {
   let url = baseUrl + Endpoints.Login;
-  console.log(url);
-
   return await (await fetch(url, createHeader(Methods.POST, user))).json();
+};
+
+export const Logout = async () => {
+  let url = baseUrl + Endpoints.Logout;
+  console.log("m,ere");
+  return await fetch(url, createHeader(Methods.POST));
 };
