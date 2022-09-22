@@ -143,6 +143,7 @@ function Register() {
               id="name"
               placeholder="Email"
               aria-label="email"
+              autoComplete="new-password"
               onChange={nameInputField}
               style={{ borderColor: `${email === true ? "green" : "red"}` }}
             />
@@ -164,6 +165,7 @@ function Register() {
               id="password"
               className={`form-control`}
               placeholder="Parola"
+              autoComplete="new-password"
               style={{
                 borderColor: `${password === true ? "green" : "red"}`,
               }}

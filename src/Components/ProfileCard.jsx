@@ -35,7 +35,7 @@ const ProfileCard = () => {
           className="navDropDownItem"
           onClick={async () => {
             await logout();
-            navigate("login", { replace: true });
+            navigate("authentificate", { replace: true });
           }}
           style={{ color: "#F64462" }}
         >
