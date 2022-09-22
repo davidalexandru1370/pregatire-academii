@@ -21,6 +21,8 @@ import { ProtectedRoute } from "./pages/Authorization/ProtectedRoute.tsx";
 import BaseRouter from "./BaseRouter/BaseRouter.tsx";
 //@ts-ignore
 import { Teste } from "./pages/Teste/Teste.tsx";
+//@ts-ignore
+import Authentificate from "./pages/Authentification/Authentificate.tsx";
 
 function App() {
   let navigation = useNavigate();
@@ -156,6 +158,7 @@ function App() {
           </>
         }
       />
+      <Route path="authentificate" element={<Authentificate />} />
       <Route path="register" element={<Register />} />
       <Route path="login" element={<Login />} />
       <Route element={<BaseRouter />}>

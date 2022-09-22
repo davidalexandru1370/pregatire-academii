@@ -71,45 +71,43 @@ function Login() {
   };
 
   return (
-    <div className="container-fluid">
-      <div className="row align-items-center" style={{ height: "100vh" }}>
-        <div className="col-md-4 d-flex flex-column align-items-center">
-          <label htmlFor="email">Email</label>
-          <input
-            type="text"
-            className="form-control input"
-            id="text"
-            onChange={() => {
-              loginButtonState();
-            }}
-            ref={emailInputRef}
-            placeholder="Email"
-          />
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            className="form-control input"
-            id="password"
-            ref={passwordInputRef}
-            placeholder="Password"
-            onChange={() => {
-              loginButtonState();
-            }}
-          />
-          <Button
-            className="mt-3"
-            disabled={loginButton}
-            ref={buttonInputRef}
-            onClick={() => {
-              loginButtonClick();
-            }}
-          >
-            Intra in cont
-          </Button>
-          <p className="LoginError">{errorMessages}</p>
-        </div>
-      </div>
-    </div>
+    <>
+      <label htmlFor="email">Email</label>
+      <input
+        type="text"
+        className="form-control input"
+        id="text"
+        onChange={() => {
+          loginButtonState();
+        }}
+        ref={emailInputRef}
+        placeholder="Email"
+      />
+      <label htmlFor="password">Password</label>
+      <input
+        type="password"
+        className="form-control input"
+        id="password"
+        ref={passwordInputRef}
+        placeholder="Password"
+        onChange={() => {
+          loginButtonState();
+        }}
+      />
+      <Button
+        className="mt-3"
+        disabled={loginButton}
+        ref={buttonInputRef}
+        onClick={() => {
+          loginButtonClick();
+        }}
+      >
+        Intra in cont
+      </Button>
+      <p className="LoginError">{errorMessages}</p>
+
+
+    </>
   );
 }
 
