@@ -1,0 +1,35 @@
+.formButton {
+  height: min-content;
+}
+
+.formItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.buttonsToggle {
+  position: absolute;
+  display: flex;
+  right: 0;
+}
+
+.leftSide {
+  background-color: darkgrey;
+  width: 100%;
+  min-width: fit-content;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+@media screen and (min-width: 768px) {
+  .leftSide {
+    max-width: 40%;
+    flex: 0 0 auto;
+  }
+
+  .formItem {
+    margin-inline: 2vw;
+  }
+}

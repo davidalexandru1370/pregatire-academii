@@ -148,7 +148,7 @@ function Register() {
             />
             <li
               style={{
-                listStyleType: ` ${email === true ? "none" : "initial"}`,
+                visibility: `${email === false ? "visible" : "hidden"}`,
               }}
               className={`${
                 email === true ? "valid-field-text" : "invalid-field-text"

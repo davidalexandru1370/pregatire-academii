@@ -162,10 +162,10 @@ function App() {
       <Route element={<BaseRouter />}>
         <Route
           path="mainpage"
-          element={<ProtectedRoute page={<MainPage />} redirectPage={"/login"} />} />
+          element={<ProtectedRoute page={<MainPage />} redirectPage={"/authentificate"} />} />
         <Route
           path="teste"
-          element={<ProtectedRoute page={<Teste />} redirectPage={"/login"} />} />
+          element={<ProtectedRoute page={<Teste />} redirectPage={"/authentificate"} />} />
       </Route>
       <Route path="*" element={<NotFound />} />
     </Routes>

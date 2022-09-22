@@ -1,17 +1,6 @@
 $--bs-dark-rgb: rgb(36, 39, 43);
 $--anim-time: 0.5s;
 
-html,
-body {
-  margin: 0;
-  height: 100%;
-  background-color: $--bs-dark-rgb;
-}
-
-#root {
-  height: 100vh;
-}
-
 .testePage {
   display: flex;
   flex-direction: column;
