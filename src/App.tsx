@@ -159,8 +159,6 @@ function App() {
         }
       />
       <Route path="authentificate" element={<Authentificate />} />
-      <Route path="register" element={<Register />} />
-      <Route path="login" element={<Login />} />
       <Route element={<BaseRouter />}>
         <Route
           path="mainpage"

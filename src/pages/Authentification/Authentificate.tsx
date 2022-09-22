@@ -4,7 +4,7 @@ import Login from "../Login/Login.tsx";
 import Register from "../Register/Register";
 
 const Authentificate = () => {
-    const [authentificationForm, setAuthentificationForm] = useState<JSX.Element>(<Login />);
+    const [authentificationForm, setAuthentificationForm] = useState<JSX.Element>(<Register />);
     return (
         <div className="container-fluid">
             <div className="row align-items-center" style={{ height: "100vh" }}>

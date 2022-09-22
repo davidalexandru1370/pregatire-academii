@@ -1,68 +1,66 @@
-$input-focus : #c71585;
-$btn-color : #781abb;
-$btn-hover : #972ae6;
-$invalid-field : red;
-$valid-field : green;
+$input-focus: #c71585;
+$btn-color: #781abb;
+$btn-hover: #972ae6;
+$invalid-field: red;
+$valid-field: green;
 * {
-    margin:  0;
-    padding: 0%;
+  margin: 0;
+  padding: 0%;
 }
 
-.form-group{
-    padding: 15px;
-    //background-color: azure;
-    background-color: aliceblue;
+.form-group {
+  padding: 15px;
+  //background-color: azure;
+  background-color: aliceblue;
 }
 
-.register{
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.register {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.form-control{
-    width: 55vh  !important;
+.form-control {
+  width: 55vh !important;
 }
 
-.valid-field{
-    border-color: $valid-field !important;
+.valid-field {
+  border-color: $valid-field !important;
 }
 
-.invalid-field{
-    border-color: $invalid-field !important;
+.invalid-field {
+  border-color: $invalid-field !important;
 }
 
-.valid-field-text{
-    color: $valid-field !important;
+.valid-field-text {
+  color: $valid-field !important;
 }
 
-.invalid-field-text{
-    color: $invalid-field !important;
+.invalid-field-text {
+  color: $invalid-field !important;
 }
 
-.form-control:focus{
-    box-shadow: 2px 2px 4px rgba(0,0,0,0.4);
-    border-width: 1pt;
+.form-control:focus {
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+  border-width: 1pt;
 }
 
-.register-btn{
-    width: 100%;
-    color: aliceblue;
-    border-radius: 1vh;
-    background-color: $btn-color;
+.register-btn {
+  width: 100%;
+  color: aliceblue;
+  border-radius: 1vh;
+  background-color: $btn-color;
 }
 
-.register-btn:hover{
-    
-    background-color: $btn-hover;
+.register-btn:hover {
+  background-color: $btn-hover;
 }
 
-.pass-constr{
-    margin-top: 15px;
-    font-size: smaller;
-    margin-left: 5px;
-    margin-bottom: 0;
+.pass-constr {
+  margin-top: 15px;
+  font-size: smaller;
+  margin-left: 5px;
+  margin-bottom: 0;
 }
