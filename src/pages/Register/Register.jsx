@@ -145,7 +145,13 @@ function Register() {
               aria-label="email"
               autoComplete="new-password"
               onChange={nameInputField}
-              style={{ borderColor: `${email === true ? "green" : "red"}` }}
+              style={{
+                borderColor: `${
+                  email === true ? "rgb(0, 245, 0)" : "rgb(234, 61, 61)"
+                }`,
+                borderWidth: "2px",
+                backgroundColor: "aliceblue",
+              }}
             />
             <li
               style={{
@@ -167,7 +173,11 @@ function Register() {
               placeholder="Parola"
               autoComplete="new-password"
               style={{
-                borderColor: `${password === true ? "green" : "red"}`,
+                borderColor: `${
+                  password === true ? "green" : "rgb(234, 61, 61)"
+                }`,
+                borderWidth: "2px",
+                backgroundColor: "aliceblue",
               }}
               aria-label="password"
               onChange={() => passwordInputFields()}
@@ -175,28 +185,28 @@ function Register() {
             <div className={`pass-constr`}>
               <li
                 id="pass-length"
-                style={{ color: "red" }}
+                style={{ color: "rgb(234, 61, 61)" }}
                 ref={(element) => (pass_ref.current["pass-length"] = element)}
               >
                 Parola trebuie sa contina minim 5 caractere!
               </li>
               <li
                 id="pass-caps"
-                style={{ color: "red" }}
+                style={{ color: "rgb(234, 61, 61)" }}
                 ref={(element) => (pass_ref.current["pass-caps"] = element)}
               >
                 Parola trebuie sa contina cel putin o litera mare!
               </li>
               <li
                 id="pass-digit"
-                style={{ color: "red" }}
+                style={{ color: "rgb(234, 61, 61)" }}
                 ref={(element) => (pass_ref.current["pass-digit"] = element)}
               >
                 Parola trebuie sa contina cel putin o cifra!
               </li>
               <li
                 id="pass-same"
-                style={{ color: "red" }}
+                style={{ color: "rgb(234, 61, 61)" }}
                 ref={(element) => (pass_ref.current["pass-same"] = element)}
               >
                 Parolele trebuie sa coincida!
@@ -213,7 +223,11 @@ function Register() {
               aria-label="password"
               onChange={() => passwordInputFields()}
               style={{
-                borderColor: `${password === true ? "green" : "red"}`,
+                borderColor: `${
+                  password === true ? "green" : "rgb(234, 61, 61)"
+                }`,
+                borderWidth: "2px",
+                backgroundColor: "aliceblue",
               }}
             />
           </div>

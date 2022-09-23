@@ -1,31 +1,38 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Button } from "react-bootstrap";
 //@ts-ignore
 import Login from "../Login/Login.tsx";
 import Register from "../Register/Register";
 import "./Authentificate.scss"
 
+interface IElement {
+    element: JSX.Element,
+    name: string
+}
+
 const Authentificate = () => {
-    const [authentificationForm, setAuthentificationForm] = useState<JSX.Element>(<Login />);
+    const [authentificationForm, setAuthentificationForm] = useState<IElement>({ element: <Login />, name: "login" });
+    const authFormRef = useRef<HTMLDivElement>(null);
+
     return (
         <div className="d-flex">
             <div className="leftSide d-flex align-items-center" style={{ height: "100vh" }} >
                 <div className="formItem">
-                    {authentificationForm}
+                    {authentificationForm.element}
                 </div>
             </div>
             <div className="buttonsToggle">
                 <button type="button"
-                    className="formButton"
+                    className={`${authentificationForm.name === "login" ? "formButton" : "formButtonNoAnim"} `}
                     onClick={() => {
-                        setAuthentificationForm(<Login />);
+                        setAuthentificationForm({ element: <Login />, name: "login" });
                     }}>
                     Login
                 </button>
                 <button type="button"
-                    className="formButton"
+                    className={`${authentificationForm.name === "register" ? "formButton" : "formButtonNoAnim"}`}
                     onClick={() => {
-                        setAuthentificationForm(<Register />)
+                        setAuthentificationForm({ element: <Register />, name: "register" })
                     }}
                 >
                     Register

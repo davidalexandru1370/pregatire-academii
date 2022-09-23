@@ -28,7 +28,7 @@ function App() {
   let navigation = useNavigate();
 
   const onRegisterClick = () => {
-    navigation("Register");
+    navigation("authentificate");
   };
 
   return (
