@@ -15,19 +15,23 @@ const ForgotPasswordModal = ({ isOpen, onClose, onOpen, onClick }: IModal) => {
   return (
     <ReactPortal wrapperId={wrapperName}>
       <div
-        className="forgotPasswordModal"
+        className="forgotPasswordModalWrapper"
         style={{ display: `${isOpen === true ? "flex" : "none"}` }}
       >
-        <span>ti-ai uitat parola</span>
-        <button
-          type="button"
-          onClick={(event) => {
-            onClose && onClose();
-            console.log("aici");
-          }}
-        >
-          inchide
-        </button>
+        <div className="forgotPasswordModal">
+          <div className="content">
+            <span>ti-ai uitat parola</span>
+            <button
+              type="button"
+              className="closeButton"
+              onClick={(event) => {
+                onClose && onClose();
+              }}
+            >
+              Trimite
+            </button>
+          </div>
+        </div>
       </div>
     </ReactPortal>
   );
