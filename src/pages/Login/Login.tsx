@@ -16,6 +16,8 @@ function Login() {
   const buttonInputRef = useRef<HTMLButtonElement | null>(null);
   const [errorMessages, setErrorMessages] = useState<string>("");
   const [loginButton, setLoginButton] = useState(true);
+  const [isForgotPasswordModalVisible, setIsForgotPasswordModalVisible] =
+    useState<boolean>(false);
   const navigate = useNavigate();
 
   const IsNullOrWhitespace = (text: string) => {
@@ -93,8 +95,20 @@ function Login() {
           loginButtonState();
         }}
       />
-      <span className="forgotPasswordText">Am uitat parola</span>
-      <ForgotPasswordModal isOpen={false}></ForgotPasswordModal>
+      <span
+        className="forgotPasswordText"
+        onClick={() => {
+          setIsForgotPasswordModalVisible(true);
+        }}
+      >
+        Am uitat parola
+      </span>
+      <ForgotPasswordModal
+        isOpen={isForgotPasswordModalVisible}
+        onClose={() => {
+          setIsForgotPasswordModalVisible(false);
+        }}
+      ></ForgotPasswordModal>
       <Button
         className="mt-3"
         disabled={loginButton}

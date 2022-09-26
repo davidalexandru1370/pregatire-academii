@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
 interface IReactPortal {
@@ -18,15 +18,18 @@ const ReactPortal = ({ children, wrapperId = "wrapper" }: IReactPortal) => {
   useLayoutEffect(() => {
     let element = document.getElementById(wrapperId);
     let systemCreated = false;
-    if (!element) {
-      element = createWrapperElement(wrapperId);
-      systemCreated = true;
-      document.body.appendChild(element);
+    if (wrapperId.trim() !== "") {
+      if (!element) {
+        element = createWrapperElement(wrapperId);
+        systemCreated = true;
+        document.body.appendChild(element);
+      }
+      setWrapperElement(element);
     }
-    setWrapperElement(element);
+
     return () => {
-      if (systemCreated === true && element.parentNode && element) {
-        document.parentNode.removeChild(element);
+      if (systemCreated === true && element.parentNode && element !== null) {
+        document.parentNode?.removeChild(element);
       }
     };
   }, [wrapperId]);

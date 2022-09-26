@@ -11,19 +11,18 @@ interface IModal {
 }
 
 const ForgotPasswordModal = ({ isOpen, onClose, onOpen, onClick }: IModal) => {
-  const [_isOpen, setIsOpen] = useState<boolean>(isOpen);
+  const wrapperName = "forgotPasswordModal";
   return (
-    <ReactPortal wrapperId="forgotPasswordModal">
+    <ReactPortal wrapperId={wrapperName}>
       <div
         className="forgotPasswordModal"
-        style={{ display: `${_isOpen === true ? "none" : "block"}` }}
+        style={{ display: `${isOpen === true ? "flex" : "none"}` }}
       >
         <span>ti-ai uitat parola</span>
         <button
           type="button"
           onClick={(event) => {
             onClose && onClose();
-            setIsOpen(false);
             console.log("aici");
           }}
         >
