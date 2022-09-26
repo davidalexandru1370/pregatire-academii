@@ -8,21 +8,24 @@ const ForgotPassword = () => {
           Parola
         </label>
         <input
-          type="text"
+          type="password"
           placeholder="Parola"
           className="passwordInput"
         ></input>
       </div>
       <div className="field">
         <label htmlFor="password" className="passwordLabel">
-          Repeta Parola
+          Repeta parola
         </label>
         <input
-          type="text"
-          placeholder="Repeta Parola"
+          type="password"
+          placeholder="Repeta parola"
           className="passwordInput"
         ></input>
       </div>
+      <button type="button" className="changePasswordButton">
+        Schimba parola
+      </button>
     </div>
   );
 };

@@ -1,13 +1,14 @@
-import React, { useRef, useState } from "react";
-import "./Login.scss";
+import { useRef, useState } from "react";
 import { Button } from "react-bootstrap";
-import { Axios } from "axios";
+import "./Login.scss";
+import { useNavigate } from "react-router-dom";
+//@ts-ignore
+import ForgotPasswordModal from "../../Components/ForgotPasswordModal/forgotPasswordModal.tsx";
+import redirects from "../../Constants/pages.json";
+import { AuthResult } from "../../Models/AuthResult";
+import { User } from "../../Models/User";
 //@ts-ignore
 import { Login as _Login } from "../api/UserAPI.ts";
-import { User } from "../../Models/User";
-import { AuthResult } from "../../Models/AuthResult";
-import { useNavigate } from "react-router-dom";
-import redirects from "../../Constants/pages.json";
 
 function Login() {
   const emailInputRef = useRef<HTMLInputElement | null>(null);
@@ -47,8 +48,6 @@ function Login() {
   };
 
   const loginButtonClick = async () => {
-
-
     let user: User = {
       Email: emailInputRef.current?.value || "",
       Password: passwordInputRef.current?.value || "",
@@ -83,17 +82,19 @@ function Login() {
         ref={emailInputRef}
         placeholder="Email"
       />
-      <label htmlFor="password">Password</label>
+      <label htmlFor="password">Parola</label>
       <input
         type="password"
         className="form-control input"
         id="password"
         ref={passwordInputRef}
-        placeholder="Password"
+        placeholder="Parola"
         onChange={() => {
           loginButtonState();
         }}
       />
+      <span className="forgotPasswordText">Am uitat parola</span>
+      <ForgotPasswordModal isOpen={false}></ForgotPasswordModal>
       <Button
         className="mt-3"
         disabled={loginButton}
@@ -105,8 +106,6 @@ function Login() {
         Intra in cont
       </Button>
       <p className="LoginError">{errorMessages}</p>
-
-
     </>
   );
 }

@@ -19,3 +19,13 @@ html {
   color: $invalid-field;
   margin-top: 5px;
 }
+
+.forgotPasswordText {
+  width: 50%;
+  display: flex;
+  justify-content: right;
+  color: rgb(56, 56, 230);
+  text-decoration: underline;
+  cursor: pointer;
+  user-select: none;
+}

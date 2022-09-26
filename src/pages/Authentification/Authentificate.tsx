@@ -15,7 +15,6 @@ const Authentificate = () => {
   const forms: IElement[] = [
     { name: "login", element: <Login /> },
     { name: "register", element: <Register /> },
-    { name: "forgot Password", element: <ForgotPassword /> },
   ];
   const [authentificationForm, setAuthentificationForm] = useState<IElement>({
     element: <Login />,
