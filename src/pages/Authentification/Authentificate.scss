@@ -2,7 +2,7 @@
   height: min-content;
   padding: 10px;
   border-radius: 10px;
-  width: 5em;
+  width: fit-content;
   color: white;
   position: relative;
   margin-block: 2vh;
@@ -25,14 +25,14 @@
     rgb(255, 115, 0),
     rgb(255, 251, 0),
     rgb(72, 255, 0),
-    rgb(0, 255, 213),
+    rgb(255, 179, 0),
     rgb(0, 43, 255),
     rgb(122, 0, 255),
     rgb(255, 0, 200),
     rgb(255, 0, 0)
   );
   background-size: 400%;
-  animation: 3s linear 0s infinite normal none running buttonAnim;
+  animation: 2s linear 0s infinite alternate none running buttonAnim;
 }
 
 .formButton::after {
@@ -51,7 +51,7 @@
   height: min-content;
   padding: 10px;
   border-radius: 10px;
-  width: 5em;
+  width: fit-content;
   color: white;
   position: relative;
   background-color: rgb(32, 32, 32);
@@ -64,11 +64,8 @@
   0% {
     background-position: 10%, 0%;
   }
-  50% {
-    background-position: 90% 80%;
-  }
   100% {
-    background-position: 10%, 0%;
+    background-position: 100% 100%;
   }
 }
 
