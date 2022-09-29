@@ -103,12 +103,14 @@ function Login() {
       >
         Am uitat parola
       </span>
-      <ForgotPasswordModal
-        isOpen={isForgotPasswordModalVisible}
-        onClose={() => {
-          setIsForgotPasswordModalVisible(false);
-        }}
-      ></ForgotPasswordModal>
+      {isForgotPasswordModalVisible && (
+        <ForgotPasswordModal
+          isOpen={true}
+          onClose={() => {
+            setIsForgotPasswordModalVisible(false);
+          }}
+        />
+      )}
       <Button
         className="mt-3"
         disabled={loginButton}

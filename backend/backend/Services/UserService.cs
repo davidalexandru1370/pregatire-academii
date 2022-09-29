@@ -6,6 +6,9 @@ using backend.Utilities.JWT;
 using BCrypt.Net;
 using Microsoft.Extensions.Options;
 using backend.Constants;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.CodeAnalysis.VisualBasic.Syntax;
+
 public interface IUserService
 {
     public Task<AuthResult> Authentificate(User user);
@@ -14,6 +17,8 @@ public interface IUserService
     public Task<User?> GetByAccessToken(string accessToken);
 
     public Task<User> GetById(Guid userId);
+
+    public Task<User> changePassword(string token,string email, string newPassword);
 }
 
 
@@ -91,7 +96,7 @@ namespace backend.Services
 
             try
             {
-                existingUser = await _userRepository.GetByEmail(user);
+                existingUser = await _userRepository.GetByEmail(user.Email);
             }
             catch (RepositoryException repositoryException)
             {
@@ -177,5 +182,29 @@ namespace backend.Services
             return null;
             
         }
+
+        public async Task<User> changePassword(string token,string email, string newPassword)
+        {
+            User user = null;
+
+            try
+            {
+                user = await _userRepository.GetByEmail(email);
+            }
+
+            catch (RepositoryException repositoryException)
+            {
+                throw repositoryException;
+            }
+
+            if (user is not null)
+            {
+                await _userRepository.Update(user.Id, user);
+            }
+
+            return user;
+
+        }
+    
     }
 }

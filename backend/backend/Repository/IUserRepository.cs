@@ -6,8 +6,8 @@ namespace backend.Repository
     {
         Task<User> Add(User entity);
         Task Delete(User entity);
-        Task<User> GetByEmail(User entity);
+        Task<User> GetByEmail(string email);
         Task<User> GetById(Guid id);
-        Task<User> Update(User old_entity, User new_entity);
+        Task<User> Update(Guid useriD, User newEntity);
     }
 }

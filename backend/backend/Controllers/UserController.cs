@@ -114,5 +114,12 @@ namespace backend.Controllers
             }
             return BadRequest();
         }
+
+       /* [HttpPatch]
+        
+        public async Task<ActionResult> ForgotPassword(string email)
+        {
+
+        }*/
     }
 }

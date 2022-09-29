@@ -5,7 +5,7 @@ using System.Data.Entity.Validation;
 
 namespace backend.Repository
 {
-    public class UserRepository :  IUserRepository
+    public class UserRepository : IUserRepository
     {
         private string _errorMessages = string.Empty;
         private EntitiesDbContext _context;
@@ -57,38 +57,38 @@ namespace backend.Repository
         public async Task<User> GetById(Guid id)
         {
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
+
+            if (user == null)
+            {
+                throw new RepositoryException("User not found");
+            }
+
+            return user;
+        }
+
+        public async Task<User> GetByEmail(string email)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+
+            if (user == null)
+            {
+                throw new RepositoryException("User not found");
+            }
+
+            return user;
+        }
+
+        public async Task<User> Update(Guid userId, User newEntity)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
+
+            if (user == null)
+            {
+                throw new RepositoryException("User not found");
+            }
+
+            user = newEntity;
             
-            if (user == null)
-            {
-                throw new RepositoryException("User not found");
-            }
-
-            return user;
-        }
-
-        public async Task<User> GetByEmail(User entity)
-        {
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == entity.Email);
-
-            if (user == null)
-            {
-                throw new RepositoryException("User not found");
-            }
-
-            return user;
-        }
-
-        public async Task<User> Update(User old_entity, User new_entity)
-        {
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == old_entity.Id);
-
-            if (user == null)
-            {
-                throw new RepositoryException("User not found");
-            }
-
-            new_entity.Id = old_entity.Id;
-            user = new_entity;
 
             await _context.SaveChangesAsync();
 
