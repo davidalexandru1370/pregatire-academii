@@ -30,6 +30,7 @@ builder.Services.AddScoped<IJwtUtils, JwtUtils>();
 builder.Services.AddScoped<ITokenRepository, TokenRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ICookieUtilities, CookieUtilities>();
+builder.Services.AddScoped<IEmailService, EmailService>();
 //builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 //builder.Services.AddHttpContextAccessor();
 

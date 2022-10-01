@@ -9,19 +9,6 @@ using backend.Constants;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.VisualBasic.Syntax;
 
-public interface IUserService
-{
-    public Task<AuthResult> Authentificate(User user);
-    void RevokeToken(string token);
-    public Task<AuthResult> Register(User user);
-    public Task<User?> GetByAccessToken(string accessToken);
-
-    public Task<User> GetById(Guid userId);
-
-    public Task<User> changePassword(string token,string email, string newPassword);
-}
-
-
 namespace backend.Services
 {
     public class UserService : IUserService
@@ -29,15 +16,15 @@ namespace backend.Services
         private EntitiesDbContext _dataContext;
         private IJwtUtils _jwtUtils;
         private readonly AppSettings _appSettings;
-        private readonly IUnitOfWork<EntitiesDbContext> _unitOfWork;
         private readonly IUserRepository _userRepository;
-        //private readonly AuthErrors _authErrors;
         private readonly ITokenRepository _tokenRepository;
+        private IEmailService _emailService;
         public UserService(EntitiesDbContext dataContext,
             IJwtUtils jwtUtils,
             IOptions<AppSettings> appSettings,
             IUserRepository userRepository,
-            ITokenRepository tokenRepository
+            ITokenRepository tokenRepository,
+            IEmailService emailService
             )
         {
             _dataContext = dataContext;
@@ -45,6 +32,7 @@ namespace backend.Services
             _appSettings = appSettings.Value;
             _userRepository = userRepository;
             _tokenRepository = tokenRepository;
+            _emailService = emailService;
         }
 
         public async Task<AuthResult> Authentificate(User user)
@@ -191,7 +179,7 @@ namespace backend.Services
             {
                 user = await _userRepository.GetByEmail(email);
             }
-
+             
             catch (RepositoryException repositoryException)
             {
                 throw repositoryException;
@@ -199,12 +187,19 @@ namespace backend.Services
 
             if (user is not null)
             {
+                _emailService.sendEmail(new Email
+                {
+                    Body = "merge emailu",
+                    Subject = "titlu",
+                    ToEmail = "davidalexandru1370@gmail.com"
+
+                });
                 await _userRepository.Update(user.Id, user);
             }
 
             return user;
 
         }
-    
+
     }
 }

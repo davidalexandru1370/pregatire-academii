@@ -834,3 +834,6 @@ C:\Users\David\Desktop\pregatire-academii\backend\backend\obj\Debug\net6.0\refin
 C:\Users\David\Desktop\pregatire-academii\backend\backend\obj\Debug\net6.0\backend.pdb
 C:\Users\David\Desktop\pregatire-academii\backend\backend\obj\Debug\net6.0\backend.genruntimeconfig.cache
 C:\Users\David\Desktop\pregatire-academii\backend\backend\obj\Debug\net6.0\ref\backend.dll
+C:\Users\David\Desktop\pregatire-academii\backend\backend\bin\Debug\net6.0\MailKit.dll
+C:\Users\David\Desktop\pregatire-academii\backend\backend\bin\Debug\net6.0\MimeKit.dll
+C:\Users\David\Desktop\pregatire-academii\backend\backend\bin\Debug\net6.0\BouncyCastle.Crypto.dll

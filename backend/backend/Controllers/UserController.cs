@@ -1,6 +1,7 @@
 ﻿using backend.Model;
 using backend.Model.DTOs;
 using backend.Repository;
+using backend.Services;
 using backend.Utilities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -78,7 +79,7 @@ namespace backend.Controllers
         [HttpPost]
         [Route("logout")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(statusCode:StatusCodes.Status200OK)]
+        [ProducesResponseType(statusCode: StatusCodes.Status200OK)]
         public async Task<ActionResult> Logout()
         {
             var accessToken = HttpContext.Request.Cookies.Where(c => c.Key == "accessToken");
@@ -115,11 +116,12 @@ namespace backend.Controllers
             return BadRequest();
         }
 
-       /* [HttpPatch]
-        
-        public async Task<ActionResult> ForgotPassword(string email)
-        {
+        [HttpPatch("ForgotPassword")]
 
-        }*/
+        public async Task<ActionResult> ForgotPassword(string token, string email, string newPassword)
+        {
+            await _userService.changePassword(token, email, newPassword);
+            return Ok();
+        }
     }
 }
