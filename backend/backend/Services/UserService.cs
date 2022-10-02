@@ -19,12 +19,14 @@ namespace backend.Services
         private readonly IUserRepository _userRepository;
         private readonly ITokenRepository _tokenRepository;
         private IEmailService _emailService;
+        private IEmailFactory _emailFactory;
         public UserService(EntitiesDbContext dataContext,
             IJwtUtils jwtUtils,
             IOptions<AppSettings> appSettings,
             IUserRepository userRepository,
             ITokenRepository tokenRepository,
-            IEmailService emailService
+            IEmailService emailService,
+            IEmailFactory emailFactory
             )
         {
             _dataContext = dataContext;
@@ -33,6 +35,7 @@ namespace backend.Services
             _userRepository = userRepository;
             _tokenRepository = tokenRepository;
             _emailService = emailService;
+            _emailFactory = emailFactory;
         }
 
         public async Task<AuthResult> Authentificate(User user)
@@ -189,9 +192,9 @@ namespace backend.Services
             {
                 _emailService.sendEmail(new Email
                 {
-                    Body = "merge emailu",
-                    Subject = "titlu",
-                    ToEmail = "davidalexandru1370@gmail.com"
+                    Body = "",
+                    Subject = "Cerere schimbare parola",
+                    ToEmail = email
 
                 });
                 await _userRepository.Update(user.Id, user);

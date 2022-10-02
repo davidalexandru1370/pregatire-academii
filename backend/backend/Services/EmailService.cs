@@ -18,16 +18,14 @@ namespace backend.Services
         {
 
             _appSettings = appSettings.Value;
-            _email.From.Add(new MailboxAddress("da", "no-reply@pregatire-academii.com"));
+            _email.From.Add(MailboxAddress.Parse(_appSettings.EmailAddress));
         }
-
 
         public void sendEmail(Email email)
         {
             {
                 try
                 {
-
                     _email.Body = new TextPart() { Text = email.Body };
                     _email.Subject = email.Subject;
                     _email.To.Add(MailboxAddress.Parse(email.ToEmail));
