@@ -49,13 +49,12 @@ namespace backend.Model
                         $"</tbody>" +
                     $"</table>";
                 message = message.Replace("#name", name).Replace("#changePasswordLink", changePasswordLink);
-
                 return new Email(toEmail, "Resetarea parolei", message, Enumerable.Empty<IFormFile>());
             }
 
-            public static Email Email()
+            public static Email Email(string toEmail, string subject, string body, IEnumerable<IFormFile>? attachments)
             {
-                return new Email();
+                return new Email(toEmail, subject, body, attachments);
             }
         }
     }
