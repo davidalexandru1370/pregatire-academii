@@ -19,14 +19,12 @@ namespace backend.Services
         private readonly IUserRepository _userRepository;
         private readonly ITokenRepository _tokenRepository;
         private IEmailService _emailService;
-        private IEmailFactory _emailFactory;
         public UserService(EntitiesDbContext dataContext,
             IJwtUtils jwtUtils,
             IOptions<AppSettings> appSettings,
             IUserRepository userRepository,
             ITokenRepository tokenRepository,
-            IEmailService emailService,
-            IEmailFactory emailFactory
+            IEmailService emailService
             )
         {
             _dataContext = dataContext;
@@ -35,7 +33,6 @@ namespace backend.Services
             _userRepository = userRepository;
             _tokenRepository = tokenRepository;
             _emailService = emailService;
-            _emailFactory = emailFactory;
         }
 
         public async Task<AuthResult> Authentificate(User user)
@@ -182,7 +179,7 @@ namespace backend.Services
             {
                 user = await _userRepository.GetByEmail(email);
             }
-             
+            
             catch (RepositoryException repositoryException)
             {
                 throw repositoryException;
@@ -190,13 +187,7 @@ namespace backend.Services
 
             if (user is not null)
             {
-                _emailService.sendEmail(new Email
-                {
-                    Body = "",
-                    Subject = "Cerere schimbare parola",
-                    ToEmail = email
-
-                });
+                _emailService.sendEmail(Email.EmailFactory.ForgotPasswordEmail(email, Enumerable.Empty<IFormFile>(), "link", user.Name));
                 await _userRepository.Update(user.Id, user);
             }
 
