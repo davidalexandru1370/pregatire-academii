@@ -6,9 +6,8 @@ namespace backend.Model
     {
         public virtual DbSet<User> Users { set; get; }
         public virtual DbSet<Token> TokenDetails { get; set; }
+        public virtual DbSet<ChangePasswordLinkAvailable> ChangePasswordLinkAvailables { get; set; }
         
-        //public En.DbContextTransaction dbContextTransaction { get; set; }
-
         public EntitiesDbContext(DbContextOptions<EntitiesDbContext> options) : base(options)
         {
 
