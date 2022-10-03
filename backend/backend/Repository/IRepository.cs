@@ -4,8 +4,8 @@
     {
         public void Add(T entity);
         public void Delete(T entity);
-        public void Update(T old_entity, T new_entity);
-        public Task<T> GetById(T entity);
+        public void Update(Guid oldEntityId, T newEntity);
+        public Task<T> GetById(Guid id);
     }
 
     public class RepositoryException : Exception
