@@ -24,7 +24,7 @@ namespace backend.Model
 
         public class EmailFactory
         {
-            public static Email ForgotPasswordEmail(string toEmail, IEnumerable<IFormFile>? attachments, string changePasswordLink, string name)
+            public static Email ForgotPasswordEmail(string toEmail, IEnumerable<IFormFile>? attachments, Guid id, string name)
             {
                 string message =
                     $"<table>" +
@@ -48,13 +48,18 @@ namespace backend.Model
                         $"</tr>" +
                         $"</tbody>" +
                     $"</table>";
-                message = message.Replace("#name", name).Replace("#changePasswordLink", changePasswordLink);
+                message = message.Replace("#name", name).Replace("#changePasswordLink", createForgotPasswordLink(id));
                 return new Email(toEmail, "Resetarea parolei", message, Enumerable.Empty<IFormFile>());
             }
 
             public static Email Email(string toEmail, string subject, string body, IEnumerable<IFormFile>? attachments)
             {
                 return new Email(toEmail, subject, body, attachments);
+            }
+
+            private static string createForgotPasswordLink(Guid id)
+            {
+                return "www.pregatire-academii.com/forgot-password?id=" + id.ToString();
             }
         }
     }

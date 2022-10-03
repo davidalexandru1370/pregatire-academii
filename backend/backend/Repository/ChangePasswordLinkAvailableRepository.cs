@@ -51,7 +51,7 @@ namespace backend.Repository
                 throw new RepositoryException("Invalid element");
             }
 
-            var linkData = _entitiesDbContext.ChangePasswordLinkAvailables.FirstOrDefault(e => e.pageId == linkId);
+            var linkData = await _entitiesDbContext.ChangePasswordLinkAvailables.FirstOrDefaultAsync(e => e.pageId == linkId);
 
             if (linkData is not null)
             {

@@ -18,13 +18,16 @@ namespace backend.Services
         private readonly AppSettings _appSettings;
         private readonly IUserRepository _userRepository;
         private readonly ITokenRepository _tokenRepository;
+        private readonly IChangePasswordAvailableRepository _changePasswordAvailableRepository;
         private IEmailService _emailService;
+
         public UserService(EntitiesDbContext dataContext,
             IJwtUtils jwtUtils,
             IOptions<AppSettings> appSettings,
             IUserRepository userRepository,
             ITokenRepository tokenRepository,
-            IEmailService emailService
+            IEmailService emailService,
+            IChangePasswordAvailableRepository changePasswordAvailableRepository
             )
         {
             _dataContext = dataContext;
@@ -33,6 +36,7 @@ namespace backend.Services
             _userRepository = userRepository;
             _tokenRepository = tokenRepository;
             _emailService = emailService;
+            _changePasswordAvailableRepository = changePasswordAvailableRepository;
         }
 
         public async Task<AuthResult> Authentificate(User user)
@@ -135,11 +139,6 @@ namespace backend.Services
             return badResult;
         }
 
-        public void RevokeToken(string token)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<User?> GetById(Guid userId)
         {
             try
@@ -166,20 +165,18 @@ namespace backend.Services
                     throw repositoryException;
                 }
             }
-
             return null;
-            
         }
 
-        public async Task<User> changePassword(string token,string email, string newPassword)
+        public async Task<User> changePassword(string token, string email, string newPassword)
         {
-            User user = null;
+            User? user = null;
 
             try
             {
                 user = await _userRepository.GetByEmail(email);
             }
-            
+
             catch (RepositoryException repositoryException)
             {
                 throw repositoryException;
@@ -187,7 +184,32 @@ namespace backend.Services
 
             if (user is not null)
             {
-                _emailService.sendEmail(Email.EmailFactory.ForgotPasswordEmail(email, Enumerable.Empty<IFormFile>(), "link", user.Name));
+                ChangePasswordLinkAvailable? alreadyExistingLink = new ChangePasswordLinkAvailable()
+                {
+                    createdDate = DateTime.Now
+                };
+                try
+                {
+                    alreadyExistingLink = await _changePasswordAvailableRepository.GetById(Guid.Parse(token));
+                }
+                catch (Exception)
+                {
+
+                }
+
+                if (alreadyExistingLink != null)
+                {
+                    alreadyExistingLink.pageId = new Guid();
+                    _changePasswordAvailableRepository.Update(alreadyExistingLink.pageId, alreadyExistingLink);
+                }
+                else
+                {
+                    alreadyExistingLink = new ChangePasswordLinkAvailable();
+                    alreadyExistingLink.userId = user.Id;
+                    _changePasswordAvailableRepository.Add(alreadyExistingLink);
+                }
+
+                _emailService.sendEmail(Email.EmailFactory.ForgotPasswordEmail(email, Enumerable.Empty<IFormFile>(), alreadyExistingLink.pageId, user.Name));
                 await _userRepository.Update(user.Id, user);
             }
 
