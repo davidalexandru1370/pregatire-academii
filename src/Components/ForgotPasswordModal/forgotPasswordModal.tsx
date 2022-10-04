@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 //@ts-ignore
 import ReactPortal from "../ReactPortal/ReactPortal.ts";
 import "./forgotPasswordModal.scss";
+//@ts-ignore
+import { ForgotPassword as handleForgotPassword } from "../../pages/api/UserAPI.ts";
 
 interface IModal {
   isOpen: boolean;
@@ -16,7 +18,6 @@ const ForgotPasswordModal = ({ isOpen, onClose, onOpen, onClick }: IModal) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [emailInputValue, setEmailInputValue] = useState<string>("");
   const [show, setShow] = useState<boolean>(isOpen);
-  console.log(show);
 
   useEffect(() => {
     const handleClick = (event) => {
@@ -69,6 +70,7 @@ const ForgotPasswordModal = ({ isOpen, onClose, onOpen, onClick }: IModal) => {
               onClick={() => {
                 console.log(inputRef.current);
                 onClose && onClose();
+                handleForgotPassword();
                 setShow(false);
               }}
             >

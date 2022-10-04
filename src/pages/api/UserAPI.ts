@@ -7,6 +7,7 @@ enum Methods {
   PUT = "PUT",
   DELETE = "DELETE",
   GET = "GET",
+  PATCH = "PATCH",
 }
 
 const createHeader = (method: Methods, entity?: any) => {
@@ -59,6 +60,10 @@ export const Login = async (user: User) => {
 
 export const Logout = async () => {
   let url = baseUrl + Endpoints.Logout;
-  console.log("m,ere");
   return await fetch(url, createHeader(Methods.POST));
+};
+
+export const ForgotPassword = async () => {
+  let url = baseUrl + Endpoints.forgotpassword;
+  await fetch(url, createHeader(Methods.PATCH));
 };
