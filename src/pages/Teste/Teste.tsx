@@ -8,59 +8,61 @@ import TestCard from "../../Components/TestCard/TestCard.tsx";
 import ButtonWithDropDown from "../../Components/ButtonWithDropDown/ButtonWithDropDown.tsx";
 import { useState } from "react";
 export const Teste = () => {
-    const [isLeftMenuVisible, setIsLeftMenuVisible] = useState<boolean>(true);
+  const [isLeftMenuVisible, setIsLeftMenuVisible] = useState<boolean>(true);
 
-    return (
-        <div className="testePage">
-            <div className="testeItems">
-                <div className="filterAndSort">
-                    <button type='button'
-                        className="filterHideButton"
-                        onClick={() => {
-                            setIsLeftMenuVisible(!isLeftMenuVisible);
-                        }}
-                    >
-                        <span className="material-symbols-outlined" style={{ fontSize: "20px" }}>
-                            filter_list
-                        </span>
-                        <span className="filterText">&nbsp;Filter</span>
-                    </button>
-                    <ButtonWithDropDown title="Sort by" />
-                </div>
-                <p>0 rezultate</p>
+  return (
+    <div className="testePage">
+      <div className="testeItems">
+        <div className="filterAndSort">
+          <button
+            type="button"
+            className="filterHideButton"
+            onClick={() => {
+              setIsLeftMenuVisible(!isLeftMenuVisible);
+            }}
+          >
+            <span
+              className="material-symbols-outlined"
+              style={{ fontSize: "20px" }}
+            >
+              filter_list
+            </span>
+            <span className="filterText">&nbsp;Filter</span>
+          </button>
+          <ButtonWithDropDown title="Sort by" />
+        </div>
+        <p>0 rezultate</p>
+      </div>
+      <div className="content">
+        <div
+          className={`leftMenuBar ${
+            isLeftMenuVisible === true ? "" : "leftMenuBarAnimation"
+          }`}
+        >
+          <div className="filterCard">
+            <div className="cardItem">
+              <span>Categoria</span>
+              <DropDown items={constants.academies} />
             </div>
-            <div className="content">
-                <div className={`leftMenuBar ${isLeftMenuVisible === true ? "" : "leftMenuBarAnimation"}`}>
-                    <div className="filterCard">
-                        <div className="cardItem">
-                            <span>Categoria</span>
-                            <DropDown items={constants.academies} />
-                        </div>
-                        <div className="cardItem">
-                            <span>Anul</span>
-                            <DropDown items={constants.academies} />
-                        </div>
-                        <div className="cardItem d-flex justify-content-center pt-3" >
-                            <button
-                                type="button"
-                                className=" text-white filterButton">
-                                Filtreaza
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div className="rightPart">
-                    <div className="testCards">
-                        <TestCard />
-                        <TestCard />
-                        <TestCard />
-                        <TestCard />
-                        <TestCard />
-                    </div>
-                </div>
+            <div className="cardItem">
+              <span>Anul</span>
+              <DropDown items={constants.academies} />
             </div>
-        </div >
-    )
-}
-
-
+            <div className="cardItem d-flex justify-content-center pt-3">
+              <button type="button" className=" text-white filterButton">
+                Filtreaza
+              </button>
+            </div>
+          </div>
+        </div>
+        <div className="rightPart">
+          <div className="testCards">
+            <TestCard />
+            <TestCard />
+            <TestCard />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};

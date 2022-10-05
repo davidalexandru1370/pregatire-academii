@@ -9,6 +9,7 @@ $--anim-time: 0.5s;
   color: white;
   height: max-content;
   width: 100%;
+  height: 100vh;
   background-color: $--bs-dark-rgb;
   padding-top: 25px;
 }
@@ -72,6 +73,7 @@ $--anim-time: 0.5s;
   );
   justify-items: center;
   row-gap: 2rem;
+  column-gap: 2em;
 }
 
 .testeItems {

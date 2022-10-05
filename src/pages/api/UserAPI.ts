@@ -63,7 +63,11 @@ export const Logout = async () => {
   return await fetch(url, createHeader(Methods.POST));
 };
 
-export const ForgotPassword = async () => {
+export const ForgotPassword = async (email: string, newPassword: string) => {
   let url = baseUrl + Endpoints.forgotpassword;
-  await fetch(url, createHeader(Methods.PATCH));
+  let data: Response = await fetch(
+    url,
+    createHeader(Methods.PATCH, { email: email, password: newPassword })
+  );
+  return data.status;
 };

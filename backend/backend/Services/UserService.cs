@@ -168,7 +168,7 @@ namespace backend.Services
             return null;
         }
 
-        public async Task<User> changePassword(string token, string email, string newPassword)
+        public async Task<User> sendResetPasswordLink(string email, string newPassword)
         {
             User? user = null;
 
@@ -188,9 +188,10 @@ namespace backend.Services
                 {
                     createdDate = DateTime.Now
                 };
+
                 try
                 {
-                    alreadyExistingLink = await _changePasswordAvailableRepository.GetById(Guid.Parse(token));
+                    alreadyExistingLink = await _changePasswordAvailableRepository.GetByUserId(user.Id);
                 }
                 catch (Exception)
                 {
@@ -213,7 +214,7 @@ namespace backend.Services
                 await _userRepository.Update(user.Id, user);
             }
 
-            return user;
+            return user!;
 
         }
 

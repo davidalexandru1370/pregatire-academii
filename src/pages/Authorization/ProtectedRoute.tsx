@@ -5,28 +5,36 @@ import { ProtectedRouteProps } from "../../Models/ProtectedRouteProps";
 import { AuthorizeUser } from "../api/UserAPI.ts";
 
 export const ProtectedRoute = ({ page, redirectPage }: ProtectedRouteProps) => {
-  const [isAuthorized, setIsAuthorized] = useState<boolean | undefined>(undefined);
+  const [isAuthorized, setIsAuthorized] = useState<boolean | undefined>(
+    undefined
+  );
   const fetched = useRef(false);
 
   useEffect(() => {
+    const abortController = new AbortController();
     if (fetched.current === true) {
       return;
     }
 
-    let authorized = (async () => { return await AuthorizeUser() })();
+    let authorized = (async () => {
+      return await AuthorizeUser();
+    })();
     (async () => {
       await authorized.then((value) => {
         setIsAuthorized(value);
-      })
+      });
     })();
     fetched.current = true;
 
-  }, [fetched])
+    return () => {
+      abortController.abort();
+    };
+  }, [fetched]);
 
   if (isAuthorized !== undefined) {
     if (isAuthorized === false) {
-      return <Navigate to={redirectPage} replace />
+      return <Navigate to={redirectPage} replace />;
     }
     return page;
   }
-}
+};

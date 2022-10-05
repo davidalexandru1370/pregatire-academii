@@ -26,7 +26,7 @@ const ForgotPasswordModal = ({ isOpen, onClose, onOpen, onClick }: IModal) => {
         !wrapperRef.current.contains(event.target) &&
         show === true
       ) {
-        console.log("aici");
+        setShow(false);
       }
     };
 
@@ -45,7 +45,7 @@ const ForgotPasswordModal = ({ isOpen, onClose, onOpen, onClick }: IModal) => {
         ref={wrapperRef}
       >
         <div className="forgotPasswordModal">
-          <div className="content">
+          <div className="forgotPasswordcontent">
             <div className="forgotPasswordForm">
               <label htmlFor="">Email</label>
               <input
@@ -61,7 +61,6 @@ const ForgotPasswordModal = ({ isOpen, onClose, onOpen, onClick }: IModal) => {
               type="button"
               className="closeButton"
               disabled={emailInputValue.trim().length === 0 ? true : false}
-              onClick={(event) => {}}
             >
               Trimite
             </button>
@@ -70,7 +69,7 @@ const ForgotPasswordModal = ({ isOpen, onClose, onOpen, onClick }: IModal) => {
               onClick={() => {
                 console.log(inputRef.current);
                 onClose && onClose();
-                handleForgotPassword();
+
                 setShow(false);
               }}
             >

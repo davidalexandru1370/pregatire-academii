@@ -77,5 +77,21 @@ namespace backend.Repository
             }
             throw new RepositoryException("Not found element");
         }
+
+        public async Task<ChangePasswordLinkAvailable> GetByUserId(Guid userId)
+        {
+            if (userId == Guid.Empty)
+            {
+                throw new RepositoryException("Invalid id");
+            }
+
+            ChangePasswordLinkAvailable? linkAvailable = await _entitiesDbContext.ChangePasswordLinkAvailables.FirstOrDefaultAsync(l => l.userId == userId);
+            if (linkAvailable is null)
+            {
+                throw new RepositoryException("Link not found");
+            }
+
+            return linkAvailable;
+        }
     }
 }

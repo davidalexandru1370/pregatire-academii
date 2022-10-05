@@ -10,7 +10,7 @@ namespace backend.Services
 
         public Task<User> GetById(Guid userId);
 
-        public Task<User> changePassword(string token, string email, string newPassword);
+        public Task<User> sendResetPasswordLink(string email, string newPassword);
 
     }
 
