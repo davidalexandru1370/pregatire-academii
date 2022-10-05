@@ -55,7 +55,7 @@ const ForgotPasswordModal = ({ isOpen, onClose, onOpen, onClick }: IModal) => {
       data = await handleForgotPassword(emailInputValue);
       setError("");
     } catch (e) {
-      setError((e as Error).message);
+      setError(e);
     }
   };
 

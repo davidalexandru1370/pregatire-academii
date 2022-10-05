@@ -69,14 +69,14 @@ export const ForgotPassword = async (email: string) => {
   const data: Response = await fetch(url, createHeader(Methods.PATCH, email))
     .then(async (response: Response) => {
       if (response.status >= 400) {
-        throw new Error(await response.json());
+        throw await response.json();
       }
       try {
         return await response.json();
       } catch {}
     })
     .catch((error) => {
-      throw new Error(error);
+      throw error;
     });
 
   return data;
