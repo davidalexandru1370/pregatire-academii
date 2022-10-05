@@ -30,6 +30,7 @@ const ReactPortal = ({ children, wrapperId = "wrapper" }: IReactPortal) => {
     return () => {
       if (systemCreated === true && element.parentNode && element !== null) {
         document.parentNode?.removeChild(element);
+        element.remove();
       }
     };
   }, [wrapperId]);

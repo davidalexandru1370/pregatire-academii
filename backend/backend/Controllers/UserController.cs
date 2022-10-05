@@ -117,11 +117,11 @@ namespace backend.Controllers
         }
 
         [HttpPatch("ForgotPassword")]
-        public async Task<ActionResult> ForgotPassword(string token, string email, string newPassword)
+        public async Task<ActionResult> ForgotPassword(string email)
         {
             try
             {
-                await _userService.changePassword(token, email, newPassword);
+                await _userService.changePassword(email);
             }
             catch (Exception exception)
             {

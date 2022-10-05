@@ -7,10 +7,8 @@ namespace backend.Services
         public Task<AuthResult> Authentificate(User user);
         public Task<AuthResult> Register(User user);
         public Task<User?> GetByAccessToken(string accessToken);
-
         public Task<User> GetById(Guid userId);
-
-        public Task<User> sendResetPasswordLink(string email, string newPassword);
+        public Task<User> GeneratePasswordResetLink(string email);
 
     }
 

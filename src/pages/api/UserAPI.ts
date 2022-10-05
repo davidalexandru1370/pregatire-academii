@@ -1,3 +1,4 @@
+import { Exception } from "sass";
 import { User } from "../../Models/User";
 //@ts-ignore
 import { baseUrl, Endpoints } from "./Constants.ts";
@@ -68,6 +69,9 @@ export const ForgotPassword = async (email: string, newPassword: string) => {
   let data: Response = await fetch(
     url,
     createHeader(Methods.PATCH, { email: email, password: newPassword })
-  );
-  return data.status;
+  ).catch((error) => {
+    throw new Error(error);
+  });
+
+  return await data.json();
 };
