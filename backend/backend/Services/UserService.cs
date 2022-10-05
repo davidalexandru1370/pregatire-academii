@@ -168,7 +168,7 @@ namespace backend.Services
             return null;
         }
 
-        public async Task<User> sendResetPasswordLink(string email, string newPassword)
+        public async Task<User> GeneratePasswordResetLink(string email)
         {
             User? user = null;
 
@@ -186,32 +186,36 @@ namespace backend.Services
             {
                 ChangePasswordLinkAvailable? alreadyExistingLink = new ChangePasswordLinkAvailable()
                 {
-                    createdDate = DateTime.Now
+                    createdDate = DateTime.Now,
+                    userId = user.Id
                 };
 
                 try
                 {
                     alreadyExistingLink = await _changePasswordAvailableRepository.GetByUserId(user.Id);
                 }
-                catch (Exception)
+                catch (RepositoryException)
                 {
-
+                    alreadyExistingLink.userId = Guid.Empty;
                 }
 
-                if (alreadyExistingLink != null)
+                if (alreadyExistingLink.userId != Guid.Empty)
                 {
-                    alreadyExistingLink.pageId = new Guid();
-                    _changePasswordAvailableRepository.Update(alreadyExistingLink.pageId, alreadyExistingLink);
+                    Guid oldId = alreadyExistingLink.pageId;
+                    alreadyExistingLink = new ChangePasswordLinkAvailable()
+                    {
+                        createdDate = DateTime.Now,
+                        userId = user.Id
+                    };
+                    await _changePasswordAvailableRepository.Update(oldId, alreadyExistingLink);
                 }
                 else
                 {
-                    alreadyExistingLink = new ChangePasswordLinkAvailable();
                     alreadyExistingLink.userId = user.Id;
-                    _changePasswordAvailableRepository.Add(alreadyExistingLink);
+                    await _changePasswordAvailableRepository.Add(alreadyExistingLink);
                 }
 
                 _emailService.sendEmail(Email.EmailFactory.ForgotPasswordEmail(email, Enumerable.Empty<IFormFile>(), alreadyExistingLink.pageId, user.Name));
-                await _userRepository.Update(user.Id, user);
             }
 
             return user!;

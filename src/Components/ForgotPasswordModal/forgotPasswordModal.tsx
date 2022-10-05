@@ -1,10 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 //@ts-ignore
 import ReactPortal from "../ReactPortal/ReactPortal.ts";
 import "./forgotPasswordModal.scss";
 //@ts-ignore
 import { ForgotPassword as handleForgotPassword } from "../../pages/api/UserAPI.ts";
-import { ForgotPassword } from "../../pages/api/UserAPI";
 
 interface IModal {
   isOpen: boolean;
@@ -16,14 +15,12 @@ interface IModal {
 const ForgotPasswordModal = ({ isOpen, onClose, onOpen, onClick }: IModal) => {
   const wrapperName = "forgotPasswordModal";
   const wrapperRef = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
   const [error, setError] = useState<string>("");
   const [emailInputValue, setEmailInputValue] = useState<string>("");
   const [show, setShow] = useState<boolean>(isOpen);
 
   useEffect(() => {
     const handleClick = (event) => {
-      console.log(wrapperRef.current.contains(event.target));
       if (
         wrapperRef.current !== null &&
         !wrapperRef.current.contains(event.target) &&
@@ -55,10 +52,10 @@ const ForgotPasswordModal = ({ isOpen, onClose, onOpen, onClick }: IModal) => {
   const handleSendClick = async () => {
     let data = null;
     try {
-      data = await handleForgotPassword();
+      data = await handleForgotPassword(emailInputValue);
       setError("");
     } catch (e) {
-      setError(e);
+      setError((e as Error).message);
     }
   };
 
@@ -87,7 +84,7 @@ const ForgotPasswordModal = ({ isOpen, onClose, onOpen, onClick }: IModal) => {
               className="closeButton"
               disabled={emailInputValue.trim().length === 0 ? true : false}
               onClick={async () => {
-                await handleForgotPassword();
+                await handleSendClick();
               }}
             >
               Trimite

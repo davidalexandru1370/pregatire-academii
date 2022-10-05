@@ -2,9 +2,9 @@
 {
     public interface IRepository<T> where T : class
     {
-        public void Add(T entity);
-        public void Delete(T entity);
-        public void Update(Guid oldEntityId, T newEntity);
+        public Task Add(T entity);
+        public Task Delete(T entity);
+        public Task Update(Guid oldEntityId, T newEntity);
         public Task<T> GetById(Guid id);
     }
 

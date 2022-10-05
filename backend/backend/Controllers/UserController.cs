@@ -116,16 +116,17 @@ namespace backend.Controllers
             return BadRequest();
         }
 
-        [HttpPatch("ForgotPassword")]
-        public async Task<ActionResult> ForgotPassword(string email)
+        [HttpPatch]
+        [Route("ForgotPassword")]
+        public async Task<ActionResult> ForgotPassword([FromBody]string email)
         {
             try
             {
-                await _userService.changePassword(email);
+                await _userService.GeneratePasswordResetLink(email);
             }
-            catch (Exception exception)
+            catch (RepositoryException exception)
             {
-                return BadRequest(exception.Message);
+                return BadRequest("Aceasta adresa de email nu este asociata niciunui cont!");
             }
 
             return Ok();

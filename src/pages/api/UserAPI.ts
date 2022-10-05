@@ -64,14 +64,20 @@ export const Logout = async () => {
   return await fetch(url, createHeader(Methods.POST));
 };
 
-export const ForgotPassword = async (email: string, newPassword: string) => {
-  let url = baseUrl + Endpoints.forgotpassword;
-  let data: Response = await fetch(
-    url,
-    createHeader(Methods.PATCH, { email: email, password: newPassword })
-  ).catch((error) => {
-    throw new Error(error);
-  });
+export const ForgotPassword = async (email: string) => {
+  let url = baseUrl + Endpoints.ForgotPassword;
+  const data: Response = await fetch(url, createHeader(Methods.PATCH, email))
+    .then(async (response: Response) => {
+      if (response.status >= 400) {
+        throw new Error(await response.json());
+      }
+      try {
+        return await response.json();
+      } catch {}
+    })
+    .catch((error) => {
+      throw new Error(error);
+    });
 
-  return await data.json();
+  return data;
 };

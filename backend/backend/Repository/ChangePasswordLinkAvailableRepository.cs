@@ -11,7 +11,7 @@ namespace backend.Repository
             _entitiesDbContext = context;
         }
 
-        public async void Add(ChangePasswordLinkAvailable entity)
+        public async Task Add(ChangePasswordLinkAvailable entity)
         {
             if (entity is null)
             {
@@ -28,7 +28,7 @@ namespace backend.Repository
             await _entitiesDbContext.SaveChangesAsync();
         }
 
-        public void Delete(ChangePasswordLinkAvailable entity)
+        public async Task Delete(ChangePasswordLinkAvailable entity)
         {
             if (entity is null)
             {
@@ -42,6 +42,7 @@ namespace backend.Repository
             {
 
             }
+            await _entitiesDbContext.SaveChangesAsync();
         }
 
         public async Task<ChangePasswordLinkAvailable> GetById(Guid linkId)
@@ -61,7 +62,7 @@ namespace backend.Repository
             throw new RepositoryException("No element found!");
         }
 
-        public async void Update(Guid oldEntityId, ChangePasswordLinkAvailable newEntity)
+        public async Task Update(Guid oldEntityId, ChangePasswordLinkAvailable newEntity)
         {
             if (oldEntityId == Guid.Empty || newEntity is null)
             {
@@ -71,11 +72,14 @@ namespace backend.Repository
             var existingLink = _entitiesDbContext.ChangePasswordLinkAvailables.FirstOrDefault(e => e.pageId == oldEntityId);
             if (existingLink is not null)
             {
-                existingLink.createdDate = newEntity.createdDate;
-                existingLink.userId = newEntity.userId;
+                await Delete(existingLink);
+                await Add(newEntity);
                 await _entitiesDbContext.SaveChangesAsync();
             }
-            throw new RepositoryException("Not found element");
+            else
+            {
+                throw new RepositoryException("Not found element");
+            }
         }
 
         public async Task<ChangePasswordLinkAvailable> GetByUserId(Guid userId)
@@ -86,6 +90,7 @@ namespace backend.Repository
             }
 
             ChangePasswordLinkAvailable? linkAvailable = await _entitiesDbContext.ChangePasswordLinkAvailables.FirstOrDefaultAsync(l => l.userId == userId);
+            
             if (linkAvailable is null)
             {
                 throw new RepositoryException("Link not found");
