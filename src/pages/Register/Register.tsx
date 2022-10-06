@@ -105,7 +105,7 @@ function Register() {
           </div>
           <PasswordBulletPoints changePassword={setPassword} />
           <button
-            className="register-btn btn mt-3 d-flex justify-content-center "
+            className="register-btn btn mt-3 d-flex justify-content-center"
             type="button"
             onClick={checkInputFields}
             disabled={!(!!email && !!password)}
@@ -122,7 +122,7 @@ function Register() {
   );
 }
 
-const PasswordBulletPoints: FC<{
+export const PasswordBulletPoints: FC<{
   changePassword: React.Dispatch<React.SetStateAction<boolean>>;
 }> = ({ changePassword }) => {
   const pass_ref = useRef({});
@@ -192,7 +192,7 @@ const PasswordBulletPoints: FC<{
   };
 
   return (
-    <div>
+    <div className="passwordContainer">
       <div className="mt-5">
         <label htmlFor="password">Parola:</label>
         <input
