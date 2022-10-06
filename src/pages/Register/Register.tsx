@@ -11,7 +11,7 @@ function Register() {
   const [start_validate, set_start_validate] = useState(false);
   const [email, setEmail] = useState(false);
   const [password, setPassword] = useState(false);
-  const form_ref = useRef(0);
+  const form_ref = useRef<any>(0);
   const pass_ref = useRef({});
   let values = useRef({});
   const navigate = useNavigate();
@@ -66,7 +66,7 @@ function Register() {
 
   return (
     <div className="col register">
-      <form>
+      <form ref={form_ref}>
         <div className=" form-group">
           <div className="mt-5">
             <label htmlFor="name">Adresa de email:</label>
@@ -103,7 +103,7 @@ function Register() {
               {email === false ? "Adresa de email este invalida" : ""}
             </li>
           </div>
-          <PasswordBulletPoints onChange={setPassword} />
+          <PasswordBulletPoints changePassword={setPassword} />
           <button
             className="register-btn btn mt-3 d-flex justify-content-center "
             type="button"
@@ -123,8 +123,8 @@ function Register() {
 }
 
 const PasswordBulletPoints: FC<{
-  onChange: React.Dispatch<React.SetStateAction<boolean>>;
-}> = (onChange) => {
+  changePassword: React.Dispatch<React.SetStateAction<boolean>>;
+}> = ({ changePassword }) => {
   const pass_ref = useRef({});
   const [password, setPassword] = useState<boolean>(false);
   const myForm = useRef<{ [key: string]: HTMLInputElement }>({});
@@ -187,8 +187,7 @@ const PasswordBulletPoints: FC<{
       }
     }
     setPassword(valid_password);
-    //@ts-ignore
-    onChange(valid_password);
+    changePassword(valid_password);
   };
 
   return (
