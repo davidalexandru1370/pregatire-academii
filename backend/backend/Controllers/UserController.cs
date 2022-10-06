@@ -117,7 +117,7 @@ namespace backend.Controllers
         }
 
         [HttpPatch]
-        [Route("ForgotPassword")]
+        [Route("forgot-password")]
         public async Task<ActionResult> ForgotPassword([FromBody]string email)
         {
             try
@@ -129,6 +129,21 @@ namespace backend.Controllers
                 return BadRequest("Aceasta adresa de email nu este asociata niciunui cont!");
             }
 
+            return Ok();
+        }
+
+        [HttpPost]
+        [Route("validate-page-id")]
+        public async Task<ActionResult> ValidateForgotPasswordPageId([FromBody]string pageId)
+        {
+            try
+            {
+                await _userService.ValidateForgotPasswordPageId(pageId);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
             return Ok();
         }
     }

@@ -193,7 +193,7 @@ export const PasswordBulletPoints: FC<{
 
   return (
     <div className="passwordContainer">
-      <div className="mt-5">
+      <div className="">
         <label htmlFor="password" className="labelPassword">
           Parola:
         </label>

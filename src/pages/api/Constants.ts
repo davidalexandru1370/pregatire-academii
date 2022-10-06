@@ -8,6 +8,7 @@ interface Endpoint {
   Authorize: string;
   Logout: string;
   ForgotPassword: string;
+  ValidateForgotPasswordPageId: string;
 }
 
 export const Endpoints: Endpoint = {
@@ -15,5 +16,6 @@ export const Endpoints: Endpoint = {
   Login: userController + "authentificate",
   Authorize: userController + "authorize",
   Logout: userController + "logout",
-  ForgotPassword: userController + "ForgotPassword",
+  ForgotPassword: userController + "forgot-password",
+  ValidateForgotPasswordPageId: userController + "validate-page-id",
 };

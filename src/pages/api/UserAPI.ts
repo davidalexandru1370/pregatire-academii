@@ -81,3 +81,18 @@ export const ForgotPassword = async (email: string) => {
 
   return data;
 };
+
+export const ValidateForgotPasswordPageId = async (
+  pageId: string
+): Promise<void> => {
+  let url = baseUrl + Endpoints.ValidateForgotPasswordPageId;
+  await fetch(url, createHeader(Methods.POST, pageId))
+    .then(async (response: Response) => {
+      if (response.status >= 400) {
+        throw await response.json();
+      }
+    })
+    .catch((error) => {
+      throw error;
+    });
+};

@@ -59,7 +59,7 @@ namespace backend.Model
 
             private static string createForgotPasswordLink(Guid id)
             {
-                return "www.pregatire-academii.com/forgot-password?id=" + id.ToString();
+                return "localhost:3000/forgot-password/" + id.ToString();
             }
         }
     }

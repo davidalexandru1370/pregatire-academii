@@ -62,6 +62,12 @@ $valid-field: rgb(0, 245, 0);
   margin-bottom: 0;
 }
 
+.passwordContainer {
+  border: 2px solid gray;
+  padding: 10px;
+  border-radius: 15px;
+}
+
 .labelPassword {
   color: white;
 }

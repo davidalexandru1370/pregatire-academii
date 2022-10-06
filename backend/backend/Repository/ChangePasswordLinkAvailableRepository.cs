@@ -66,7 +66,7 @@ namespace backend.Repository
         {
             if (oldEntityId == Guid.Empty || newEntity is null)
             {
-                throw new RepositoryException("Invalid element");
+                throw new RepositoryException("Link-ul este invalid!");
             }
 
             var existingLink = _entitiesDbContext.ChangePasswordLinkAvailables.FirstOrDefault(e => e.pageId == oldEntityId);
@@ -78,7 +78,7 @@ namespace backend.Repository
             }
             else
             {
-                throw new RepositoryException("Not found element");
+                throw new RepositoryException("Link-ul este invalid!");
             }
         }
 

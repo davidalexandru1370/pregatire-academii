@@ -167,7 +167,6 @@ namespace backend.Services
             }
             return null;
         }
-
         public async Task<User> GeneratePasswordResetLink(string email)
         {
             User? user = null;
@@ -222,5 +221,20 @@ namespace backend.Services
 
         }
 
+        public async Task ValidateForgotPasswordPageId(string pageId)
+        {
+            try
+            {
+                ChangePasswordLinkAvailable changePasswordLink = await _changePasswordAvailableRepository.GetById(Guid.Parse(pageId));
+                if ((DateTime.Now - changePasswordLink.createdDate).Hours >= 24)
+                {
+                    throw new Exception("Link-ul este invalid!");
+                }
+            }
+            catch (Exception)
+            {
+                throw new Exception("Link-ul este invalid!");
+            }
+        }
     }
 }
