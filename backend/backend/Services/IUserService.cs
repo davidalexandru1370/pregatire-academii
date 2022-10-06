@@ -10,6 +10,7 @@ namespace backend.Services
         public Task<User> GetById(Guid userId);
         public Task<User> GeneratePasswordResetLink(string email);
         public Task ValidateForgotPasswordPageId(string pageId);
+        public Task ChangePassword(string pageId, string newPassword);
     }
 
 }

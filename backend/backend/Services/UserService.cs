@@ -119,8 +119,6 @@ namespace backend.Services
                 {
                     var jwtToken = _jwtUtils.GenerateJwtToken(user, _appSettings.AccessTokenTTL);
                     var refreshToken = _jwtUtils.GenerateJwtToken(user, _appSettings.RefreshTokenTTL);
-                    //refreshToken.UserId = user.Id;
-                    //_tokenRepository.Add(refreshToken);
 
                     return new AuthResult()
                     {
@@ -234,6 +232,20 @@ namespace backend.Services
             catch (Exception)
             {
                 throw new Exception("Link-ul este invalid!");
+            }
+        }
+
+        public async Task ChangePassword(string pageId, string newPassword)
+        {
+            await ValidateForgotPasswordPageId(pageId);
+            ChangePasswordLinkAvailable forgotPasswordLink = await _changePasswordAvailableRepository.GetById(Guid.Parse(pageId));
+            User user = await _userRepository.GetById(forgotPasswordLink.userId);
+            user.Password = BCrypt.Net.BCrypt.HashPassword(newPassword);
+
+            if (!string.IsNullOrWhiteSpace(newPassword))
+            {
+                await _userRepository.Update(user.Id, user);
+                await _changePasswordAvailableRepository.Delete(forgotPasswordLink);
             }
         }
     }

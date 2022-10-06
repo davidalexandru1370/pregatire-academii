@@ -2,36 +2,53 @@ import { useEffect, useState } from "react";
 import "./ForgotPassword.scss";
 //@ts-ignore
 import { PasswordBulletPoints } from "../Register/Register.tsx";
-import { useParams } from "react-router-dom";
-//@ts-ignore
-import { ValidateForgotPasswordPageId } from "../api/UserAPI.ts";
+import { useNavigate, useParams } from "react-router-dom";
+
+import {
+  ValidateForgotPasswordPageId,
+  ChangePassword,
+  //@ts-ignore
+} from "../api/UserAPI.ts";
+
 const ForgotPassword = () => {
   const pageId = useParams()["pageId"];
-  const [password, setPassword] = useState<boolean>(false);
+  const navigate = useNavigate();
+  const [isPasswordCorrect, setIsPasswordCorrect] = useState<boolean>(false);
+  const [password, setPassword] = useState<string>("");
   const [isValid, setIsValid] = useState<boolean>(false);
 
-  useEffect(() => {
-    try {
-      const response = async () => {
-        if ((await ValidateForgotPasswordPageId(pageId)) === undefined) {
-          setIsValid(true);
-        }
-      };
-      response();
-    } catch (error) {
-      console.log(error);
+  const handleChangePasswordClick = async () => {
+    if (isPasswordCorrect === true) {
+      try {
+        await ChangePassword(pageId, password);
+        navigate("/authentificate", { replace: true });
+      } catch {}
     }
-    return () => {};
+  };
+
+  useEffect(() => {
+    const response = async () => {
+      if ((await ValidateForgotPasswordPageId(pageId)) === undefined) {
+        setIsValid(true);
+      }
+    };
+    response().catch((error) => {
+      navigate("/authentificate", { replace: true });
+    });
   }, []);
 
   if (isValid === true) {
     return (
       <div className="forgotPasswordContent">
-        <PasswordBulletPoints changePassword={setPassword} />
+        <PasswordBulletPoints
+          changePassword={setIsPasswordCorrect}
+          password={setPassword}
+        />
         <button
           type="button"
           className="changePasswordButton"
-          disabled={!password}
+          disabled={!isPasswordCorrect}
+          onClick={handleChangePasswordClick}
         >
           Schimba parola
         </button>

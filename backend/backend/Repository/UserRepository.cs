@@ -87,8 +87,9 @@ namespace backend.Repository
                 throw new RepositoryException("User not found");
             }
 
-            user = newEntity;
-            
+            user.Name = newEntity.Name;
+            user.Email = newEntity.Email;
+            user.Password = newEntity.Password;
 
             await _context.SaveChangesAsync();
 

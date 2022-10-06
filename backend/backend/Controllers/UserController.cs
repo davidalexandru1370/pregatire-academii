@@ -146,5 +146,20 @@ namespace backend.Controllers
             }
             return Ok();
         }
+
+        [HttpPatch]
+        [Route("change-password/{pageId}")]
+        public async Task<ActionResult> ChangePassword([FromRoute]string pageId, [FromBody] string newPassword)
+        {
+            try
+            {
+                await _userService.ChangePassword(pageId, newPassword);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            return Ok();
+        }
     }
 }

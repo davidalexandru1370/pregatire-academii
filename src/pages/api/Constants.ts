@@ -9,6 +9,7 @@ interface Endpoint {
   Logout: string;
   ForgotPassword: string;
   ValidateForgotPasswordPageId: string;
+  ChangePassword: string;
 }
 
 export const Endpoints: Endpoint = {
@@ -18,4 +19,5 @@ export const Endpoints: Endpoint = {
   Logout: userController + "logout",
   ForgotPassword: userController + "forgot-password",
   ValidateForgotPasswordPageId: userController + "validate-page-id",
+  ChangePassword: userController + "change-password",
 };

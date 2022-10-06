@@ -96,3 +96,16 @@ export const ValidateForgotPasswordPageId = async (
       throw error;
     });
 };
+
+export const ChangePassword = async (pageId: string, newPassword: string) => {
+  let url = baseUrl + Endpoints.ChangePassword + "/" + pageId;
+  await fetch(url, createHeader(Methods.PATCH, newPassword))
+    .then(async (response: Response) => {
+      if (response.status >= 400) {
+        throw await response.json();
+      }
+    })
+    .catch((error) => {
+      throw error;
+    });
+};

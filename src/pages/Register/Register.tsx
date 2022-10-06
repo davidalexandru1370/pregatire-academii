@@ -124,9 +124,10 @@ function Register() {
 
 export const PasswordBulletPoints: FC<{
   changePassword: React.Dispatch<React.SetStateAction<boolean>>;
-}> = ({ changePassword }) => {
+  password?: React.Dispatch<React.SetStateAction<string>>;
+}> = ({ changePassword, password }) => {
   const pass_ref = useRef({});
-  const [password, setPassword] = useState<boolean>(false);
+  const [isPasswordCorrect, setIsPasswordCorrect] = useState<boolean>(false);
   const myForm = useRef<{ [key: string]: HTMLInputElement }>({});
 
   const validatePasswordInputFields = () => {
@@ -187,8 +188,9 @@ export const PasswordBulletPoints: FC<{
         field_same_passwords.style.color = validField;
       }
     }
-    setPassword(valid_password);
+    setIsPasswordCorrect(valid_password);
     changePassword(valid_password);
+    password(myForm.current["password"].value);
   };
 
   return (
@@ -206,7 +208,7 @@ export const PasswordBulletPoints: FC<{
           autoComplete="new-password"
           style={{
             borderColor: `${
-              password === true ? "rgb(0, 245, 0)" : "rgb(234, 61, 61)"
+              isPasswordCorrect === true ? "rgb(0, 245, 0)" : "rgb(234, 61, 61)"
             }`,
             borderWidth: "2px",
             backgroundColor: "aliceblue",
@@ -259,7 +261,7 @@ export const PasswordBulletPoints: FC<{
           onChange={() => validatePasswordInputFields()}
           style={{
             borderColor: `${
-              password === true ? "rgb(0, 245, 0)" : "rgb(234, 61, 61)"
+              isPasswordCorrect === true ? "rgb(0, 245, 0)" : "rgb(234, 61, 61)"
             }`,
             borderWidth: "2px",
             backgroundColor: "aliceblue",
