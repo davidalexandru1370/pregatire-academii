@@ -203,7 +203,9 @@ const PasswordBulletPoints: FC<{
           ref={(element) => (myForm.current["password"] = element)}
           autoComplete="new-password"
           style={{
-            borderColor: `${password === true ? "green" : "rgb(234, 61, 61)"}`,
+            borderColor: `${
+              password === true ? "rgb(0, 245, 0)" : "rgb(234, 61, 61)"
+            }`,
             borderWidth: "2px",
             backgroundColor: "aliceblue",
           }}
@@ -252,7 +254,9 @@ const PasswordBulletPoints: FC<{
           aria-label="password"
           onChange={() => validatePasswordInputFields()}
           style={{
-            borderColor: `${password === true ? "green" : "rgb(234, 61, 61)"}`,
+            borderColor: `${
+              password === true ? "rgb(0, 245, 0)" : "rgb(234, 61, 61)"
+            }`,
             borderWidth: "2px",
             backgroundColor: "aliceblue",
           }}
