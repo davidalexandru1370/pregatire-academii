@@ -72,7 +72,7 @@ function Login() {
   };
 
   return (
-    <>
+    <div className="loginForm">
       <label htmlFor="email">Email</label>
       <input
         type="text"
@@ -122,7 +122,7 @@ function Login() {
         Intra in cont
       </Button>
       <p className="LoginError">{errorMessages}</p>
-    </>
+    </div>
   );
 }
 

@@ -29,3 +29,11 @@ html {
   cursor: pointer;
   user-select: none;
 }
+
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: sans-serif;
+  color: white;
+}

@@ -23,6 +23,8 @@ import BaseRouter from "./BaseRouter/BaseRouter.tsx";
 import { Teste } from "./pages/Teste/Teste.tsx";
 //@ts-ignore
 import Authentificate from "./pages/Authentification/Authentificate.tsx";
+//@ts-ignore
+import ForgotPassword from "./pages/ForgotPassword/ForgotPassword.tsx";
 
 function App() {
   let navigation = useNavigate();
@@ -76,19 +78,12 @@ function App() {
                 </div>
                 <div className="row">
                   <div className="avatars">
-                    <div
-                      className="avatar">
-                      <img
-                        src={`${connectionPompierLogo}`}
-                        alt="pompier"
-                      />
+                    <div className="avatar">
+                      <img src={`${connectionPompierLogo}`} alt="pompier" />
                       <h2 className="hero-item">Pompieri</h2>
                     </div>
                     <div className="avatar">
-                      <img
-                        src={`${connectionPolitistLogo}`}
-                        alt="politie"
-                      />
+                      <img src={`${connectionPolitistLogo}`} alt="politie" />
                       <h2 className="hero-item">Politie</h2>
                     </div>
                     <div className="avatar">
@@ -124,14 +119,23 @@ function App() {
                   <div className="mt-5 pb-5 cardsMainPage">
                     <div className="card-deck">
                       <TextCard text="Subiecte romana" className="cardStyle" />
-                      <TextCard text="Subiecte matematica" className="cardStyle" />
+                      <TextCard
+                        text="Subiecte matematica"
+                        className="cardStyle"
+                      />
                     </div>
                     <div className="card-deck mt-5">
                       <TextCard text="Subiecte istorie" className="cardStyle" />
-                      <TextCard text="Rezolvari la probleme" className="cardStyle" />
+                      <TextCard
+                        text="Rezolvari la probleme"
+                        className="cardStyle"
+                      />
                     </div>
                     <div className="card-deck mt-5">
-                      <TextCard text="Explicatii ale raspunsurilor" className="cardStyle" />
+                      <TextCard
+                        text="Explicatii ale raspunsurilor"
+                        className="cardStyle"
+                      />
                       <TextCard text="Support live" className="cardStyle" />
                     </div>
                   </div>
@@ -139,11 +143,8 @@ function App() {
               </div>
             </section>
             <div className="footerApp">
-              <span
-                className="text-white"
-              >
-                Incepe prin a-ti crea
-                propriul cont.
+              <span className="text-white">
+                Incepe prin a-ti crea propriul cont.
               </span>
               <div className="my-auto">
                 <button
@@ -162,11 +163,21 @@ function App() {
       <Route element={<BaseRouter />}>
         <Route
           path="mainpage"
-          element={<ProtectedRoute page={<MainPage />} redirectPage={"/authentificate"} />} />
+          element={
+            <ProtectedRoute
+              page={<MainPage />}
+              redirectPage={"/authentificate"}
+            />
+          }
+        />
         <Route
           path="teste"
-          element={<ProtectedRoute page={<Teste />} redirectPage={"/authentificate"} />} />
+          element={
+            <ProtectedRoute page={<Teste />} redirectPage={"/authentificate"} />
+          }
+        />
       </Route>
+      <Route path="forgot-password/:pageId" element={<ForgotPassword />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

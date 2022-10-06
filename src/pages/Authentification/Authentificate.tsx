@@ -1,7 +1,8 @@
 import { useRef, useState } from "react";
 //@ts-ignore
 import Login from "../Login/Login.tsx";
-import Register from "../Register/Register";
+//@ts-ignore
+import Register from "../Register/Register.tsx";
 //@ts-ignore
 import ForgotPassword from "../ForgotPassword/ForgotPassword.tsx";
 import "./Authentificate.scss";
