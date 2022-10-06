@@ -194,7 +194,9 @@ export const PasswordBulletPoints: FC<{
   return (
     <div className="passwordContainer">
       <div className="mt-5">
-        <label htmlFor="password">Parola:</label>
+        <label htmlFor="password" className="labelPassword">
+          Parola:
+        </label>
         <input
           type="password"
           id="password"
@@ -244,7 +246,9 @@ export const PasswordBulletPoints: FC<{
         </div>
       </div>
       <div className="mt-5">
-        <label htmlFor="repeatpassword">Repeta parola:</label>
+        <label htmlFor="repeatpassword" className="labelPassword">
+          Repeta parola:
+        </label>
         <input
           type="password"
           id="repeatpassword"
