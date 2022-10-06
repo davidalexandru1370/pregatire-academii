@@ -134,11 +134,12 @@ const PasswordBulletPoints: FC<{
     const field_digit = pass_ref.current["pass-digit"];
     const field_same_passwords = pass_ref.current["pass-same"];
     let valid_password = true;
+    const validField = "rgb(0, 245, 0)";
 
     if (String(myForm.current["password"].value).length > 5) {
       const field = pass_ref.current["pass-length"];
       if (field) {
-        field.style.color = "green";
+        field.style.color = validField;
       }
     } else {
       const field = pass_ref.current["pass-length"];
@@ -151,7 +152,7 @@ const PasswordBulletPoints: FC<{
     let has_caps = String(myForm.current["password"].value).match("[A-Z]");
     if (has_caps !== null) {
       if (field_caps) {
-        field_caps.style.color = "green";
+        field_caps.style.color = validField;
       }
     } else {
       if (field_caps) {
@@ -163,7 +164,7 @@ const PasswordBulletPoints: FC<{
     let has_digit = String(myForm.current["password"].value).match("[0-9]");
     if (has_digit !== null) {
       if (field_digit) {
-        field_digit.style.color = "green";
+        field_digit.style.color = validField;
       }
     } else {
       if (field_digit) {
@@ -183,7 +184,7 @@ const PasswordBulletPoints: FC<{
       }
     } else {
       if (field_same_passwords) {
-        field_same_passwords.style.color = "green";
+        field_same_passwords.style.color = validField;
       }
     }
     setPassword(valid_password);
