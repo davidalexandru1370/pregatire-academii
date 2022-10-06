@@ -240,6 +240,22 @@ const PasswordBulletPoints: FC<{
           </li>
         </div>
       </div>
+      <div className="mt-5">
+        <label htmlFor="repeatpassword">Repeta parola:</label>
+        <input
+          type="password"
+          id="repeatpassword"
+          className="form-control"
+          placeholder="Repeta parola"
+          aria-label="password"
+          onChange={() => validatePasswordInputFields()}
+          style={{
+            borderColor: `${password === true ? "green" : "rgb(234, 61, 61)"}`,
+            borderWidth: "2px",
+            backgroundColor: "aliceblue",
+          }}
+        />
+      </div>
     </div>
   );
 };
