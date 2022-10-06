@@ -127,7 +127,7 @@ const PasswordBulletPoints: FC<{
 }> = (onChange) => {
   const pass_ref = useRef({});
   const [password, setPassword] = useState<boolean>(false);
-  const my_form = useRef({});
+  const myForm = useRef<{ [key: string]: HTMLInputElement }>({});
 
   const validatePasswordInputFields = () => {
     const field_caps = pass_ref.current["pass-caps"];
@@ -135,7 +135,7 @@ const PasswordBulletPoints: FC<{
     const field_same_passwords = pass_ref.current["pass-same"];
     let valid_password = true;
 
-    if (String(my_form["password"].value).length > 5) {
+    if (String(myForm.current["password"].value).length > 5) {
       const field = pass_ref.current["pass-length"];
       if (field) {
         field.style.color = "green";
@@ -148,7 +148,7 @@ const PasswordBulletPoints: FC<{
       }
     }
 
-    let has_caps = String(my_form["password"].value).match("[A-Z]");
+    let has_caps = String(myForm.current["password"].value).match("[A-Z]");
     if (has_caps !== null) {
       if (field_caps) {
         field_caps.style.color = "green";
@@ -160,7 +160,7 @@ const PasswordBulletPoints: FC<{
       }
     }
 
-    let has_digit = String(my_form["password"].value).match("[0-9]");
+    let has_digit = String(myForm.current["password"].value).match("[0-9]");
     if (has_digit !== null) {
       if (field_digit) {
         field_digit.style.color = "green";
@@ -172,10 +172,10 @@ const PasswordBulletPoints: FC<{
       }
     }
     let are_equal =
-      String(my_form["repeatpassword"].value) ===
-        String(my_form["password"].value) &&
-      String(my_form["password"].value).length > 0 &&
-      String(my_form["repeatpassword"].value).length > 0;
+      String(myForm.current["repeatpassword"].value) ===
+        String(myForm.current["password"].value) &&
+      String(myForm.current["password"].value).length > 0 &&
+      String(myForm.current["repeatpassword"].value).length > 0;
     if (are_equal === false) {
       if (field_same_passwords) {
         field_same_passwords.style.color = "red";
@@ -200,6 +200,7 @@ const PasswordBulletPoints: FC<{
           id="password"
           className={`form-control`}
           placeholder="Parola"
+          ref={(element) => (myForm.current["password"] = element)}
           autoComplete="new-password"
           style={{
             borderColor: `${password === true ? "green" : "rgb(234, 61, 61)"}`,
@@ -247,6 +248,7 @@ const PasswordBulletPoints: FC<{
           id="repeatpassword"
           className="form-control"
           placeholder="Repeta parola"
+          ref={(element) => (myForm.current["repeatpassword"] = element)}
           aria-label="password"
           onChange={() => validatePasswordInputFields()}
           style={{
