@@ -167,6 +167,7 @@ namespace backend.Services
         }
         public async Task<User> GeneratePasswordResetLink(string email)
         {
+            Thread.Sleep(10000);
             User? user = null;
 
             try

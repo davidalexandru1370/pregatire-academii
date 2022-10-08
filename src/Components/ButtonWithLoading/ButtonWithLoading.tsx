@@ -9,9 +9,11 @@ const ButtonWithLoading: FC<{
   style?: React.CSSProperties;
   className?: string;
   onClick: () => void;
-  text: string;
-}> = ({ style, className, onClick, text }) => {
+  disabled?: boolean;
+  children: React.ReactNode;
+}> = ({ style, className, onClick, disabled = false, children }) => {
   const [loading, setLoading] = useState<boolean>(false);
+  const [isWaitingForFetch, setIsWaitingForFetch] = useState<boolean>(true);
 
   useEffect(() => {
     if (loading === false) {
@@ -21,6 +23,7 @@ const ButtonWithLoading: FC<{
     const handle = async () => {
       onClick && (await onClick());
       setLoading(false);
+      setIsWaitingForFetch(false);
     };
 
     handle();
@@ -34,14 +37,17 @@ const ButtonWithLoading: FC<{
     <div>
       <button
         style={style}
+        type="button"
         className={`loadingButton ${className}`}
+        disabled={isWaitingForFetch || disabled}
         onClick={() => {
           setLoading(true);
+          setIsWaitingForFetch(true);
         }}
       >
-        {text}
+        {children}
       </button>
-      {loading && LoadingCircle}
+      {loading === true && <LoadingCircle loading={true} />}
     </div>
   );
 };

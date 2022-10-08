@@ -6,6 +6,8 @@ import "./forgotPasswordModal.scss";
 import { ForgotPassword as handleForgotPassword } from "../../pages/api/UserAPI.ts";
 //@ts-ignore
 import LoadingCircle from "../LoadingCircle/LoadingCircle.tsx";
+//@ts-ignore
+import ButtonWithLoading from "../ButtonWithLoading/ButtonWithLoading.tsx";
 
 interface IModal {
   isOpen: boolean;
@@ -81,8 +83,7 @@ const ForgotPasswordModal = ({ isOpen, onClose, onOpen, onClick }: IModal) => {
               />
             </div>
             <span className="invalidEmail">{error}</span>
-            <button
-              type="button"
+            <ButtonWithLoading
               className="closeButton"
               disabled={emailInputValue.trim().length === 0 ? true : false}
               onClick={async () => {
@@ -90,13 +91,7 @@ const ForgotPasswordModal = ({ isOpen, onClose, onOpen, onClick }: IModal) => {
               }}
             >
               Trimite
-              <LoadingCircle
-                style={{
-                  right: "10px",
-                  top: "32%",
-                }}
-              />
-            </button>
+            </ButtonWithLoading>
 
             <span
               className="material-symbols-outlined closeIcon"
