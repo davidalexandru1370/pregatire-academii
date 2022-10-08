@@ -103,7 +103,10 @@ function Register() {
               {email === false ? "Adresa de email este invalida" : ""}
             </li>
           </div>
-          <PasswordBulletPoints changePassword={setPassword} />
+          <PasswordBulletPoints
+            changePassword={setPassword}
+            style={{ border: "none" }}
+          />
           <button
             className="register-btn btn mt-3 d-flex justify-content-center"
             type="button"
@@ -125,7 +128,8 @@ function Register() {
 export const PasswordBulletPoints: FC<{
   changePassword: React.Dispatch<React.SetStateAction<boolean>>;
   password?: React.Dispatch<React.SetStateAction<string>>;
-}> = ({ changePassword, password }) => {
+  style?: React.CSSProperties;
+}> = ({ changePassword, password, style }) => {
   const pass_ref = useRef({});
   const [isPasswordCorrect, setIsPasswordCorrect] = useState<boolean>(false);
   const myForm = useRef<{ [key: string]: HTMLInputElement }>({});
@@ -194,7 +198,7 @@ export const PasswordBulletPoints: FC<{
   };
 
   return (
-    <div className="passwordContainer">
+    <div className="passwordContainer" style={style}>
       <div className="">
         <label htmlFor="password" className="labelPassword">
           Parola:
