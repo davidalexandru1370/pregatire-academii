@@ -52,12 +52,16 @@ const ButtonWithLoading: FC<{
         setIsWaitingForFetch(true);
       }}
     >
-      {isWaitingForFetch === true ? waitingText : children}
-      {isWaitingForFetch === true && (
-        <LoadingCircle
-          loading={true}
-          style={{ right: 0, marginRight: "10px", top: "30%" }}
-        />
+      {isWaitingForFetch === true ? (
+        <>
+          {waitingText}
+          <LoadingCircle
+            loading={true}
+            style={{ right: 0, marginRight: "10px", top: "30%" }}
+          />
+        </>
+      ) : (
+        children
       )}
     </button>
   );
