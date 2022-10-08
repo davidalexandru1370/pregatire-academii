@@ -12,10 +12,14 @@ const LoadingCircle: FC<{
   useEffect(() => {
     const abortController = new AbortController();
     if (isLoading === true) {
-      onLoading && onLoading();
+      const changeToAsync = async () => {
+        onLoading && (await onLoading());
+      };
+      changeToAsync();
     }
     return () => {
       abortController.abort();
+      setIsLoading(false);
     };
   }, [loading]);
 
