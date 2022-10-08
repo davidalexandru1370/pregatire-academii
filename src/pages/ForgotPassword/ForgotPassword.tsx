@@ -9,6 +9,8 @@ import {
   ChangePassword,
   //@ts-ignore
 } from "../api/UserAPI.ts";
+//@ts-ignore
+import LoadingCircle from "../../Components/LoadingCircle/LoadingCircle.tsx";
 
 const ForgotPassword = () => {
   const pageId = useParams()["pageId"];

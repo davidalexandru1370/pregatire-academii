@@ -4,6 +4,8 @@ import ReactPortal from "../ReactPortal/ReactPortal.ts";
 import "./forgotPasswordModal.scss";
 //@ts-ignore
 import { ForgotPassword as handleForgotPassword } from "../../pages/api/UserAPI.ts";
+//@ts-ignore
+import LoadingCircle from "../LoadingCircle/LoadingCircle.tsx";
 
 interface IModal {
   isOpen: boolean;
@@ -87,6 +89,7 @@ const ForgotPasswordModal = ({ isOpen, onClose, onOpen, onClick }: IModal) => {
                 await handleSendClick();
               }}
             >
+              <LoadingCircle />
               Trimite
             </button>
 
