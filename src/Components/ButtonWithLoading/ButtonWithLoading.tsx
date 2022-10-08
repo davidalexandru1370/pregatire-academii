@@ -13,7 +13,7 @@ const ButtonWithLoading: FC<{
   children: React.ReactNode;
 }> = ({ style, className, onClick, disabled = false, children }) => {
   const [loading, setLoading] = useState<boolean>(false);
-  const [isWaitingForFetch, setIsWaitingForFetch] = useState<boolean>(true);
+  const [isWaitingForFetch, setIsWaitingForFetch] = useState<boolean>(false);
 
   useEffect(() => {
     if (loading === false) {
@@ -47,7 +47,6 @@ const ButtonWithLoading: FC<{
       >
         {children}
       </button>
-      {loading === true && <LoadingCircle loading={true} />}
     </div>
   );
 };
