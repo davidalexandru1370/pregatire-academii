@@ -7,7 +7,9 @@ const LoadingCircle: FC<{
   loading?: boolean;
   onLoading?: () => void;
 }> = ({ style, className, loading, onLoading }) => {
-  const [isLoading, setIsLoading] = useState<boolean>(loading && true);
+  console.log(loading);
+
+  const [isLoading, setIsLoading] = useState<boolean>(loading);
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -23,14 +25,9 @@ const LoadingCircle: FC<{
     };
   }, [loading]);
 
-  if (isLoading === false) {
-    return null;
-  }
-
   return (
     <div>
-      {/*@ts-ignore*/}
-      <span className="circle" className={`${className}`} style={style} />
+      <span className="circle" style={style} />
     </div>
   );
 };

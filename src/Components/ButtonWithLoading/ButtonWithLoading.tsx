@@ -10,8 +10,16 @@ const ButtonWithLoading: FC<{
   className?: string;
   onClick: () => void;
   disabled?: boolean;
+  waitingText: string;
   children: React.ReactNode;
-}> = ({ style, className, onClick, disabled = false, children }) => {
+}> = ({
+  style,
+  className,
+  onClick,
+  waitingText,
+  disabled = false,
+  children,
+}) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [isWaitingForFetch, setIsWaitingForFetch] = useState<boolean>(false);
 
@@ -34,20 +42,24 @@ const ButtonWithLoading: FC<{
   }, [loading]);
 
   return (
-    <div>
-      <button
-        style={style}
-        type="button"
-        className={`loadingButton ${className}`}
-        disabled={isWaitingForFetch || disabled}
-        onClick={() => {
-          setLoading(true);
-          setIsWaitingForFetch(true);
-        }}
-      >
-        {children}
-      </button>
-    </div>
+    <button
+      style={style}
+      type="button"
+      className={`loadingButton ${className}`}
+      disabled={isWaitingForFetch || disabled}
+      onClick={() => {
+        setLoading(true);
+        setIsWaitingForFetch(true);
+      }}
+    >
+      {isWaitingForFetch === true ? waitingText : children}
+      {isWaitingForFetch === true && (
+        <LoadingCircle
+          loading={true}
+          style={{ right: 0, marginRight: "10px", top: "30%" }}
+        />
+      )}
+    </button>
   );
 };
 

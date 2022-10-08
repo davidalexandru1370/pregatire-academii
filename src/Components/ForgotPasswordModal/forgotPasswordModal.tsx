@@ -54,9 +54,8 @@ const ForgotPasswordModal = ({ isOpen, onClose, onOpen, onClick }: IModal) => {
   }, [show]);
 
   const handleSendClick = async () => {
-    let data = null;
     try {
-      data = await handleForgotPassword(emailInputValue);
+      await handleForgotPassword(emailInputValue);
       setError("");
     } catch (e) {
       setError(e);
@@ -85,6 +84,7 @@ const ForgotPasswordModal = ({ isOpen, onClose, onOpen, onClick }: IModal) => {
             <span className="invalidEmail">{error}</span>
             <ButtonWithLoading
               className="closeButton"
+              waitingText="Se trimite..."
               disabled={emailInputValue.trim().length === 0 ? true : false}
               onClick={async () => {
                 await handleSendClick();
@@ -92,7 +92,6 @@ const ForgotPasswordModal = ({ isOpen, onClose, onOpen, onClick }: IModal) => {
             >
               Trimite
             </ButtonWithLoading>
-
             <span
               className="material-symbols-outlined closeIcon"
               onClick={() => {
