@@ -89,8 +89,13 @@ const ForgotPasswordModal = ({ isOpen, onClose, onOpen, onClick }: IModal) => {
                 await handleSendClick();
               }}
             >
-              <LoadingCircle />
               Trimite
+              <LoadingCircle
+                style={{
+                  right: "10px",
+                  top: "32%",
+                }}
+              />
             </button>
 
             <span
