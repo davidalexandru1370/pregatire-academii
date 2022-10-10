@@ -167,7 +167,6 @@ namespace backend.Services
         }
         public async Task<User> GeneratePasswordResetLink(string email)
         {
-            Thread.Sleep(10000);
             User? user = null;
 
             try
@@ -212,8 +211,14 @@ namespace backend.Services
                     alreadyExistingLink.userId = user.Id;
                     await _changePasswordAvailableRepository.Add(alreadyExistingLink);
                 }
-
-                _emailService.sendEmail(Email.EmailFactory.ForgotPasswordEmail(email, Enumerable.Empty<IFormFile>(), alreadyExistingLink.pageId, user.Name));
+                try
+                {
+                    _emailService.sendEmail(Email.EmailFactory.ForgotPasswordEmail(email, Enumerable.Empty<IFormFile>(), alreadyExistingLink.pageId, user.Name));
+                }
+                catch (System.Net.Sockets.SocketException)
+                {
+                    throw;
+                }
             }
 
             return user!;

@@ -128,7 +128,10 @@ namespace backend.Controllers
             {
                 return BadRequest("Aceasta adresa de email nu este asociata niciunui cont!");
             }
-
+            catch (System.Net.Sockets.SocketException)
+            {
+                return BadRequest("Email-ul nu a fost trimis!");
+            }
             return Ok();
         }
 

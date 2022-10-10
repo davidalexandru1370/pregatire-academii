@@ -7,8 +7,6 @@ const LoadingCircle: FC<{
   loading?: boolean;
   onLoading?: () => void;
 }> = ({ style, className, loading, onLoading }) => {
-  console.log(loading);
-
   const [isLoading, setIsLoading] = useState<boolean>(loading);
 
   useEffect(() => {
@@ -27,7 +25,7 @@ const LoadingCircle: FC<{
 
   return (
     <div>
-      <span className="circle" style={style} />
+      <span className={`circle ${className}`} style={style} />
     </div>
   );
 };
