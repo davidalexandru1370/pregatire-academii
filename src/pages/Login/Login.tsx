@@ -9,6 +9,8 @@ import { AuthResult } from "../../Models/AuthResult";
 import { User } from "../../Models/User";
 //@ts-ignore
 import { Login as _Login } from "../api/UserAPI.ts";
+//@ts-ignore
+import ButtonWithLoading from "../../Components/ButtonWithLoading/ButtonWithLoading.tsx";
 
 function Login() {
   const emailInputRef = useRef<HTMLInputElement | null>(null);
@@ -111,16 +113,17 @@ function Login() {
           }}
         />
       )}
-      <Button
+      <ButtonWithLoading
         className="mt-3"
         disabled={loginButton}
         ref={buttonInputRef}
-        onClick={() => {
-          loginButtonClick();
+        waitingText="Se trimite..."
+        onClick={async () => {
+          await loginButtonClick();
         }}
       >
         Intra in cont
-      </Button>
+      </ButtonWithLoading>
       <p className="LoginError">{errorMessages}</p>
     </div>
   );

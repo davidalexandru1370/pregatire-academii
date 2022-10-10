@@ -53,6 +53,10 @@ const ForgotPasswordModal = ({ isOpen, onClose, onOpen, onClick }: IModal) => {
     };
   }, [show]);
 
+  useEffect(() => {
+    onOpen && onOpen();
+  }, []);
+
   const handleSendClick = async () => {
     try {
       await handleForgotPassword(emailInputValue);
@@ -87,6 +91,7 @@ const ForgotPasswordModal = ({ isOpen, onClose, onOpen, onClick }: IModal) => {
               waitingText="Se trimite..."
               disabled={emailInputValue.trim().length === 0 ? true : false}
               onClick={async () => {
+                onClick && onClick();
                 await handleSendClick();
               }}
             >
