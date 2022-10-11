@@ -8,6 +8,7 @@ using Microsoft.Extensions.Options;
 using backend.Constants;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.VisualBasic.Syntax;
+using StackExchange.Redis;
 
 namespace backend.Services
 {
@@ -20,14 +21,15 @@ namespace backend.Services
         private readonly ITokenRepository _tokenRepository;
         private readonly IChangePasswordAvailableRepository _changePasswordAvailableRepository;
         private IEmailService _emailService;
-
+        private IDatabaseAsync _redis;
         public UserService(EntitiesDbContext dataContext,
             IJwtUtils jwtUtils,
             IOptions<AppSettings> appSettings,
             IUserRepository userRepository,
             ITokenRepository tokenRepository,
             IEmailService emailService,
-            IChangePasswordAvailableRepository changePasswordAvailableRepository
+            IChangePasswordAvailableRepository changePasswordAvailableRepository,
+            IConnectionMultiplexer redis
             )
         {
             _dataContext = dataContext;
@@ -37,6 +39,7 @@ namespace backend.Services
             _tokenRepository = tokenRepository;
             _emailService = emailService;
             _changePasswordAvailableRepository = changePasswordAvailableRepository;
+            _redis = redis.GetDatabase();
         }
 
         public async Task<AuthResult> Authentificate(User user)

@@ -6,7 +6,7 @@ using backend.Utilities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-
+using StackExchange.Redis;
 namespace backend.Controllers
 {
     [ApiController]
@@ -16,8 +16,10 @@ namespace backend.Controllers
         private IUserService _userService;
         private ICookieUtilities _cookieUtilities;
         private AppSettings _appSettings;
-
-        public UserController(IUserService userService, IOptions<AppSettings> options, ICookieUtilities cookieUtilities)
+        public UserController(
+            IUserService userService,
+            IOptions<AppSettings> options, 
+            ICookieUtilities cookieUtilities)
         {
             _userService = userService;
             _cookieUtilities = cookieUtilities;

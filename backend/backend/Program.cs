@@ -11,6 +11,7 @@ using backend.Utilities.JWT;
 using backend.Utilities;
 using backend.Repository;
 using backend.Middlewares;
+using StackExchange.Redis;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,9 +33,13 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ICookieUtilities, CookieUtilities>();
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<IChangePasswordAvailableRepository, ChangePasswordLinkAvailableRepository>();
-//builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-//builder.Services.AddHttpContextAccessor();
-
+builder.Services.AddSingleton<IConnectionMultiplexer>(options =>
+    ConnectionMultiplexer.Connect(new ConfigurationOptions
+    {
+        EndPoints = {$"{builder.Configuration.GetValue<string>("Redis:Server")}:{builder.Configuration.GetValue<int>("Redis:Port")}"},
+        AbortOnConnectFail = false,
+    })
+);
 //for identity
 
 //builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<UserDbContext>().AddDefaultTokenProviders();
