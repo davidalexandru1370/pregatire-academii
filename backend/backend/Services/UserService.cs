@@ -255,6 +255,8 @@ namespace backend.Services
             {
                 await _userRepository.Update(user.Id, user);
                 await _changePasswordAvailableRepository.Delete(forgotPasswordLink);
+                TimeSpan expirationTime = DateTime.Now.AddDays(7) - DateTime.Now;
+                await _redis.StringSetAsync(user.Id.ToString(), DateTime.Now.ToString(), expirationTime);
             }
         }
     }

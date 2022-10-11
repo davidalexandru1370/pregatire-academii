@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using System.Net;
 using System.Threading.Tasks;
+using StackExchange.Redis;
 
 namespace backend.Middlewares
 {
@@ -20,7 +21,14 @@ namespace backend.Middlewares
             _next = next;
         }
 
-        public async Task Invoke(HttpContext httpContext, ITokenRepository tokenRepository, IJwtUtils jwtUtils, ICookieUtilities cookieUtilities, IOptions<AppSettings> options)
+        public async Task Invoke(
+            HttpContext httpContext, 
+            ITokenRepository tokenRepository, 
+            IJwtUtils jwtUtils,
+            ICookieUtilities cookieUtilities, 
+            IOptions<AppSettings> options,
+            IConnectionMultiplexer redis
+            )
         {
             ITokenRepository _tokenRepository = tokenRepository;
             IJwtUtils _jwtUtils = jwtUtils;
@@ -29,7 +37,7 @@ namespace backend.Middlewares
             char delimitator = '/';
             var path = httpContext.Request.Path.Value?.Split(delimitator).Where(s => String.IsNullOrWhiteSpace(s) == false).ToList();
             var saveResponseContentType = httpContext.Response.ContentType;
-
+            IDatabaseAsync _redis = redis.GetDatabase();
             httpContext.Response.ContentType = "application/json";
 
             if (path is null)
