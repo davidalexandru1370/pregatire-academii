@@ -22,10 +22,10 @@ namespace backend.Middlewares
         }
 
         public async Task Invoke(
-            HttpContext httpContext, 
-            ITokenRepository tokenRepository, 
+            HttpContext httpContext,
+            ITokenRepository tokenRepository,
             IJwtUtils jwtUtils,
-            ICookieUtilities cookieUtilities, 
+            ICookieUtilities cookieUtilities,
             IOptions<AppSettings> options,
             IConnectionMultiplexer redis
             )
@@ -58,7 +58,7 @@ namespace backend.Middlewares
                     await httpContext.Response.WriteAsync("Forbidden");
                     return;
                 }
-                 
+
                 Guid? userId = _jwtUtils.ValidateJwtToken(accessToken);
 
                 Guid? isRefreshTokenValid = _jwtUtils.ValidateJwtToken(refreshToken);
@@ -72,12 +72,19 @@ namespace backend.Middlewares
 
                 httpContext.Items["accessToken"] = accessToken;
 
+                var userIdStoredInToken = Guid.Parse(_jwtUtils.GetFieldFromToken(accessToken, "Id"));
+                var tokenExpirationDate = DateTime.Parse(_jwtUtils.GetFieldFromToken(accessToken, "iat"));
+
                 if (userId is null)
                 {
-                    string newAccessToken = _jwtUtils.GenerateJwtToken(new User { Id = Guid.Parse(_jwtUtils.GetFieldFromToken(accessToken, "Id")) }, _appSettings.AccessTokenTTL);
+                    string newAccessToken = _jwtUtils.GenerateJwtToken(new User { Id = userIdStoredInToken }, _appSettings.AccessTokenTTL);
                     _cookieUtilities.setCookiePrivate("accessToken", newAccessToken, httpContext, options.Value.AccessTokenTTL);
                     httpContext.Items["accessToken"] = newAccessToken;
                 }
+
+                var changedPasswordRecently = await _redis.StringGetAsync(userIdStoredInToken.ToString());
+
+                
 
                 /* else
                  {
