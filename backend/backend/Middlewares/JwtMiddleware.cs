@@ -8,6 +8,7 @@ using Microsoft.Extensions.Options;
 using System.Net;
 using System.Threading.Tasks;
 using StackExchange.Redis;
+using System.Diagnostics;
 
 namespace backend.Middlewares
 {
@@ -73,7 +74,7 @@ namespace backend.Middlewares
                 httpContext.Items["accessToken"] = accessToken;
 
                 var userIdStoredInToken = Guid.Parse(_jwtUtils.GetFieldFromToken(accessToken, "Id"));
-                var tokenExpirationDate = DateTime.Parse(_jwtUtils.GetFieldFromToken(accessToken, "iat"));
+                var tokenIssuedDate = Utilities.Utilities.ConvertFromUnixTimeStamp(Int32.Parse(_jwtUtils.GetFieldFromToken(accessToken, "iat")));
 
                 if (userId is null)
                 {
@@ -83,8 +84,15 @@ namespace backend.Middlewares
                 }
 
                 var changedPasswordRecently = await _redis.StringGetAsync(userIdStoredInToken.ToString());
+                Debug.WriteLine(changedPasswordRecently);
 
-                
+                if (changedPasswordRecently.HasValue && tokenIssuedDate < DateTime.Parse(changedPasswordRecently!))
+                {
+                    httpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
+                    await httpContext.Response.WriteAsync("BadRequest");
+                    return;
+                }
+
 
                 /* else
                  {
