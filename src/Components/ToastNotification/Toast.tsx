@@ -7,10 +7,43 @@ enum Corner {
   bottomLeft,
 }
 
-interface IToast {}
+enum ToastTypes {
+  success,
+  error,
+}
 
-const Toast = () => {
-  return <div>Toast</div>;
+interface IToast {
+  corner: Corner;
+  style?: React.CSSProperties;
+  className?: string;
+  text: string;
+  timer?: number;
+  type: ToastTypes;
+  pauseOnHover: boolean;
+  draggable: boolean;
+}
+
+function createCornerStyle(corner: Corner): string {
+  switch (corner) {
+    case Corner.topRight: {
+      break;
+    }
+  }
+
+  return "";
+}
+
+const Toast = ({
+  corner,
+  style,
+  className,
+  text,
+  timer,
+  type,
+  pauseOnHover = false,
+  draggable = true,
+}: IToast) => {
+  return <div></div>;
 };
 
 export default Toast;
