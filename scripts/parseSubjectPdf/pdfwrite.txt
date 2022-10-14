@@ -1,0 +1,44 @@
+ 
+Nota: Fiecare intrebare are o singura varianta de raspuns corecta. 
+Exemplu de marcare raspuns:  
+Raspuns considerat corect la intrebarea nr. 1: b) 
+Pagina 1 / 6  CONCURS DE ADMITERE 
+Sesiunea 2021 
+FIZICĂ 
+a        b        c       d     Ministerul Afacerilor Interne 
+Academia de Poliţie “ Alexandru Ioan Cuza ” 
+Facultatea de Pompieri 
+1 
+ 
+ 
+1) Un bec cu filament de wolfram are inscris pe soclu valorile (120 V; 100 W). Rezistenta rezistorului 
+care trebuie inseriat cu becul pentru ca acesta sa functioneze normal atunci cand este alimentat la o 
+tensiune de 220 V este: 
+a) 12 Ω; 
+b) 120 Ω; 
+c) 1,2 Ω; 
+d) 0,12 Ω. 
+ 
+2) Simbolurile marimilor fizice fiind cele utilizate in manualele de fizica, expresia randamentului 
+circuitului electric simplu poate fi: 
+a)  E
+U; 
+b) r
+R r; 
+c) 1
+scI
+I ; 
+d) 1U
+E . 
+ 
+3) Notatiile fiind cele utilizate in manualele de fizica, unitatea de masura pentru intensitatea curentului 
+electric poate fi exprimata prin relatia: 
+a)  W
+; 
+b)  J
+s; 
+c)  2J
+V s; 
+d)  V
+. 
+ 
