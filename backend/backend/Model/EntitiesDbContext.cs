@@ -7,15 +7,17 @@ namespace backend.Model
         public virtual DbSet<User> Users { set; get; }
         public virtual DbSet<Token> TokenDetails { get; set; }
         public virtual DbSet<ChangePasswordLinkAvailable> ChangePasswordLinkAvailables { get; set; }
-        
+        public virtual DbSet<Quiz> Quiz { get; set; }
+        public virtual DbSet<Question> Question { get; set; }
+        public virtual DbSet<Answer> Answer { get; set; }
         public EntitiesDbContext(DbContextOptions<EntitiesDbContext> options) : base(options)
         {
 
         }
 
-        protected  override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            
+
         }
     }
 }
