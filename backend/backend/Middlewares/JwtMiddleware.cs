@@ -84,7 +84,6 @@ namespace backend.Middlewares
                 }
 
                 var changedPasswordRecently = await _redis.StringGetAsync(userIdStoredInToken.ToString());
-                Debug.WriteLine(changedPasswordRecently);
 
                 if (changedPasswordRecently.HasValue && tokenIssuedDate < DateTime.Parse(changedPasswordRecently!))
                 {

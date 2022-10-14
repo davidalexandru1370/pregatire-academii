@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useLayoutEffect, useRef } from "react";
+import "./Toast.scss";
 
 enum Corner {
   topRight,
@@ -23,14 +24,33 @@ interface IToast {
   draggable: boolean;
 }
 
-function createCornerStyle(corner: Corner): string {
+function createCornerStyle(corner: Corner): React.CSSProperties {
+  var result: React.CSSProperties;
   switch (corner) {
     case Corner.topRight: {
-      break;
+      result.top = "0";
+      result.right = "0";
+      return result;
+    }
+
+    case Corner.topLeft: {
+      result.top = "0";
+      result.left = "0";
+      return result;
+    }
+
+    case Corner.bottomLeft: {
+      result.bottom = "0";
+      result.left = "0";
+      return result;
+    }
+
+    case Corner.bottomRight: {
+      result.bottom = "0";
+      result.right = "0";
+      return result;
     }
   }
-
-  return "";
 }
 
 const Toast = ({
@@ -43,7 +63,32 @@ const Toast = ({
   pauseOnHover = false,
   draggable = true,
 }: IToast) => {
-  return <div></div>;
+  useLayoutEffect(() => {
+    let parentContainer = useRef<HTMLDivElement>(
+      document.getElementById("toastContainer") as HTMLDivElement
+    );
+    console.log(parentContainer);
+  }, []);
+
+  return (
+    <div
+      className={`toast ${className}`}
+      style={{ ...style, ...createCornerStyle(corner) }}
+    >
+      <span className="material-symbols-outlined">error</span>
+    </div>
+  );
 };
+
+function toast({
+  corner,
+  style,
+  className,
+  text,
+  timer,
+  type,
+  pauseOnHover = false,
+  draggable = true,
+}: IToast): void {}
 
 export default Toast;
