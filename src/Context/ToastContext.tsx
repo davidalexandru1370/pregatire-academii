@@ -15,12 +15,7 @@ export enum ToastActionType {
 }
 
 const ToastContextProvider = ({ children }) => {
-  const toastNotifications: Partial<IToast>[] = [
-    {
-      id: uuidv4(),
-      text: "",
-    },
-  ];
+  const toastNotifications: IToast[] = [];
 
   const [state, dispatch] = useReducer(
     (state: IToast[], action: Partial<IToast>) => {

@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef } from "react";
+import React, { ReactElement, ReactNode, useLayoutEffect, useRef } from "react";
 import "./Toast.scss";
 import { v4 as uuidv4 } from "uuid";
 
@@ -55,6 +55,15 @@ function createCornerStyle(corner: Corner): React.CSSProperties {
   }
 }
 
+const generateIcon = (type: ToastTypes): ReactNode => {
+  switch (type) {
+    case ToastTypes.success:
+      return <span className="material-symbols-outlined">check_circle</span>;
+    case ToastTypes.error:
+      return <span className="material-symbols-outlined">cancel</span>;
+  }
+};
+
 const Toast = ({
   id,
   corner,
@@ -78,7 +87,7 @@ const Toast = ({
       className={`toast ${className}`}
       style={{ ...style, ...createCornerStyle(corner) }}
     >
-      <span className="material-symbols-outlined">error</span>
+      {generateIcon(type)}
     </div>
   );
 };
