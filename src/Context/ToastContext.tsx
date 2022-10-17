@@ -4,7 +4,8 @@ import React, {
   useContext,
   useReducer,
 } from "react";
-import { IToast } from "../Components/ToastNotification/Toast";
+//@ts-ignore
+import { IToast } from "../Components/ToastNotification/Toast.tsx";
 import { v4 as uuidv4 } from "uuid";
 
 export const ToastContext = createContext(null);
@@ -24,7 +25,7 @@ const ToastContextProvider = ({ children }) => {
           return [...state, action];
         case ToastActionType.DELETE:
           return state.filter((notification: Partial<IToast>) => {
-            notification.id !== action.id;
+            return notification.id !== action.id;
           });
         default:
           return state;

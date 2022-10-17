@@ -5,15 +5,17 @@ import App from "./App.tsx";
 import { BrowserRouter, Router } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
 import { createRoot } from "react-dom/client";
-import ToastContainer from "./Components/ToastNotification/ToastContainer.tsx"
+import ToastContextProvider from "./Context/ToastContext.tsx";
 const container = document.getElementById("root");
 const root = createRoot(container);
 root.render(
   <BrowserRouter>
     <React.StrictMode>
-      <ToastContainer/>
+      <ToastContextProvider>
       <App />
+      </ToastContextProvider>
     </React.StrictMode>
+    
   </BrowserRouter>
 );
 
