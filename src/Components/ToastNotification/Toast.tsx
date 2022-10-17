@@ -1,5 +1,6 @@
 import React, { useLayoutEffect, useRef } from "react";
 import "./Toast.scss";
+import { v4 as uuidv4 } from "uuid";
 
 enum Corner {
   topRight,
@@ -13,7 +14,8 @@ enum ToastTypes {
   error,
 }
 
-interface IToast {
+export interface IToast {
+  id: uuidv4;
   corner: Corner;
   style?: React.CSSProperties;
   className?: string;
@@ -54,6 +56,7 @@ function createCornerStyle(corner: Corner): React.CSSProperties {
 }
 
 const Toast = ({
+  id,
   corner,
   style,
   className,
