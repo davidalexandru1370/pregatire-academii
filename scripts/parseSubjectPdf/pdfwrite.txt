@@ -41,4 +41,408 @@ c)  2J
 V s; 
 d)  V
 . 
+  
+Nota: Fiecare intrebare are o singura varianta de raspuns corecta. 
+Exemplu de marcare raspuns:  
+Raspuns considerat corect la intrebarea nr. 1: b) 
+Pagina 2 / 6  CONCURS DE ADMITERE 
+Sesiunea 2021 
+FIZICĂ 
+a        b        c       d     Ministerul Afacerilor Interne 
+Academia de Poliţie “ Alexandru Ioan Cuza ” 
+Facultatea de Pompieri 
+1 
+ 
+ 
+4) Unitatea de masura pentru puterea electrica poate fi exprimata prin relatia: 
+a) 3
+2kg m
+s; 
+b) 2kg m
+s; 
+c) 3kg m
+s; 
+d) 2
+3kg m
+s. 
+ 
+5) Un generator electric cu rezistenta interioara de 0,3Ω, alimentand un rezistor de rezistenta 19,7Ω, 
+produce un curent cu intensitatea de 1,5A. Intensitatea curentului ce strabate generatorul daca din gre șeala 
+se scurtcircuiteaza generatorul este: 
+a) 1 A; 
+b) 310A; 
+c) 210A; 
+d) 10 A. 
+ 
+6) O retea electrica este formata dintr-o sursa și doua rezistoare cu rezistentele electrice 16R   
+respectiv 24R , legate in paralel. Daca intensitatea curentului prin sursa este I = 2 A, intensitatile 
+curentilor 1I, respectiv 2I prin cei doi rezistori sunt: 
+a) 0,8 A, respectiv 1,2 A; 
+b) 1,988 A, respectiv 0,012 A; 
+c) 0,7 A, respectiv 1,3 A; 
+d) 0,9 A, respectiv 1,1 A.  
+Nota: Fiecare intrebare are o singura varianta de raspuns corecta. 
+Exemplu de marcare raspuns:  
+Raspuns considerat corect la intrebarea nr. 1: b) 
+Pagina 3 / 6  CONCURS DE ADMITERE 
+Sesiunea 2021 
+FIZICĂ 
+a        b        c       d     Ministerul Afacerilor Interne 
+Academia de Poliţie “ Alexandru Ioan Cuza ” 
+Facultatea de Pompieri 
+1 
+ 
+7) Un corp de masa m este lansat pe verticala  in sus, de la nivelul solului, cu viteza 025mvs . Mișcarea 
+are loc in camp gravitational (210mgs), forta de rezistenta intampinata din partea aerului este 
+neglijabila. Viteza corpului la momentul de timp in care energia cinetica reprezinta 25% din energia 
+potentiala gravitationala are valoarea: 
+a) 5mvs; 
+b) 5 5mvs; 
+c) 5mvs; 
+d) 5
+2mvs. 
+ 
+8) Un corp de masa m aluneca liber cu frecare (coeficientul de frecare de alunecare ) de la inaltimea h a 
+unui plan inclinat de unghi  . Lucrul mecanic total efectuat la deplasarea corpului pana la baza planului 
+inclinat are expresia: 
+a) (1 )L mgh ctg     ;  
+b) (1 )L mgh tg     ; 
+c) (1 )L mgh ctg     ; 
+d) cos L mgh    . 
+ 
+9) O saniuta aluneca liber pe zapada pe un drum inclinat de unghi 045,  de la o inaltime h=4m, dupa 
+care intra pe un drum orizontal. Coeficientul de frecare la alunecare intre talpile saniutei și zapada este 
+același pe tot parcursul mișcarii, 0,04. Distanta parcursa pe planul orizontal pana la oprire este: 
+a) 92 m; 
+b) 88 m; 
+c) 96 m; 
+d) 100 m. 
+  
+Nota: Fiecare intrebare are o singura varianta de raspuns corecta. 
+Exemplu de marcare raspuns:  
+Raspuns considerat corect la intrebarea nr. 1: b) 
+Pagina 4 / 6  CONCURS DE ADMITERE 
+Sesiunea 2021 
+FIZICĂ 
+a        b        c       d     Ministerul Afacerilor Interne 
+Academia de Poliţie “ Alexandru Ioan Cuza ” 
+Facultatea de Pompieri 
+1 
+ 
+10) Un corp de masa m cade liber in camp gravitational (210mgs) de la inaltimea H. Pe distanta 
+13
+4HH  forta de rezistenta intampinata din partea aerului este neglijabila, iar pe urmatoarea distanta 
+24HH forta de rezistenta intampinata din partea aerului reprezinta o patrime din greutatea corpului. 
+Raportul dintre patratul vitezelor corpului dupa ce acesta parcurge distanta 1H,  respectiv distanta 2H, are 
+valoarea: 
+a) 2
+1
+2
+24
+5v
+v; 
+b) 2
+1
+2
+25
+4v
+v; 
+c) 2
+1
+2
+21
+2v
+v; 
+d) 2
+1
+2
+21v
+v. 
+ 
+11) Simbolurile marimilor fizice fiind cele utilizate in manualele de fizica, expresia matematica a 
+teoremei de variatie a energiei cinetice a punctului material este: 
+a) total pL E; 
+b) total cL E; 
+c) total cL E; 
+d) total cL E. 
+ 
+12) Un resort initial nedeformat este comprimat cu 2 cm sub actiunea unei forte de 10 N.  În aceasta stare 
+energia potentiala elastica are valoarea: 
+a) 0,1 J; 
+b) 0,2 J; 
+c) 0,3 J; 
+d) 0,4 J. 
+ 
+13)  În comprimarea adiabatica a unui gaz ideal: 
+a) energia interna cre ște; 
+b) energia interna scade; 
+c) energia interna nu se modifica; 
+d) caldura este egala cu lucrul mecanic. 
+  
+Nota: Fiecare intrebare are o singura varianta de raspuns corecta. 
+Exemplu de marcare raspuns:  
+Raspuns considerat corect la intrebarea nr. 1: b) 
+Pagina 5 / 6  CONCURS DE ADMITERE 
+Sesiunea 2021 
+FIZICĂ 
+a        b        c       d     Ministerul Afacerilor Interne 
+Academia de Poliţie “ Alexandru Ioan Cuza ” 
+Facultatea de Pompieri 
+1 
+ 
+14) Într-un calorimetru avand capacitatea calorica neglijabila se amesteca trei cantitati egale de apa cu 
+temperaturi diferite: 0
+120 C t, 0
+230 C t, 0
+340 C t. Temperatura de echilibru este: 
+a) 022 C ; 
+b) 026 C ; 
+c) 030 C ; 
+d) 034 C . 
+ 
+15) Simbolurile fiind cele utilizate in manualele de fizica, relatia pentru caldura molara este: 
+a) QCT; 
+b) Qcm T; 
+c) QCT; 
+d) QCT. 
+ 
+16) Caldura specifica izobara a unui gaz ideal avand exponentul adiabatic , in functie de densitatea 
+acestuia 0 in conditii normale de presiune și temperatura (0p,0T) are expresia: 
+a) 0
+0 0( 1)ppcT ; 
+b) 0
+0 0( 1)ppcT ; 
+c) 0
+0 0( 1)ppcT
+ ; 
+d) 0 0
+0( 1)pT pc . 
+ 
+17) O cantitate de gaz ideal sufera succesiunea de transformari: o izoterma urmata de o izocora. 
+Reprezentarea transformarilor in coordonate (p,T) este: 
+a) Dreapta verticala urmata de o dreapta ce trece prin origine; 
+b) Arc de hiperbola urmata de o dreapta verticala; 
+c) Arc de hiperbola urmata de o dreapta orizontala; 
+d) Dreapta orizontala urmata de o dreapta verticala. 
+  
+Nota: Fiecare intrebare are o singura varianta de raspuns corecta. 
+Exemplu de marcare raspuns:  
+Raspuns considerat corect la intrebarea nr. 1: b) 
+Pagina 6 / 6  CONCURS DE ADMITERE 
+Sesiunea 2021 
+FIZICĂ 
+a        b        c       d     Ministerul Afacerilor Interne 
+Academia de Poliţie “ Alexandru Ioan Cuza ” 
+Facultatea de Pompieri 
+1 
+ 
+18) Simbolurile fiind cele utilizate in manualele de fizica, relatia dintre capacitatea calorica și caldura 
+specifica este: 
+a) C m c ; 
+b) c m C ; 
+c) C c ; 
+d) C c . 
+ 
+ 
+  
+Nota: Fiecare intrebare are o singura varianta de raspuns corecta. 
+Exemplu de marcare raspuns:  
+Raspuns considerat corect la intrebarea nr. 1: b) 
+Pagina 1 / 5 CONCURS DE ADMITERE 
+Sesiunea 2021 
+ALGEBRĂ ŞI ELEMENTE DE ANALIZĂ MATEMATICĂ 
+a       b        c         d     Ministerul Afacerilor Interne 
+Academia de Poliţie “ Alexandru Ioan Cuza ” 
+Facultatea de Pompieri 
+1 
+  
+1) Suma solutiilor reale ale ecuatiei 3 10 5x x     este egala cu: 
+a) 1; 
+b) 6; 
+c) 7; 
+d) 5. 
+ 
+2) Solutia reala a ecuatiei 2 2 23 4 3 2x x x x     este egala cu: 
+a) 1; 
+b) 2; 
+c) 1; 
+d) 0. 
+ 
+3)  Cate numere de trei cifre distincte doua cate doua se pot forma cu cifrele 0, 1, 2 și 3? 
+a) 4; 
+b) 6; 
+c) 18; 
+d)        24. 
+ 
+4) Fie :f , 2( ) 2( 2) 1f x x m x    , m. Graficul functiei feste tangent axei Ox pentru: 
+a) 3m; 
+b) 1m; 
+c) 10,3m   ; 
+d)        1,3m. 
+ 
+5) Fie :f , ( ) 4 3 5f x x m   , m. Daca punctul ( 2,5)Aeste situat pe graficul functiei f, 
+atunci m este egal cu: 
+a) 2
+3; 
+b) 6; 
+c) 8
+3; 
+d)          5. 
+  
+Nota: Fiecare intrebare are o singura varianta de raspuns corecta. 
+Exemplu de marcare raspuns:  
+Raspuns considerat corect la intrebarea nr. 1: b) 
+Pagina 2 / 5 CONCURS DE ADMITERE 
+Sesiunea 2021 
+ALGEBRĂ ŞI ELEMENTE DE ANALIZĂ MATEMATICĂ 
+a       b        c         d     Ministerul Afacerilor Interne 
+Academia de Poliţie “ Alexandru Ioan Cuza ” 
+Facultatea de Pompieri 
+1 
+  
+6) Se considera functia :f ,1( )f xx. Atunci 
+1( ) 1lim1xf x
+x
+ este egala cu: 
+a) 1; 
+b)      1; 
+c)        0; 
+d) 1
+2. 
+ 
+7) Fie functia :f , 22 , 0( )
+4, 0x a xf x
+x a x   , a. Daca f este continua, atunci a este egal cu: 
+a) 0; 
+b) 1; 
+c) 2; 
+d) 4. 
+ 
+8) Se considera functia : (1, )f  , ( ) 9 3 1x xf x   . Atunci 1( )'(3)f este egala cu: 
+a) ln3; 
+b) 3ln3; 
+c) 1
+3ln3; 
+d) 0. 
+ 
+9) Valorile parametrilor reali m și n pentru care matricele 7 14
+4 8A     și 3
+6 1 2m nB   au 
+același rang sunt: 
+a) 1, 12m n  ; 
+b) 1, 12m n  ; 
+c) 1, 12m n  ; 
+d)        1, 12m n  . 
+  
+Nota: Fiecare intrebare are o singura varianta de raspuns corecta. 
+Exemplu de marcare raspuns:  
+Raspuns considerat corect la intrebarea nr. 1: b) 
+Pagina 3 / 5 CONCURS DE ADMITERE 
+Sesiunea 2021 
+ALGEBRĂ ŞI ELEMENTE DE ANALIZĂ MATEMATICĂ 
+a       b        c         d     Ministerul Afacerilor Interne 
+Academia de Poliţie “ Alexandru Ioan Cuza ” 
+Facultatea de Pompieri 
+1 
+  
+10) Valorile reale ale lui x pentru care det( ) 0A, unde 3 1
+1 3xAx    , sunt: 
+a) 1 22, 4x x  ; 
+b) 1 22, 4x x  ; 
+c) 1 22, 4x x  ; 
+d) 1 22, 4x x  . 
+ 
+11)  Fie matricea 1 1
+2 1 1
+0 1m
+A
+m 
+     , m. Multimea valorilor lui m, pentru care matricea A nu este 
+inversabila, este: 
+a) 3\ ,12    ; 
+b) 31,2   ; 
+c) 3,2; 
+d)          3,12    . 
+ 
+12) Suma 1 1 1 1...1 2 2 3 3 4 ( 1)nSn n        , pentru orice n numar natural nenul, este egala cu: 
+a) 1n
+n; 
+b) 1n
+n;  
+c) 1
+1n; 
+d) 1
+2n
+n. 
+  
+Nota: Fiecare intrebare are o singura varianta de raspuns corecta. 
+Exemplu de marcare raspuns:  
+Raspuns considerat corect la intrebarea nr. 1: b) 
+Pagina 4 / 5 CONCURS DE ADMITERE 
+Sesiunea 2021 
+ALGEBRĂ ŞI ELEMENTE DE ANALIZĂ MATEMATICĂ 
+a       b        c         d     Ministerul Afacerilor Interne 
+Academia de Poliţie “ Alexandru Ioan Cuza ” 
+Facultatea de Pompieri 
+1 
+  
+ 
+13) Daca ași areprezinta partea intreaga, respectiv modulul numarului real a, atunci 
+112 3 3 2 3 2 274 
+    
+  este: 
+a) 7; 
+b) 6;  
+c)   7; 
+d)   5. 
+ 
+14) Valorile parametrului real mpentru care numarul complex z m mi  verifica 2z, sunt: 
+a) 1 și 1;  
+b) 0 și 2;  
+c) 2 2 și 2 2; 
+d) 2 și 2. 
+ 
+15) Integrala 
+1lnexdx este egala cu:  
+a) 0; 
+b) 1; 
+c) 12 ; 
+d)         1. 
+ 
+16) Se considera functiile  , : 0,f g , unde 1( )1f xx și 2( ) 1g x x . Multimea primitivelor 
+functiei f g este egala cu: 
+a) 3ln( 1)x x x C    ; 
+b) 3
+ln( 1)3xx x C    ; 
+c) 3
+1 ln( 1)3xx C    ; 
+d)        31ln( 1)3 2xx x C    . 
+  
+Nota: Fiecare intrebare are o singura varianta de raspuns corecta. 
+Exemplu de marcare raspuns:  
+Raspuns considerat corect la intrebarea nr. 1: b) 
+Pagina 5 / 5 CONCURS DE ADMITERE 
+Sesiunea 2021 
+ALGEBRĂ ŞI ELEMENTE DE ANALIZĂ MATEMATICĂ 
+a       b        c         d     Ministerul Afacerilor Interne 
+Academia de Poliţie “ Alexandru Ioan Cuza ” 
+Facultatea de Pompieri 
+1 
+  
+17) Integrala 1
+211
+2 5xdxx x
+  este egala cu:  
+a) 1 1ln2 3; 
+b) 1ln3; 
+c) ln3; 
+d)        1ln32. 
+ 
+18) Fie 1( )n na o progresie aritmetica pentru care 42a și 78a. Atunci 2021a este egal cu: 
+a) 4036; 
+b) 4044; 
+c) 4036; 
+d) 4038. 
+ 
+ 
  
