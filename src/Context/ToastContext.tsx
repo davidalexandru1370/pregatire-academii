@@ -1,14 +1,16 @@
-import React, {
-  createContext,
-  ReducerAction,
-  useContext,
-  useReducer,
-} from "react";
+import { createContext, useEffect, useReducer, useRef } from "react";
 //@ts-ignore
 import { IToast } from "../Components/ToastNotification/Toast.tsx";
-import { v4 as uuidv4 } from "uuid";
 
-export const ToastContext = createContext(null);
+interface IToastContext {
+  state: IToast[];
+  dispatch: React.Dispatch<any>;
+}
+
+export const ToastContext = createContext<IToastContext>({
+  state: [],
+  dispatch: () => null,
+});
 
 export enum ToastActionType {
   ADD,
@@ -16,12 +18,15 @@ export enum ToastActionType {
 }
 
 const ToastContextProvider = ({ children }) => {
-  const toastNotifications: IToast[] = [];
+  const toastNotifications = useRef<IToast[]>([]);
 
   const [state, dispatch] = useReducer(
     (state: IToast[], action: Partial<IToast>) => {
       switch (action) {
         case ToastActionType.ADD:
+          setTimeout(() => {
+            dispatch(action);
+          }, action.timer);
           return [...state, action];
         case ToastActionType.DELETE:
           return state.filter((notification: Partial<IToast>) => {
@@ -31,7 +36,7 @@ const ToastContextProvider = ({ children }) => {
           return state;
       }
     },
-    toastNotifications
+    toastNotifications.current
   );
 
   return (

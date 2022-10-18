@@ -15,15 +15,15 @@ enum ToastTypes {
 }
 
 export interface IToast {
-  id: uuidv4;
+  id?: uuidv4;
   corner: Corner;
   style?: React.CSSProperties;
   className?: string;
   text: string;
   timer?: number;
   type: ToastTypes;
-  pauseOnHover: boolean;
-  draggable: boolean;
+  pauseOnHover?: boolean;
+  draggable?: boolean;
 }
 
 function createCornerStyle(corner: Corner): React.CSSProperties {
@@ -69,7 +69,7 @@ const Toast = ({
   corner,
   style,
   className,
-  text,
+  text = "",
   timer,
   type,
   pauseOnHover = false,
@@ -88,6 +88,7 @@ const Toast = ({
       style={{ ...style, ...createCornerStyle(corner) }}
     >
       {generateIcon(type)}
+      {text}
     </div>
   );
 };

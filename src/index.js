@@ -9,14 +9,13 @@ import ToastContextProvider from "./Context/ToastContext.tsx";
 const container = document.getElementById("root");
 const root = createRoot(container);
 root.render(
+<ToastContextProvider>
   <BrowserRouter>
     <React.StrictMode>
-      <ToastContextProvider>
       <App />
-      </ToastContextProvider>
     </React.StrictMode>
-    
   </BrowserRouter>
+  </ToastContextProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

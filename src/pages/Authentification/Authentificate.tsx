@@ -1,12 +1,12 @@
-import { useRef, useState } from "react";
+import { useContext, useState } from "react";
 //@ts-ignore
 import Login from "../Login/Login.tsx";
 //@ts-ignore
 import Register from "../Register/Register.tsx";
 //@ts-ignore
-import ForgotPassword from "../ForgotPassword/ForgotPassword.tsx";
 import "./Authentificate.scss";
-
+//@ts-ignore
+import { ToastContext } from "../../Context/ToastContext.tsx";
 interface IElement {
   element: JSX.Element;
   name: string;
@@ -17,6 +17,9 @@ const Authentificate = () => {
     { name: "login", element: <Login /> },
     { name: "register", element: <Register /> },
   ];
+
+  const { state, dispatch } = useContext(ToastContext);
+
   const [authentificationForm, setAuthentificationForm] = useState<IElement>({
     element: <Login />,
     name: "login",
