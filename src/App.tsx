@@ -25,6 +25,8 @@ import { Teste } from "./pages/Teste/Teste.tsx";
 import Authentificate from "./pages/Authentification/Authentificate.tsx";
 //@ts-ignore
 import ForgotPassword from "./pages/ForgotPassword/ForgotPassword.tsx";
+//@ts-ignore
+import { ToastContextProvider } from "./Context/ToastContext.tsx";
 
 function App() {
   let navigation = useNavigate();
@@ -34,152 +36,163 @@ function App() {
   };
 
   return (
-    <Routes>
-      <Route
-        path="/acasa"
-        element={
-          <>
-            <Navbar className="bg-dark sticky-top">
-              <Nav className="ms-auto position-sticky">
-                <Nav.Item className="p-2  me-5 ">
-                  <NLink
-                    to="/acasa"
-                    className={({ isActive }) =>
-                      (isActive
-                        ? "selected fw-bold"
-                        : "nav-item  fw-light white-text") +
-                      " h5 text-decoration-none"
-                    }
-                  >
-                    Acasa
-                  </NLink>
-                </Nav.Item>
-                <Nav.Item className="p-2 me-5">
-                  <NLink
-                    to="/contact"
-                    className={({ isActive }) =>
-                      (isActive
-                        ? "selected fw-bold"
-                        : "nav-item fw-light white-text") +
-                      "   h5 text-decoration-none"
-                    }
-                  >
-                    Contact
-                  </NLink>
-                </Nav.Item>
-              </Nav>
-            </Navbar>
-            <section className="hero-section">
-              <div className="container">
-                <div className="col-lg">
-                  <h2 className="hero-title  text-center p-3">
-                    Te pregatesti pentru admitere la
-                  </h2>
-                </div>
-                <div className="row">
-                  <div className="avatars">
-                    <div className="avatar">
-                      <img src={`${connectionPompierLogo}`} alt="pompier" />
-                      <h2 className="hero-item">Pompieri</h2>
-                    </div>
-                    <div className="avatar">
-                      <img src={`${connectionPolitistLogo}`} alt="politie" />
-                      <h2 className="hero-item">Politie</h2>
-                    </div>
-                    <div className="avatar">
-                      <img
-                        src={`${connectionJandarmLogo}`}
-                        alt="jandarmerie"
-                        className=" "
-                      />
-                      <h2 className="hero-item">Jandarmerie</h2>
-                    </div>
-                  </div>
-                </div>
-                <div className="row-sm">
-                  <div className="hero-title"></div>
-                </div>
-              </div>
-              <div className="d-flex align-items-center flex-column mt-5">
-                <ChevronDown size={24} className="changeColorAnim" />
-                <ChevronDown size={24} className="changeColorAnim delay1" />
-                <ChevronDown size={24} className="changeColorAnim delay2" />
-              </div>
-            </section>
-            <section className="bg-dark border-tb">
-              <div className="container">
-                <div className="row">
-                  <div className="col-lg-12 mt-4">
-                    <div className="text-center ">
-                      <h3 className="text-white text-uppercase ">
-                        ce iti putem oferi?
-                      </h3>
-                    </div>
-                  </div>
-                  <div className="mt-5 pb-5 cardsMainPage">
-                    <div className="card-deck">
-                      <TextCard text="Subiecte romana" className="cardStyle" />
-                      <TextCard
-                        text="Subiecte matematica"
-                        className="cardStyle"
-                      />
-                    </div>
-                    <div className="card-deck mt-5">
-                      <TextCard text="Subiecte istorie" className="cardStyle" />
-                      <TextCard
-                        text="Rezolvari la probleme"
-                        className="cardStyle"
-                      />
-                    </div>
-                    <div className="card-deck mt-5">
-                      <TextCard
-                        text="Explicatii ale raspunsurilor"
-                        className="cardStyle"
-                      />
-                      <TextCard text="Support live" className="cardStyle" />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </section>
-            <div className="footerApp">
-              <span className="text-white">
-                Incepe prin a-ti crea propriul cont.
-              </span>
-              <div className="my-auto">
-                <button
-                  type="button"
-                  className="btn btn-primary btn-lg createAccountButton"
-                  onClick={() => onRegisterClick()}
-                >
-                  Creeaza cont
-                </button>
-              </div>
-            </div>
-          </>
-        }
-      />
-      <Route path="authentificate" element={<Authentificate />} />
-      <Route element={<BaseRouter />}>
+    <ToastContextProvider>
+      <Routes>
         <Route
-          path="mainpage"
+          path="/acasa"
           element={
-            <ProtectedRoute
-              page={<MainPage />}
-              redirectPage={"/authentificate"}
-            />
+            <>
+              <Navbar className="bg-dark sticky-top">
+                <Nav className="ms-auto position-sticky">
+                  <Nav.Item className="p-2  me-5 ">
+                    <NLink
+                      to="/acasa"
+                      className={({ isActive }) =>
+                        (isActive
+                          ? "selected fw-bold"
+                          : "nav-item  fw-light white-text") +
+                        " h5 text-decoration-none"
+                      }
+                    >
+                      Acasa
+                    </NLink>
+                  </Nav.Item>
+                  <Nav.Item className="p-2 me-5">
+                    <NLink
+                      to="/contact"
+                      className={({ isActive }) =>
+                        (isActive
+                          ? "selected fw-bold"
+                          : "nav-item fw-light white-text") +
+                        "   h5 text-decoration-none"
+                      }
+                    >
+                      Contact
+                    </NLink>
+                  </Nav.Item>
+                </Nav>
+              </Navbar>
+              <section className="hero-section">
+                <div className="container">
+                  <div className="col-lg">
+                    <h2 className="hero-title  text-center p-3">
+                      Te pregatesti pentru admitere la
+                    </h2>
+                  </div>
+                  <div className="row">
+                    <div className="avatars">
+                      <div className="avatar">
+                        <img src={`${connectionPompierLogo}`} alt="pompier" />
+                        <h2 className="hero-item">Pompieri</h2>
+                      </div>
+                      <div className="avatar">
+                        <img src={`${connectionPolitistLogo}`} alt="politie" />
+                        <h2 className="hero-item">Politie</h2>
+                      </div>
+                      <div className="avatar">
+                        <img
+                          src={`${connectionJandarmLogo}`}
+                          alt="jandarmerie"
+                          className=" "
+                        />
+                        <h2 className="hero-item">Jandarmerie</h2>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="row-sm">
+                    <div className="hero-title"></div>
+                  </div>
+                </div>
+                <div className="d-flex align-items-center flex-column mt-5">
+                  <ChevronDown size={24} className="changeColorAnim" />
+                  <ChevronDown size={24} className="changeColorAnim delay1" />
+                  <ChevronDown size={24} className="changeColorAnim delay2" />
+                </div>
+              </section>
+              <section className="bg-dark border-tb">
+                <div className="container">
+                  <div className="row">
+                    <div className="col-lg-12 mt-4">
+                      <div className="text-center ">
+                        <h3 className="text-white text-uppercase ">
+                          ce iti putem oferi?
+                        </h3>
+                      </div>
+                    </div>
+                    <div className="mt-5 pb-5 cardsMainPage">
+                      <div className="card-deck">
+                        <TextCard
+                          text="Subiecte romana"
+                          className="cardStyle"
+                        />
+                        <TextCard
+                          text="Subiecte matematica"
+                          className="cardStyle"
+                        />
+                      </div>
+                      <div className="card-deck mt-5">
+                        <TextCard
+                          text="Subiecte istorie"
+                          className="cardStyle"
+                        />
+                        <TextCard
+                          text="Rezolvari la probleme"
+                          className="cardStyle"
+                        />
+                      </div>
+                      <div className="card-deck mt-5">
+                        <TextCard
+                          text="Explicatii ale raspunsurilor"
+                          className="cardStyle"
+                        />
+                        <TextCard text="Support live" className="cardStyle" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+              <div className="footerApp">
+                <span className="text-white">
+                  Incepe prin a-ti crea propriul cont.
+                </span>
+                <div className="my-auto">
+                  <button
+                    type="button"
+                    className="btn btn-primary btn-lg createAccountButton"
+                    onClick={() => onRegisterClick()}
+                  >
+                    Creeaza cont
+                  </button>
+                </div>
+              </div>
+            </>
           }
         />
-        <Route
-          path="teste"
-          element={
-            <ProtectedRoute page={<Teste />} redirectPage={"/authentificate"} />
-          }
-        />
-      </Route>
-      <Route path="forgot-password/:pageId" element={<ForgotPassword />} />
-      <Route path="*" element={<NotFound />} />
-    </Routes>
+        <Route path="authentificate" element={<Authentificate />} />
+        <Route element={<BaseRouter />}>
+          <Route
+            path="mainpage"
+            element={
+              <ProtectedRoute
+                page={<MainPage />}
+                redirectPage={"/authentificate"}
+              />
+            }
+          />
+          <Route
+            path="teste"
+            element={
+              <ProtectedRoute
+                page={<Teste />}
+                redirectPage={"/authentificate"}
+              />
+            }
+          />
+        </Route>
+        <Route path="forgot-password/:pageId" element={<ForgotPassword />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </ToastContextProvider>
   );
 }
 

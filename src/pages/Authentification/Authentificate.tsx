@@ -18,6 +18,7 @@ const Authentificate = () => {
     { name: "register", element: <Register /> },
   ];
 
+  //@ts-ignore
   const { state, dispatch } = useContext(ToastContext);
 
   const [authentificationForm, setAuthentificationForm] = useState<IElement>({
@@ -44,6 +45,7 @@ const Authentificate = () => {
               }`}
               onClick={() => {
                 setAuthentificationForm(form);
+                dispatch({ corner: "top-right", type: 0 });
               }}
             >
               {form.name[0].toUpperCase() + form.name.substring(1)}

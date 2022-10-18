@@ -5,17 +5,15 @@ import App from "./App.tsx";
 import { BrowserRouter, Router } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
 import { createRoot } from "react-dom/client";
-import ToastContextProvider from "./Context/ToastContext.tsx";
+import {ToastContextProvider} from "./Context/ToastContext.tsx";
 const container = document.getElementById("root");
 const root = createRoot(container);
 root.render(
-<ToastContextProvider>
   <BrowserRouter>
     <React.StrictMode>
       <App />
     </React.StrictMode>
   </BrowserRouter>
-  </ToastContextProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function
