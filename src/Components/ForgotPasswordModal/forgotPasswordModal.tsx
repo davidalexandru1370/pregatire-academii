@@ -8,7 +8,7 @@ import { ForgotPassword as handleForgotPassword } from "../../pages/api/UserAPI.
 import LoadingCircle from "../LoadingCircle/LoadingCircle.tsx";
 //@ts-ignore
 import ButtonWithLoading from "../ButtonWithLoading/ButtonWithLoading.tsx";
-
+import { toast } from "react-toastify";
 interface IModal {
   isOpen: boolean;
   onClose?: () => void;
@@ -61,6 +61,10 @@ const ForgotPasswordModal = ({ isOpen, onClose, onOpen, onClick }: IModal) => {
     try {
       await handleForgotPassword(emailInputValue);
       setError("");
+      toast("Email-ul a fost trimis cu succes!", {
+        position: "top-right",
+        type: "success",
+      });
     } catch (e) {
       setError(e);
     }

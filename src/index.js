@@ -6,11 +6,14 @@ import { BrowserRouter, Router } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
 import { createRoot } from "react-dom/client";
 import {ToastContextProvider} from "./Context/ToastContext.tsx";
+import {ToastContainer} from "react-toastify";
 const container = document.getElementById("root");
 const root = createRoot(container);
+
 root.render(
   <BrowserRouter>
     <React.StrictMode>
+      <ToastContainer/>
       <App />
     </React.StrictMode>
   </BrowserRouter>

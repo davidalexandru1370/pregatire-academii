@@ -45,7 +45,7 @@ const Authentificate = () => {
               }`}
               onClick={() => {
                 setAuthentificationForm(form);
-                dispatch({ corner: "top-right", type: 0 });
+                // dispatch({ corner: "top-right", type: 0 });
               }}
             >
               {form.name[0].toUpperCase() + form.name.substring(1)}
