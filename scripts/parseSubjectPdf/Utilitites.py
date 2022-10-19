@@ -65,7 +65,7 @@ def get_questions_with_answers_from_pagetext(text: str):
                 questionText = ""
             questionText = line + "\n"
         elif is_answer(line) == True:
-            answer: Answer = Answer(deepcopy(line), False)
+            answer: Answer = Answer(deepcopy(line+"\n"), False)
             answers.append(answer)
         else:
             questionText += " " + line + "\n"
