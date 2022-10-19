@@ -31,9 +31,4 @@ for pageNumber in range(0, pdfReader.numPages):
             f.write(answer.get_answer())
     parts.clear()
 
-
 f.close()
-
-
-def get_block_of_question_and_answers(text: str):
-    pass
