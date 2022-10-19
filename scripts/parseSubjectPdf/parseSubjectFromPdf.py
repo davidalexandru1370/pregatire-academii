@@ -23,9 +23,10 @@ for pageNumber in range(0, pdfReader.numPages):
     pageObj = pdfReader.getPage(pageNumber)
     pageObj.extract_text(visitor_text=visitor_body)
     text = formatText("".join(parts))
-    f.write(text)
-    print(get_questions_with_answers_from_pagetext(text))
 
+    # print(get_questions_with_answers_from_pagetext(text))
+    for question in get_questions_with_answers_from_pagetext(text):
+        f.write(question.get_question())
     parts.clear()
 
 

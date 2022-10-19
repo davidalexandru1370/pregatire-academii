@@ -1,5 +1,6 @@
-from copy import deepcopy
+from copy import copy, deepcopy
 import re
+from Model.Answer import Answer
 
 from Model.Question import Question
 
@@ -31,12 +32,11 @@ def is_question(line: str):
 
 
 def get_question_number(line: str):
-    print(line)
     return re.findall("^\\d", line)
 
 
 def is_answer(line: str):
-    answer_regex = "^[abcd][)] "
+    answer_regex = "^([abcd][)]) "
     if re.match(answer_regex, line) == None:
         return False
     return True
@@ -49,16 +49,22 @@ def get_questions_with_answers_from_pagetext(text: str):
     answers = []
     for line in text.splitlines():
         line = line.strip()
+        if (len(line) == 0):
+            continue
+
         if (is_question(line) == True):
-            index = get_question_number(line)
-            if (index != questionNumber):
-                result.append(Question(questionText, deepcopy(answers)))
+            index: int = int(get_question_number(line)[0])
+
+            if (index != questionNumber and len(answers) == 4):
+                result.append(
+                    Question(questionText + "\n", deepcopy(answers)))
                 answers.clear()
-            questionText = line
-            print(str(get_question_number(line)[0]))
-            questionNumber = int(str(get_question_number(line)[0]))
+                questionText = ""
+                questionNumber = index
+            questionText = line+"\n"
         elif is_answer(line) == True:
-            answers.append(deepcopy(line))
+            answer: Answer = Answer(deepcopy(line), False)
+            answers.append(answer)
         else:
-            questionText += "\n" + line
+            questionText += " " + line + "\n"
     return result
