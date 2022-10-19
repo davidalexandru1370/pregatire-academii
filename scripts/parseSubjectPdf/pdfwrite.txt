@@ -113,13 +113,12 @@ b) daca ambele enunturi sunt adevarate dar nu exista legatura cauzala;
 c) daca primul enunt este adevarat iar al II-lea fals;
 d) daca primul enunt este fals, iar al II-lea adevarat.
 16) Analizati continutul celor doua enunturi şi marcati cu:
- Constitutia din 1923 introducea controlul preventiv al constitutionalitatii legilor prin Consiliul Legislativ;
- Inamovabilitatea judecatorilor nu era introdusa .
 
 a) daca ambele propozitii sunt adevarate şi exista legatura cauzala intre ele;
 b) daca ambele enunturi sunt adevarate dar nu exista legatura cauzala;
 c) daca primul enunt este adevarat iar al II-lea fals;
 d) daca primul enunt este fals, iar al II-lea adevarat
+Constitutia din 1923 introducea controlul preventiv al constitutionalitatii legilor prin Consiliul Legislativ;Inamovabilitatea judecatorilor nu era introdusa .
 17) Analizati continutul celor doua enunturi şi marcati cu:
  Nicolae Ceau sescu a repartizat industrializarii 30% din venitul national; la inceputul anilor 1980 datoria
  externa a Romaniei s-a triplat.
@@ -136,13 +135,12 @@ b) daca ambele enunturi sunt adevarate dar nu exista legatura cauzala;
 c) daca primul enunt este adevarat iar al II-lea fals;
 d) daca primul enunt este fals, iar al II-lea adevarat.
 19) Analizati continutul celor doua enunturi şi marcati cu:
- Statul totalitar a incalcat sistematic drepturile omului; s-a ajuns la terorism de stat impotriva propriilor
- cetateni.
 
 a) daca ambele propozitii sunt adevarate şi exista legatura cauzala intre ele;
 b) daca ambele enunturi sunt adevarate dar nu exista legatura cauzala;
 c) daca primul enunt este adevarat iar al II-lea fals;
 d) daca primul enunt este fals, iar al II-lea adevarat
+Statul totalitar a incalcat sistematic drepturile omului; s-a ajuns la terorism de stat impotriva propriilorcetateni.
 20) Analizati continutul celor doua enunturi şi marcati cu:
  Autonomile romane sti din nordul Peninsulei Balcanice au fost supuse anihilarii in sec. XI-XIII, din partea
  Imperiului Bizantin; rascoala fratilor Petru si Asan este urmata de constituirea statului bulgaro-vlah.
@@ -597,19 +595,15 @@ d) est descendu
 1) Sehr geehrte Frau Schubert, ich bedanke mich herzlich bei Ihnen für die schnelle Antwort und Ihre
  Zusage. Den Termin am 23. August habe ich mir aufgeschrieben. Ich werde rechtzeitig in Ihrem Büro
  sein und ich freue mich schon auf unsere Besprechung.
- dumneavoastra. Mi-am notat intalnirea din 23 august. Voi fi la timp la firma dumneavoastra si ma bucur
- deja ca am avut aceasta discutie.
- dumneavoastra. Mi-am notat intalnirea din 23 august. Voi fi la timp in biroul dumneavoastra si ma bucur
- deja de discutia noastra.
- dumneavoastra. Mi-am notat intalnirea din 23 august. Din pacate nu voi fi la timp in biroul
- dumneavoastra, dar ma bucur de discutia noastra.
- dumneavoastra. Mi-am notat excursia din 23 august. Voi fi la timp in biroul dumneavoastra si ma bucur
- deja de excursia noastra.
 
 a) Mult stimata doamna Schubert, va multumesc din inima pentru raspunsul rapid si pentru acordul
+dumneavoastra. Mi-am notat intalnirea din 23 august. Voi fi la timp la firma dumneavoastra si ma bucurdeja ca am avut aceasta discutie.
 b) Mult stimata doamna Schubert, va multumesc din inima pentru raspunsul rapid si pentru acordul
+dumneavoastra. Mi-am notat intalnirea din 23 august. Voi fi la timp in biroul dumneavoastra si ma bucurdeja de discutia noastra.
 c) Mult stimata doamna Schubert, va multumesc din inima pentru raspunsul rapid si pentru acordul
+dumneavoastra. Mi-am notat intalnirea din 23 august. Din pacate nu voi fi la timp in birouldumneavoastra, dar ma bucur de discutia noastra.
 d) Mult stimata doamna Schubert, va multumesc din inima pentru raspunsul rapid si pentru acordul
+dumneavoastra. Mi-am notat excursia din 23 august. Voi fi la timp in biroul dumneavoastra si ma bucurdeja de excursia noastra.
 2) Lange Finger  haben bedeutet ......... .
 
 a) ein Mensch, der spricht

@@ -1,3 +1,4 @@
+from cmath import log
 from copy import copy, deepcopy
 import re
 from Model.Answer import Answer
@@ -35,6 +36,10 @@ def get_question_number(line: str):
     return re.findall("^\\d", line)
 
 
+def get_answer(line: str):
+    return re.findall("^[abcd]", line)
+
+
 def is_answer(line: str):
     answer_regex = "^([abcd][)]) "
     if re.match(answer_regex, line) == None:
@@ -44,16 +49,21 @@ def is_answer(line: str):
 
 def get_questions_with_answers_from_pagetext(text: str):
     result = []
-    questionNumber: int = 0
     questionText: str = ""
     answers = []
+    currentAnswer = -1
     for line in text.splitlines():
+        bkt = line
         line = line.strip()
         if (len(line) == 0):
             if (len(answers) == 4):
+                for index in range(0, len(answers)):
+                    answers[index].set_answer(
+                        answers[index].get_answer().rstrip()+"\n")
                 result.append(
                     Question(questionText + "\n", deepcopy(answers)))
                 answers.clear()
+                currentAnswer = -1
                 questionText = ""
             continue
 
@@ -62,11 +72,19 @@ def get_questions_with_answers_from_pagetext(text: str):
                 result.append(
                     Question(questionText + "\n", deepcopy(answers)))
                 answers.clear()
+                currentAnswer = -1
                 questionText = ""
             questionText = line + "\n"
         elif is_answer(line) == True:
-            answer: Answer = Answer(deepcopy(line+"\n"), False)
+            answer: Answer = Answer(line + "\n", False)
+            currentAnswer = ord(get_answer(line)[0]) - ord('a')
+            if (currentAnswer == 3 and line.endswith('.') or line.endswith(';')):
+                currentAnswer = -1
             answers.append(answer)
+            continue
+        elif currentAnswer >= 0 and currentAnswer <= 3:
+            answers[currentAnswer].set_answer(
+                answers[currentAnswer].get_answer() + line)
         else:
             questionText += " " + line + "\n"
 

@@ -29,6 +29,7 @@ for pageNumber in range(0, pdfReader.numPages):
         f.write(question.get_question())
         for answer in question.get_answers():
             f.write(answer.get_answer())
+        print("\n")
     parts.clear()
 
 f.close()

@@ -9,6 +9,9 @@ class Answer:
     def get_answer(self):
         return self._answer
 
+    def set_answer(self, value):
+        self._answer = value
+
     def get_is_correct(self):
         return self._is_correct
 
