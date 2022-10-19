@@ -1,7 +1,7 @@
 import PyPDF2
 from Utilitites import *
 
-pdfName = "C:\\Users\\David\\Desktop\\subiectepompieri2021.pdf"
+pdfName = "C:\\Users\\David\\Desktop\\pregatire-academii\\subjects\\politie\\2021\\Subiecte-Politie-2021.pdf"
 pdfFileObject = open(pdfName, 'rb')
 
 pdfReader = PyPDF2.PdfFileReader(pdfFileObject)

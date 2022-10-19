@@ -4,6 +4,7 @@ def formatText(text: str):
     diacritics['ă'] = 'a'
     diacritics['î'] = 'i'
     diacritics['â'] = 'a'
+    diacritics['ș'] = 's'
     index: int = 0
     for letter in text:
         if (letter in diacritics.keys()):
