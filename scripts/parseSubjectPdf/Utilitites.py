@@ -50,21 +50,29 @@ def get_questions_with_answers_from_pagetext(text: str):
     for line in text.splitlines():
         line = line.strip()
         if (len(line) == 0):
-            continue
-
-        if (is_question(line) == True):
-            index: int = int(get_question_number(line)[0])
-
-            if (index != questionNumber and len(answers) == 4):
+            if (len(answers) == 4):
                 result.append(
                     Question(questionText + "\n", deepcopy(answers)))
                 answers.clear()
                 questionText = ""
-                questionNumber = index
-            questionText = line+"\n"
+            continue
+
+        if (is_question(line) == True):
+            if (len(answers) == 4):
+                result.append(
+                    Question(questionText + "\n", deepcopy(answers)))
+                answers.clear()
+                questionText = ""
+            questionText = line + "\n"
         elif is_answer(line) == True:
             answer: Answer = Answer(deepcopy(line), False)
             answers.append(answer)
         else:
             questionText += " " + line + "\n"
+
+    if (len(answers) == 4):
+        result.append(
+            Question(questionText + "\n", deepcopy(answers)))
+        answers.clear()
+        questionText = ""
     return result
