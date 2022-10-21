@@ -129,6 +129,7 @@ c) daca primul enunt este adevarat iar al II-lea fals;
 d) daca primul enunt este fals, iar al II-lea adevarat.
 18) Analizati continutul celor doua enunturi şi marcati cu:
  În noiembrie 1946 au fost organizate primele alegeri postbelice din Romania; la 30 decembrie 1946,
+ regele Mihai a participat la sedinta inaugurala a noului parlament.
 
 a) daca ambele propozitii sunt adevarate şi exista legatura cauzala intre ele;
 b) daca ambele enunturi sunt adevarate dar nu exista legatura cauzala;
@@ -331,6 +332,12 @@ a) myself/him
 b) myself/each other
 c) mine/ourselves
 d) mine/each other
+16) There were about________ people protesting in front of the Government.
+
+a) ten thousand of
+b) ten thousands
+c) ten thousands of
+d) ten thousand
 17) Mark hasn't sent the postcard yet.
 
 a) The postcard hasn't been sent by Mark yet.
@@ -508,6 +515,12 @@ a) trois cent vingt-sept
 b) trois cents vingts-sept
 c) trois cent vingts-sept
 d) trois cents vingt-sept
+16) Cette histoire s'est passée il y a … heures.
+
+a) vingts-quatre
+b) vingt-quatre
+c) vingts-quatres
+d) vingt-quatres
 17) Elle aime beaucoup sa grand-mère, elle parle très souvent... .
 
 a) d’en
@@ -952,6 +965,13 @@ a) trei
 b) patru
 c) cinci
 d) sase
+27) Precizeaza felul complementelor din urmatoarele enunturi: Se bizuie pe apropiati. A ramas fidel
+ prietenilor. Cartea adusa de profesor este importanta . Am studiat  pentru cele trei examene.
+
+a) direct, indirect, indirect, indirect
+b) direct, indirect, de agent, indirect
+c) indirect, indirect, de agent, circumstantial de scop
+d) direct, indirect, de agent, circumstantial de scop
 28)  În fraza: Fiind mandru si laudat de colegi, s-a ambitionat si a ajuns seful clasei., exista:
 
 a) un predicat verbal si trei predicate nominale
@@ -1018,6 +1038,12 @@ a) налево
 b) направо
 c) прямо
 d) назад
+8) Сегодня нам нет смысла торопиться, у нас есть время. Значит ... всё делать быстро.
+
+a) беспрерывно
+b) одновременно
+c) долго
+d) бессмысленно
 9) Это ... мой визит в Санкт-Петербург.
 
 a) первая

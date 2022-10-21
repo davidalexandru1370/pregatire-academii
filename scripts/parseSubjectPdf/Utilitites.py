@@ -68,6 +68,9 @@ def get_questions_with_answers_from_pagetext(text: str):
             continue
 
         if (is_question(line) == True):
+            if (int(get_question_number(line)[0]) == 15):
+                print("aici")
+                pass
             if (len(answers) == 4):
                 result.append(
                     Question(questionText + "\n", deepcopy(answers)))

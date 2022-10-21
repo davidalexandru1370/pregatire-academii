@@ -15,7 +15,7 @@ parts = []
 
 def visitor_body(text, cm, tm, fontDict, fontSize):
     y = tm[5]
-    if y > 100 and y < 1000:
+    if y > 100 and y < 1016:
         parts.append(text)
 
 
@@ -29,7 +29,6 @@ for pageNumber in range(0, pdfReader.numPages):
         f.write(question.get_question())
         for answer in question.get_answers():
             f.write(answer.get_answer())
-        print("\n")
     parts.clear()
 
 f.close()
