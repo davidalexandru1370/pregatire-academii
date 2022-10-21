@@ -12,8 +12,8 @@ using backend.Model;
 namespace backend.Migrations
 {
     [DbContext(typeof(EntitiesDbContext))]
-    [Migration("20221014102749_AddedQuizAndQuestionAndAnswerModels")]
-    partial class AddedQuizAndQuestionAndAnswerModels
+    [Migration("20221021190055_AddQuizAndQuestionAndAnswerModels")]
+    partial class AddQuizAndQuestionAndAnswerModels
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -89,6 +89,13 @@ namespace backend.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Category")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Subject")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Year")
                         .HasColumnType("int");
 
                     b.HasKey("Id");

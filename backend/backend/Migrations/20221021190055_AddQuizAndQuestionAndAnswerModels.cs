@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace backend.Migrations
 {
-    public partial class AddedQuizAndQuestionAndAnswerModels : Migration
+    public partial class AddQuizAndQuestionAndAnswerModels : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -14,7 +14,9 @@ namespace backend.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Category = table.Column<int>(type: "int", nullable: false)
+                    Category = table.Column<int>(type: "int", nullable: false),
+                    Year = table.Column<int>(type: "int", nullable: false),
+                    Subject = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -36,6 +38,7 @@ namespace backend.Migrations
                         name: "FK_Question_Quiz_QuizId",
                         column: x => x.QuizId,
                         principalTable: "Quiz",
+                        onDelete: ReferentialAction.Cascade,
                         principalColumn: "Id");
                 });
 

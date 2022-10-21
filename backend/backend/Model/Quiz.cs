@@ -11,7 +11,8 @@ namespace backend.Model
         [Key]
         public Guid Id { get; set; }
         public Category Category { get; set; }
-
+        public int Year { get; set; }
+        public string Subject { get; set; }
         public ICollection<Question>? Question { get; set; }
 
     }
