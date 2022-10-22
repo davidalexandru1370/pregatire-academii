@@ -16,7 +16,7 @@ for f in $(find backend -maxdepth 3 -type f | grep -E ".*(\.cs)$" ); do
 done
 
 count2=0
-for f in $(find src -type f | grep -E ".*(\.jsx?)$"); do
+for f in $(find src -type f | grep -E ".*(\.[tj]sx?)$"); do
 	lines=`wc -l "$f" | cut -d' ' -f1`
 	count2=$(($count2+$lines))
 done
