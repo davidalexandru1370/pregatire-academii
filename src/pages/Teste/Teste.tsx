@@ -6,11 +6,20 @@ import constants from "../../Constants/constants.json";
 import TestCard from "../../Components/TestCard/TestCard.tsx";
 //@ts-ignore
 import ButtonWithDropDown from "../../Components/ButtonWithDropDown/ButtonWithDropDown.tsx";
-import { useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import Latex from "react-latex";
+
 export const Teste = () => {
   const [isLeftMenuVisible, setIsLeftMenuVisible] = useState<boolean>(true);
-  const fraction = `$$x^2+4x+10=0$$`;
+  const quizzes = useMemo(() => {}, []);
+  useEffect(() => {
+    first;
+
+    return () => {
+      second;
+    };
+  }, [third]);
+
   return (
     <div className="testePage">
       <div className="testeItems">
@@ -64,7 +73,6 @@ export const Teste = () => {
           </div>
         </div>
       </div>
-      <Latex>{fraction}</Latex>
     </div>
   );
 };

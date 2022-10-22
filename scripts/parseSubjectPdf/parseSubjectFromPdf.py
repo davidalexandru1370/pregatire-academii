@@ -19,9 +19,13 @@ answers = []
 parts = []
 currentOption = ""
 options = dict()
+index = 0
 
 
 def visitor_body(text, cm, tm, fontDict, fontSize):
+    x = tm[4]
+    global parts, index
+
     y = tm[5]
     if y > 100 and y < 1016:
         parts.append(text)
@@ -39,32 +43,40 @@ async def main():
     connection = await aioodbc.connect(
         dsn='DRIVER={ODBC Driver 17 for SQL Server};SERVER=localhost;DATABASE=Academii;Trusted_Connection=yes;', loop=loop)
     cursor = await connection.cursor()
-    await cursor.execute("DELETE FROM Quiz")
-    await cursor.execute("DELETE FROM Question")
-    await cursor.execute("DELETE FROM Answer")
+    # await cursor.execute("DELETE FROM Quiz")
+    # await cursor.execute("DELETE FROM Question")
+    # await cursor.execute("DELETE FROM Answer")
     currentQuizId = uuid6()
     connection.commit()
+    global index
     if (True):
         # cursor = connection.cursor()
         for pageNumber in range(0, pdfReader.numPages):
+            index = 0
             pageObj = pdfReader.getPage(pageNumber)
             pageObj.extract_text(visitor_text=visitor_body)
             pageObj.extract_text(visitor_text=visitor_header)
             text = formatText("".join(parts))
             if currentOption not in options.keys():
+                # print(currentOption)
                 currentQuizId = uuid6()
                 await cursor.execute(
                     """INSERT INTO Quiz(Id,Category,Year,Subject) VALUES(?,?,?,?)""", currentQuizId, 0, 2021, currentOption)
                 options[currentOption] = True
+                await connection.commit()
             for question in get_questions_with_answers_from_pagetext(text):
                 questionId = uuid6()
                 await cursor.execute("""INSERT INTO Question(Id,Text,QuizId) values(?,?,?)""",
                                      questionId, question.get_question().strip(), currentQuizId)
+                await connection.commit()
+                # f.write(question.get_question())
                 for answer in question.get_answers():
                     await cursor.execute("""INSERT INTO Answer(Id,QuestionId,IsCorrect,Text) values(?,?,?,?)""", uuid6(
                     ), questionId, answer.get_is_correct(), answer.get_answer())
+                    await connection.commit()
+                    # f.write(answer.get_answer())
             parts.clear()
-            await connection.commit()
+        await connection.close()
 
 
 loop.run_until_complete(main())

@@ -68,9 +68,6 @@ def get_questions_with_answers_from_pagetext(text: str):
             continue
 
         if (is_question(line) == True):
-            if (int(get_question_number(line)[0]) == 15):
-                print("aici")
-                pass
             if (len(answers) == 4):
                 result.append(
                     Question(questionText + "\n", deepcopy(answers)))
@@ -81,7 +78,7 @@ def get_questions_with_answers_from_pagetext(text: str):
         elif is_answer(line) == True:
             answer: Answer = Answer(line + "\n", False)
             currentAnswer = ord(get_answer(line)[0]) - ord('a')
-            if (currentAnswer == 3 and line.endswith('.') or line.endswith(';')):
+            if (currentAnswer == 3 and (line.endswith('.') or line.endswith(';') or "\n" in bkt)):
                 currentAnswer = -1
             answers.append(answer)
             continue
@@ -97,3 +94,19 @@ def get_questions_with_answers_from_pagetext(text: str):
         answers.clear()
         questionText = ""
     return result
+
+
+def is_forbid(text: str):
+    if len(text.strip()) == 0:
+        return True
+    if re.match(".*Academia.*", text) != None:
+        return True
+    if re.match("Ministerul.*", text) != None:
+        return True
+    if re.match("CONCURS DE ADMITERE.*", text) != None:
+        return True
+    if re.match("Sesiunea [0-9]+", text) != None:
+        return True
+    if re.match("ISTORIA.*|LIMBA.*", text) != None:
+        return True
+    return False
