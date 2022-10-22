@@ -16,7 +16,7 @@ namespace backend.Model
         public string Email { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Password cannot be empty")]
-        [Column(TypeName = "nvarchar(250)")]
+        [Column(TypeName = "nvarchar(MAX)")]
         public string Password { get; set; } = string.Empty;
 
         [Required]

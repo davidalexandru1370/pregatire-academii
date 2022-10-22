@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import ProfileCard from "../../Components/ProfileCard.jsx";
+import ProfileCard from "../ProfileCard/ProfileCard.jsx";
 
 const NavigationBar: FC = () => {
   const navigate = useNavigate();

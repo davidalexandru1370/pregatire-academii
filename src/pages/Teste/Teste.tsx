@@ -11,14 +11,17 @@ import Latex from "react-latex";
 
 export const Teste = () => {
   const [isLeftMenuVisible, setIsLeftMenuVisible] = useState<boolean>(true);
-  const quizzes = useMemo(() => {}, []);
+  const quizzes: Quiz[] = useMemo(() => {
+    return [];
+  }, []);
   useEffect(() => {
-    first;
-
+    if (quizzes.length !== 0) {
+      return;
+    }
     return () => {
-      second;
+      sessionStorage.setItem("quizzes", JSON.stringify(quizzes));
     };
-  }, [third]);
+  }, []);
 
   return (
     <div className="testePage">

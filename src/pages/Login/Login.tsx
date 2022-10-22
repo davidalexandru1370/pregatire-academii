@@ -8,7 +8,7 @@ import redirects from "../../Constants/pages.json";
 import { AuthResult } from "../../Models/AuthResult";
 import { User } from "../../Models/User";
 //@ts-ignore
-import { Login as _Login } from "../api/UserAPI.ts";
+import { Login as _Login } from "../../api/UserAPI.ts";
 //@ts-ignore
 import ButtonWithLoading from "../../Components/ButtonWithLoading/ButtonWithLoading.tsx";
 

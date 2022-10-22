@@ -1,6 +1,6 @@
 import React from "react";
 import { Button } from "react-bootstrap";
-import FlipBox from "../../Components/FlipBox";
+import FlipBox from "../../Components/FlipBox/FlipBox";
 import {
   connectionJandarmLogo,
   connectionPolitistLogo,

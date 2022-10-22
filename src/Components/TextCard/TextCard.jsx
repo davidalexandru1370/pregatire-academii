@@ -1,6 +1,6 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import ".././App.css";
+import "../../App.css";
 import "react-bootstrap-icons";
 import { Check } from "react-bootstrap-icons";
 

@@ -2,7 +2,7 @@ import { FC, useEffect, useRef, useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { ProtectedRouteProps } from "../../Models/ProtectedRouteProps";
 //@ts-ignore
-import { AuthorizeUser } from "../api/UserAPI.ts";
+import { AuthorizeUser } from "../../api/UserAPI.ts";
 
 export const ProtectedRoute = ({ page, redirectPage }: ProtectedRouteProps) => {
   const [isAuthorized, setIsAuthorized] = useState<boolean | undefined>(

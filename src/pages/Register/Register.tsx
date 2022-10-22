@@ -5,12 +5,13 @@ import "./Register.scss";
 import { Navigate, useNavigate } from "react-router-dom";
 import pages from "../../Constants/pages.json";
 //@ts-ignore
-import { Register as RegisterUser } from "../api/UserAPI.ts";
+import { Register as RegisterUser } from "../../api/UserAPI.ts";
 
 function Register() {
   const [start_validate, set_start_validate] = useState(false);
   const [email, setEmail] = useState(false);
   const [password, setPassword] = useState(false);
+  const [passwordValue, setPasswordValue] = useState<string>("");
   const form_ref = useRef<any>(0);
   const pass_ref = useRef({});
   let values = useRef({});
@@ -43,7 +44,7 @@ function Register() {
     if (email === true && password === true) {
       let obj = {
         email: values["name"],
-        password: values["password"],
+        password: passwordValue,
         name: values["name"],
       };
       await RegisterUser(obj)
@@ -105,6 +106,7 @@ function Register() {
           </div>
           <PasswordBulletPoints
             changePassword={setPassword}
+            password={setPasswordValue}
             style={{ border: "none" }}
           />
           <button

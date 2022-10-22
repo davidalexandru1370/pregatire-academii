@@ -9,7 +9,7 @@ import {
   connectionPolitistLogo,
   connectionPompierLogo,
 } from "./Utilities/index.js";
-import TextCard from "./Components/TextCard";
+import TextCard from "./Components/TextCard/TextCard.jsx";
 import MainPage from "./pages/MainPage/mainPage";
 import NotFound from "./pages/NotFound/NotFound";
 import Register from "./pages/Register/Register";

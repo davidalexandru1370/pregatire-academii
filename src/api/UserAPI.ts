@@ -1,5 +1,5 @@
 import { Exception } from "sass";
-import { User } from "../../Models/User";
+import { User } from "../Models/User";
 //@ts-ignore
 import { baseUrl, Endpoints } from "./Constants.ts";
 

@@ -1,10 +1,10 @@
 import React from "react";
 import { NavDropdown } from "react-bootstrap";
-import { connectionPolitistLogo } from "../Utilities/index.js";
+import { connectionPolitistLogo } from "../../Utilities/index.js";
 import "./ProfileCard.scss";
 import { useNavigate } from "react-router-dom";
 //@ts-ignore
-import { Logout } from "../pages/api/UserAPI.ts";
+import { Logout } from "../../api/UserAPI.ts";
 
 const ProfileCard = () => {
   const navigate = useNavigate();

@@ -65,16 +65,6 @@ namespace backend.Services
             var jwtToken = _jwtUtils.GenerateJwtToken(_user, AccessTokenExpireTimeInMinutes);
             var refreshToken = _jwtUtils.GenerateJwtToken(_user, RefreshTokenExpireTimeInMinutes);
 
-            try
-            {
-                //await _tokenRepository.Add();
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-
             return new AuthResult()
             {
                 result = true,
@@ -93,7 +83,7 @@ namespace backend.Services
             {
                 existingUser = await _userRepository.GetByEmail(user.Email);
             }
-            catch (RepositoryException repositoryException)
+            catch (RepositoryException)
             {
                 existingUser = null;
             }

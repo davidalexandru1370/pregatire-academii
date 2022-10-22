@@ -8,7 +8,7 @@ import {
   ValidateForgotPasswordPageId,
   ChangePassword,
   //@ts-ignore
-} from "../api/UserAPI.ts";
+} from "../../api/UserAPI.ts";
 //@ts-ignore
 import LoadingCircle from "../../Components/LoadingCircle/LoadingCircle.tsx";
 
