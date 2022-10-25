@@ -11,6 +11,7 @@ import {
 } from "../../api/UserAPI.ts";
 //@ts-ignore
 import LoadingCircle from "../../Components/LoadingCircle/LoadingCircle.tsx";
+import { toast } from "react-toastify";
 
 const ForgotPassword = () => {
   const pageId = useParams()["pageId"];
@@ -35,6 +36,9 @@ const ForgotPassword = () => {
       }
     };
     response().catch((error) => {
+      toast("Link-ul este invalid!", {
+        type: "error",
+      });
       navigate("/authentificate", { replace: true });
     });
   }, []);

@@ -18,9 +18,10 @@ export const Teste = () => {
     if (quizzes.length !== 0) {
       return;
     }
-    return () => {
-      sessionStorage.setItem("quizzes", JSON.stringify(quizzes));
-    };
+
+    sessionStorage.setItem("quizzes", JSON.stringify(quizzes));
+
+    return () => {};
   }, []);
 
   return (

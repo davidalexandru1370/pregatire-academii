@@ -7,8 +7,11 @@ import reportWebVitals from "./reportWebVitals";
 import { createRoot } from "react-dom/client";
 import {ToastContextProvider} from "./Context/ToastContext.tsx";
 import {ToastContainer} from "react-toastify";
+import {injectStyle} from "react-toastify/dist/inject-style";
 const container = document.getElementById("root");
 const root = createRoot(container);
+
+injectStyle();
 
 root.render(
   <BrowserRouter>
