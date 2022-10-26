@@ -8,6 +8,7 @@
   color: rgb(27, 27, 27);
   border-radius: 10px;
   position: relative;
+  transition: background-color 0.25s ease-in-out;
 }
 
 .testTitle {
@@ -46,7 +47,6 @@
   height: max-content;
   border: 0px solid black;
   border-radius: 5px;
-  opacity: 0;
 }
 
 .startButton:hover {
@@ -62,12 +62,18 @@
   margin-right: 5px;
 }
 
+.testCard .startButton {
+  transition: opacity 0.25s ease-in-out, transform 0.25s ease-in-out;
+  opacity: 0;
+}
+
 .testCard:hover .startButton {
-  animation: popPlayButton 0.25s ease-in-out alternate both running;
+  transform: translateY(-10%);
+  opacity: 1;
 }
 
 .testCard:hover {
-  animation: cardChangeColor ease-in-out alternate both;
+  background-color: rgb(209, 209, 209);
 }
 
 @keyframes popPlayButton {
@@ -83,12 +89,9 @@
   }
 }
 
-@keyframes cardChangeColor {
-  0% {
-    background-color: rgba(77, 77, 77, 0.84);
-  }
-
+@keyframes hidePlayButton {
   100% {
-    background-color: rgb(195, 195, 195);
+    transform: translateY(-25%);
+    opacity: 0;
   }
 }

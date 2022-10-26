@@ -109,7 +109,7 @@ namespace backend.Services
                 var IsCreated = await _userRepository.Add(user);
 
                 if (IsCreated != null)
-                {
+                { 
                     var jwtToken = _jwtUtils.GenerateJwtToken(user, _appSettings.AccessTokenTTL);
                     var refreshToken = _jwtUtils.GenerateJwtToken(user, _appSettings.RefreshTokenTTL);
 
