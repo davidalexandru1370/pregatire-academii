@@ -52,6 +52,14 @@
               "target": "Package",
               "version": "[6.4.4, )"
             },
+            "HotChocolate.AspNetCore": {
+              "target": "Package",
+              "version": "[12.15.0, )"
+            },
+            "HotChocolate.Data.EntityFramework": {
+              "target": "Package",
+              "version": "[12.15.0, )"
+            },
             "MailKit": {
               "target": "Package",
               "version": "[3.4.1, )"

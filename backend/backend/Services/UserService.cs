@@ -9,6 +9,7 @@ using backend.Constants;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.VisualBasic.Syntax;
 using StackExchange.Redis;
+using Microsoft.EntityFrameworkCore;
 
 namespace backend.Services
 {
@@ -44,7 +45,7 @@ namespace backend.Services
 
         public async Task<AuthResult> Authentificate(User user)
         {
-            var _user = _dataContext.Users.SingleOrDefault(x => x.Email == user.Email);
+            var _user = await _dataContext.Users.SingleOrDefaultAsync(x => x.Email == user.Email);
             AuthResult badResult = new AuthResult
             {
                 result = false,

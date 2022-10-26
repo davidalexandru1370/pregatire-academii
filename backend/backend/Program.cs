@@ -12,6 +12,7 @@ using backend.Utilities;
 using backend.Repository;
 using backend.Middlewares;
 using StackExchange.Redis;
+using backend.GraphQL;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -40,6 +41,8 @@ builder.Services.AddSingleton<IConnectionMultiplexer>(options =>
         AbortOnConnectFail = false,
     })
 );
+builder.Services.AddGraphQLServer().AddQueryType<Query>().AddProjections().AddFiltering();
+
 //for identity
 
 //builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<UserDbContext>().AddDefaultTokenProviders();
@@ -85,5 +88,7 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.UseJwtMiddleware();
+
+app.MapGraphQL("/graphql");
 
 app.Run();
