@@ -1,71 +1,70 @@
-.mobileNavigationBar{
-    display: none;
+.mobileNavigationBar {
+  display: none;
 }
 
-.listNoDecoration{
-    padding: 0;
-    list-style-type: none;
+.listNoDecoration {
+  padding: 0;
+  list-style-type: none;
 }
 
 @media screen and (max-width: 480px) {
-    .mobileNavigationBar{
-        background-color: rgb(70, 70, 70);
-        display: block;
-        position: fixed;
-        width: 100%;
-        height: 6%;
-        bottom: 0;
-    }
+  .mobileNavigationBar {
+    background-color: rgb(70, 70, 70);
+    display: block;
+    position: fixed;
+    width: 100vw;
+    height: 6%;
+    bottom: 0;
+  }
 
-    .navBar{
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-    }
-    
-    .navBarIcon{
-        transition: transform 0.3s;
-        z-index: 15;
-        font-size: 35px;
-        color: rgb(218, 216, 216);
-    }
-    
-    .navBarItemClicked{
-        transition: transform 0.3s;
-        transform: translateY(-1.1rem);
-    }
+  .navBar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+  }
 
-    .navBarItem{
-        display: flex;
-        flex-direction: column;
-    }
+  .navBarIcon {
+    transition: transform 0.3s;
+    z-index: 15;
+    font-size: 35px;
+    color: rgb(218, 216, 216);
+  }
 
-    .navBarItemDesc{
-        width: 10vw;
-        transition: opacity;
-        position: absolute;
-        display: flex;
-        justify-content: center;
-        margin-top: 10px;
-        top: 100%;
-        opacity: 0;;
-        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-        color: white;
-        font-size: 15px;
-    }
+  .navBarItemClicked {
+    transition: transform 0.3s;
+    transform: translateY(-1.1rem);
+  }
 
-    .navBarItemCircle{
-        position: absolute;
-        border: 25px solid rgb(125, 178, 125);
-        top: -24px;
-        margin-left: -2px;
-        z-index: -1;
-        border-radius: 25px;
-    }
+  .navBarItem {
+    display: flex;
+    flex-direction: column;
+  }
 
-    .navBarItemClicked .navBarItemDesc{
-        opacity: 1;
-        transition: opacity 0.3s;
-    }
+  .navBarItemDesc {
+    width: 10vw;
+    transition: opacity;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    top: 100%;
+    opacity: 0;
+    font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+    color: white;
+    font-size: 15px;
+  }
 
+  .navBarItemCircle {
+    position: absolute;
+    border: 25px solid rgb(125, 178, 125);
+    top: -24px;
+    margin-left: -2px;
+    z-index: -1;
+    border-radius: 25px;
+  }
+
+  .navBarItemClicked .navBarItemDesc {
+    opacity: 1;
+    transition: opacity 0.3s;
+  }
 }

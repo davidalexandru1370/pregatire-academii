@@ -66,37 +66,19 @@
   margin-right: 5px;
 }
 
-.testCard .startButton {
-  transition: opacity 0.25s ease-in-out, transform 0.25s ease-in-out,
-    box-shadow 0.25s ease-in-out;
-  opacity: 0;
-}
-
-.testCard:hover .startButton {
-  transform: translateY(-10%);
-  opacity: 1;
-}
-
-.testCard:hover {
-  background-color: rgb(209, 209, 209);
-}
-
-@keyframes popPlayButton {
-  0% {
-    transform: translateY(25%);
+@media screen and (min-width: 480px) {
+  .testCard .startButton {
+    transition: opacity 0.25s ease-in-out, transform 0.25s ease-in-out,
+      box-shadow 0.25s ease-in-out;
     opacity: 0;
   }
-  30% {
-    opacity: 0;
-  }
-  100% {
+
+  .testCard:hover .startButton {
+    transform: translateY(-10%);
     opacity: 1;
   }
-}
 
-@keyframes hidePlayButton {
-  100% {
-    transform: translateY(-25%);
-    opacity: 0;
+  .testCard:hover {
+    background-color: rgb(209, 209, 209);
   }
 }
