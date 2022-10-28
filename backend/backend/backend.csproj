@@ -9,6 +9,7 @@
   <ItemGroup>
     <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
     <PackageReference Include="EntityFramework" Version="6.4.4" />
+    <PackageReference Include="GraphQL.Server.Ui.Voyager" Version="7.1.1" />
     <PackageReference Include="HotChocolate.AspNetCore" Version="12.15.0" />
     <PackageReference Include="HotChocolate.Data.EntityFramework" Version="12.15.0" />
     <PackageReference Include="MailKit" Version="3.4.1" />

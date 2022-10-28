@@ -13,6 +13,7 @@ using backend.Repository;
 using backend.Middlewares;
 using StackExchange.Redis;
 using backend.GraphQL;
+using GraphQL.Server.Ui.Voyager;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,7 +38,7 @@ builder.Services.AddScoped<IChangePasswordAvailableRepository, ChangePasswordLin
 builder.Services.AddSingleton<IConnectionMultiplexer>(options =>
     ConnectionMultiplexer.Connect(new ConfigurationOptions
     {
-        EndPoints = {$"{builder.Configuration.GetValue<string>("Redis:Server")}:{builder.Configuration.GetValue<int>("Redis:Port")}"},
+        EndPoints = { $"{builder.Configuration.GetValue<string>("Redis:Server")}:{builder.Configuration.GetValue<int>("Redis:Port")}" },
         AbortOnConnectFail = false,
     })
 );
@@ -79,6 +80,7 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.UseGraphQLVoyager("/graphql-voyager", new VoyagerOptions { GraphQLEndPoint = "/graphql" });
 }
 
 app.UseHttpsRedirection();

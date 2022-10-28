@@ -1,0 +1,6 @@
+query {
+  quizzes {
+    year
+    category
+  }
+}

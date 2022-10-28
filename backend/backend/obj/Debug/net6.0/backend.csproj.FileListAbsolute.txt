@@ -863,3 +863,4 @@ C:\Users\David\Desktop\pregatire-academii\backend\backend\bin\Debug\net6.0\HotCh
 C:\Users\David\Desktop\pregatire-academii\backend\backend\bin\Debug\net6.0\HotChocolate.Utilities.Introspection.dll
 C:\Users\David\Desktop\pregatire-academii\backend\backend\bin\Debug\net6.0\HotChocolate.Validation.dll
 C:\Users\David\Desktop\pregatire-academii\backend\backend\bin\Debug\net6.0\Microsoft.Extensions.DiagnosticAdapter.dll
+C:\Users\David\Desktop\pregatire-academii\backend\backend\bin\Debug\net6.0\GraphQL.Server.Ui.Voyager.dll

@@ -10,6 +10,7 @@
         "dependencies": {
           "BCrypt.Net-Next": "4.0.3",
           "EntityFramework": "6.4.4",
+          "GraphQL.Server.Ui.Voyager": "7.1.1",
           "HotChocolate.AspNetCore": "12.15.0",
           "HotChocolate.Data.EntityFramework": "12.15.0",
           "MailKit": "3.4.1",
@@ -54,6 +55,14 @@
           "lib/netstandard2.1/EntityFramework.dll": {
             "assemblyVersion": "6.0.0.0",
             "fileVersion": "6.400.420.21404"
+          }
+        }
+      },
+      "GraphQL.Server.Ui.Voyager/7.1.1": {
+        "runtime": {
+          "lib/netcoreapp3.1/GraphQL.Server.Ui.Voyager.dll": {
+            "assemblyVersion": "7.1.1.0",
+            "fileVersion": "7.1.1.0"
           }
         }
       },
@@ -2855,6 +2864,13 @@
       "sha512": "sha512-yj1+/4tci7Panu3jKDHYizxwVm0Jvm7b7m057b5h4u8NUHGCR8WIWirBTw+8EptRffwftIWPBeIRGNKD1ewEMQ==",
       "path": "entityframework/6.4.4",
       "hashPath": "entityframework.6.4.4.nupkg.sha512"
+    },
+    "GraphQL.Server.Ui.Voyager/7.1.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-eQF/u/4EVBkax53w3KcSDhEm7bApfJcpgAR7glQ293KFGpsnCAY3ZYnKQUh9lGCns69eNFye7QWZBxRMvrxANw==",
+      "path": "graphql.server.ui.voyager/7.1.1",
+      "hashPath": "graphql.server.ui.voyager.7.1.1.nupkg.sha512"
     },
     "GreenDonut/12.15.0": {
       "type": "package",

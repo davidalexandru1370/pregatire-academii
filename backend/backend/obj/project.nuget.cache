@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "WK1SBrm10nqbtciul1N5YUr/2spv7vDnkmyFVQeMWOQYuS8a1XA6ObqS9DS4wysMUBnQTkicovvM6ZsIzcLLAw==",
+  "dgSpecHash": "+CBDOKtkzU+LMzFxxLuBSnpwDBZsMd8L44F9xVDYJ0IpFTB0BZdXHP8qXX1UjMi9zX/7w1iZQxLgReiFm+Bf/A==",
   "success": true,
   "projectFilePath": "C:\\Users\\David\\Desktop\\pregatire-academii\\backend\\backend\\backend.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\David\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\David\\.nuget\\packages\\entityframework\\6.4.4\\entityframework.6.4.4.nupkg.sha512",
+    "C:\\Users\\David\\.nuget\\packages\\graphql.server.ui.voyager\\7.1.1\\graphql.server.ui.voyager.7.1.1.nupkg.sha512",
     "C:\\Users\\David\\.nuget\\packages\\greendonut\\12.15.0\\greendonut.12.15.0.nupkg.sha512",
     "C:\\Users\\David\\.nuget\\packages\\hotchocolate\\12.15.0\\hotchocolate.12.15.0.nupkg.sha512",
     "C:\\Users\\David\\.nuget\\packages\\hotchocolate.abstractions\\12.15.0\\hotchocolate.abstractions.12.15.0.nupkg.sha512",
