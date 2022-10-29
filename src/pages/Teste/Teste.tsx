@@ -74,6 +74,13 @@ export const Teste = () => {
             <TestCard />
             <TestCard />
             <TestCard />
+            <TestCard />
+            <TestCard />
+            <TestCard />
+            <TestCard />
+            <TestCard />
+            <TestCard />
+            <TestCard />
           </div>
         </div>
       </div>
