@@ -100,6 +100,7 @@ $--anim-time: 0.5s;
 .leftMenuBar {
   transition: all 400ms;
   width: 40%;
+  max-width: 400px;
 }
 
 .leftMenuBarAnimation {
