@@ -1,7 +1,7 @@
 import { Exception } from "sass";
 import { User } from "../Models/User";
 //@ts-ignore
-import { baseUrl, Endpoints } from "./Constants.ts";
+import { baseUrl, UserEndpoints as Endpoints } from "./Constants.ts";
 
 enum Methods {
   POST = "POST",
