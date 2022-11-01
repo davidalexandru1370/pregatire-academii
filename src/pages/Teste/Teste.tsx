@@ -7,25 +7,26 @@ import TestCard from "../../Components/TestCard/TestCard.tsx";
 //@ts-ignore
 import ButtonWithDropDown from "../../Components/ButtonWithDropDown/ButtonWithDropDown.tsx";
 import { useMemo, useState, useEffect, useCallback } from "react";
-import Latex from "react-latex";
-import { useGetQuizzesQuery } from "../../GraphQL/generated/schema";
+//@ts-ignore
+import { useGetQuizzesQuery } from "../../GraphQL/generated/schema.ts";
 import { QueryResult } from "@apollo/client";
 
 export const Teste = () => {
+  const { loading, error, data } = useGetQuizzesQuery();
   const [isLeftMenuVisible, setIsLeftMenuVisible] = useState<boolean>(true);
-  const quizzes: Partial<QueryResult> = useMemo(() => {
-    const { loading, error, data } = useGetQuizzesQuery();
-    return { loading, error, data };
-  }, []);
-  useEffect(() => {
-    if (quizzes.data.length !== 0) {
-      return;
-    }
 
-    sessionStorage.setItem("quizzes", JSON.stringify(quizzes));
+  if (loading == true) {
+    return <></>;
+  }
+  // useEffect(() => {
+  //   if (data.quizzes.length !== 0) {
+  //     return;
+  //   }
 
-    return () => {};
-  }, []);
+  //   sessionStorage.setItem("quizzes", JSON.stringify(data.quizzes));
+
+  //   return () => {};
+  // }, []);
 
   return (
     <div className="testePage">
@@ -74,26 +75,9 @@ export const Teste = () => {
         </div>
         <div className="rightPart">
           <div className="testCards">
-            <TestCard />
-            <TestCard />
-            <TestCard />
-            <TestCard />
-            <TestCard />
-            <TestCard />
-            <TestCard />
-            <TestCard />
-            <TestCard />
-            <TestCard />
-            <TestCard />
-            <TestCard />
-            <TestCard />
-            <TestCard />
-            <TestCard />
-            <TestCard />
-            <TestCard />
-            <TestCard />
-            <TestCard />
-            <TestCard />
+            {data.quizzes.map((quiz: Quiz) => {
+              return <TestCard quiz={quiz} />;
+            })}
           </div>
         </div>
       </div>
