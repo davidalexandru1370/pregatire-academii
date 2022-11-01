@@ -10,14 +10,17 @@ import { useMemo, useState, useEffect, useCallback } from "react";
 //@ts-ignore
 import { useGetQuizzesQuery } from "../../GraphQL/generated/schema.ts";
 import { QueryResult } from "@apollo/client";
+//@ts-ignore
+import LoadingCircle from "../../Components/LoadingCircle/LoadingCircle.tsx";
 
 export const Teste = () => {
   const { loading, error, data } = useGetQuizzesQuery();
   const [isLeftMenuVisible, setIsLeftMenuVisible] = useState<boolean>(true);
+  // const quizzes: Partial<QueryResult> = useMemo(() => {
+  //   const { loading, error, data } = useGetQuizzesQuery();
+  //   return { loading, error, data };
+  // }, []);
 
-  if (loading == true) {
-    return <></>;
-  }
   // useEffect(() => {
   //   if (data.quizzes.length !== 0) {
   //     return;
@@ -75,9 +78,13 @@ export const Teste = () => {
         </div>
         <div className="rightPart">
           <div className="testCards">
-            {data.quizzes.map((quiz: Quiz) => {
-              return <TestCard quiz={quiz} />;
-            })}
+            {loading === false ? (
+              <LoadingCircle className="loadingCircle" />
+            ) : (
+              data.quizzes.map((quiz: Quiz) => {
+                return <TestCard quiz={quiz} />;
+              })
+            )}
           </div>
         </div>
       </div>
