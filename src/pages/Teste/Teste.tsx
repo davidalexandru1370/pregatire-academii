@@ -6,16 +6,19 @@ import constants from "../../Constants/constants.json";
 import TestCard from "../../Components/TestCard/TestCard.tsx";
 //@ts-ignore
 import ButtonWithDropDown from "../../Components/ButtonWithDropDown/ButtonWithDropDown.tsx";
-import { useMemo, useState, useEffect } from "react";
+import { useMemo, useState, useEffect, useCallback } from "react";
 import Latex from "react-latex";
+import { useGetQuizzesQuery } from "../../GraphQL/generated/schema";
+import { QueryResult } from "@apollo/client";
 
 export const Teste = () => {
   const [isLeftMenuVisible, setIsLeftMenuVisible] = useState<boolean>(true);
-  const quizzes: Quiz[] = useMemo(() => {
-    return [];
+  const quizzes: Partial<QueryResult> = useMemo(() => {
+    const { loading, error, data } = useGetQuizzesQuery();
+    return { loading, error, data };
   }, []);
   useEffect(() => {
-    if (quizzes.length !== 0) {
+    if (quizzes.data.length !== 0) {
       return;
     }
 

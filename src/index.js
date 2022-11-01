@@ -1,31 +1,30 @@
+import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import React from "react";
-import ReactDOM from "react-dom";
-import "./index.css";
-import App from "./App.tsx";
-import { BrowserRouter, Router } from "react-router-dom";
-import reportWebVitals from "./reportWebVitals";
 import { createRoot } from "react-dom/client";
-import {ToastContextProvider} from "./Context/ToastContext.tsx";
-import {ToastContainer} from "react-toastify";
-import {injectStyle} from "react-toastify/dist/inject-style";
-import {ApolloClient, ApolloProvider, InMemoryCache} from "@apollo/client";
+import { BrowserRouter } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import { injectStyle } from "react-toastify/dist/inject-style";
+import { baseUrl as quizBaseUrl } from "./api/QuizAPI.ts";
+import App from "./App.tsx";
+import "./index.css";
+import reportWebVitals from "./reportWebVitals";
 const container = document.getElementById("root");
 const root = createRoot(container);
 
 injectStyle();
 
 const client = new ApolloClient({
-  uri: "http://localhost:5199/api/graphql",
+  uri: quizBaseUrl,
   cache: new InMemoryCache(),
 });
 
 root.render(
   <BrowserRouter>
     <React.StrictMode>
-        <ToastContainer/>
-          <ApolloProvider client={client}>
-          <App />
-          </ApolloProvider>
+      <ToastContainer />
+      <ApolloProvider client={client}>
+        <App />
+      </ApolloProvider>
     </React.StrictMode>
   </BrowserRouter>
 );

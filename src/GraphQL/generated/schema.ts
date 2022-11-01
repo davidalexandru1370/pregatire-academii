@@ -159,14 +159,16 @@ export type StringOperationFilterInput = {
 export type GetQuizzesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetQuizzesQuery = { __typename?: 'Query', quizzes: Array<{ __typename?: 'Quiz', year: number, category: Category }> };
+export type GetQuizzesQuery = { __typename?: 'Query', quizzes: Array<{ __typename?: 'Quiz', id: any, year: number, category: Category, subject: string }> };
 
 
 export const GetQuizzesDocument = gql`
     query getQuizzes {
   quizzes {
+    id
     year
     category
+    subject
   }
 }
     `;
