@@ -1,4 +1,4 @@
-query {
+query getQuizzes {
   quizzes {
     year
     category

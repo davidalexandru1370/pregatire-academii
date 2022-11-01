@@ -14,6 +14,7 @@ using backend.Middlewares;
 using StackExchange.Redis;
 using backend.GraphQL;
 using GraphQL.Server.Ui.Voyager;
+using Microsoft.AspNetCore.WebSockets;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -71,7 +72,6 @@ builder.Services.AddAuthentication(options =>
 });
 
 var app = builder.Build();
-
 app.UseCors(options => options.WithOrigins("http://localhost:3000").AllowAnyMethod().AllowAnyHeader().AllowCredentials());
 //app.UseCors(host => host.SetIsOriginAllowed(host => true));
 // Configure the HTTP request pipeline.
@@ -82,7 +82,7 @@ if (app.Environment.IsDevelopment())
     app.UseGraphQLVoyager("/graphql-voyager", new VoyagerOptions { GraphQLEndPoint = "/api/graphql" });
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
