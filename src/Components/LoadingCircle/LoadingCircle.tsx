@@ -6,7 +6,7 @@ const LoadingCircle: FC<{
   className?: string;
   loading?: boolean;
   onLoading?: () => void;
-}> = ({ style, className, loading, onLoading }) => {
+}> = ({ style, className = "", loading, onLoading }) => {
   const [isLoading, setIsLoading] = useState<boolean>(loading);
 
   useEffect(() => {

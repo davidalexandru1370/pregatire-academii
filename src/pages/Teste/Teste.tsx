@@ -5,31 +5,17 @@ import constants from "../../Constants/constants.json";
 //@ts-ignore
 import TestCard from "../../Components/TestCard/TestCard.tsx";
 //@ts-ignore
+import { useState } from "react";
+//@ts-ignore
 import ButtonWithDropDown from "../../Components/ButtonWithDropDown/ButtonWithDropDown.tsx";
-import { useMemo, useState, useEffect, useCallback } from "react";
 //@ts-ignore
 import { useGetQuizzesQuery } from "../../GraphQL/generated/schema.ts";
-import { QueryResult } from "@apollo/client";
 //@ts-ignore
 import LoadingCircle from "../../Components/LoadingCircle/LoadingCircle.tsx";
 
 export const Teste = () => {
   const { loading, error, data } = useGetQuizzesQuery();
   const [isLeftMenuVisible, setIsLeftMenuVisible] = useState<boolean>(true);
-  // const quizzes: Partial<QueryResult> = useMemo(() => {
-  //   const { loading, error, data } = useGetQuizzesQuery();
-  //   return { loading, error, data };
-  // }, []);
-
-  // useEffect(() => {
-  //   if (data.quizzes.length !== 0) {
-  //     return;
-  //   }
-
-  //   sessionStorage.setItem("quizzes", JSON.stringify(data.quizzes));
-
-  //   return () => {};
-  // }, []);
 
   return (
     <div className="testePage">
@@ -52,7 +38,7 @@ export const Teste = () => {
           </button>
           <ButtonWithDropDown title="Sort by" />
         </div>
-        <p>0 rezultate</p>
+        {loading === false && <p>{data.quizzes.length} rezultate </p>}
       </div>
       <div className="content">
         <div
@@ -77,15 +63,18 @@ export const Teste = () => {
           </div>
         </div>
         <div className="rightPart">
-          <div className="testCards">
-            {loading === false ? (
+          {loading === true ? (
+            <div className="loadingContainer">
+              <span style={{ fontSize: "2rem" }}>Se incarca... &nbsp;</span>
               <LoadingCircle className="loadingCircle" />
-            ) : (
-              data.quizzes.map((quiz: Quiz) => {
+            </div>
+          ) : (
+            <div className="testCards">
+              {data.quizzes.map((quiz: Quiz) => {
                 return <TestCard quiz={quiz} />;
-              })
-            )}
-          </div>
+              })}
+            </div>
+          )}
         </div>
       </div>
     </div>
