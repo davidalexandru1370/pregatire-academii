@@ -128,6 +128,10 @@ $--anim-time: 0.5s;
     height: auto;
   }
 
+  .filterHideButton {
+    display: none;
+  }
+
   .testeItems {
     display: flex;
     flex-direction: column;

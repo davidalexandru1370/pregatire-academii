@@ -5,17 +5,26 @@ import constants from "../../Constants/constants.json";
 //@ts-ignore
 import TestCard from "../../Components/TestCard/TestCard.tsx";
 //@ts-ignore
-import { useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 //@ts-ignore
 import ButtonWithDropDown from "../../Components/ButtonWithDropDown/ButtonWithDropDown.tsx";
 //@ts-ignore
 import { useGetQuizzesQuery } from "../../GraphQL/generated/schema.ts";
 //@ts-ignore
 import LoadingCircle from "../../Components/LoadingCircle/LoadingCircle.tsx";
+import { toast } from "react-toastify";
 
 export const Teste = () => {
   const { loading, error, data } = useGetQuizzesQuery();
   const [isLeftMenuVisible, setIsLeftMenuVisible] = useState<boolean>(true);
+
+  useEffect(() => {
+    if (!!error) {
+      toast("Chestionarele nu au putut fi incarcate!", {
+        type: "error",
+      });
+    }
+  }, [error]);
 
   return (
     <div className="testePage">
