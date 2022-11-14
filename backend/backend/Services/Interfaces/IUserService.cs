@@ -1,6 +1,6 @@
 ﻿using backend.Model;
 
-namespace backend.Services
+namespace backend.Services.Interfaces
 {
     public interface IUserService
     {

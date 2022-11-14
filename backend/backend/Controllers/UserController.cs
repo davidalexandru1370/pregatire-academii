@@ -1,7 +1,7 @@
 ﻿using backend.Model;
 using backend.Model.DTOs;
 using backend.Repository;
-using backend.Services;
+using backend.Services.Interfaces;
 using backend.Utilities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

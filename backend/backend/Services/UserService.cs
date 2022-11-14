@@ -10,6 +10,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.VisualBasic.Syntax;
 using StackExchange.Redis;
 using Microsoft.EntityFrameworkCore;
+using backend.Services.Interfaces;
 
 namespace backend.Services
 {

@@ -15,6 +15,7 @@ using StackExchange.Redis;
 using backend.GraphQL;
 using GraphQL.Server.Ui.Voyager;
 using Microsoft.AspNetCore.WebSockets;
+using backend.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
