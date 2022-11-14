@@ -10,6 +10,8 @@ namespace backend.Model
         public virtual DbSet<Quiz> Quiz { get; set; }
         public virtual DbSet<Question> Question { get; set; }
         public virtual DbSet<Answer> Answer { get; set; }
+        public virtual DbSet<Room> Room { get; set; }
+
         public EntitiesDbContext(DbContextOptions<EntitiesDbContext> options) : base(options)
         {
 
@@ -17,7 +19,9 @@ namespace backend.Model
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
+            modelBuilder.Entity<Room>()
+                .HasIndex(r => r.UserId)
+                .IsUnique();
         }
     }
 }
