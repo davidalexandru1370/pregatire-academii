@@ -14,7 +14,5 @@ namespace backend.Model
         public Guid UserId { get; }
 
         public DateTime IssuedRoom { get; set; }
-
-        public string SerializedQuiz { get; set; }
     }
 }
