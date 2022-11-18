@@ -7,7 +7,7 @@ namespace backend.Repository
     {
         private EntitiesDbContext _dbContext;
 
-        RoomRepository(EntitiesDbContext dbContext)
+        public RoomRepository(EntitiesDbContext dbContext)
         {
             this._dbContext = dbContext;
         }
