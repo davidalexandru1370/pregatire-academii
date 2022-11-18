@@ -44,7 +44,7 @@ builder.Services.AddSingleton<IConnectionMultiplexer>(options =>
     })
 );
 builder.Services.AddGraphQLServer().AddQueryType<Query>().AddProjections().AddFiltering();
-
+builder.Services.AddScoped<IRoomRepository, RoomRepository>();
 //for identity
 
 //builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<UserDbContext>().AddDefaultTokenProviders();
