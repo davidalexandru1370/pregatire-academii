@@ -27,6 +27,8 @@ import Authentificate from "./pages/Authentification/Authentificate.tsx";
 import ForgotPassword from "./pages/ForgotPassword/ForgotPassword.tsx";
 //@ts-ignore
 import { ToastContextProvider } from "./Context/ToastContext.tsx";
+//@ts-ignore
+import { PlayQuizPage } from "./pages/PlayQuizPage/PlayQuizPage.tsx";
 
 function App() {
   let navigation = useNavigate();
@@ -176,6 +178,15 @@ function App() {
           path="teste"
           element={
             <ProtectedRoute page={<Teste />} redirectPage={"/authentificate"} />
+          }
+        />
+        <Route
+          path="playquiz/:quizId"
+          element={
+            <ProtectedRoute
+              page={<PlayQuizPage />}
+              redirectPage={"/mainpage"}
+            />
           }
         />
       </Route>
