@@ -8,7 +8,7 @@ export const ProtectedRoute = ({ page, redirectPage }: ProtectedRouteProps) => {
   const [isAuthorized, setIsAuthorized] = useState<boolean | undefined>(
     undefined
   );
-  const fetched = useRef(false);
+  const fetched = useRef<boolean>(false);
 
   useEffect(() => {
     const abortController = new AbortController();

@@ -151,9 +151,22 @@ $--anim-time: 0.5s;
   .content {
     display: flex;
     flex-direction: column;
+    margin-top: 0.75rem;
   }
 
   .filterAndSort {
     flex-direction: column;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .container {
+    max-width: 1200px;
+  }
+}
+
+@media screen and (min-width: 1530px) {
+  .container {
+    max-width: 1320px;
   }
 }
