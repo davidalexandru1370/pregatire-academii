@@ -17,6 +17,7 @@ import { toast } from "react-toastify";
 export const Teste = () => {
   const { loading, error, data } = useGetPageQuizzesQuery();
   const [isLeftMenuVisible, setIsLeftMenuVisible] = useState<boolean>(true);
+  console.log(data);
 
   useEffect(() => {
     if (!!error) {
@@ -48,7 +49,7 @@ export const Teste = () => {
             </button>
             <ButtonWithDropDown title="Sort by" />
           </div>
-          {loading === false && <p>{data.quizzes.length} rezultate </p>}
+          {loading === false && <p>{data.quizzes.totalCount} rezultate </p>}
         </div>
         <div className="content">
           <div
@@ -80,7 +81,7 @@ export const Teste = () => {
               </div>
             ) : (
               <div className="testCards">
-                {data.quizzes.map((quiz: Quiz) => {
+                {data.quizzes.items.map((quiz: Quiz) => {
                   return <TestCard quiz={quiz} />;
                 })}
               </div>

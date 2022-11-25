@@ -13,13 +13,13 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Therefore it is highly recommended to use the babel-plugin for production.
  */
 const documents = {
-    "query getPageQuizzes($skip: Int!, $take: Int!) {\n  quizzes(skip: $skip, take: $take) {\n    items {\n      id\n      category\n      year\n      subject\n    }\n    pageInfo {\n      hasNextPage\n      hasPreviousPage\n    }\n  }\n}": types.GetPageQuizzesDocument,
+    "query getPageQuizzes($skip: Int, $take: Int) {\n  quizzes(skip: $skip, take: $take) {\n    items {\n      id\n      category\n      year\n      subject\n    }\n    pageInfo {\n      hasNextPage\n      hasPreviousPage\n    }\n    totalCount\n  }\n}": types.GetPageQuizzesDocument,
 };
 
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "query getPageQuizzes($skip: Int!, $take: Int!) {\n  quizzes(skip: $skip, take: $take) {\n    items {\n      id\n      category\n      year\n      subject\n    }\n    pageInfo {\n      hasNextPage\n      hasPreviousPage\n    }\n  }\n}"): (typeof documents)["query getPageQuizzes($skip: Int!, $take: Int!) {\n  quizzes(skip: $skip, take: $take) {\n    items {\n      id\n      category\n      year\n      subject\n    }\n    pageInfo {\n      hasNextPage\n      hasPreviousPage\n    }\n  }\n}"];
+export function graphql(source: "query getPageQuizzes($skip: Int, $take: Int) {\n  quizzes(skip: $skip, take: $take) {\n    items {\n      id\n      category\n      year\n      subject\n    }\n    pageInfo {\n      hasNextPage\n      hasPreviousPage\n    }\n    totalCount\n  }\n}"): (typeof documents)["query getPageQuizzes($skip: Int, $take: Int) {\n  quizzes(skip: $skip, take: $take) {\n    items {\n      id\n      category\n      year\n      subject\n    }\n    pageInfo {\n      hasNextPage\n      hasPreviousPage\n    }\n    totalCount\n  }\n}"];
 
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.

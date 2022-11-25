@@ -15,7 +15,6 @@ export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
 };
 const defaultOptions = {} as const;
 /** All built-in and custom scalars, mapped to their actual values */
-
 export type Scalars = {
   ID: string;
   String: string;
@@ -155,6 +154,7 @@ export type QuizCollectionSegment = {
   items?: Maybe<Array<Quiz>>;
   /** Information to aid in pagination. */
   pageInfo: CollectionSegmentInfo;
+  totalCount: Scalars["Int"];
 };
 
 export type QuizFilterInput = {
@@ -183,14 +183,15 @@ export type StringOperationFilterInput = {
 };
 
 export type GetPageQuizzesQueryVariables = Exact<{
-  skip: Scalars["Int"];
-  take: Scalars["Int"];
+  skip?: InputMaybe<Scalars["Int"]>;
+  take?: InputMaybe<Scalars["Int"]>;
 }>;
 
 export type GetPageQuizzesQuery = {
   __typename?: "Query";
   quizzes?: {
     __typename?: "QuizCollectionSegment";
+    totalCount: number;
     items?: Array<{
       __typename?: "Quiz";
       id: any;
@@ -207,7 +208,7 @@ export type GetPageQuizzesQuery = {
 };
 
 export const GetPageQuizzesDocument = gql`
-  query getPageQuizzes($skip: Int!, $take: Int!) {
+  query getPageQuizzes($skip: Int, $take: Int) {
     quizzes(skip: $skip, take: $take) {
       items {
         id
@@ -219,6 +220,7 @@ export const GetPageQuizzesDocument = gql`
         hasNextPage
         hasPreviousPage
       }
+      totalCount
     }
   }
 `;
@@ -241,7 +243,7 @@ export const GetPageQuizzesDocument = gql`
  * });
  */
 export function useGetPageQuizzesQuery(
-  baseOptions: Apollo.QueryHookOptions<
+  baseOptions?: Apollo.QueryHookOptions<
     GetPageQuizzesQuery,
     GetPageQuizzesQueryVariables
   >
