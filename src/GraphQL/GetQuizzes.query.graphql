@@ -1,8 +1,0 @@
-query getQuizzes {
-  quizzes {
-    id
-    year
-    category
-    subject
-  }
-}

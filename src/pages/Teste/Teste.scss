@@ -22,7 +22,6 @@ $--anim-time: 0.5s;
   background-color: rgb(78, 84, 90);
   border-radius: 15px;
   box-sizing: border-box;
-  margin: 0 2vw 2vw 2vw;
   gap: 4vw;
 }
 
@@ -72,7 +71,7 @@ $--anim-time: 0.5s;
 .testeItems {
   display: flex;
   justify-content: space-between;
-  padding-inline: 45px;
+  padding-right: 2rem;
 }
 
 .filterText {
@@ -174,18 +173,18 @@ $--anim-time: 0.5s;
 @media screen and (min-width: 1530px) {
   .container {
     max-width: 1520px;
-    .testCards {
-      width: 100%;
-      --auto-grid-min-size: 24rem;
-      display: grid;
-      grid-template-columns: repeat(
-        auto-fill,
-        minmax(var(--auto-grid-min-size), 1fr)
-      );
-      justify-items: center;
-      row-gap: 2rem;
-      column-gap: 2rem;
-      position: relative;
-    }
+  }
+  .testCards {
+    width: 100%;
+    --auto-grid-min-size: 18rem;
+    display: grid;
+    grid-template-columns: repeat(
+      auto-fill,
+      minmax(var(--auto-grid-min-size), 1fr)
+    );
+    justify-items: center;
+    row-gap: 2rem;
+    column-gap: 2rem;
+    position: relative;
   }
 }

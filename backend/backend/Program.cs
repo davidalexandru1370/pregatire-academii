@@ -16,6 +16,7 @@ using backend.GraphQL;
 using GraphQL.Server.Ui.Voyager;
 using Microsoft.AspNetCore.WebSockets;
 using backend.Services.Interfaces;
+using HotChocolate.Types.Pagination;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -42,7 +43,7 @@ builder.Services.AddSingleton<IConnectionMultiplexer>(options =>
         EndPoints = { $"{builder.Configuration.GetValue<string>("Redis:Server")}:{builder.Configuration.GetValue<int>("Redis:Port")}" },
         AbortOnConnectFail = false,
     })
-);
+);   
 builder.Services.AddGraphQLServer().AddQueryType<Query>().AddProjections().AddFiltering();
 builder.Services.AddScoped<IRoomRepository, RoomRepository>();
 //for identity

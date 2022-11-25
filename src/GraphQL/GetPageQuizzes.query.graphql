@@ -1,0 +1,14 @@
+query getPageQuizzes($skip: Int!, $take: Int!) {
+  quizzes(skip: $skip, take: $take) {
+    items {
+      id
+      category
+      year
+      subject
+    }
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
+    }
+  }
+}
