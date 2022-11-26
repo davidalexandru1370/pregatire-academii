@@ -68,6 +68,10 @@ $--anim-time: 0.5s;
   position: relative;
 }
 
+.totalCount {
+  user-select: none;
+}
+
 .testeItems {
   display: flex;
   justify-content: space-between;
@@ -140,6 +144,9 @@ $--anim-time: 0.5s;
   }
 
   .leftMenuBar {
+    display: flex;
+    justify-content: center;
+    width: 100%;
     margin-bottom: 2rem;
   }
 

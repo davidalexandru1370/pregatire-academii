@@ -49,7 +49,9 @@ export const Teste = () => {
             </button>
             <ButtonWithDropDown title="Sort by" />
           </div>
-          {loading === false && <p>{data.quizzes.totalCount} rezultate </p>}
+          {loading === false && (
+            <p className="totalCount">{data.quizzes.totalCount} rezultate </p>
+          )}
         </div>
         <div className="content">
           <div
