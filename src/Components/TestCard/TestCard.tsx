@@ -1,4 +1,5 @@
 import { FC, useRef } from "react";
+import { Quiz } from "../../Models/Quiz";
 import "./TestCard.scss";
 
 const TestCard: FC<{ quiz: Quiz }> = ({ quiz }) => {

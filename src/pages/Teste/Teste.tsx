@@ -17,6 +17,7 @@ import {
 //@ts-ignore
 import LoadingCircle from "../../Components/LoadingCircle/LoadingCircle.tsx";
 import { toast } from "react-toastify";
+import { Quiz } from "../../Models/Quiz";
 
 export const Teste = () => {
   const { loading, error, data } = useGetPageQuizzesQuery();

@@ -3,5 +3,5 @@ import { To } from "react-router-dom";
 
 export interface ProtectedRouteProps {
   page: NonNullable<React.ReactNode>;
-  redirectPage: NonNullable<React.ReactNode>;
+  redirectPage: string;
 }

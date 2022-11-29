@@ -161,17 +161,14 @@ function App() {
           element={
             <ProtectedRoute
               page={<MainPage />}
-              redirectPage={<Authentificate />}
+              redirectPage={"/authentificate"}
             />
           }
         />
         <Route
           path="teste"
           element={
-            <ProtectedRoute
-              page={<Teste />}
-              redirectPage={<Authentificate />}
-            />
+            <ProtectedRoute page={<Teste />} redirectPage={"/authentificate"} />
           }
         />
         <Route
@@ -179,7 +176,7 @@ function App() {
           element={
             <ProtectedRoute
               page={<PlayQuizPage />}
-              redirectPage={<MainPage />}
+              redirectPage={"/mainpage"}
             />
           }
         />
