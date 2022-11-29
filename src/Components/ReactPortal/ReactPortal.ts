@@ -6,17 +6,19 @@ interface IReactPortal {
   wrapperId: string;
 }
 
-function createWrapperElement(wrapperId): HTMLDivElement {
+function createWrapperElement(wrapperId: string): HTMLDivElement {
   const wrapperElement = document.createElement("div");
   wrapperElement.setAttribute("id", wrapperId);
   return wrapperElement;
 }
 
 const ReactPortal = ({ children, wrapperId = "wrapper" }: IReactPortal) => {
-  const [wrapperElement, setWrapperElement] = useState<HTMLElement>(null);
+  const [wrapperElement, setWrapperElement] = useState<HTMLElement | null>(
+    null
+  );
 
   useLayoutEffect(() => {
-    let element = document.getElementById(wrapperId);
+    let element: HTMLElement = document.getElementById(wrapperId)!;
     let systemCreated = false;
     if (wrapperId.trim() !== "") {
       if (!element) {
@@ -39,7 +41,7 @@ const ReactPortal = ({ children, wrapperId = "wrapper" }: IReactPortal) => {
     return null;
   }
 
-  return createPortal(children, wrapperElement);
+  return createPortal(children, wrapperElement!);
 };
 
 export default ReactPortal;

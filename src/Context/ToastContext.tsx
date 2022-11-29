@@ -17,28 +17,28 @@ export enum ToastActionType {
   DELETE,
 }
 
-export const ToastContextProvider = ({ children }) => {
-  const toastNotifications = useRef<IToast[]>([]);
+// export const ToastContextProvider = ({ children }) => {
+//   const toastNotifications = useRef<IToast[]>([]);
 
-  const [state, dispatch] = useReducer(
-    (state: IToast[], action: Partial<IToast> & ToastActionType) => {
-      switch (action.type) {
-        case ToastActionType.ADD:
-          return [...state, action];
-        case ToastActionType.DELETE:
-          return state.filter((notification: Partial<IToast>) => {
-            return notification.id !== action.id;
-          });
-        default:
-          return state;
-      }
-    },
-    toastNotifications.current
-  );
+//   const [state, dispatch] = useReducer(
+//     (state: IToast[], action: Partial<IToast> & ToastActionType) => {
+//       switch (action.type) {
+//         case ToastActionType.ADD:
+//           return [...state, action];
+//         case ToastActionType.DELETE:
+//           return state.filter((notification: Partial<IToast>) => {
+//             return notification.id !== action.id;
+//           });
+//         default:
+//           return state;
+//       }
+//     },
+//     toastNotifications.current
+//   );
 
-  return (
-    <ToastContext.Provider value={{ state, dispatch }}>
-      {children}
-    </ToastContext.Provider>
-  );
-};
+//   return (
+//     <ToastContext.Provider value={{ state, dispatch }}>
+//       {children}
+//     </ToastContext.Provider>
+//   );
+// };

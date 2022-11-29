@@ -61,6 +61,7 @@ const ForgotPassword = () => {
       </div>
     );
   }
+  return <></>;
 };
 
 export default ForgotPassword;

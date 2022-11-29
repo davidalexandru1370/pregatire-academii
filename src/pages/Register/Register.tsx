@@ -6,6 +6,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 import pages from "../../Constants/pages.json";
 //@ts-ignore
 import { Register as RegisterUser } from "../../api/UserAPI.ts";
+import { AnyNaptrRecord } from "dns";
 
 function Register() {
   const [start_validate, set_start_validate] = useState(false);
@@ -13,8 +14,8 @@ function Register() {
   const [password, setPassword] = useState(false);
   const [passwordValue, setPasswordValue] = useState<string>("");
   const form_ref = useRef<any>(0);
-  const pass_ref = useRef({});
-  let values = useRef({});
+  const pass_ref = useRef<any>({});
+  let values = useRef<any>({});
   const navigate = useNavigate();
   const passwordRegex = new RegExp("(.*[A-Z]+.*[0-9]+)|(.*[0-9].*[A-Z].*)");
 
@@ -36,29 +37,29 @@ function Register() {
     }
 
     setEmail(true);
-    values["name"] = String(my_form["name"].value);
+    values.current["name"] = String(my_form["name"].value);
   };
 
   async function checkInputFields() {
     nameInputField();
     if (email === true && password === true) {
       let obj = {
-        email: values["name"],
+        email: values.current["name"],
         password: passwordValue,
-        name: values["name"],
+        name: values.current["name"],
       };
       await RegisterUser(obj)
-        .then(async (response) => {
+        .then(async (response: any) => {
           if (response.status >= 400) {
             throw await response.json();
           }
-          document.getElementById("register_error_message_id").innerText = "";
+          document.getElementById("register_error_message_id")!.innerText = "";
           navigate(pages.mainpage);
         })
-        .catch(async (errors) => {
-          document.getElementById("register_error_message_id").innerText = "";
+        .catch(async (errors: any) => {
+          document.getElementById("register_error_message_id")!.innerText = "";
           for (const error of errors.errors) {
-            document.getElementById("register_error_message_id").innerText +=
+            document.getElementById("register_error_message_id")!.innerText +=
               error;
           }
         });
@@ -132,24 +133,24 @@ export const PasswordBulletPoints: FC<{
   password?: React.Dispatch<React.SetStateAction<string>>;
   style?: React.CSSProperties;
 }> = ({ changePassword, password, style }) => {
-  const pass_ref = useRef({});
+  const pass_ref = useRef<any>({});
   const [isPasswordCorrect, setIsPasswordCorrect] = useState<boolean>(false);
   const myForm = useRef<{ [key: string]: HTMLInputElement }>({});
 
   const validatePasswordInputFields = () => {
     const field_caps = pass_ref.current["pass-caps"];
     const field_digit = pass_ref.current["pass-digit"];
-    const field_same_passwords = pass_ref.current["pass-same"];
+    const field_same_passwords = pass_ref.current["pass-same"]!;
     let valid_password = true;
     const validField = "rgb(0, 245, 0)";
 
     if (String(myForm.current["password"].value).length > 5) {
-      const field = pass_ref.current["pass-length"];
+      const field = pass_ref.current["pass-length"]!;
       if (field) {
         field.style.color = validField;
       }
     } else {
-      const field = pass_ref.current["pass-length"];
+      const field = pass_ref.current["pass-length"]!;
       if (field) {
         field.style.color = "red";
         valid_password = false;
@@ -196,7 +197,7 @@ export const PasswordBulletPoints: FC<{
     }
     setIsPasswordCorrect(valid_password);
     changePassword(valid_password);
-    password(myForm.current["password"].value);
+    password && password(myForm.current["password"].value);
   };
 
   return (
@@ -210,7 +211,7 @@ export const PasswordBulletPoints: FC<{
           id="password"
           className={`form-control`}
           placeholder="Parola"
-          ref={(element) => (myForm.current["password"] = element)}
+          ref={(element) => (myForm.current["password"]! = element!)}
           autoComplete="new-password"
           style={{
             borderColor: `${
@@ -262,7 +263,7 @@ export const PasswordBulletPoints: FC<{
           id="repeatpassword"
           className="form-control"
           placeholder="Repeta parola"
-          ref={(element) => (myForm.current["repeatpassword"] = element)}
+          ref={(element) => (myForm.current["repeatpassword"]! = element!)}
           aria-label="password"
           onChange={() => validatePasswordInputFields()}
           style={{

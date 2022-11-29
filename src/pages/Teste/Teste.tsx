@@ -8,8 +8,12 @@ import TestCard from "../../Components/TestCard/TestCard.tsx";
 import { useEffect, useLayoutEffect, useState } from "react";
 //@ts-ignore
 import ButtonWithDropDown from "../../Components/ButtonWithDropDown/ButtonWithDropDown.tsx";
-//@ts-ignore
-import { useGetPageQuizzesQuery } from "../../GraphQL/generated/graphql.ts";
+import {
+  useGetPageQuizzesQuery,
+  GetPageQuizzesQueryVariables,
+  //@ts-ignore
+} from "../../GraphQL/generated/graphql.ts";
+
 //@ts-ignore
 import LoadingCircle from "../../Components/LoadingCircle/LoadingCircle.tsx";
 import { toast } from "react-toastify";
@@ -17,7 +21,6 @@ import { toast } from "react-toastify";
 export const Teste = () => {
   const { loading, error, data } = useGetPageQuizzesQuery();
   const [isLeftMenuVisible, setIsLeftMenuVisible] = useState<boolean>(true);
-  console.log(data);
 
   useEffect(() => {
     if (!!error) {

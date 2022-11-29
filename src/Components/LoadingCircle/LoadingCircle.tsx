@@ -7,7 +7,7 @@ const LoadingCircle: FC<{
   loading?: boolean;
   onLoading?: () => void;
 }> = ({ style, className = "", loading, onLoading }) => {
-  const [isLoading, setIsLoading] = useState<boolean>(loading);
+  const [isLoading, setIsLoading] = useState<boolean | undefined>(loading);
 
   useEffect(() => {
     const abortController = new AbortController();
