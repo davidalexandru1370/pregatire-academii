@@ -14,7 +14,7 @@ export interface IDropDown {
   style?: React.CSSProperties;
   items: string[];
   arrowStyle?: React.CSSProperties;
-  onChange: () => void;
+  onChange?: () => void;
 }
 
 const DropDown = React.forwardRef<HTMLDivElement, IDropDown>(

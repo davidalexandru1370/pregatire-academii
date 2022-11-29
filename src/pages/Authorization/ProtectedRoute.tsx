@@ -1,19 +1,8 @@
-import React, {
-  FC,
-  ReactElement,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { FC, useEffect, useRef, useState } from "react";
+import { Navigate } from "react-router-dom";
 import { ProtectedRouteProps } from "../../Models/ProtectedRouteProps";
-//@ts-ignore
-import { AuthorizeUser } from "../../api/UserAPI.ts";
-import {
-  AuthentificationContext,
-  useAuthentificationContext,
-} from "../../Context/AuthentificationContext";
+import { AuthorizeUser } from "../../api/UserAPI";
+import { useAuthentificationContext } from "../../Context/AuthentificationContext";
 
 export const ProtectedRoute: FC<ProtectedRouteProps> = ({
   page,

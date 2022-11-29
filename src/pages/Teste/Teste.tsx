@@ -1,26 +1,18 @@
 import "./Teste.scss";
-//@ts-ignore
-import DropDown from "../../Components/DropDown/DropDown.tsx";
+import DropDown from "../../Components/DropDown/DropDown";
 import constants from "../../Constants/constants.json";
-//@ts-ignore
-import TestCard from "../../Components/TestCard/TestCard.tsx";
-//@ts-ignore
-import { useEffect, useLayoutEffect, useState } from "react";
-//@ts-ignore
-import ButtonWithDropDown from "../../Components/ButtonWithDropDown/ButtonWithDropDown.tsx";
-import {
-  useGetPageQuizzesQuery,
-  GetPageQuizzesQueryVariables,
-  //@ts-ignore
-} from "../../GraphQL/generated/graphql.ts";
-
-//@ts-ignore
-import LoadingCircle from "../../Components/LoadingCircle/LoadingCircle.tsx";
+import TestCard from "../../Components/TestCard/TestCard";
+import { useEffect, useState } from "react";
+import ButtonWithDropDown from "../../Components/ButtonWithDropDown/ButtonWithDropDown";
+import { useGetPageQuizzesQuery } from "../../GraphQL/generated/graphql";
 import { toast } from "react-toastify";
+import LoadingCircle from "../../Components/LoadingCircle/LoadingCircle";
 import { Quiz } from "../../Models/Quiz";
 
 export const Teste = () => {
-  const { loading, error, data } = useGetPageQuizzesQuery();
+  const { loading, error, data } = useGetPageQuizzesQuery({
+    defaultOptions: { variables: { skip: 0, take: 12 } },
+  });
   const [isLeftMenuVisible, setIsLeftMenuVisible] = useState<boolean>(true);
 
   useEffect(() => {
@@ -54,7 +46,9 @@ export const Teste = () => {
             <ButtonWithDropDown title="Sort by" />
           </div>
           {loading === false && (
-            <p className="totalCount">{data.quizzes.totalCount} rezultate </p>
+            <p className="totalCount">
+              {data && data.quizzes && data.quizzes.totalCount} rezultate{" "}
+            </p>
           )}
         </div>
         <div className="content">
@@ -87,9 +81,12 @@ export const Teste = () => {
               </div>
             ) : (
               <div className="testCards">
-                {data.quizzes.items.map((quiz: Quiz) => {
-                  return <TestCard quiz={quiz} />;
-                })}
+                {data &&
+                  data.quizzes &&
+                  data.quizzes.items &&
+                  data.quizzes.items!.map((quiz: Quiz) => {
+                    return <TestCard quiz={quiz} />;
+                  })}
               </div>
             )}
           </div>

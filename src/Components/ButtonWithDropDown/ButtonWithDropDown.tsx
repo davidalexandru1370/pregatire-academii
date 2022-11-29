@@ -8,7 +8,7 @@ interface IButtonWithDropDown {
   style?: React.CSSProperties;
   className?: string;
   title?: string;
-  options: string[];
+  options?: string[];
   onChange?: () => void;
   initialValue?: string;
 }
