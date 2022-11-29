@@ -1,5 +1,24 @@
-import React from "react";
+import React, { createContext, FC, useState } from "react";
 
-export const AuthentificationContext = () => {
-  return <div>AuthentificationContext</div>;
+export interface IAuthentificationContext {
+  isAuthentificated: boolean;
+  setIsAuthentificated: (newIsAuthentificated: boolean) => void;
+}
+
+export const AuthentificationContext = createContext<IAuthentificationContext>({
+  isAuthentificated: false,
+  setIsAuthentificated: () => null,
+});
+
+export const AuthentificationContextProvider: FC<React.ReactNode> = (
+  children
+) => {
+  const [isAuthentificated, setIsAuthentificated] = useState<boolean>(false);
+  return (
+    <AuthentificationContext.Provider
+      value={{ isAuthentificated, setIsAuthentificated }}
+    >
+      {children}
+    </AuthentificationContext.Provider>
+  );
 };
