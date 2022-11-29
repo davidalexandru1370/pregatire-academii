@@ -20,6 +20,7 @@ import { Teste } from "./pages/Teste/Teste";
 import Authentificate from "./pages/Authentification/Authentificate";
 import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
 import { PlayQuizPage } from "./pages/PlayQuizPage/PlayQuizPage";
+import { AuthentificationContextProvider } from "./Context/AuthentificationContext";
 
 function App() {
   let navigation = useNavigate();

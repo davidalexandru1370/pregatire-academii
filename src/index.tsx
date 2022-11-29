@@ -6,6 +6,7 @@ import { ToastContainer } from "react-toastify";
 import { injectStyle } from "react-toastify/dist/inject-style";
 import { baseUrl as quizBaseUrl } from "./api/QuizAPI";
 import App from "./App";
+import { AuthentificationContextProvider } from "./Context/AuthentificationContext";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 const container = document.getElementById("root");
@@ -22,9 +23,11 @@ root.render(
   <BrowserRouter>
     <React.StrictMode>
       <ToastContainer />
-      <ApolloProvider client={client}>
-        <App />
-      </ApolloProvider>
+      <AuthentificationContextProvider>
+        <ApolloProvider client={client}>
+          <App />
+        </ApolloProvider>
+      </AuthentificationContextProvider>
     </React.StrictMode>
   </BrowserRouter>
 );

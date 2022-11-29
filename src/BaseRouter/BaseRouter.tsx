@@ -3,12 +3,23 @@ import { Outlet } from "react-router-dom";
 import NavigationBar from "../Components/NavigationBar/NavigationBar.tsx";
 //@ts-ignore
 import MobileNavBar from "../Components/MobileNavigationBar/MobileNavBar.tsx";
+import {
+  AuthentificationContext,
+  AuthentificationContextProvider,
+} from "../Context/AuthentificationContext";
+import { useContext } from "react";
+
 const BaseRouter = () => {
+  const { isAuthentificated, setIsAuthentificated } = useContext(
+    AuthentificationContext
+  );
+  console.log(isAuthentificated);
+
   return (
     <div>
-      <NavigationBar />
+      {isAuthentificated === true && <NavigationBar />}
       <Outlet />
-      <MobileNavBar />
+      {isAuthentificated === true && <MobileNavBar />}
     </div>
   );
 };

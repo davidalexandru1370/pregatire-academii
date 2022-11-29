@@ -1,4 +1,4 @@
-import React, { createContext, FC, useState } from "react";
+import React, { createContext, FC, useState, useContext } from "react";
 
 export interface IAuthentificationContext {
   isAuthentificated: boolean;
@@ -10,9 +10,10 @@ export const AuthentificationContext = createContext<IAuthentificationContext>({
   setIsAuthentificated: () => null,
 });
 
-export const AuthentificationContextProvider: FC<React.ReactNode> = (
-  children
-) => {
+export const useAuthentificationContext = () =>
+  useContext(AuthentificationContext);
+
+export const AuthentificationContextProvider: FC<any> = ({ children }) => {
   const [isAuthentificated, setIsAuthentificated] = useState<boolean>(false);
   return (
     <AuthentificationContext.Provider
