@@ -8,13 +8,14 @@ import { useGetPageQuizzesQuery } from "../../GraphQL/generated/graphql";
 import { toast } from "react-toastify";
 import LoadingCircle from "../../Components/LoadingCircle/LoadingCircle";
 import { Quiz } from "../../Models/Quiz";
+import { PageList } from "../../Components/PageList/PageList";
 
 export const Teste = () => {
   const { loading, error, data } = useGetPageQuizzesQuery({
     defaultOptions: { variables: { skip: 0, take: 12 } },
   });
   const [isLeftMenuVisible, setIsLeftMenuVisible] = useState<boolean>(true);
-
+  const [currentPage, setCurrentPage] = useState<number>(1);
   useEffect(() => {
     if (!!error) {
       toast("Chestionarele nu au putut fi incarcate!", {
@@ -89,6 +90,15 @@ export const Teste = () => {
                   })}
               </div>
             )}
+            <PageList
+              currentPage={currentPage}
+              totalNumberOfPages={
+                (data && data.quizzes && data.quizzes.totalCount) || 0
+              }
+              onPageClick={() => {}}
+              onPreviousPageClick={() => {}}
+              onNextPageClick={() => {}}
+            />
           </div>
         </div>
       </div>
