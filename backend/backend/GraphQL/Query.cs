@@ -11,6 +11,5 @@ namespace backend.GraphQL
         {
             return dbContext.Quiz.AsQueryable();
         }
-
     }
 }
