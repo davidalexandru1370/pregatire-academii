@@ -16,6 +16,8 @@ export const Teste = () => {
   });
   const [isLeftMenuVisible, setIsLeftMenuVisible] = useState<boolean>(true);
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const maximumNumberOfQuizzesOnPage: number = 10;
+
   useEffect(() => {
     if (!!error) {
       toast("Chestionarele nu au putut fi incarcate!", {
@@ -92,8 +94,12 @@ export const Teste = () => {
             )}
             <PageList
               currentPage={currentPage}
+              style={{ marginBlock: "50px" }}
               totalNumberOfPages={
-                (data && data.quizzes && data.quizzes.totalCount) || 0
+                (data &&
+                  data.quizzes &&
+                  data.quizzes.totalCount / maximumNumberOfQuizzesOnPage + 1) ||
+                0
               }
               onPageClick={() => {}}
               onPreviousPageClick={() => {}}

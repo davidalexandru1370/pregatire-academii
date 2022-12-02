@@ -1,2 +1,30 @@
+$--page-number: #005eb8;
+.pageList {
+  display: flex;
+  flex-direction: row;
+}
+
 .previousButton {
+}
+
+.activePageNumber {
+  background-color: $--page-number;
+}
+
+.pageNumber {
+  font-size: larger;
+  padding-block: 0.25rem;
+  padding-inline: 0.75rem;
+  border-radius: 5px;
+  border: 2px solid $--page-number;
+  margin-inline: 0.5rem;
+  margin-block: 0;
+}
+
+.pageNumber:hover {
+  cursor: pointer;
+}
+
+.pageItems {
+  display: flex;
 }
