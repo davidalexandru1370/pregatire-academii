@@ -12,6 +12,7 @@ $--page-number: #005eb8;
 }
 
 .pageNumber {
+  user-select: none;
   font-size: larger;
   padding-block: 0.25rem;
   padding-inline: 0.75rem;
@@ -27,4 +28,17 @@ $--page-number: #005eb8;
 
 .pageItems {
   display: flex;
+}
+
+.actionButton {
+  background-color: rgb(36, 39, 43);
+  color: white;
+  padding-inline: 0.5rem;
+  border: 2px solid $--page-number;
+  border-radius: 5px;
+}
+
+.actionButton:disabled {
+  border: 2px solid grey;
+  color: grey;
 }

@@ -2,27 +2,33 @@ import "./Teste.scss";
 import DropDown from "../../Components/DropDown/DropDown";
 import constants from "../../Constants/constants.json";
 import TestCard from "../../Components/TestCard/TestCard";
-import { useEffect, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 import ButtonWithDropDown from "../../Components/ButtonWithDropDown/ButtonWithDropDown";
 import { useGetPageQuizzesQuery } from "../../GraphQL/generated/graphql";
 import { toast } from "react-toastify";
 import LoadingCircle from "../../Components/LoadingCircle/LoadingCircle";
 import { Quiz } from "../../Models/Quiz";
 import { PageList } from "../../Components/PageList/PageList";
-
 export const Teste = () => {
+  const maximumNumberOfQuizzesOnPage: number = 12;
+  const [skip, setSkip] = useState<number>(0);
+  const [take, setTake] = useState<number>(maximumNumberOfQuizzesOnPage);
+
   const { loading, error, data } = useGetPageQuizzesQuery({
-    defaultOptions: { variables: { skip: 0, take: 12 } },
+    variables: { skip: skip, take: take },
   });
+
   const [isLeftMenuVisible, setIsLeftMenuVisible] = useState<boolean>(true);
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const maximumNumberOfQuizzesOnPage: number = 10;
-
+  const [totalCount, setTotalCount] = useState<number>(0);
+  const [_, forceRerender] = useReducer((x) => x + 1, 0);
   useEffect(() => {
     if (!!error) {
       toast("Chestionarele nu au putut fi incarcate!", {
         type: "error",
       });
+    } else {
+      data && data.quizzes && setTotalCount(data!.quizzes!.totalCount);
     }
   }, [error]);
 
@@ -98,12 +104,37 @@ export const Teste = () => {
               totalNumberOfPages={
                 (data &&
                   data.quizzes &&
-                  data.quizzes.totalCount / maximumNumberOfQuizzesOnPage + 1) ||
+                  Math.floor(
+                    data.quizzes.totalCount / maximumNumberOfQuizzesOnPage
+                  ) + 1) ||
                 0
               }
-              onPageClick={() => {}}
-              onPreviousPageClick={() => {}}
-              onNextPageClick={() => {}}
+              getData={() => {}}
+              onNextPageClick={() => {
+                if (
+                  currentPage <
+                  ((data &&
+                    data.quizzes &&
+                    data.quizzes.totalCount / maximumNumberOfQuizzesOnPage +
+                      1) ||
+                    0)
+                ) {
+                  if (skip + maximumNumberOfQuizzesOnPage <= totalCount) {
+                    console.log(skip);
+                    setSkip(skip + maximumNumberOfQuizzesOnPage);
+                  }
+                  setCurrentPage(currentPage + 1);
+                }
+              }}
+              onPreviousPageClick={() => {
+                if (currentPage > 1) {
+                  if (skip >= maximumNumberOfQuizzesOnPage) {
+                    console.log(skip);
+                    setSkip(skip - maximumNumberOfQuizzesOnPage);
+                  }
+                  setCurrentPage(currentPage - 1);
+                }
+              }}
             />
           </div>
         </div>

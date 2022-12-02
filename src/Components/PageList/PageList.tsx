@@ -6,9 +6,10 @@ interface IPageList {
   className?: string;
   style?: React.CSSProperties;
   totalNumberOfPages: number;
-  onNextPageClick: () => void;
-  onPreviousPageClick: () => void;
-  onPageClick: () => void;
+  getData: () => any;
+  onNextPageClick?: () => void;
+  onPreviousPageClick?: () => void;
+  onPageClick?: () => void;
 }
 
 export const PageList: FC<IPageList> = ({
@@ -17,6 +18,7 @@ export const PageList: FC<IPageList> = ({
   onNextPageClick,
   onPreviousPageClick,
   className,
+  getData,
   style,
   onPageClick,
 }: IPageList) => {
@@ -25,8 +27,9 @@ export const PageList: FC<IPageList> = ({
       <button
         disabled={currentPage === 1}
         onClick={() => {
-          onPreviousPageClick();
+          onPreviousPageClick && onPreviousPageClick();
         }}
+        className="actionButton"
       >
         Pagina anteriora
       </button>
@@ -48,10 +51,11 @@ export const PageList: FC<IPageList> = ({
         })}
       </div>
       <button
-        disabled={currentPage === totalNumberOfPages}
+        disabled={currentPage >= totalNumberOfPages}
         onClick={() => {
-          onNextPageClick();
+          onNextPageClick && onNextPageClick();
         }}
+        className="actionButton"
       >
         Pagina urmatoare
       </button>
