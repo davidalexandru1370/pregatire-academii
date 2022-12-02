@@ -30,7 +30,7 @@ export const Teste = () => {
     } else {
       data && data.quizzes && setTotalCount(data!.quizzes!.totalCount);
     }
-  }, [error]);
+  }, [error, data]);
 
   return (
     <div className="testePage">
@@ -127,8 +127,8 @@ export const Teste = () => {
                       1) ||
                     0)
                 ) {
+                  console.log(skip);
                   if (skip + maximumNumberOfQuizzesOnPage <= totalCount) {
-                    console.log(skip);
                     setSkip(skip + maximumNumberOfQuizzesOnPage);
                   }
                   setCurrentPage(currentPage + 1);
@@ -136,8 +136,8 @@ export const Teste = () => {
               }}
               onPreviousPageClick={() => {
                 if (currentPage > 1) {
+                  console.log(skip);
                   if (skip >= maximumNumberOfQuizzesOnPage) {
-                    console.log(skip);
                     setSkip(skip - maximumNumberOfQuizzesOnPage);
                   }
                   setCurrentPage(currentPage - 1);
