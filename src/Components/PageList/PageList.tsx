@@ -6,10 +6,9 @@ interface IPageList {
   className?: string;
   style?: React.CSSProperties;
   totalNumberOfPages: number;
-  getData: () => any;
   onNextPageClick?: () => void;
   onPreviousPageClick?: () => void;
-  onPageClick?: () => void;
+  onPageClick?: (page: number) => void;
 }
 
 export const PageList: FC<IPageList> = ({
@@ -18,7 +17,6 @@ export const PageList: FC<IPageList> = ({
   onNextPageClick,
   onPreviousPageClick,
   className,
-  getData,
   style,
   onPageClick,
 }: IPageList) => {
@@ -43,6 +41,9 @@ export const PageList: FC<IPageList> = ({
                 className={`pageNumber ${
                   page === currentPage ? "activePageNumber" : ""
                 }`}
+                onClick={() => {
+                  onPageClick && onPageClick(page);
+                }}
               >
                 {page}
               </p>

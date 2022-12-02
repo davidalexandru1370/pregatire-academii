@@ -109,7 +109,15 @@ export const Teste = () => {
                   ) + 1) ||
                 0
               }
-              getData={() => {}}
+              onPageClick={(page: number) => {
+                const difference = currentPage - page;
+                if (difference < 0) {
+                  setSkip(skip - maximumNumberOfQuizzesOnPage * difference);
+                } else {
+                  setSkip(skip - maximumNumberOfQuizzesOnPage * difference);
+                }
+                setCurrentPage(page);
+              }}
               onNextPageClick={() => {
                 if (
                   currentPage <
