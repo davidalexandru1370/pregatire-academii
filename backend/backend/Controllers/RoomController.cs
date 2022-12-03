@@ -10,9 +10,9 @@ namespace backend.Controllers
 
         [HttpPost]
         [Route("/start_room")]
-        public void StartRoom()
+        public void StartRoom(Guid quizId)
         {
-
+            
         }
     }
 }

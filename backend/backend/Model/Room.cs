@@ -14,6 +14,11 @@ namespace backend.Model
         public Guid UserId { get; set; }
 
         [Column("Datetime")]
-        public DateTime IssuedRoom { get; set; }
+        public DateTime IssuedRoomDate { get; set; }
+
+        public Quiz Quiz { get; set; }
+
+        [ForeignKey("Quiz")]
+        public Guid QuizId { get; set; }
     }
 }

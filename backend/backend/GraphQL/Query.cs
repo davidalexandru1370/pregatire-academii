@@ -9,7 +9,6 @@ namespace backend.GraphQL
         [UseFiltering]
         public IQueryable<Quiz> GetQuizzes([Service] EntitiesDbContext dbContext)
         {
-            Thread.Sleep(5000);
             return dbContext.Quiz.AsQueryable();
         }
     }
