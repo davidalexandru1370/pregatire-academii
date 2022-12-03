@@ -1,4 +1,4 @@
-enum Category {
+export enum Category {
   Politie,
   Pompieri,
   Jandarmerie,

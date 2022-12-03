@@ -14,6 +14,9 @@ using backend.Middlewares;
 using StackExchange.Redis;
 using backend.GraphQL;
 using GraphQL.Server.Ui.Voyager;
+using Microsoft.AspNetCore.WebSockets;
+using backend.Services.Interfaces;
+using HotChocolate.Types.Pagination;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,7 +30,6 @@ builder.Services.AddSwaggerGen();
 builder.Services.Configure<ApiBehaviorOptions>(options => options.SuppressModelStateInvalidFilter = true);
 builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
 builder.Services.AddDbContext<EntitiesDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DevConnection")), ServiceLifetime.Scoped);
-//builder.Services.AddScoped<DbContext, EntitiesDbContext>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IJwtUtils, JwtUtils>();
 builder.Services.AddScoped<ITokenRepository, TokenRepository>();
@@ -41,9 +43,9 @@ builder.Services.AddSingleton<IConnectionMultiplexer>(options =>
         EndPoints = { $"{builder.Configuration.GetValue<string>("Redis:Server")}:{builder.Configuration.GetValue<int>("Redis:Port")}" },
         AbortOnConnectFail = false,
     })
-);
+);   
 builder.Services.AddGraphQLServer().AddQueryType<Query>().AddProjections().AddFiltering();
-
+builder.Services.AddScoped<IRoomRepository, RoomRepository>();
 //for identity
 
 //builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<UserDbContext>().AddDefaultTokenProviders();
@@ -63,8 +65,8 @@ builder.Services.AddAuthentication(options =>
     options.RequireHttpsMetadata = false;
     options.TokenValidationParameters = new TokenValidationParameters()
     {
-        ValidateIssuer = false,
-        ValidateAudience = false,
+        ValidateIssuer = true,
+        ValidateAudience = true,
         ValidAudience = builder.Configuration["JWT:Audience"],
         ValidIssuer = builder.Configuration["JWT:Issuer"],
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Secret"]))
@@ -72,7 +74,6 @@ builder.Services.AddAuthentication(options =>
 });
 
 var app = builder.Build();
-
 app.UseCors(options => options.WithOrigins("http://localhost:3000").AllowAnyMethod().AllowAnyHeader().AllowCredentials());
 //app.UseCors(host => host.SetIsOriginAllowed(host => true));
 // Configure the HTTP request pipeline.
@@ -80,10 +81,10 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-    app.UseGraphQLVoyager("/graphql-voyager", new VoyagerOptions { GraphQLEndPoint = "/graphql" });
+    app.UseGraphQLVoyager("/graphql-voyager", new VoyagerOptions { GraphQLEndPoint = "/api/graphql" });
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
@@ -91,6 +92,6 @@ app.MapControllers();
 
 app.UseJwtMiddleware();
 
-app.MapGraphQL("/graphql");
+app.MapGraphQL("/api/graphql");
 
 app.Run();

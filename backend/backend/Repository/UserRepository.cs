@@ -1,7 +1,6 @@
 ﻿using backend.Model;
 using backend.Unit_Of_Work;
 using Microsoft.EntityFrameworkCore;
-using System.Data.Entity.Validation;
 
 namespace backend.Repository
 {
@@ -25,7 +24,7 @@ namespace backend.Repository
             {
                 await _context.Users.AddAsync(entity);
             }
-            catch (DbEntityValidationException dbException)
+            catch (Exception dbException)
             {
 
             }
@@ -45,9 +44,9 @@ namespace backend.Repository
             {
                 _context.Users.Remove(entity);
             }
-            catch (DbEntityValidationException dbException)
+            catch (Exception dbException)
             {
-                _errorMessages = FormatErrorMessage(dbException);
+                _errorMessages = dbException.InnerException.Message;
                 throw new RepositoryException(_errorMessages);
             }
             await _context.SaveChangesAsync();
@@ -95,20 +94,5 @@ namespace backend.Repository
 
             return user;
         }
-
-
-        private string FormatErrorMessage(DbEntityValidationException dbException)
-        {
-            string errorMessage = string.Empty;
-            foreach (var validationErrors in dbException.EntityValidationErrors)
-            {
-                foreach (var validationError in validationErrors.ValidationErrors)
-                {
-                    errorMessage += String.Format("Property: {0} Error: ${1}", validationError.PropertyName, validationError.ErrorMessage) + Environment.NewLine;
-                }
-            }
-            return errorMessage;
-        }
-
     }
 }

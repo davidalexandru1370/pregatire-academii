@@ -1,9 +1,12 @@
+$--main-color: rgb(239, 231, 231);
+
 .testCard {
-  width: 250px;
-  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+  width: 275px;
+  font-family: "Tahoma", "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif;
   flex-direction: column;
-  background-color: rgba(167, 160, 160);
+  background-image: linear-gradient(to bottom right, #3f2a45, #803dbe);
+  //background-color: rgb(98, 104, 95);
   color: rgb(27, 27, 27);
   border-radius: 10px;
   position: relative;
@@ -17,12 +20,14 @@
   font-size: 26px;
   font-weight: 500;
   border-bottom: 1px solid black;
+  color: $--main-color;
 }
 
 .testContent {
   font-size: 15px;
   margin-block: 10px;
   margin-inline: 15px;
+  color: $--main-color;
 }
 
 .testContent > p {

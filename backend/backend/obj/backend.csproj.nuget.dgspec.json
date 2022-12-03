@@ -48,10 +48,6 @@
               "target": "Package",
               "version": "[4.0.3, )"
             },
-            "EntityFramework": {
-              "target": "Package",
-              "version": "[6.4.4, )"
-            },
             "GraphQL.Server.Ui.Voyager": {
               "target": "Package",
               "version": "[7.1.1, )"

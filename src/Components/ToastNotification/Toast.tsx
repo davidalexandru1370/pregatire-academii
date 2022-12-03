@@ -1,6 +1,5 @@
 import React, { ReactElement, ReactNode, useLayoutEffect, useRef } from "react";
 import "./Toast.scss";
-import { v4 as uuidv4 } from "uuid";
 
 enum Corner {
   topRight,
@@ -15,7 +14,7 @@ enum ToastTypes {
 }
 
 export interface IToast {
-  id?: uuidv4;
+  //id?: uuidv4;
   corner: Corner;
   style?: React.CSSProperties;
   className?: string;
@@ -27,7 +26,7 @@ export interface IToast {
 }
 
 function createCornerStyle(corner: Corner): React.CSSProperties {
-  var result: React.CSSProperties;
+  let result: React.CSSProperties = {} as React.CSSProperties;
   switch (corner) {
     case Corner.topRight: {
       result.top = "0";
@@ -65,7 +64,7 @@ const generateIcon = (type: ToastTypes): ReactNode => {
 };
 
 const Toast = ({
-  id,
+  //id,
   corner,
   style,
   className,

@@ -1,8 +1,9 @@
 export const baseUrl: string = "https://localhost:7199/";
 
-let userController = "api/User/";
+const userController = "api/User/";
+const quizController = "api/graphql/quiz";
 
-interface Endpoint {
+interface UserEndpoint {
   Register: string;
   Login: string;
   Authorize: string;
@@ -12,7 +13,11 @@ interface Endpoint {
   ChangePassword: string;
 }
 
-export const Endpoints: Endpoint = {
+interface QuizEndpoints {
+  GraphQL: string;
+}
+
+export const UserEndpoints: UserEndpoint = {
   Register: userController + "register",
   Login: userController + "authentificate",
   Authorize: userController + "authorize",
@@ -20,4 +25,8 @@ export const Endpoints: Endpoint = {
   ForgotPassword: userController + "forgot-password",
   ValidateForgotPasswordPageId: userController + "validate-page-id",
   ChangePassword: userController + "change-password",
+};
+
+export const QuizEndpoints: QuizEndpoints = {
+  GraphQL: quizController,
 };

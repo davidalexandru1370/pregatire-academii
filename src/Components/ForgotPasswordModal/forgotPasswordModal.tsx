@@ -24,7 +24,7 @@ const ForgotPasswordModal = ({ isOpen, onClose, onOpen, onClick }: IModal) => {
   const [show, setShow] = useState<boolean>(isOpen);
 
   useEffect(() => {
-    const handleClick = (event) => {
+    const handleClick = (event: any) => {
       if (
         wrapperRef.current !== null &&
         !wrapperRef.current.contains(event.target) &&
@@ -35,7 +35,7 @@ const ForgotPasswordModal = ({ isOpen, onClose, onOpen, onClick }: IModal) => {
       }
     };
 
-    const handleKeyboardPress = (event) => {
+    const handleKeyboardPress = (event: any) => {
       if (show === true && event.keyCode === 27) {
         onClose && onClose();
         setShow(false);
@@ -65,8 +65,8 @@ const ForgotPasswordModal = ({ isOpen, onClose, onOpen, onClick }: IModal) => {
         position: "top-right",
         type: "success",
       });
-    } catch (e) {
-      setError(e);
+    } catch (e: any) {
+      setError(e.toString());
     }
   };
 

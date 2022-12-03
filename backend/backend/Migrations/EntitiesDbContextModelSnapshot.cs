@@ -105,6 +105,27 @@ namespace backend.Migrations
                     b.ToTable("Quiz");
                 });
 
+            modelBuilder.Entity("backend.Model.Room", b =>
+                {
+                    b.Property<Guid>("RoomId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("IssuedRoom")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("Datetime");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("RoomId");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("Room");
+                });
+
             modelBuilder.Entity("backend.Model.Token", b =>
                 {
                     b.Property<Guid>("Id")
@@ -147,7 +168,7 @@ namespace backend.Migrations
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasColumnType("nvarchar(250)");
+                        .HasColumnType("nvarchar(MAX)");
 
                     b.HasKey("Id");
 
@@ -183,6 +204,17 @@ namespace backend.Migrations
                         .HasForeignKey("QuizId");
 
                     b.Navigation("Quiz");
+                });
+
+            modelBuilder.Entity("backend.Model.Room", b =>
+                {
+                    b.HasOne("backend.Model.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("backend.Model.Token", b =>

@@ -1,4 +1,5 @@
 ﻿using backend.Model;
+using backend.Services.Interfaces;
 using backend.Utilities;
 using MailKit.Net.Smtp;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;

@@ -1,0 +1,46 @@
+$--page-number: #005eb8;
+.pageList {
+  display: flex;
+  flex-direction: row;
+}
+
+.previousButton {
+}
+
+.activePageNumber {
+  background-color: $--page-number;
+}
+
+.pageNumber {
+  user-select: none;
+  font-size: larger;
+  padding-block: 0.25rem;
+  padding-inline: 0.75rem;
+  border-radius: 5px;
+  border: 2px solid $--page-number;
+  margin-inline: 0.5rem;
+  margin-block: 0;
+}
+
+.pageNumber:hover {
+  cursor: pointer;
+}
+
+.pageItems {
+  display: flex;
+}
+
+.actionButton {
+  cursor: pointer;
+  background-color: rgb(36, 39, 43);
+  color: white;
+  padding-inline: 0.5rem;
+  border: 2px solid $--page-number;
+  border-radius: 5px;
+}
+
+.actionButton:disabled {
+  cursor: default;
+  border: 2px solid grey;
+  color: grey;
+}

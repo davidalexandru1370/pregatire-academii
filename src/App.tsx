@@ -13,20 +13,14 @@ import TextCard from "./Components/TextCard/TextCard.jsx";
 import MainPage from "./pages/MainPage/mainPage";
 import NotFound from "./pages/NotFound/NotFound";
 import Register from "./pages/Register/Register";
-// @ts-ignore
-import Login from "./pages/Login/Login.tsx";
-// @ts-ignore
-import { ProtectedRoute } from "./pages/Authorization/ProtectedRoute.tsx";
-//@ts-ignore
-import BaseRouter from "./BaseRouter/BaseRouter.tsx";
-//@ts-ignore
-import { Teste } from "./pages/Teste/Teste.tsx";
-//@ts-ignore
-import Authentificate from "./pages/Authentification/Authentificate.tsx";
-//@ts-ignore
-import ForgotPassword from "./pages/ForgotPassword/ForgotPassword.tsx";
-//@ts-ignore
-import { ToastContextProvider } from "./Context/ToastContext.tsx";
+import Login from "./pages/Login/Login";
+import { ProtectedRoute } from "./pages/Authorization/ProtectedRoute";
+import BaseRouter from "./BaseRouter/BaseRouter";
+import { Teste } from "./pages/Teste/Teste";
+import Authentificate from "./pages/Authentification/Authentificate";
+import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
+import { PlayQuizPage } from "./pages/PlayQuizPage/PlayQuizPage";
+import { AuthentificationContextProvider } from "./Context/AuthentificationContext";
 
 function App() {
   let navigation = useNavigate();
@@ -176,6 +170,15 @@ function App() {
           path="teste"
           element={
             <ProtectedRoute page={<Teste />} redirectPage={"/authentificate"} />
+          }
+        />
+        <Route
+          path="playquiz/:quizId"
+          element={
+            <ProtectedRoute
+              page={<PlayQuizPage />}
+              redirectPage={"/mainpage"}
+            />
           }
         />
       </Route>

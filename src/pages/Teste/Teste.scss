@@ -22,13 +22,13 @@ $--anim-time: 0.5s;
   background-color: rgb(78, 84, 90);
   border-radius: 15px;
   box-sizing: border-box;
-  margin: 0 2vw 2vw 2vw;
   gap: 4vw;
 }
 
 .content {
   display: flex;
   transition: transform 0.5s;
+  margin-top: 1.75rem;
 }
 
 .filterCard:hover {
@@ -65,12 +65,17 @@ $--anim-time: 0.5s;
   justify-items: center;
   row-gap: 2rem;
   column-gap: 2rem;
+  position: relative;
+}
+
+.totalCount {
+  user-select: none;
 }
 
 .testeItems {
   display: flex;
   justify-content: space-between;
-  padding-inline: 45px;
+  padding-right: 2rem;
 }
 
 .filterText {
@@ -108,11 +113,27 @@ $--anim-time: 0.5s;
   width: 0;
 }
 
+.loadingCircle {
+  width: 40px;
+  height: 40px;
+}
+
+.loadingContainer {
+  width: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
 @media screen and (max-width: 600px) {
   .testePage {
     flex-direction: column;
     align-items: center;
     height: auto;
+  }
+
+  .filterHideButton {
+    display: none;
   }
 
   .testeItems {
@@ -123,6 +144,9 @@ $--anim-time: 0.5s;
   }
 
   .leftMenuBar {
+    display: flex;
+    justify-content: center;
+    width: 100%;
     margin-bottom: 2rem;
   }
 
@@ -138,5 +162,36 @@ $--anim-time: 0.5s;
 
   .filterAndSort {
     flex-direction: column;
+  }
+}
+
+@media screen and (min-width: 968px) {
+  .container {
+    max-width: 967px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .container {
+    max-width: 1300px;
+  }
+}
+
+@media screen and (min-width: 1530px) {
+  .container {
+    max-width: 1520px;
+  }
+  .testCards {
+    width: 100%;
+    --auto-grid-min-size: 18rem;
+    display: grid;
+    grid-template-columns: repeat(
+      auto-fill,
+      minmax(var(--auto-grid-min-size), 1fr)
+    );
+    justify-items: center;
+    row-gap: 2rem;
+    column-gap: 2rem;
+    position: relative;
   }
 }

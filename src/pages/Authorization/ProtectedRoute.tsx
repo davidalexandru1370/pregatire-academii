@@ -1,14 +1,20 @@
 import { FC, useEffect, useRef, useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { ProtectedRouteProps } from "../../Models/ProtectedRouteProps";
-//@ts-ignore
-import { AuthorizeUser } from "../../api/UserAPI.ts";
+import { AuthorizeUser } from "../../api/UserAPI";
+import { useAuthentificationContext } from "../../Context/AuthentificationContext";
 
-export const ProtectedRoute = ({ page, redirectPage }: ProtectedRouteProps) => {
+export const ProtectedRoute: FC<ProtectedRouteProps> = ({
+  page,
+  redirectPage,
+}: ProtectedRouteProps): any => {
   const [isAuthorized, setIsAuthorized] = useState<boolean | undefined>(
     undefined
   );
-  const fetched = useRef(false);
+  const { isAuthentificated, setIsAuthentificated } =
+    useAuthentificationContext();
+
+  const fetched = useRef<boolean>(false);
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -22,6 +28,7 @@ export const ProtectedRoute = ({ page, redirectPage }: ProtectedRouteProps) => {
     (async () => {
       await authorized.then((value) => {
         setIsAuthorized(value);
+        setIsAuthentificated(value);
       });
     })();
     fetched.current = true;
@@ -37,4 +44,5 @@ export const ProtectedRoute = ({ page, redirectPage }: ProtectedRouteProps) => {
     }
     return page;
   }
+  return <></>;
 };

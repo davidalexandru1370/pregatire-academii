@@ -1,4 +1,4 @@
-enum Subject {
+export enum Subject {
   LIMBA_ROMANA,
   LIMBA_ENGLEZA,
   LIMBA_FRANCEZA,
