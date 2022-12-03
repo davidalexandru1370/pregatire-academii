@@ -76,6 +76,8 @@ namespace backend.Middlewares
                 var userIdStoredInToken = Guid.Parse(_jwtUtils.GetFieldFromToken(accessToken, "Id"));
                 var tokenIssuedDate = Utilities.Utilities.ConvertFromUnixTimeStamp(Int32.Parse(_jwtUtils.GetFieldFromToken(accessToken, "iat")));
 
+                httpContext.Items["userId"] = userIdStoredInToken;
+
                 if (userId is null)
                 {
                     string newAccessToken = _jwtUtils.GenerateJwtToken(new User { Id = userIdStoredInToken }, _appSettings.AccessTokenTTL);

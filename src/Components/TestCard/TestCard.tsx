@@ -11,7 +11,7 @@ const TestCard: FC<{ quiz: Quiz }> = ({ quiz }) => {
         <p>Categorie: {quiz.category}</p>
         <p>An: {quiz.year}</p>
         <p>Proba: {quiz.subject}</p>
-        <p>Timp: 60</p>
+        <p>Timp: 60 minute</p>
         <p>Punctaj maxim: 100</p>
         <p>Punctajul tau: 0</p>
       </div>

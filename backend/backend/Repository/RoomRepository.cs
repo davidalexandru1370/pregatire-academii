@@ -22,9 +22,9 @@ namespace backend.Repository
             {
                 await _dbContext.Room.AddAsync(room);
             }
-            catch (Exception dbException)
+            catch (Exception exception)
             {
-
+                throw new RepositoryException(exception.Message);
             }
 
             await _dbContext.SaveChangesAsync();
