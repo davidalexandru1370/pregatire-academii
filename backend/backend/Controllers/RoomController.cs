@@ -7,6 +7,12 @@ namespace backend.Controllers
     [Route("api/[controller]")]
     public class RoomController : ControllerBase
     {
-        
+
+        [HttpPost]
+        [Route("/start_room")]
+        public void StartRoom()
+        {
+
+        }
     }
 }

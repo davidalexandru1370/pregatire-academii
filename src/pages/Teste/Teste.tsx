@@ -1,14 +1,14 @@
-import "./Teste.scss";
-import DropDown from "../../Components/DropDown/DropDown";
-import constants from "../../Constants/constants.json";
-import TestCard from "../../Components/TestCard/TestCard";
-import { useEffect, useReducer, useState } from "react";
-import ButtonWithDropDown from "../../Components/ButtonWithDropDown/ButtonWithDropDown";
-import { useGetPageQuizzesQuery } from "../../GraphQL/generated/graphql";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import ButtonWithDropDown from "../../Components/ButtonWithDropDown/ButtonWithDropDown";
+import DropDown from "../../Components/DropDown/DropDown";
 import LoadingCircle from "../../Components/LoadingCircle/LoadingCircle";
-import { Quiz } from "../../Models/Quiz";
 import { PageList } from "../../Components/PageList/PageList";
+import TestCard from "../../Components/TestCard/TestCard";
+import constants from "../../Constants/constants.json";
+import { useGetPageQuizzesQuery } from "../../GraphQL/generated/graphql";
+import { Quiz } from "../../Models/Quiz";
+import "./Teste.scss";
 export const Teste = () => {
   const maximumNumberOfQuizzesOnPage: number = 12;
   const [skip, setSkip] = useState<number>(0);
@@ -21,7 +21,7 @@ export const Teste = () => {
   const [isLeftMenuVisible, setIsLeftMenuVisible] = useState<boolean>(true);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalCount, setTotalCount] = useState<number>(0);
-  const [_, forceRerender] = useReducer((x) => x + 1, 0);
+
   useEffect(() => {
     if (!!error) {
       toast("Chestionarele nu au putut fi incarcate!", {
@@ -127,7 +127,6 @@ export const Teste = () => {
                       1) ||
                     0)
                 ) {
-                  console.log(skip);
                   if (skip + maximumNumberOfQuizzesOnPage <= totalCount) {
                     setSkip(skip + maximumNumberOfQuizzesOnPage);
                   }
