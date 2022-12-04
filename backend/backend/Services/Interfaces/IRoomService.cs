@@ -4,7 +4,7 @@ namespace backend.Services.Interfaces
 {
     public interface IRoomService
     {
-        public Task<Room> AddRoom(Room room);
+        public Task<Room> AddRoom(Guid userId, Guid quizId);
 
         public Task<Quiz> GetActiveUserQuiz(Guid userId);
 

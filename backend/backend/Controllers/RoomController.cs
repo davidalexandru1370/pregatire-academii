@@ -1,4 +1,5 @@
 ﻿using backend.Model;
+using backend.Repository;
 using backend.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,7 +19,7 @@ namespace backend.Controllers
 
         [HttpPost]
         [Route("/start_room")]
-        public async Task<IActionResult> StartRoom(Guid quizId)
+        public async Task<IActionResult> StartRoom([FromBody]Guid quizId)
         {
             if (quizId == Guid.Empty)
             {
@@ -27,13 +28,16 @@ namespace backend.Controllers
 
             Guid userId = (Guid)HttpContext.Items["userId"]!;
 
-            var room = _roomService.AddRoom(new Room
+            try
             {
-                QuizId = quizId,
-                UserId = userId
-            });
+                var room = await _roomService.AddRoom(userId, quizId);
+                return Ok(room);
+            }
+            catch(RepositoryException repositoryException)
+            {
+                return BadRequest(repositoryException.Message);
+            }
 
-            return Ok();
         }
     }
 }

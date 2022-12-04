@@ -33,6 +33,8 @@ builder.Services.AddDbContext<EntitiesDbContext>(options => options.UseSqlServer
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IJwtUtils, JwtUtils>();
 builder.Services.AddScoped<ITokenRepository, TokenRepository>();
+builder.Services.AddScoped<IRoomRepository, RoomRepository>();
+builder.Services.AddScoped<IRoomService, RoomService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ICookieUtilities, CookieUtilities>();
 builder.Services.AddScoped<IEmailService, EmailService>();
