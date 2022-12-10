@@ -1,5 +1,4 @@
-﻿using backend.Model;
-using backend.Repository;
+﻿using backend.Repository;
 using backend.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -37,7 +36,6 @@ namespace backend.Controllers
             {
                 return BadRequest(repositoryException.Message);
             }
-
         }
     }
 }

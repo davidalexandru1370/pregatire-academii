@@ -7,6 +7,7 @@ import { PageList } from "../../Components/PageList/PageList";
 import TestCard from "../../Components/TestCard/TestCard";
 import constants from "../../Constants/constants.json";
 import { useGetPageQuizzesQuery } from "../../GraphQL/generated/graphql";
+import { useGetQuiz } from "../../GraphQL/useGetQuiz";
 import { Quiz } from "../../Models/Quiz";
 import "./Teste.scss";
 export const Teste = () => {
@@ -94,7 +95,19 @@ export const Teste = () => {
                   data.quizzes &&
                   data.quizzes.items &&
                   data.quizzes.items!.map((quiz: Quiz) => {
-                    return <TestCard quiz={quiz} />;
+                    return (
+                      <TestCard
+                        quiz={quiz}
+                        onClick={() => {
+                          const { data } = useGetQuiz({
+                            variables: {
+                              id: quiz.id,
+                            },
+                          });
+                          console.log(data);
+                        }}
+                      />
+                    );
                   })}
               </div>
             )}
