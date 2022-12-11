@@ -7,7 +7,7 @@ import { PageList } from "../../Components/PageList/PageList";
 import TestCard from "../../Components/TestCard/TestCard";
 import constants from "../../Constants/constants.json";
 import { useGetPageQuizzesQuery } from "../../GraphQL/generated/graphql";
-import { useGetQuiz } from "../../GraphQL/useGetQuiz";
+import { GetQuizQuery, useGetQuizQuery } from "../../GraphQL/useGetQuiz";
 import { Quiz } from "../../Models/Quiz";
 import "./Teste.scss";
 export const Teste = () => {
@@ -15,13 +15,14 @@ export const Teste = () => {
   const [skip, setSkip] = useState<number>(0);
   const [take, setTake] = useState<number>(maximumNumberOfQuizzesOnPage);
 
-  const { loading, error, data } = useGetPageQuizzesQuery({
-    variables: { skip: skip, take: take },
-  });
-
+  const [quizId, setQuizId] = useState<any>();
   const [isLeftMenuVisible, setIsLeftMenuVisible] = useState<boolean>(true);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalCount, setTotalCount] = useState<number>(0);
+  const { loading, error, data } = useGetPageQuizzesQuery({
+    variables: { skip: skip, take: take },
+  });
+  const { data } = useGetQuizQuery({ variables: { id: quizId } });
 
   useEffect(() => {
     if (!!error) {
@@ -99,12 +100,12 @@ export const Teste = () => {
                       <TestCard
                         quiz={quiz}
                         onClick={() => {
-                          const { data } = useGetQuiz({
-                            variables: {
-                              id: quiz.id,
-                            },
-                          });
-                          console.log(data);
+                          // const { data } = useGetQuiz({
+                          //   variables: {
+                          //     id: quiz.id,
+                          //   },
+                          // });
+                          setQuizId(quiz.id);
                         }}
                       />
                     );
