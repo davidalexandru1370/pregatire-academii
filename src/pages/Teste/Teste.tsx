@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import ButtonWithDropDown from "../../Components/ButtonWithDropDown/ButtonWithDropDown";
 import DropDown from "../../Components/DropDown/DropDown";
@@ -7,18 +8,14 @@ import { PageList } from "../../Components/PageList/PageList";
 import TestCard from "../../Components/TestCard/TestCard";
 import constants from "../../Constants/constants.json";
 import { useGetPageQuizzesQuery } from "../../GraphQL/generated/graphql";
-import {
-  GetQuizQuery,
-  useGetQuizQuery,
-  useGetQuizQueryLazy,
-} from "../../GraphQL/useGetQuiz";
+import { useGetQuizQueryLazy } from "../../GraphQL/useGetQuiz";
 import { Quiz } from "../../Models/Quiz";
 import "./Teste.scss";
 export const Teste = () => {
   const maximumNumberOfQuizzesOnPage: number = 12;
   const [skip, setSkip] = useState<number>(0);
   const [take, setTake] = useState<number>(maximumNumberOfQuizzesOnPage);
-
+  const navigate = useNavigate();
   const [quizId, setQuizId] = useState<any>();
   const [isLeftMenuVisible, setIsLeftMenuVisible] = useState<boolean>(true);
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -42,8 +39,10 @@ export const Teste = () => {
   }, [error, data]);
 
   useEffect(() => {
-    if (clickedQuiz.loading === false) {
-      console.log(clickedQuiz.data?.quizzes?.items![0]);
+    if (clickedQuiz.loading === false && clickedQuiz.data !== undefined) {
+      navigate(`/playquiz/${clickedQuiz.data?.quizzes?.items![0].id}`, {
+        replace: true,
+      });
     }
   }, [clickedQuiz]);
 
