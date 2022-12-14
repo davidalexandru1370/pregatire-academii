@@ -6,6 +6,7 @@ namespace backend.GraphQL
     {
         [UseOffsetPaging(IncludeTotalCount = true)]
         [UseProjection]
+        [UseSorting]
         [UseFiltering]
         public IQueryable<Quiz> GetQuizzes([Service] EntitiesDbContext dbContext)
         {

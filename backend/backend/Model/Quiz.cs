@@ -13,7 +13,7 @@ namespace backend.Model
         public Category Category { get; set; }
         public int Year { get; set; }
         public string Subject { get; set; }
-        public ICollection<Question>? Question { get; set; }
+        public IEnumerable<Question>? Question { get; set; }
 
     }
 }

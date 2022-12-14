@@ -45,8 +45,8 @@ builder.Services.AddSingleton<IConnectionMultiplexer>(options =>
         EndPoints = { $"{builder.Configuration.GetValue<string>("Redis:Server")}:{builder.Configuration.GetValue<int>("Redis:Port")}" },
         AbortOnConnectFail = false,
     })
-);   
-builder.Services.AddGraphQLServer().AddQueryType<Query>().AddProjections().AddFiltering();
+);
+builder.Services.AddGraphQLServer().AddQueryType<Query>().AddProjections().AddFiltering().AddSorting();
 builder.Services.AddScoped<IRoomRepository, RoomRepository>();
 //for identity
 

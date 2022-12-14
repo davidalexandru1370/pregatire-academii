@@ -23,7 +23,7 @@ const getQuizQueryDocument: DocumentNode = gql`
   }
 `;
 
-type GetQuizQuery = {
+export type GetQuizQuery = {
   __typename?: "Query";
   quizzes?: {
     __typename?: "QuizCollectionSegment";
@@ -41,12 +41,25 @@ type Scalars = {
 
 type GetQuizQueryVariables = Exact<{ id: Scalars["UUID"] }>;
 
-export function useGetQuiz(
+export function useGetQuizQuery(
   baseOptions?: Apollo.QueryHookOptions<GetQuizQuery, GetQuizQueryVariables>
 ) {
   const options = {} as const;
   const queryOptions = { ...options, ...baseOptions };
+
   return Apollo.useQuery<GetQuizQuery, GetQuizQueryVariables>(
+    getQuizQueryDocument,
+    queryOptions
+  );
+}
+
+export function useGetQuizQueryLazy(
+  baseOptions?: Apollo.QueryHookOptions<GetQuizQuery, GetQuizQueryVariables>
+) {
+  const options = {} as const;
+  const queryOptions = { ...options, ...baseOptions };
+
+  return Apollo.useLazyQuery<GetQuizQuery, GetQuizQueryVariables>(
     getQuizQueryDocument,
     queryOptions
   );

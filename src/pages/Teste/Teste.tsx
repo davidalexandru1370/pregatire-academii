@@ -7,7 +7,11 @@ import { PageList } from "../../Components/PageList/PageList";
 import TestCard from "../../Components/TestCard/TestCard";
 import constants from "../../Constants/constants.json";
 import { useGetPageQuizzesQuery } from "../../GraphQL/generated/graphql";
-import { GetQuizQuery, useGetQuizQuery } from "../../GraphQL/useGetQuiz";
+import {
+  GetQuizQuery,
+  useGetQuizQuery,
+  useGetQuizQueryLazy,
+} from "../../GraphQL/useGetQuiz";
 import { Quiz } from "../../Models/Quiz";
 import "./Teste.scss";
 export const Teste = () => {
@@ -22,7 +26,10 @@ export const Teste = () => {
   const { loading, error, data } = useGetPageQuizzesQuery({
     variables: { skip: skip, take: take },
   });
-  const { data } = useGetQuizQuery({ variables: { id: quizId } });
+
+  const [getQuiz, clickedQuiz] = useGetQuizQueryLazy({
+    variables: { id: quizId },
+  });
 
   useEffect(() => {
     if (!!error) {
@@ -33,6 +40,12 @@ export const Teste = () => {
       data && data.quizzes && setTotalCount(data!.quizzes!.totalCount);
     }
   }, [error, data]);
+
+  useEffect(() => {
+    if (clickedQuiz.loading === false) {
+      console.log(clickedQuiz.data?.quizzes?.items![0]);
+    }
+  }, [clickedQuiz]);
 
   return (
     <div className="testePage">
@@ -100,12 +113,7 @@ export const Teste = () => {
                       <TestCard
                         quiz={quiz}
                         onClick={() => {
-                          // const { data } = useGetQuiz({
-                          //   variables: {
-                          //     id: quiz.id,
-                          //   },
-                          // });
-                          setQuizId(quiz.id);
+                          getQuiz({ variables: { id: quiz.id } });
                         }}
                       />
                     );
@@ -149,7 +157,6 @@ export const Teste = () => {
               }}
               onPreviousPageClick={() => {
                 if (currentPage > 1) {
-                  console.log(skip);
                   if (skip >= maximumNumberOfQuizzesOnPage) {
                     setSkip(skip - maximumNumberOfQuizzesOnPage);
                   }
