@@ -17,7 +17,7 @@ namespace backend.Controllers
         }
 
         [HttpPost]
-        [Route("/start_room")]
+        [Route("/start-room")]
         public async Task<IActionResult> StartRoom([FromBody]Guid quizId)
         {
             if (quizId == Guid.Empty)

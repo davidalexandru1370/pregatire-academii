@@ -1,7 +1,8 @@
 export const baseUrl: string = "https://localhost:7199/";
 
-const userController = "api/User/";
-const quizController = "api/graphql/quiz";
+export const userController = "api/User/";
+export const quizController = "http://localhost:5199/api/graphql";
+export const roomController = "api/Room/";
 
 interface UserEndpoint {
   Register: string;
@@ -13,8 +14,8 @@ interface UserEndpoint {
   ChangePassword: string;
 }
 
-interface QuizEndpoints {
-  GraphQL: string;
+interface RoomEndpoint {
+  StartRoom: string;
 }
 
 export const UserEndpoints: UserEndpoint = {
@@ -27,6 +28,6 @@ export const UserEndpoints: UserEndpoint = {
   ChangePassword: userController + "change-password",
 };
 
-export const QuizEndpoints: QuizEndpoints = {
-  GraphQL: quizController,
+export const RoomEndpoints: RoomEndpoint = {
+  StartRoom: roomController + "start-room",
 };

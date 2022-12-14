@@ -9,7 +9,7 @@ import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { injectStyle } from "react-toastify/dist/inject-style";
-import { baseUrl as quizBaseUrl } from "./api/QuizAPI";
+import { quizController as quizBaseUrl } from "./api/Constants";
 import App from "./App";
 import { AuthentificationContextProvider } from "./Context/AuthentificationContext";
 import "./index.css";

@@ -9,7 +9,7 @@ interface IPlayQuiz {
 export const PlayQuizPage: FC<IPlayQuiz> = ({ quizId }: IPlayQuiz) => {
   const { room } = useParams();
   const { loading, data, error } = useGetQuizQuery({
-    variables: { id: quizId },
+    variables: { id: room },
   });
 
   return <div>{room}</div>;
