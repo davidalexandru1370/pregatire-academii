@@ -176,7 +176,7 @@ function App() {
           path="/playquiz/:quizId"
           element={
             <ProtectedRoute
-              page={<PlayQuizPage quizId="" />}
+              page={<PlayQuizPage roomId="" />}
               redirectPage={"/mainpage"}
             />
           }

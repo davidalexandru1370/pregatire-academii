@@ -106,10 +106,9 @@ export const Teste = () => {
                             const room: Room = (await startRoom(
                               quiz.id
                             )) as Room;
-                            console.log(room.roomId);
                             navigate(`/playquiz/${room.roomId}`, {
                               replace: true,
-                              state: { room: JSON.stringify(room) },
+                              state: room,
                             });
                           } catch (error) {
                             toast((error as Error).message, {
