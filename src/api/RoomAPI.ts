@@ -7,7 +7,6 @@ export async function startRoom(quizId: string): Promise<Room | Error> {
   let header = createHeader(Methods.POST, quizId);
   return await fetch(url, header)
     .then(async (response: Response) => {
-      console.log(response);
       if (response.ok) {
         return await response.json();
       }
