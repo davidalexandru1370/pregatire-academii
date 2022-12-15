@@ -15,7 +15,7 @@ namespace backend.Middlewares
     public class JwtMiddleware
     {
         private readonly RequestDelegate _next;
-        private readonly List<string> MiddlewareFor = new List<string> { "mainpage", "authorize","start_room" };
+        private readonly List<string> MiddlewareFor = new List<string> { "mainpage", "authorize","start-room" };
 
         public JwtMiddleware(RequestDelegate next)
         {

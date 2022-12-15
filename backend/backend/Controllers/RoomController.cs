@@ -1,4 +1,6 @@
-﻿using backend.Repository;
+﻿using backend.Model;
+using backend.Model.DTOs;
+using backend.Repository;
 using backend.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,7 +20,7 @@ namespace backend.Controllers
 
         [HttpPost]
         [Route("/start-room")]
-        public async Task<IActionResult> StartRoom([FromBody]Guid quizId)
+        public async Task<ActionResult<RoomDTO>> StartRoom([FromBody] Guid quizId)
         {
             if (quizId == Guid.Empty)
             {
@@ -30,9 +32,9 @@ namespace backend.Controllers
             try
             {
                 var room = await _roomService.AddRoom(userId, quizId);
-                return Ok(room);
+                return Ok(new RoomDTO(room.RoomId, room.IssuedRoomDate, room.QuizId));
             }
-            catch(RepositoryException repositoryException)
+            catch (RepositoryException repositoryException)
             {
                 return BadRequest(repositoryException.Message);
             }

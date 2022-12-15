@@ -4,6 +4,14 @@ export const userController = "api/User/";
 export const quizController = "http://localhost:5199/api/graphql";
 export const roomController = "api/Room/";
 
+export enum Methods {
+  POST = "POST",
+  PUT = "PUT",
+  DELETE = "DELETE",
+  GET = "GET",
+  PATCH = "PATCH",
+}
+
 interface UserEndpoint {
   Register: string;
   Login: string;

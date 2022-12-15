@@ -1,6 +1,8 @@
 ﻿using backend.Model;
 using backend.Repository;
 using backend.Services.Interfaces;
+using HotChocolate.Language;
+using Microsoft.EntityFrameworkCore;
 
 namespace backend.Services
 {
@@ -8,6 +10,7 @@ namespace backend.Services
     {
         IUserRepository _userRepository;
         IRoomRepository _roomRepository;
+        
 
         public RoomService(IUserRepository userRepository, IRoomRepository roomRepository)
         {
@@ -17,6 +20,14 @@ namespace backend.Services
 
         public async Task<Room> AddRoom(Guid userId, Guid quizId)
         {
+            try
+            {
+                _userRepository.GetById(userId);
+            }
+            catch (RepositoryException)
+            {
+                throw;
+            }
             Room room = new Room
             {
                 UserId = userId,
