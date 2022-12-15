@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { createRoutesFromChildren, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { Exception } from "sass";
+import { startRoom } from "../../api/RoomAPI";
 import ButtonWithDropDown from "../../Components/ButtonWithDropDown/ButtonWithDropDown";
 import DropDown from "../../Components/DropDown/DropDown";
 import LoadingCircle from "../../Components/LoadingCircle/LoadingCircle";
@@ -10,6 +12,7 @@ import constants from "../../Constants/constants.json";
 import { useGetPageQuizzesQuery } from "../../GraphQL/generated/graphql";
 import { useGetQuizQueryLazy } from "../../GraphQL/useGetQuiz";
 import { Quiz } from "../../Models/Quiz";
+import { Room } from "../../Models/Room";
 import "./Teste.scss";
 export const Teste = () => {
   const maximumNumberOfQuizzesOnPage: number = 12;
@@ -32,8 +35,6 @@ export const Teste = () => {
       data && data.quizzes && setTotalCount(data!.quizzes!.totalCount);
     }
   }, [error, data]);
-
-  const startRoom = async () => {};
 
   return (
     <div className="testePage">
@@ -101,7 +102,19 @@ export const Teste = () => {
                       <TestCard
                         quiz={quiz}
                         onClick={async () => {
-                          await startRoom();
+                          try {
+                            const room: Room = (await startRoom(
+                              quiz.id
+                            )) as Room;
+                            navigate(`/playquiz/${room.RoomId}`, {
+                              replace: true,
+                              state: { room: JSON.stringify(room) },
+                            });
+                          } catch (error) {
+                            toast((error as Error).message, {
+                              type: "error",
+                            });
+                          }
                         }}
                       />
                     );

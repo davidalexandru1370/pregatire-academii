@@ -19,9 +19,7 @@ namespace backend.Model
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Room>()
-                .HasIndex(r => r.UserId)
-                .IsUnique();
+            
         }
     }
 }

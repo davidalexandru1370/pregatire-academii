@@ -1,1 +1,5 @@
-export interface Room {}
+export interface Room {
+  RoomId: string;
+  IssuedRoomDate: Date;
+  QuizId: string;
+}

@@ -19,8 +19,8 @@ namespace backend.Controllers
         }
 
         [HttpPost]
-        [Route("/start-room")]
-        public async Task<ActionResult<RoomDTO>> StartRoom([FromBody] Guid quizId)
+        [Route("start-room")]
+        public async Task<ActionResult> StartRoom([FromBody] Guid quizId)
         {
             if (quizId == Guid.Empty)
             {
@@ -32,7 +32,12 @@ namespace backend.Controllers
             try
             {
                 var room = await _roomService.AddRoom(userId, quizId);
-                return Ok(new RoomDTO(room.RoomId, room.IssuedRoomDate, room.QuizId));
+                return Ok(new RoomDTO()
+                {
+                    IssuedRoomDate = room.IssuedRoomDate,
+                    QuizId = room.QuizId,
+                    RoomId = room.RoomId
+                });
             }
             catch (RepositoryException repositoryException)
             {
