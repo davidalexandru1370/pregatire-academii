@@ -10,24 +10,28 @@ namespace backend.Services
     {
         IUserRepository _userRepository;
         IRoomRepository _roomRepository;
-        
+        IQuizRepository _quizRepository;
 
-        public RoomService(IUserRepository userRepository, IRoomRepository roomRepository)
+
+        public RoomService(IUserRepository userRepository, IRoomRepository roomRepository, IQuizRepository quizRepository)
         {
             _userRepository = userRepository;
             _roomRepository = roomRepository;
+            _quizRepository = quizRepository;
         }
 
         public async Task<Room> AddRoom(Guid userId, Guid quizId)
         {
             try
             {
-                _userRepository.GetById(userId);
+                await _userRepository.GetById(userId);
+                await _quizRepository.GetQuizById(quizId);
             }
             catch (RepositoryException)
             {
                 throw;
             }
+
             Room room = new Room
             {
                 UserId = userId,
