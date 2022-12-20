@@ -13,9 +13,5 @@ export const PlayQuizPage: FC = () => {
     variables: { id: room.quizId },
   });
 
-  return (
-    <div className="playQuizContent">
-      <p>{room.roomId}</p>
-    </div>
-  );
+  return <div className="playQuizContent"></div>;
 };
