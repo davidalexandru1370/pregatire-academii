@@ -1,48 +1,16 @@
-import React, {
-  FC,
-  JSXElementConstructor,
-  ReactElement,
-  ReactNode,
-} from "react";
+import React from "react";
 
-interface SubComponent {
-  displayName: string;
-}
-
-type stringOrJSXElementConstructor = string | JSXElementConstructor<any>;
-
-interface ISubComponent extends ReactElement {
-  type: stringOrJSXElementConstructor & SubComponent;
-}
-
-interface IPlayQuiz extends ISubComponent {
-  Question: FC<any>;
-  Answer: FC<any>;
-}
-
-const getChildrenOnDisplayName = (
-  children: React.ReactElement & ISubComponent,
-  displayName: string
-) => {
-  return React.Children.map(children, (child: ISubComponent) => {
-    return child.type.displayName === displayName ? child : null;
-  });
+type QuestionComponent = React.FC;
+type PlayQuizComponent = React.FC<{ children: React.ReactNode }> & {
+  Question: QuestionComponent;
 };
 
-export const PlayQuiz: FC<IPlayQuiz> = (children: ISubComponent) => {
-  const question = getChildrenOnDisplayName(children, "Question");
-  const answer = getChildrenOnDisplayName(children, "Answer");
-  return (
-    <div>
-      {question}
-      {answer}
-    </div>
-  );
+export const PlayQuiz: PlayQuizComponent = ({ children }): JSX.Element => {
+  return <div>{children}</div>;
 };
 
-const Question: FC<ISubComponent> = () => {
+const Question: QuestionComponent = (): JSX.Element => {
   return <div></div>;
 };
 
-Question.displayName = "Question";
-PlayQuiz.defaultProps!.Question = Question;
+PlayQuiz.Question = Question;
