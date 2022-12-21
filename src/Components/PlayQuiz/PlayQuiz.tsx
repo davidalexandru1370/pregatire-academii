@@ -1,15 +1,27 @@
 import React from "react";
+import { Quiz } from "../../GraphQL/generated/graphql";
+import { GetQuizQuery } from "../../GraphQL/useGetQuiz";
+
+interface IPlayQuiz {
+  children: React.ReactNode;
+}
 
 type QuestionComponent = React.FC;
 type AnswerComponent = React.FC;
 type FooterComponent = React.FC;
-type PlayQuizComponent = React.FC<{ children: React.ReactNode }> & {
+type PlayQuizComponent = React.FC<{
+  quiz: GetQuizQuery;
+  children: React.ReactNode;
+}> & {
   Question: QuestionComponent;
   Answer: AnswerComponent;
   Footer: FooterComponent;
 };
 
-export const PlayQuiz: PlayQuizComponent = ({ children }): JSX.Element => {
+export const PlayQuiz: PlayQuizComponent = ({
+  children,
+  quiz,
+}): JSX.Element => {
   return <div>{children}</div>;
 };
 
