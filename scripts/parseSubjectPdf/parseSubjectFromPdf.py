@@ -63,17 +63,17 @@ def main():
             if currentOption not in options.keys():
                 # print(currentOption)
                 currentQuizId = uuid6()
-                cursor.execute("INSERT INTO Quiz (Id,Category,Year,Subject) VALUES(%s,%s,%s,%s)", (currentQuizId, 0, 2021, currentOption))
+                cursor.execute('''INSERT INTO "Quiz" ("Id","Category","Year","Subject") VALUES(%s,%s,%s,%s)''', (currentQuizId, 0, 2021, currentOption))
                 options[currentOption] = True
                 connection.commit()
             for question in get_questions_with_answers_from_pagetext(text):
                 questionId = uuid6()
-                cursor.execute("INSERT INTO Question (Id,Text,QuizId) values(%s,%s,%s)",
+                cursor.execute('''INSERT INTO "Question" ("Id","Text","QuizId") values(%s,%s,%s)''',
                                      (questionId, question.get_question().strip(), currentQuizId))
                 connection.commit()
                 # f.write(question.get_question())
                 for answer in question.get_answers():
-                    cursor.execute("INSERT INTO Answer (Id,QuestionId,IsCorrect,Text) values(%s,%s,%s,%s)", (uuid6(), questionId, answer.get_is_correct(), answer.get_answer()))
+                    cursor.execute('''INSERT INTO "Answer" ("Id","QuestionId","IsCorrect","Text") values(%s,%s,%s,%s)''', (uuid6(), questionId, answer.get_is_correct(), answer.get_answer()))
                     connection.commit()
                     # f.write(answer.get_answer())
             parts.clear()
