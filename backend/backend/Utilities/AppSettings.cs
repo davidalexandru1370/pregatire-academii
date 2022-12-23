@@ -2,7 +2,7 @@
 {
     public class AppSettings
     {
-        public string Secret { get; set; }
+        public string? Secret { get; set; }
         public int RefreshTokenTTL { get; set; }
         public int AccessTokenTTL { get; set; }
         public string EmailAddress { get; set; }

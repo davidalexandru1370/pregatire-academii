@@ -4,7 +4,7 @@ import { Question } from "./Question";
 
 export interface Quiz {
   id: string;
-  category?: Category;
+  category: Category;
   year?: number;
   subject?: string;
   Question?: Array<Question>;

@@ -142,7 +142,7 @@ export type QuestionFilterInput = {
 
 export type Quiz = {
   __typename?: "Quiz";
-  category: Category;
+  category?: Maybe<Category>;
   id: Scalars["UUID"];
   question?: Maybe<Array<Question>>;
   subject: Scalars["String"];

@@ -1,9 +1,8 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect } from "react";
 import { Location, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import { PlayQuiz } from "../../Components/PlayQuiz/PlayQuiz";
 import { useGetQuizQuery } from "../../GraphQL/useGetQuiz";
-import { Quiz } from "../../Models/Quiz";
 import { Room } from "../../Models/Room";
 import "./PlayQuizPage.scss";
 
@@ -14,8 +13,6 @@ export const PlayQuizPage: FC = () => {
   const { loading, data, error, refetch } = useGetQuizQuery({
     variables: { id: room.quizId },
   });
-
-  console.log(data?.quizzes?.items![0]);
 
   useEffect(() => {
     if (error) {

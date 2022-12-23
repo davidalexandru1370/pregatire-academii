@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import { createRoutesFromChildren, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { Exception } from "sass";
 import { startRoom } from "../../api/RoomAPI";
 import ButtonWithDropDown from "../../Components/ButtonWithDropDown/ButtonWithDropDown";
 import DropDown from "../../Components/DropDown/DropDown";
@@ -10,7 +9,6 @@ import { PageList } from "../../Components/PageList/PageList";
 import TestCard from "../../Components/TestCard/TestCard";
 import constants from "../../Constants/constants.json";
 import { useGetPageQuizzesQuery } from "../../GraphQL/generated/graphql";
-import { useGetQuizQueryLazy } from "../../GraphQL/useGetQuiz";
 import { Quiz } from "../../Models/Quiz";
 import { Room } from "../../Models/Room";
 import "./Teste.scss";
