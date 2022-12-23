@@ -11,7 +11,6 @@ namespace backend.Model
         [Required]
         public Guid pageId { get; set; }
         [Required]
-        [Column(TypeName = "datetime")]
         public DateTime createdDate { get; set; }
         public User user { get; set; }
         [ForeignKey("User")]

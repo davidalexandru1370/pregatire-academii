@@ -1,6 +1,4 @@
 using backend.Model;
-using backend.Validators;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -14,9 +12,7 @@ using backend.Middlewares;
 using StackExchange.Redis;
 using backend.GraphQL;
 using GraphQL.Server.Ui.Voyager;
-using Microsoft.AspNetCore.WebSockets;
 using backend.Services.Interfaces;
-using HotChocolate.Types.Pagination;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,8 +24,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 //builder.Services.AddScoped<ValidationFilterAttribute>();
 builder.Services.Configure<ApiBehaviorOptions>(options => options.SuppressModelStateInvalidFilter = true);
-builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
-builder.Services.AddDbContext<EntitiesDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DevConnection")!), ServiceLifetime.Scoped);
+builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));   
+builder.Services.AddDbContext<EntitiesDbContext>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IJwtUtils, JwtUtils>();
 builder.Services.AddScoped<ITokenRepository, TokenRepository>();

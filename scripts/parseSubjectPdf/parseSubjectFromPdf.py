@@ -6,11 +6,13 @@ import aioodbc
 import PyPDF2
 from uuid6 import uuid6
 from Utilitites import *
+import psycopg2
+import psycopg2.extras
 
-pdfName = "C:\\Users\\David\\Desktop\\pregatire-academii\\subjects\\politie\\2021\\Subiecte-Politie-2021.pdf"
+pdfName = "/home/david/Desktop/pregatire-academii/subjects/politie/2021/Subiecte-Politie-2021.pdf"
 pdfFileObject = open(pdfName, 'rb')
 
-pdfReader = PyPDF2.PdfFileReader(pdfFileObject)
+pdfReader = PyPDF2.PdfReader(pdfFileObject)
 f = open("pdfwrite.txt", "w", 2, encoding='utf8')
 
 loop = asyncio.get_event_loop()
@@ -39,46 +41,46 @@ def visitor_header(text, cm, tm, fontDict, fontSize):
             currentOption = text.strip()
 
 
-async def main():
-    connection = await aioodbc.connect(
-        dsn='DRIVER={ODBC Driver 17 for SQL Server};SERVER=localhost;DATABASE=Academii;Trusted_Connection=yes;', loop=loop)
-    cursor = await connection.cursor()
-    # await cursor.execute("DELETE FROM Quiz")
-    # await cursor.execute("DELETE FROM Question")
-    # await cursor.execute("DELETE FROM Answer")
+def main():
+    connection = psycopg2.connect(host="localhost",database="Academii",user='postgres',password='postgres', port="5432")
+    psycopg2.extras.register_uuid()
+    cursor = connection.cursor()
+    # cursor = await connection.cursor()
+    # # await cursor.execute("DELETE FROM Quiz")
+    # # await cursor.execute("DELETE FROM Question")
+    # # await cursor.execute("DELETE FROM Answer")
     currentQuizId = uuid6()
     connection.commit()
     global index
     if (True):
         # cursor = connection.cursor()
-        for pageNumber in range(0, pdfReader.numPages):
+        for pageNumber in range(0, len(pdfReader.pages)):
             index = 0
-            pageObj = pdfReader.getPage(pageNumber)
+            pageObj = pdfReader.pages[pageNumber]
             pageObj.extract_text(visitor_text=visitor_body)
             pageObj.extract_text(visitor_text=visitor_header)
             text = formatText("".join(parts))
             if currentOption not in options.keys():
                 # print(currentOption)
                 currentQuizId = uuid6()
-                await cursor.execute(
-                    """INSERT INTO Quiz(Id,Category,Year,Subject) VALUES(?,?,?,?)""", currentQuizId, 0, 2021, currentOption)
+                cursor.execute("INSERT INTO Quiz (Id,Category,Year,Subject) VALUES(%s,%s,%s,%s)", (currentQuizId, 0, 2021, currentOption))
                 options[currentOption] = True
-                await connection.commit()
+                connection.commit()
             for question in get_questions_with_answers_from_pagetext(text):
                 questionId = uuid6()
-                await cursor.execute("""INSERT INTO Question(Id,Text,QuizId) values(?,?,?)""",
-                                     questionId, question.get_question().strip(), currentQuizId)
-                await connection.commit()
+                cursor.execute("INSERT INTO Question (Id,Text,QuizId) values(%s,%s,%s)",
+                                     (questionId, question.get_question().strip(), currentQuizId))
+                connection.commit()
                 # f.write(question.get_question())
                 for answer in question.get_answers():
-                    await cursor.execute("""INSERT INTO Answer(Id,QuestionId,IsCorrect,Text) values(?,?,?,?)""", uuid6(
-                    ), questionId, answer.get_is_correct(), answer.get_answer())
-                    await connection.commit()
+                    cursor.execute("INSERT INTO Answer (Id,QuestionId,IsCorrect,Text) values(%s,%s,%s,%s)", (uuid6(), questionId, answer.get_is_correct(), answer.get_answer()))
+                    connection.commit()
                     # f.write(answer.get_answer())
             parts.clear()
-        await connection.close()
+        connection.close()
 
 
-loop.run_until_complete(main())
+if __name__ == "__main__":
+    main()
 
 f.close()
