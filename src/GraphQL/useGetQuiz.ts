@@ -24,15 +24,12 @@ const getQuizQueryDocument: DocumentNode = gql`
 `;
 
 export type GetQuizQuery = {
-  __typename?: "Query";
   quizzes?: {
-    __typename?: "QuizCollectionSegment";
-    items?: Array<{
-      __typename?: "Quiz";
-      id: any;
-      question: Question;
-    }> | null;
-  } | null;
+      items?: {
+        id: any;
+        question: Array<Question>;
+      };
+    } | null;
 };
 
 type Scalars = {

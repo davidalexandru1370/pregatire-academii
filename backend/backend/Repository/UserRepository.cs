@@ -24,9 +24,9 @@ namespace backend.Repository
             {
                 await _context.Users.AddAsync(entity);
             }
-            catch (Exception dbException)
+            catch (Exception)
             {
-
+                throw new RepositoryException("Invalid user");
             }
 
             await _context.SaveChangesAsync();
@@ -46,7 +46,7 @@ namespace backend.Repository
             }
             catch (Exception dbException)
             {
-                _errorMessages = dbException.InnerException.Message;
+                _errorMessages = dbException.InnerException!.Message;
                 throw new RepositoryException(_errorMessages);
             }
             await _context.SaveChangesAsync();

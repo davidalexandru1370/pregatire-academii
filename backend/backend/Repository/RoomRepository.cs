@@ -50,7 +50,7 @@ namespace backend.Repository
             }
             catch (Exception dbException)
             {
-                throw new RepositoryException(dbException.InnerException.Message);
+                throw new RepositoryException(dbException.InnerException!.Message);
             }
 
             await _dbContext.SaveChangesAsync();

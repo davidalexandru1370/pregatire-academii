@@ -36,12 +36,12 @@ namespace backend.Services
             {
                 UserId = userId,
                 QuizId = quizId,
-                IssuedRoomDate = DateTime.Now
+                IssuedRoomDate = DateTime.Now.ToUniversalTime()
             };
 
             try
             {
-                room.IssuedRoomDate = DateTime.Now;
+                
                 await _roomRepository.Add(room);
             }
             catch (RepositoryException)

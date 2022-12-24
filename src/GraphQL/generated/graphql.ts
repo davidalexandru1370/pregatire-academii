@@ -29,7 +29,7 @@ export type Answer = {
   id: Scalars["UUID"];
   isCorrect: Scalars["Boolean"];
   question: Question;
-  text: Scalars["String"];
+  answer: Scalars["String"];
 };
 
 export type AnswerFilterInput = {
@@ -125,7 +125,7 @@ export type QueryQuizzesArgs = {
 
 export type Question = {
   __typename?: "Question";
-  answers?: Maybe<Array<Answer>>;
+  answers: Array<Answer>
   id: Scalars["UUID"];
   quiz?: Maybe<Quiz>;
   text: Scalars["String"];
@@ -195,7 +195,7 @@ export type GetPageQuizzesQuery = {
     items?: Array<{
       __typename?: "Quiz";
       id: any;
-      category: Category;
+      category: Category & undefined;
       year: number;
       subject: string;
     }> | null;

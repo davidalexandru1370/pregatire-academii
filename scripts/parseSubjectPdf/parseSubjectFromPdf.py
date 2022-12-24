@@ -49,6 +49,10 @@ def main():
     # # await cursor.execute("DELETE FROM Quiz")
     # # await cursor.execute("DELETE FROM Question")
     # # await cursor.execute("DELETE FROM Answer")
+    cursor.execute('''DELETE FROM "Answer"''',())
+    cursor.execute('''DELETE FROM "Question"''',())
+    cursor.execute('''DELETE FROM "Quiz"''',())
+    
     currentQuizId = uuid6()
     connection.commit()
     global index
