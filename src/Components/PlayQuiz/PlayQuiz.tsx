@@ -6,9 +6,14 @@ interface IPlayQuiz {
   quiz: GetQuizQuery;
 }
 
-type QuestionComponent = React.FC;
-type AnswerComponent = React.FC;
-type FooterComponent = React.FC;
+interface IStyleComponent{
+  style?: React.CSSProperties;
+  className?: string;
+}
+
+type QuestionComponent = React.FC<IStyleComponent>;
+type AnswerComponent = React.FC<IStyleComponent>;
+type FooterComponent = React.FC<IStyleComponent>;
 type PlayQuizComponent = React.FC<IPlayQuiz>
  & {
   Question: QuestionComponent;
