@@ -1,0 +1,14 @@
+.allQuestions{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    max-width: 20vw;
+}
+
+.questionCard{
+    padding: 0.5rem;
+    border: 1px solid black;
+    background-color: white;
+    color: black;
+}
+
