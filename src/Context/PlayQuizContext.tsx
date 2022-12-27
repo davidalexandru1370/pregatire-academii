@@ -11,10 +11,11 @@ export const PlayQuizContext = createContext<IPlayQuizContext>({
     setQuiz: () => null
 });
 
-export const usePlayQuizContext= () => useContext(PlayQuizContext);
+export const usePlayQuizContext = () => useContext(PlayQuizContext);
 
-export const PlayQuizContextProvider: FC<React.ReactNode> = (children) => {
-    const [quiz,setQuiz] = useState<GetQuizQuery>();
+export const PlayQuizContextProvider: FC<{children:any, quiz: GetQuizQuery}> = ({children, quiz}) => {
+    const [_,setQuiz] = useState<GetQuizQuery>(quiz);
+
     return (
         <PlayQuizContext.Provider
          value={{quiz: quiz, setQuiz: setQuiz}}

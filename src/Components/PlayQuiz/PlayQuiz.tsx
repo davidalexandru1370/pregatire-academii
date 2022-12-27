@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext } from "react";
+import { PlayQuizContext, PlayQuizContextProvider, usePlayQuizContext } from "../../Context/PlayQuizContext";
 import { GetQuizQuery } from "../../GraphQL/useGetQuiz";
 
 interface IPlayQuiz {
@@ -25,11 +26,26 @@ export const PlayQuiz: PlayQuizComponent = ({
   children,
   quiz,
 }): JSX.Element => {
-  return <div>{children}</div>;
+  const {setQuiz} = usePlayQuizContext();
+  setQuiz(quiz);  
+
+  return <div>
+    <PlayQuizContextProvider quiz={ quiz } >
+         {children}
+    </PlayQuizContextProvider>
+    </div>
 };
 
 const Question: QuestionComponent = (): JSX.Element => {
-  return <div></div>;
+  const {quiz} = usePlayQuizContext();
+  console.log(quiz);
+  return <div>
+    {
+      quiz!.quiz!.question.map((q,index) => {
+        return <p style={{color:"red"}}>{index + 1}</p>
+      })
+    }
+  </div>;
 };
 
 const Answer: AnswerComponent = (): JSX.Element => {
