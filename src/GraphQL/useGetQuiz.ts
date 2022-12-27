@@ -24,9 +24,11 @@ const getQuizQueryDocument: DocumentNode = gql`
 `;
 
 export type GetQuizQuery = {
-  quiz?: {
-        id: any;
-        question: Array<Question>;
+  quizzes?: {
+    items: Array<{
+      id: any;
+      question: Array<Question>;
+    } | null>
     } | null;
 };
 

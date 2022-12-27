@@ -26,22 +26,21 @@ export const PlayQuiz: PlayQuizComponent = ({
   children,
   quiz,
 }): JSX.Element => {
-  const {setQuiz} = usePlayQuizContext();
-  setQuiz(quiz);  
 
   return <div>
-    <PlayQuizContextProvider quiz={ quiz } >
+    <PlayQuizContextProvider quiz = { quiz } >
          {children}
     </PlayQuizContextProvider>
     </div>
 };
 
 const Question: QuestionComponent = (): JSX.Element => {
-  const {quiz} = usePlayQuizContext();
-  console.log(quiz);
+  const { quiz } = usePlayQuizContext();
+  console.log(quiz?.quizzes?.items[0]);
+  
   return <div>
     {
-      quiz!.quiz!.question.map((q,index) => {
+      quiz?.quizzes?.items[0]!.question.map((q,index) => {
         return <p style={{color:"red"}}>{index + 1}</p>
       })
     }
