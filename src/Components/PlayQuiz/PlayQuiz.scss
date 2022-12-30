@@ -38,7 +38,7 @@ $--bs-dark-rgb: rgb(36, 39, 43);
 }
 
 .questionText {
-  width: 35vw;
+  width: 50vw;
   height: 6vw;
   color: white;
 }
@@ -51,4 +51,8 @@ $--bs-dark-rgb: rgb(36, 39, 43);
 
 .w-color {
   color: white;
+}
+
+.answersContainer {
+  margin-top: 1rem;
 }

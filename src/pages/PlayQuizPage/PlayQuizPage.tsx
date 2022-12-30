@@ -10,7 +10,12 @@ import "./PlayQuizPage.scss";
 export const PlayQuizPage: FC = () => {
   const state: Location = useLocation();
   const room: Room = state.state as Room;
-  const { loading, data: quiz, error, refetch } = useGetQuizQuery({
+  const {
+    loading,
+    data: quiz,
+    error,
+    refetch,
+  } = useGetQuizQuery({
     variables: { id: room.quizId },
   });
 
@@ -23,7 +28,6 @@ export const PlayQuizPage: FC = () => {
         id: room.quizId,
       });
     }
-
   }, [loading, quiz, error]);
 
   if (loading === true || quiz === undefined) {
@@ -32,11 +36,7 @@ export const PlayQuizPage: FC = () => {
 
   return (
     <div className="playQuizContent">
-      <PlayQuiz quiz={quiz}>
-        <PlayQuiz.Question></PlayQuiz.Question>
-        <PlayQuiz.Answer></PlayQuiz.Answer>
-        <PlayQuiz.Footer></PlayQuiz.Footer>
-      </PlayQuiz>
+      <PlayQuiz quiz={quiz}></PlayQuiz>
     </div>
   );
 };
