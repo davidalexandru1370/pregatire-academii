@@ -2,6 +2,7 @@
 import { TypedDocumentNode as DocumentNode } from "@graphql-typed-document-node/core";
 import { gql } from "@apollo/client";
 import * as Apollo from "@apollo/client";
+import { Answer as AnswerModel } from "../../Models/Answer";
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = {
@@ -29,7 +30,7 @@ export type Answer = {
   id: Scalars["UUID"];
   isCorrect: Scalars["Boolean"];
   question: Question;
-  answer: Scalars["String"];
+  text: Scalars["String"];
 };
 
 export type AnswerFilterInput = {

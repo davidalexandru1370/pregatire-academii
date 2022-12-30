@@ -1,54 +1,54 @@
 $--bs-dark-rgb: rgb(36, 39, 43);
 
-.allQuestions{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    width: 14vw;
-    column-gap: 10px;
+.allQuestions {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 14vw;
+  column-gap: 10px;
 }
 
-.questionCard{
-    box-sizing: content-box;
-    text-align: center;
-    padding: 0.5rem;
-    width: 1.2rem; 
-    border: 1px solid black;
-    background-color: white;
-    color: black;
-    border-radius: 50%;
-    cursor: pointer;
+.questionCard {
+  box-sizing: content-box;
+  text-align: center;
+  padding: 0.5rem;
+  width: 1.2rem;
+  border: 1px solid black;
+  background-color: white;
+  color: black;
+  border-radius: 50%;
+  cursor: pointer;
 }
 
-.quizContent{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+.quizContent {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
 
-.quizContainer{
-    display: flex;
-    flex-direction: row;
-    padding: 1rem;
-    background-color: $--bs-dark-rgb;
+.quizContainer {
+  display: flex;
+  flex-direction: row;
+  padding: 1rem;
+  background-color: $--bs-dark-rgb;
 }
 
-.questionContainer{
-    margin-inline: 1rem;
+.questionContainer {
+  margin-inline: 1rem;
 }
 
-.questionText{
-    width: 35vw;
-    height: 5vw;
-    color: white;
+.questionText {
+  width: 35vw;
+  height: 6vw;
+  color: white;
 }
 
 @media screen and (max-width: 768px) {
-    .quizContainer{
-        justify-content: column;
-    }
+  .quizContainer {
+    justify-content: column;
+  }
 }
 
-.w-color{
-    color: white;
+.w-color {
+  color: white;
 }

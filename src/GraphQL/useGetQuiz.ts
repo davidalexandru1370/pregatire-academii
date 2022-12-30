@@ -29,7 +29,7 @@ export type GetQuizQuery = {
       id: any;
       question: Array<Question>;
     } | null>
-    } | null;
+  } | null;
 };
 
 type Scalars = {
