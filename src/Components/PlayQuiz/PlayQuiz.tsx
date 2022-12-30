@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { PlayQuizContextProvider, usePlayQuizContext } from "../../Context/PlayQuizContext";
 import { GetQuizQuery } from "../../GraphQL/useGetQuiz";
-import { Question } from "../../Models/Question";
+import { Question as ModelQuestion } from "../../Models/Question";
 import "./PlayQuiz.scss";
 
 
@@ -41,8 +41,8 @@ export const PlayQuiz: PlayQuizComponent = ({
 
 const Question: QuestionComponent = (): JSX.Element => {
   const { quiz } = usePlayQuizContext();
-  const [selectedQuestion, setSelectedQuestion] = useState<Question>();
-  
+  const [selectedQuestion, setSelectedQuestion] = useState<ModelQuestion>();
+
   return <div>
     <div className="allQuestions">
       {
