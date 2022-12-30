@@ -42,20 +42,33 @@ const Question: QuestionComponent = (): JSX.Element => {
   const [selectedQuestion, setSelectedQuestion] = useState<ModelQuestion>(quiz?.quizzes?.items[0]!.question[0]!);
   
   return ( 
-  <div>
+  <div className="quizContainer">
+      <div className="questionContainer">
+        <p className="questionText">{selectedQuestion.text}</p>
+        {
+          selectedQuestion.answers.map(answer => {
+            console.log(answer);
+            
+            return <p className="w-color">{answer.answer}</p>
+          })
+        }
+      </div>
     <div className="allQuestions">
       {
         quiz?.quizzes?.items[0]!.question.map((question, index) => {
-          return <p 
+          return <p
+          key={index}
           className="questionCard"
           onClick={() => {
             setSelectedQuestion(question);
           }}
-          >{index + 1}
+          >
+            {index + 1}
           </p>
         })
       }
     </div>
+
   </div>
   );
 };
