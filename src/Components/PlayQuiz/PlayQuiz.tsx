@@ -32,7 +32,7 @@ export const PlayQuiz: PlayQuizComponent = ({
 
   return <div>
     <PlayQuizContextProvider quiz = { quiz } >
-      <div className="">
+      <div className="quizContent">
          {children}
       </div>
     </PlayQuizContextProvider>
