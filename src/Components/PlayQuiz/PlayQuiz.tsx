@@ -1,7 +1,9 @@
-import React, { useContext } from "react";
-import { PlayQuizContext, PlayQuizContextProvider, usePlayQuizContext } from "../../Context/PlayQuizContext";
+import React, { useContext, useState } from "react";
+import { PlayQuizContextProvider, usePlayQuizContext } from "../../Context/PlayQuizContext";
 import { GetQuizQuery } from "../../GraphQL/useGetQuiz";
+import { Question } from "../../Models/Question";
 import "./PlayQuiz.scss";
+
 
 interface IPlayQuiz {
   children: React.ReactNode;
@@ -30,18 +32,21 @@ export const PlayQuiz: PlayQuizComponent = ({
 
   return <div>
     <PlayQuizContextProvider quiz = { quiz } >
+      <div className="">
          {children}
+      </div>
     </PlayQuizContextProvider>
     </div>
 };
 
 const Question: QuestionComponent = (): JSX.Element => {
   const { quiz } = usePlayQuizContext();
+  const [selectedQuestion, setSelectedQuestion] = useState<Question>();
   
   return <div>
     <div className="allQuestions">
       {
-        quiz?.quizzes?.items[0]!.question.map((q,index) => {
+        quiz?.quizzes?.items[0]!.question.map((_, index) => {
           return <p className="questionCard">{index + 1}</p>
         })
       }
