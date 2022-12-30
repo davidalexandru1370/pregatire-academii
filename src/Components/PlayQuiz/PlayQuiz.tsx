@@ -23,7 +23,20 @@ export const PlayQuiz: FC<IPlayQuiz> = ({ quiz }): JSX.Element => {
           <p className="questionText">{selectedQuestion.text}</p>
           <div className="answersContainer">
             {selectedQuestion.answers.map((answer) => {
-              return <p className="w-color">{answer.text}</p>;
+              return (
+                <div className="answerField">
+                  <input
+                    type="radio"
+                    value={answer.text}
+                    id={answer.text}
+                    name="answer"
+                  />
+                  <label htmlFor={answer.text} className="answerText">
+                    &nbsp;
+                    {answer.text}
+                  </label>
+                </div>
+              );
             })}
           </div>
         </div>

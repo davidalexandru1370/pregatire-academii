@@ -54,5 +54,26 @@ $--bs-dark-rgb: rgb(36, 39, 43);
 }
 
 .answersContainer {
+  display: flex;
+  flex-direction: column;
   margin-top: 1rem;
+}
+
+.answerField {
+  display: flex;
+  flex-direction: row;
+  background-color: aliceblue;
+  width: 100%;
+  padding-left: 1rem;
+  border: 1px solid black;
+  margin-block: 5px;
+  border-radius: 10px;
+}
+
+.answerText {
+  width: inherit;
+  padding: 1rem;
+  clear: both;
+  cursor: pointer;
+  float: left;
 }
