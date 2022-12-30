@@ -4,7 +4,6 @@ import { GetQuizQuery } from "../../GraphQL/useGetQuiz";
 import { Question as ModelQuestion } from "../../Models/Question";
 import "./PlayQuiz.scss";
 
-
 interface IPlayQuiz {
   children: React.ReactNode;
   quiz: GetQuizQuery;
@@ -29,7 +28,6 @@ export const PlayQuiz: PlayQuizComponent = ({
   children,
   quiz,
 }): JSX.Element => {
-
   return <div>
     <PlayQuizContextProvider quiz = { quiz } >
       <div className="quizContent">
@@ -41,17 +39,25 @@ export const PlayQuiz: PlayQuizComponent = ({
 
 const Question: QuestionComponent = (): JSX.Element => {
   const { quiz } = usePlayQuizContext();
-  const [selectedQuestion, setSelectedQuestion] = useState<ModelQuestion>();
-
-  return <div>
+  const [selectedQuestion, setSelectedQuestion] = useState<ModelQuestion>(quiz?.quizzes?.items[0]!.question[0]!);
+  
+  return ( 
+  <div>
     <div className="allQuestions">
       {
-        quiz?.quizzes?.items[0]!.question.map((_, index) => {
-          return <p className="questionCard">{index + 1}</p>
+        quiz?.quizzes?.items[0]!.question.map((question, index) => {
+          return <p 
+          className="questionCard"
+          onClick={() => {
+            setSelectedQuestion(question);
+          }}
+          >{index + 1}
+          </p>
         })
       }
     </div>
-  </div>;
+  </div>
+  );
 };
 
 const Answer: AnswerComponent = (): JSX.Element => {
