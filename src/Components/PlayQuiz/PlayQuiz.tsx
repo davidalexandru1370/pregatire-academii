@@ -1,9 +1,6 @@
-import React, { FC, useContext, useState } from "react";
-import {
-  PlayQuizContextProvider,
-  usePlayQuizContext,
-} from "../../Context/PlayQuizContext";
+import React, { FC, useContext, useRef, useState } from "react";
 import { GetQuizQuery } from "../../GraphQL/useGetQuiz";
+import { Answer } from "../../Models/Answer";
 import { Question as ModelQuestion } from "../../Models/Question";
 import { PrimaryButton } from "../PrimaryButton/PrimaryButton";
 import "./PlayQuiz.scss";
@@ -17,23 +14,36 @@ export const PlayQuiz: FC<IPlayQuiz> = ({ quiz }): JSX.Element => {
     quiz?.quizzes?.items[0]!.question[0]!
   );
   const [selectedQuestionIndex, setSelectedQuestionIndex] = useState<number>(1);
-
+  //const [answeredQuestoins, setAnsweredQuestions] = useState<>();
+  const answeredQuestions = useRef<Map<string, string>>();
   return (
     <div className="quizContent">
       <div className="quizContainer">
         <div className="questionContainer">
           <p className="questionText">{selectedQuestion.text}</p>
           <div className="answersContainer">
-            {selectedQuestion.answers.map((answer) => {
+            {selectedQuestion.answers.map((answer: Answer, index: number) => {
               return (
-                <div className="answerField">
+                <div
+                  className="answerField"
+                  onClick={() => {
+                    answeredQuestions.current?.set(
+                      selectedQuestion.id,
+                      answer.id
+                    );
+                  }}
+                >
                   <input
                     type="radio"
                     value={answer.text}
-                    id={answer.text}
-                    name="answer"
+                    id={answer.id}
+                    name={`answer-${selectedQuestion.id}}`}
+                    checked={
+                      answeredQuestions.current?.get(selectedQuestion.id) ===
+                      answer.id
+                    }
                   />
-                  <label htmlFor={answer.text} className="answerText">
+                  <label htmlFor={answer.id} className="answerText">
                     &nbsp;
                     {answer.text}
                   </label>
@@ -42,13 +52,12 @@ export const PlayQuiz: FC<IPlayQuiz> = ({ quiz }): JSX.Element => {
             })}
           </div>
           <div className="footerContainer">
-            <button>Inainte</button>
-            <p className="w-color">
+            <PrimaryButton>Inapoi</PrimaryButton>
+            <p className="w-color numberOfQuestions">
               Intrebarea {selectedQuestionIndex} din{" "}
               {quiz.quizzes?.items[0]?.question.length}
             </p>
-            <button>Inapoi</button>
-            <PrimaryButton>merge</PrimaryButton>
+            <PrimaryButton>Inainte</PrimaryButton>
           </div>
         </div>
         <div className="allQuestions">

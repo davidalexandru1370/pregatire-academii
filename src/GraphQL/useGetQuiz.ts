@@ -12,6 +12,7 @@ const getQuizQueryDocument: DocumentNode = gql`
       items {
         id
         question {
+          id
           text
           answers {
             id
@@ -28,7 +29,7 @@ export type GetQuizQuery = {
     items: Array<{
       id: any;
       question: Array<Question>;
-    } | null>
+    } | null>;
   } | null;
 };
 

@@ -13,9 +13,9 @@ export const PrimaryButton = React.forwardRef<
     <div>
       <button
         ref={ref}
-        style={buttonProps.style}
-        className={`primaryButton ${buttonProps.className}`}
-        onClick={buttonProps.onClick}
+        style={buttonProps?.style}
+        className={`primaryButton ${buttonProps?.className}`}
+        onClick={buttonProps?.onClick}
       >
         {children}
       </button>
