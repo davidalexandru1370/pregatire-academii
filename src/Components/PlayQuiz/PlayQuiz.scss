@@ -38,9 +38,15 @@ $--bs-dark-rgb: rgb(36, 39, 43);
 }
 
 .questionText {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: aliceblue;
+  border-radius: 10px;
+  padding: 0.5rem;
   width: 50vw;
   height: 6vw;
-  color: white;
 }
 
 @media screen and (max-width: 768px) {
