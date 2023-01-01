@@ -35,6 +35,15 @@ function handlerQuizReducer(state: IState, action: Action): IState {
       };
     }
     case QuizActionTypeEnum.ChangeAnswer: {
+      return {
+        ...state,
+        answeredQuestions: new Map([
+          //@ts-ignore
+          ...state.answeredQuestions,
+          //@ts-ignore
+          ...action.payload!.answeredQuestions!,
+        ]),
+      };
     }
   }
   return state;
@@ -66,10 +75,19 @@ export const PlayQuiz: FC<IPlayQuiz> = ({ quiz }): JSX.Element => {
                   <div
                     className="answerField"
                     onClick={() => {
-                      state.answeredQuestions.set(
-                        state.selectedQuestion.id,
-                        answer.id
-                      );
+                      dispatch({
+                        type: QuizActionTypeEnum.ChangeAnswer,
+                        payload: {
+                          answeredQuestions: new Map().set(
+                            state.selectedQuestion.id,
+                            answer.id
+                          ),
+                        },
+                      });
+                      // state.answeredQuestions.set(
+                      //   state.selectedQuestion.id,
+                      //   answer.id
+                      // );
                     }}
                   >
                     <input
