@@ -1,4 +1,4 @@
-import React, { FC, useContext, useReducer, useRef, useState } from "react";
+import { FC, useReducer } from "react";
 import { GetQuizQuery } from "../../GraphQL/useGetQuiz";
 import { Answer } from "../../Models/Answer";
 import { Question as ModelQuestion } from "../../Models/Question";
@@ -68,6 +68,7 @@ export const PlayQuiz: FC<IPlayQuiz> = ({ quiz }): JSX.Element => {
               (answer: Answer, index: number) => {
                 return (
                   <div
+                    key={Date.now.toString()}
                     className="answerField"
                     onClick={() => {
                       dispatch({
@@ -114,7 +115,7 @@ export const PlayQuiz: FC<IPlayQuiz> = ({ quiz }): JSX.Element => {
           {quiz?.quizzes?.items[0]!.question.map((question, index) => {
             return (
               <p
-                key={index}
+                key={Date.now.toString()}
                 className="questionCard"
                 onClick={() => {
                   dispatch({
