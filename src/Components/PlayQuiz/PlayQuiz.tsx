@@ -30,8 +30,8 @@ function handlerQuizReducer(state: IState, action: Action): IState {
     case QuizActionTypeEnum.ChangeQuestion: {
       return {
         ...state,
-        selectedQuestion: state.selectedQuestion,
-        selectedQuestionIndex: state.selectedQuestionIndex,
+        selectedQuestion: action.payload!.selectedQuestion!,
+        selectedQuestionIndex: action.payload!.selectedQuestionIndex!,
       };
     }
     case QuizActionTypeEnum.ChangeAnswer: {
@@ -110,6 +110,10 @@ export const PlayQuiz: FC<IPlayQuiz> = ({ quiz }): JSX.Element => {
                 onClick={() => {
                   dispatch({
                     type: QuizActionTypeEnum.ChangeQuestion,
+                    payload: {
+                      selectedQuestion: question,
+                      selectedQuestionIndex: index + 1,
+                    },
                   });
                   //setSelectedQuestion(question);
                   //setSelectedQuestionIndex(index + 1);
