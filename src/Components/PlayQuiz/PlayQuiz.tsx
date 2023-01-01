@@ -1,4 +1,4 @@
-import { FC, useReducer } from "react";
+import { FC, useMemo, useReducer, useRef } from "react";
 import { GetQuizQuery } from "../../GraphQL/useGetQuiz";
 import { Answer } from "../../Models/Answer";
 import { Question as ModelQuestion } from "../../Models/Question";
@@ -55,7 +55,9 @@ export const PlayQuiz: FC<IPlayQuiz> = ({ quiz }): JSX.Element => {
     selectedQuestion: quiz?.quizzes?.items[0]!.question[0]!,
     selectedQuestionIndex: 1,
   };
-
+  const numberOfQuestions = useMemo(() => {
+    return quiz.quizzes?.items[0]?.question.length;
+  }, [quiz]);
   const [state, dispatch] = useReducer(handlerQuizReducer, initialState);
 
   return (
@@ -103,12 +105,18 @@ export const PlayQuiz: FC<IPlayQuiz> = ({ quiz }): JSX.Element => {
             )}
           </div>
           <div className="footerContainer">
-            <PrimaryButton>Inapoi</PrimaryButton>
+            <PrimaryButton disabled={state.selectedQuestionIndex === 1}>
+              Inapoi
+            </PrimaryButton>
             <p className="w-color numberOfQuestions">
               Intrebarea {state.selectedQuestionIndex} din{" "}
               {quiz.quizzes?.items[0]?.question.length}
             </p>
-            <PrimaryButton>Inainte</PrimaryButton>
+            <PrimaryButton
+              disabled={state.selectedQuestionIndex === numberOfQuestions}
+            >
+              Inainte
+            </PrimaryButton>
           </div>
         </div>
         <div className="allQuestions">

@@ -9,3 +9,8 @@
 .primaryButton:hover {
   background-color: rgb(38, 198, 247);
 }
+
+.primaryButton:disabled {
+  background-color: rgb(6, 59, 83);
+  border: 2px solid rgb(29, 92, 121);
+}
