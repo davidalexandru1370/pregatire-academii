@@ -105,7 +105,20 @@ export const PlayQuiz: FC<IPlayQuiz> = ({ quiz }): JSX.Element => {
             )}
           </div>
           <div className="footerContainer">
-            <PrimaryButton disabled={state.selectedQuestionIndex === 1}>
+            <PrimaryButton
+              disabled={state.selectedQuestionIndex === 1}
+              onClick={() => {
+                dispatch({
+                  type: QuizActionTypeEnum.ChangeQuestion,
+                  payload: {
+                    selectedQuestionIndex: state.selectedQuestionIndex - 1,
+                    selectedQuestion: quiz.quizzes?.items[0]?.question.at(
+                      state.selectedQuestionIndex - 2
+                    ),
+                  },
+                });
+              }}
+            >
               Inapoi
             </PrimaryButton>
             <p className="w-color numberOfQuestions">
@@ -114,6 +127,17 @@ export const PlayQuiz: FC<IPlayQuiz> = ({ quiz }): JSX.Element => {
             </p>
             <PrimaryButton
               disabled={state.selectedQuestionIndex === numberOfQuestions}
+              onClick={() => {
+                dispatch({
+                  type: QuizActionTypeEnum.ChangeQuestion,
+                  payload: {
+                    selectedQuestionIndex: state.selectedQuestionIndex + 1,
+                    selectedQuestion: quiz.quizzes?.items[0]?.question.at(
+                      state.selectedQuestionIndex
+                    ),
+                  },
+                });
+              }}
             >
               Inainte
             </PrimaryButton>
