@@ -50,17 +50,12 @@ function handlerQuizReducer(state: IState, action: Action): IState {
 }
 
 export const PlayQuiz: FC<IPlayQuiz> = ({ quiz }): JSX.Element => {
-  // const [selectedQuestion, setSelectedQuestion] = useState<ModelQuestion>(
-  //   quiz?.quizzes?.items[0]!.question[0]!
-  // );
-  //const [selectedQuestionIndex, setSelectedQuestionIndex] = useState<number>(1);
   const initialState: IState = {
     answeredQuestions: new Map<string, string>(),
     selectedQuestion: quiz?.quizzes?.items[0]!.question[0]!,
     selectedQuestionIndex: 1,
   };
 
-  //const answeredQuestions = useRef<Map<string, string>>();
   const [state, dispatch] = useReducer(handlerQuizReducer, initialState);
 
   return (
@@ -84,10 +79,6 @@ export const PlayQuiz: FC<IPlayQuiz> = ({ quiz }): JSX.Element => {
                           ),
                         },
                       });
-                      // state.answeredQuestions.set(
-                      //   state.selectedQuestion.id,
-                      //   answer.id
-                      // );
                     }}
                   >
                     <input
@@ -133,8 +124,6 @@ export const PlayQuiz: FC<IPlayQuiz> = ({ quiz }): JSX.Element => {
                       selectedQuestionIndex: index + 1,
                     },
                   });
-                  //setSelectedQuestion(question);
-                  //setSelectedQuestionIndex(index + 1);
                 }}
               >
                 {index + 1}
