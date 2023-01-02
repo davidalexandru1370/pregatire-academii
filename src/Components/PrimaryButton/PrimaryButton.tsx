@@ -1,4 +1,4 @@
-import React, { FC, Ref, RefObject } from "react";
+import React, { Ref } from "react";
 import "./PrimaryButton.scss";
 
 interface IPrimaryButton

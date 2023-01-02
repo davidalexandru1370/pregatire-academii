@@ -1,4 +1,4 @@
-import { FC, useMemo, useReducer, useRef } from "react";
+import { FC, useMemo, useReducer } from "react";
 import { GetQuizQuery } from "../../GraphQL/useGetQuiz";
 import { Answer } from "../../Models/Answer";
 import { Question as ModelQuestion } from "../../Models/Question";
@@ -144,6 +144,9 @@ export const PlayQuiz: FC<IPlayQuiz> = ({ quiz }): JSX.Element => {
           </div>
         </div>
         <div className="allQuestions">
+          <PrimaryButton className="sendButton">
+            Finalizeaza chestionar
+          </PrimaryButton>
           {quiz?.quizzes?.items[0]!.question.map((question, index) => {
             return (
               <p
