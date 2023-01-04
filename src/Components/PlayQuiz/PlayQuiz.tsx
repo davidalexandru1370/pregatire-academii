@@ -1,4 +1,4 @@
-import { FC, useMemo, useReducer } from "react";
+import { FC, useMemo, useReducer, useState } from "react";
 import { GetQuizQuery } from "../../GraphQL/useGetQuiz";
 import { Answer } from "../../Models/Answer";
 import { Question as ModelQuestion } from "../../Models/Question";
@@ -59,14 +59,18 @@ export const PlayQuiz: FC<IPlayQuiz> = ({ quiz }): JSX.Element => {
     return quiz.quizzes?.items[0]?.question.length;
   }, [quiz]);
   const [state, dispatch] = useReducer(handlerQuizReducer, initialState);
+  const [showModal, setShowModal] = useState<boolean>(false);
 
   return (
     <div className="quizContent">
-      <AreYouSureModal
-        visibility={true}
-        onCancelClick={() => {}}
-        onYesClick={() => {}}
-      />
+      {showModal && (
+        <AreYouSureModal
+          visibility={true}
+          onCancelClick={() => {}}
+          yesMessage="Trimite"
+          onYesClick={() => {}}
+        />
+      )}
       <div className="quizContainer">
         <div className="questionContainer">
           <p className="questionText">{state.selectedQuestion.text}</p>
@@ -149,7 +153,12 @@ export const PlayQuiz: FC<IPlayQuiz> = ({ quiz }): JSX.Element => {
           </div>
         </div>
         <div className="allQuestions">
-          <PrimaryButton className="sendButton">
+          <PrimaryButton
+            className="sendButton"
+            onClick={() => {
+              setShowModal(true);
+            }}
+          >
             Finalizeaza chestionar
           </PrimaryButton>
           {quiz?.quizzes?.items[0]!.question.map((question, index) => {
