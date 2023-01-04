@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { PrimaryButton } from "../PrimaryButton/PrimaryButton";
 import ReactPortal from "../ReactPortal/ReactPortal";
-import "./AreYouSureModal.module.scss";
+import styles from "./AreYouSureModal.module.scss";
 interface IAreYouSure {
   className?: string;
   style?: React.CSSProperties;
@@ -27,20 +27,22 @@ export const AreYouSureModal: FC<IAreYouSure> = ({
 
   return (
     <ReactPortal wrapperId={wrapperId}>
-      <div className="areYouSureWrapper">
-        <div className="areYouSureContainer">
-          <span className="material-symbols-outlined closeIcon">close</span>
-          <span className="material-symbols-outlined checkIcon">
+      <div className={styles.areYouSureWrapper}>
+        <div className={styles.areYouSureContainer}>
+          <span className={`material-symbols-outlined ${styles.closeIcon}`}>
+            close
+          </span>
+          <span className={`material-symbols-outlined ${styles.checkIcon}`}>
             check_circle
           </span>
-          <p className="areYouSureText">
+          <p className={styles.areYouSureText}>
             {text ?? "Esti sigur ca doresti sa continui?"}
           </p>
-          <div className="areYouSureButtons">
-            <PrimaryButton className="noButton">
+          <div className={styles.areYouSureButtons}>
+            <PrimaryButton className={styles.noButton}>
               {noMessage ?? "Nu"}
             </PrimaryButton>
-            <PrimaryButton className="yesButton">
+            <PrimaryButton className={styles.yesButton}>
               {yesMessage ?? "Da"}
             </PrimaryButton>
           </div>
