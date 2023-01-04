@@ -40,7 +40,7 @@ export const AreYouSureModal: FC<IAreYouSure> = ({
           </p>
           <div className={styles.areYouSureButtons}>
             <PrimaryButton className={styles.noButton}>
-              {noMessage ?? "Nu"}
+              {noMessage ?? "Anuleaza"}
             </PrimaryButton>
             <PrimaryButton className={styles.yesButton}>
               {yesMessage ?? "Da"}
