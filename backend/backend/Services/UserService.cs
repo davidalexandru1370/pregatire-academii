@@ -79,7 +79,7 @@ namespace backend.Services
 
         public async Task<AuthResult> Register(User user)
         {
-            User existingUser;
+            User? existingUser;
 
             try
             {
@@ -126,7 +126,7 @@ namespace backend.Services
             }
             catch (RepositoryException repositoryException)
             {
-                badResult.errors.Add(repositoryException.StackTrace);
+                badResult.errors.Add(repositoryException.StackTrace!);
             }
 
             return badResult;

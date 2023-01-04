@@ -22,9 +22,9 @@ namespace backend.Repository
             {
                 await _dbContext.Room.AddAsync(room);
             }
-            catch (Exception dbException)
+            catch (Exception exception)
             {
-
+                throw new RepositoryException(exception.Message);
             }
 
             await _dbContext.SaveChangesAsync();
@@ -50,7 +50,7 @@ namespace backend.Repository
             }
             catch (Exception dbException)
             {
-                throw new RepositoryException(dbException.InnerException.Message);
+                throw new RepositoryException(dbException.InnerException!.Message);
             }
 
             await _dbContext.SaveChangesAsync();

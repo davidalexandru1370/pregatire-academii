@@ -4,7 +4,7 @@ export interface IAuthentificationContext {
   isAuthentificated: boolean;
   setIsAuthentificated: (newIsAuthentificated: boolean) => void;
 }
-
+  
 export const AuthentificationContext = createContext<IAuthentificationContext>({
   isAuthentificated: false,
   setIsAuthentificated: () => null,

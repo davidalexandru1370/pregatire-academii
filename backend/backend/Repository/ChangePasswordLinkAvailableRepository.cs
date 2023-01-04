@@ -21,7 +21,7 @@ namespace backend.Repository
             {
                 _entitiesDbContext.ChangePasswordLinkAvailables.Add(entity);
             }
-            catch (Exception dbException)
+            catch (Exception)
             {
                 throw;
             }

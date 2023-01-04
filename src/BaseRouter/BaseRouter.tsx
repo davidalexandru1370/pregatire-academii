@@ -13,7 +13,6 @@ const BaseRouter = () => {
   const { isAuthentificated, setIsAuthentificated } = useContext(
     AuthentificationContext
   );
-  console.log(isAuthentificated);
 
   return (
     <div>

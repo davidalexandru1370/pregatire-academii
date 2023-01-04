@@ -167,13 +167,13 @@ function App() {
           }
         />
         <Route
-          path="teste"
+          path="/teste"
           element={
             <ProtectedRoute page={<Teste />} redirectPage={"/authentificate"} />
           }
         />
         <Route
-          path="playquiz/:quizId"
+          path="/playquiz/:quizId"
           element={
             <ProtectedRoute
               page={<PlayQuizPage />}

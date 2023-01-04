@@ -1,27 +1,29 @@
-import "./Teste.scss";
-import DropDown from "../../Components/DropDown/DropDown";
-import constants from "../../Constants/constants.json";
-import TestCard from "../../Components/TestCard/TestCard";
-import { useEffect, useReducer, useState } from "react";
-import ButtonWithDropDown from "../../Components/ButtonWithDropDown/ButtonWithDropDown";
-import { useGetPageQuizzesQuery } from "../../GraphQL/generated/graphql";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { startRoom } from "../../api/RoomAPI";
+import ButtonWithDropDown from "../../Components/ButtonWithDropDown/ButtonWithDropDown";
+import DropDown from "../../Components/DropDown/DropDown";
 import LoadingCircle from "../../Components/LoadingCircle/LoadingCircle";
-import { Quiz } from "../../Models/Quiz";
 import { PageList } from "../../Components/PageList/PageList";
+import TestCard from "../../Components/TestCard/TestCard";
+import constants from "../../Constants/constants.json";
+import { useGetPageQuizzesQuery } from "../../GraphQL/generated/graphql";
+import { Quiz } from "../../Models/Quiz";
+import { Room } from "../../Models/Room";
+import "./Teste.scss";
 export const Teste = () => {
   const maximumNumberOfQuizzesOnPage: number = 12;
   const [skip, setSkip] = useState<number>(0);
   const [take, setTake] = useState<number>(maximumNumberOfQuizzesOnPage);
-
+  const navigate = useNavigate();
+  const [isLeftMenuVisible, setIsLeftMenuVisible] = useState<boolean>(true);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [totalCount, setTotalCount] = useState<number>(0);
   const { loading, error, data } = useGetPageQuizzesQuery({
     variables: { skip: skip, take: take },
   });
 
-  const [isLeftMenuVisible, setIsLeftMenuVisible] = useState<boolean>(true);
-  const [currentPage, setCurrentPage] = useState<number>(1);
-  const [totalCount, setTotalCount] = useState<number>(0);
-  const [_, forceRerender] = useReducer((x) => x + 1, 0);
   useEffect(() => {
     if (!!error) {
       toast("Chestionarele nu au putut fi incarcate!", {
@@ -94,7 +96,26 @@ export const Teste = () => {
                   data.quizzes &&
                   data.quizzes.items &&
                   data.quizzes.items!.map((quiz: Quiz) => {
-                    return <TestCard quiz={quiz} />;
+                    return (
+                      <TestCard
+                        quiz={quiz}
+                        onClick={async () => {
+                          try {
+                            const room: Room = (await startRoom(
+                              quiz.id
+                            )) as Room;
+                            navigate(`/playquiz/${room.roomId}`, {
+                              replace: true,
+                              state: room,
+                            });
+                          } catch (error) {
+                            toast((error as Error).message, {
+                              type: "error",
+                            });
+                          }
+                        }}
+                      />
+                    );
                   })}
               </div>
             )}
@@ -127,7 +148,6 @@ export const Teste = () => {
                       1) ||
                     0)
                 ) {
-                  console.log(skip);
                   if (skip + maximumNumberOfQuizzesOnPage <= totalCount) {
                     setSkip(skip + maximumNumberOfQuizzesOnPage);
                   }
@@ -136,7 +156,6 @@ export const Teste = () => {
               }}
               onPreviousPageClick={() => {
                 if (currentPage > 1) {
-                  console.log(skip);
                   if (skip >= maximumNumberOfQuizzesOnPage) {
                     setSkip(skip - maximumNumberOfQuizzesOnPage);
                   }

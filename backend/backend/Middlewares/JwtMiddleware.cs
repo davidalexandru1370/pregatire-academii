@@ -15,7 +15,7 @@ namespace backend.Middlewares
     public class JwtMiddleware
     {
         private readonly RequestDelegate _next;
-        private readonly List<string> MiddlewareFor = new List<string> { "mainpage", "authorize" };
+        private readonly List<string> MiddlewareFor = new List<string> { "mainpage", "authorize","start-room" };
 
         public JwtMiddleware(RequestDelegate next)
         {
@@ -75,6 +75,8 @@ namespace backend.Middlewares
 
                 var userIdStoredInToken = Guid.Parse(_jwtUtils.GetFieldFromToken(accessToken, "Id"));
                 var tokenIssuedDate = Utilities.Utilities.ConvertFromUnixTimeStamp(Int32.Parse(_jwtUtils.GetFieldFromToken(accessToken, "iat")));
+
+                httpContext.Items["userId"] = userIdStoredInToken;
 
                 if (userId is null)
                 {

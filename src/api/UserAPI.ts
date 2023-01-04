@@ -1,30 +1,7 @@
 import { Exception } from "sass";
 import { User } from "../Models/User";
-//@ts-ignore
-import { baseUrl, UserEndpoints as Endpoints } from "./Constants.ts";
-
-enum Methods {
-  POST = "POST",
-  PUT = "PUT",
-  DELETE = "DELETE",
-  GET = "GET",
-  PATCH = "PATCH",
-}
-
-const createHeader = (method: Methods, entity?: any) => {
-  let headerOptions: RequestInit = {
-    method: `${method}`,
-    mode: "cors",
-    headers: {
-      Accept: "application/json",
-      "Content-type": "application/json",
-      "Access-Control-Allow-Origin": "*",
-    },
-    body: JSON.stringify(entity),
-    credentials: "include",
-  };
-  return headerOptions;
-};
+import { createHeader } from "../Utilities/Helpers";
+import { baseUrl, UserEndpoints as Endpoints, Methods } from "./Constants";
 
 export const AuthorizeUser = async () => {
   let url = baseUrl + Endpoints.Authorize;

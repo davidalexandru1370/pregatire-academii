@@ -14,14 +14,11 @@ namespace backend.Model
 
         public EntitiesDbContext(DbContextOptions<EntitiesDbContext> options) : base(options)
         {
-
+            
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Room>()
-                .HasIndex(r => r.UserId)
-                .IsUnique();
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder){
+            optionsBuilder.UseNpgsql(@"Host=localhost;Username=postgres;Password=postgres;Database=Academii");
         }
     }
 }

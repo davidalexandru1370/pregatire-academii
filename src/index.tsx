@@ -1,10 +1,15 @@
-import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
+import {
+  ApolloClient,
+  ApolloProvider,
+  InMemoryCache,
+  NormalizedCacheObject,
+} from "@apollo/client";
 import React from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { injectStyle } from "react-toastify/dist/inject-style";
-import { baseUrl as quizBaseUrl } from "./api/QuizAPI";
+import { quizController as quizBaseUrl } from "./api/Constants";
 import App from "./App";
 import { AuthentificationContextProvider } from "./Context/AuthentificationContext";
 import "./index.css";
@@ -14,7 +19,7 @@ const root = createRoot(container!);
 
 injectStyle();
 
-const client = new ApolloClient({
+const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
   uri: quizBaseUrl,
   cache: new InMemoryCache(),
 });

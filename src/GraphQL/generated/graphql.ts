@@ -2,6 +2,7 @@
 import { TypedDocumentNode as DocumentNode } from "@graphql-typed-document-node/core";
 import { gql } from "@apollo/client";
 import * as Apollo from "@apollo/client";
+import { Answer as AnswerModel } from "../../Models/Answer";
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = {
@@ -125,7 +126,7 @@ export type QueryQuizzesArgs = {
 
 export type Question = {
   __typename?: "Question";
-  answers?: Maybe<Array<Answer>>;
+  answers: Array<Answer>
   id: Scalars["UUID"];
   quiz?: Maybe<Quiz>;
   text: Scalars["String"];
@@ -142,7 +143,7 @@ export type QuestionFilterInput = {
 
 export type Quiz = {
   __typename?: "Quiz";
-  category: Category;
+  category?: Maybe<Category>;
   id: Scalars["UUID"];
   question?: Maybe<Array<Question>>;
   subject: Scalars["String"];
@@ -195,7 +196,7 @@ export type GetPageQuizzesQuery = {
     items?: Array<{
       __typename?: "Quiz";
       id: any;
-      category: Category;
+      category: Category & undefined;
       year: number;
       subject: string;
     }> | null;
