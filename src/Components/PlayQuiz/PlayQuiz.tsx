@@ -2,6 +2,7 @@ import { FC, useMemo, useReducer } from "react";
 import { GetQuizQuery } from "../../GraphQL/useGetQuiz";
 import { Answer } from "../../Models/Answer";
 import { Question as ModelQuestion } from "../../Models/Question";
+import { AreYouSureModal } from "../AreYouSureModal/AreYouSureModal";
 import { PrimaryButton } from "../PrimaryButton/PrimaryButton";
 import "./PlayQuiz.scss";
 
@@ -46,7 +47,6 @@ function handlerQuizReducer(state: IState, action: Action): IState {
       };
     }
   }
-  return state;
 }
 
 export const PlayQuiz: FC<IPlayQuiz> = ({ quiz }): JSX.Element => {
@@ -62,6 +62,11 @@ export const PlayQuiz: FC<IPlayQuiz> = ({ quiz }): JSX.Element => {
 
   return (
     <div className="quizContent">
+      <AreYouSureModal
+        visibility={true}
+        onCancelClick={() => {}}
+        onYesClick={() => {}}
+      />
       <div className="quizContainer">
         <div className="questionContainer">
           <p className="questionText">{state.selectedQuestion.text}</p>

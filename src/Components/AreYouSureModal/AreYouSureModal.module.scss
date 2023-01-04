@@ -1,0 +1,61 @@
+.areYouSureContainer {
+  padding: 1rem;
+  width: 40%;
+  height: 50%;
+  right: 30%;
+  left: 30%;
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  min-height: 300px;
+  background-image: linear-gradient(to bottom right, #0097b9, #8769ae);
+}
+
+.areYouSureWrapper {
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0.9);
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+}
+
+.areYouSureText {
+  text-align: center;
+  font-size: xx-large;
+}
+
+.checkIcon {
+  text-align: center;
+  font-size: 84px;
+  position: relative;
+  color: greenyellow;
+}
+
+.yesButton {
+  background-color: rgb(95, 211, 60);
+  border: 0px;
+}
+
+.yesButton:hover {
+  background-color: rgb(127, 214, 101);
+}
+
+.noButton {
+  background-color: rgb(197, 26, 63);
+  border: 0px;
+}
+
+.noButton:hover {
+  background-color: rgb(211, 35, 73);
+}
+
+.areYouSureButtons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}

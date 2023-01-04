@@ -1,14 +1,9 @@
 import { useEffect, useRef, useState } from "react";
-//@ts-ignore
-import ReactPortal from "../ReactPortal/ReactPortal.ts";
+import ReactPortal from "../ReactPortal/ReactPortal";
 import "./forgotPasswordModal.scss";
-//@ts-ignore
-import { ForgotPassword as handleForgotPassword } from "../../api/UserAPI.ts";
-//@ts-ignore
-import LoadingCircle from "../LoadingCircle/LoadingCircle.tsx";
-//@ts-ignore
-import ButtonWithLoading from "../ButtonWithLoading/ButtonWithLoading.tsx";
+import { ForgotPassword as handleForgotPassword } from "../../api/UserAPI";
 import { toast } from "react-toastify";
+import ButtonWithLoading from "../ButtonWithLoading/ButtonWithLoading";
 interface IModal {
   isOpen: boolean;
   onClose?: () => void;
