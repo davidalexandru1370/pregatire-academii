@@ -65,9 +65,12 @@ export const PlayQuiz: FC<IPlayQuiz> = ({ quiz }): JSX.Element => {
     <div className="quizContent">
       {showModal && (
         <AreYouSureModal
-          visibility={true}
+          visibility={showModal}
           onCancelClick={() => {}}
           yesMessage="Trimite"
+          onClose={() => {
+            setShowModal(false);
+          }}
           onYesClick={() => {}}
         />
       )}
