@@ -67,7 +67,11 @@ export const AreYouSureModal: FC<IAreYouSure> = ({
         className={styles.areYouSureWrapper}
         style={{ display: `${show === true ? "flex" : "none"}` }}
       >
-        <div className={styles.areYouSureContainer} ref={wrapperRef}>
+        <div
+          className={styles.areYouSureContainer}
+          ref={wrapperRef}
+          style={style}
+        >
           <span
             className={`material-symbols-outlined ${styles.closeIcon}`}
             onClick={onClose}
@@ -81,10 +85,10 @@ export const AreYouSureModal: FC<IAreYouSure> = ({
             {text ?? "Esti sigur ca doresti sa continui?"}
           </p>
           <div className={styles.areYouSureButtons}>
-            <PrimaryButton className={styles.noButton}>
+            <PrimaryButton className={styles.noButton} onClick={onCancelClick}>
               {noMessage ?? "Anuleaza"}
             </PrimaryButton>
-            <PrimaryButton className={styles.yesButton}>
+            <PrimaryButton className={styles.yesButton} onClick={onYesClick}>
               {yesMessage ?? "Da"}
             </PrimaryButton>
           </div>
