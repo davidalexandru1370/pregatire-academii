@@ -12,6 +12,6 @@ namespace backend.Model
         [ForeignKey("QuestionId")]
         public Question Question { get; set; }
         public string Text { get; set; }
-        public bool IsCorrect { get; set; }
+        public bool? IsCorrect { get; set; }
     }
 }

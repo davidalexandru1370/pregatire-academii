@@ -8,12 +8,14 @@ from uuid6 import uuid6
 from Utilitites import *
 import psycopg2
 import psycopg2.extras
+import tabula
+pdfname = "/home/david/Desktop/pregatire-academii/subjects/politie/2020/Subiecte-Politie-2020.pdf"
+pdffileobject = open(pdfname, 'rb')
 
-pdfName = "/home/david/Desktop/pregatire-academii/subjects/politie/2021/Subiecte-Politie-2021.pdf"
-pdfFileObject = open(pdfName, 'rb')
+pdfReader = PyPDF2.PdfReader(pdffileobject)
+#f = open("pdfwrite.txt", "w", 2, encoding='utf8')
 
-pdfReader = PyPDF2.PdfReader(pdfFileObject)
-f = open("pdfwrite.txt", "w", 2, encoding='utf8')
+
 
 loop = asyncio.get_event_loop()
 
@@ -83,8 +85,20 @@ def main():
             parts.clear()
         connection.close()
 
+def parseBarem():
+    pdf_name = "/home/david/Desktop/pregatire-academii/subjects/politie/2021/Grile-Politie-2021.pdf"
+    pdf_file_object = open(pdf_name, 'rb')
+    pdf_reader = PyPDF2.PdfReader(pdf_file_object)
+    pageObj = pdf_reader.pages[0]
+    pageObj.extract_text(visitor_text=visitor_body)
+    text=formatText("".join(parts))
+    table = tabula.read_pdf(pdf_name,pages=1,multiple_tables=True)
+    print(table)
+    #print(text)
+  
 
 if __name__ == "__main__":
-    main()
+    parseBarem()
+    #main()
 
-f.close()
+#f.close()

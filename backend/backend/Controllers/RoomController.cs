@@ -44,5 +44,9 @@ namespace backend.Controllers
                 return BadRequest(repositoryException.Message);
             }
         }
+
+        public async Task<int> EvaluateQuiz([FromBody]Answer[] answers){
+            return 0;
+        }
     }
 }

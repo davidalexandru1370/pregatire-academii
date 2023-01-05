@@ -2,6 +2,7 @@ import { FC, useMemo, useReducer, useState } from "react";
 import { GetQuizQuery } from "../../GraphQL/useGetQuiz";
 import { Answer } from "../../Models/Answer";
 import { Question as ModelQuestion } from "../../Models/Question";
+import { Quiz } from "../../Models/Quiz";
 import { AreYouSureModal } from "../AreYouSureModal/AreYouSureModal";
 import { PrimaryButton } from "../PrimaryButton/PrimaryButton";
 import "./PlayQuiz.scss";
@@ -25,6 +26,8 @@ interface Action {
   type: QuizActionTypeEnum;
   payload?: Partial<IState>;
 }
+
+function handleSendQuizWithAnswers(answers: Answer[]) {}
 
 function handlerQuizReducer(state: IState, action: Action): IState {
   switch (action.type) {
@@ -66,7 +69,9 @@ export const PlayQuiz: FC<IPlayQuiz> = ({ quiz }): JSX.Element => {
       {showModal && (
         <AreYouSureModal
           visibility={showModal}
-          onCancelClick={() => {}}
+          onCancelClick={() => {
+            setShowModal(false);
+          }}
           yesMessage="Trimite"
           onClose={() => {
             setShowModal(false);
