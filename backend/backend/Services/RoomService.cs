@@ -47,7 +47,6 @@ namespace backend.Services
 
             try
             {
-
                 await _roomRepository.Add(room);
             }
             catch (RepositoryException)
@@ -58,13 +57,23 @@ namespace backend.Services
             return room;
         }
 
-        public async Task<Answer[]> EvaluateQuiz(Answer[] answers)
+        public Task<IEnumerable<Answer>> EvaluateQuiz(IEnumerable<Answer> answers)
         {
-            return Task.FromResult(answers.Select(async (answer) =>
+            int totalScore = 0;
+            var answersWithCorrectField = ((Task<IEnumerable<Answer>>)answers.Select(async (answer) =>
             {
-                return answer.IsCorrect = (await _answerRepository.GetAnswerById(answer.Id)).IsCorrect;
+                var query = await _answerRepository.GetAnswerById(answer.Id);
+                totalScore += query.IsCorrect is true ? 10 : 0;
+                return query;
             }));
+
+            return answersWithCorrectField;
         }
+
+        // private Task addEvaluatedQuizToUser(Guid userId, int score)
+        // {
+
+        // }
 
         public Task<Quiz> GetActiveUserQuiz(Guid userId)
         {
