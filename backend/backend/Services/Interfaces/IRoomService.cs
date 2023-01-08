@@ -9,5 +9,7 @@ namespace backend.Services.Interfaces
         public Task<Quiz> GetActiveUserQuiz(Guid userId);
 
         public Task UpdateQuiz(Guid userId, Quiz newQuiz);
+
+        public Task<Answer[]> EvaluateQuiz(Answer[] answers);
     }
 }

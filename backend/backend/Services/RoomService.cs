@@ -11,13 +11,19 @@ namespace backend.Services
         IUserRepository _userRepository;
         IRoomRepository _roomRepository;
         IQuizRepository _quizRepository;
+        IAnswerRepository _answerRepository;
 
 
-        public RoomService(IUserRepository userRepository, IRoomRepository roomRepository, IQuizRepository quizRepository)
+        public RoomService(
+            IUserRepository userRepository,
+            IRoomRepository roomRepository,
+            IQuizRepository quizRepository,
+            IAnswerRepository answerRepository)
         {
             _userRepository = userRepository;
             _roomRepository = roomRepository;
             _quizRepository = quizRepository;
+            _answerRepository = answerRepository;
         }
 
         public async Task<Room> AddRoom(Guid userId, Guid quizId)
@@ -41,7 +47,7 @@ namespace backend.Services
 
             try
             {
-                
+
                 await _roomRepository.Add(room);
             }
             catch (RepositoryException)
@@ -50,6 +56,14 @@ namespace backend.Services
             }
 
             return room;
+        }
+
+        public async Task<Answer[]> EvaluateQuiz(Answer[] answers)
+        {
+            return Task.FromResult(answers.Select(async (answer) =>
+            {
+                return answer.IsCorrect = (await _answerRepository.GetAnswerById(answer.Id)).IsCorrect;
+            }));
         }
 
         public Task<Quiz> GetActiveUserQuiz(Guid userId)

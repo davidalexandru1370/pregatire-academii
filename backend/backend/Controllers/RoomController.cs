@@ -45,8 +45,14 @@ namespace backend.Controllers
             }
         }
 
-        public async Task<int> EvaluateQuiz([FromBody]Answer[] answers){
-            return 0;
+        public async Task<ActionResult<Answer[]>> EvaluateQuiz([FromBody]Answer[] answers){
+            try{
+                Answer[] answersWithResults = await _roomService.EvaluateQuiz(answers);
+                return Ok(answersWithResults);
+            }
+            catch(RepositoryException repositoryException){
+                return BadRequest(repositoryException.Message);
+            }
         }
     }
 }
