@@ -1,4 +1,5 @@
-﻿using backend.Model;
+﻿using backend.Exceptions;
+using backend.Model;
 using backend.Repository;
 using backend.Services.Interfaces;
 using HotChocolate.Language;
@@ -12,18 +13,20 @@ namespace backend.Services
         IRoomRepository _roomRepository;
         IQuizRepository _quizRepository;
         IAnswerRepository _answerRepository;
-
+        IQuizStatisticsRepository _quizStatisticsRepository;
 
         public RoomService(
             IUserRepository userRepository,
             IRoomRepository roomRepository,
             IQuizRepository quizRepository,
-            IAnswerRepository answerRepository)
+            IAnswerRepository answerRepository,
+            IQuizStatisticsRepository quizStatisticsRepository)
         {
             _userRepository = userRepository;
             _roomRepository = roomRepository;
             _quizRepository = quizRepository;
             _answerRepository = answerRepository;
+            _quizStatisticsRepository = quizStatisticsRepository;
         }
 
         public async Task<Room> AddRoom(Guid userId, Guid quizId)
@@ -70,10 +73,22 @@ namespace backend.Services
             return answersWithCorrectField;
         }
 
-        // private Task addEvaluatedQuizToUser(Guid userId, int score)
-        // {
-
-        // }
+        public async Task addEvaluatedQuizToUser(Guid userId, Guid quizId, int score)
+        {
+            try
+            {
+                await _quizStatisticsRepository.AddSample(new QuizStatistics
+                {
+                    QuizId = quizId,
+                    UserId = userId,
+                    Score = score,
+                });
+            }
+            catch (Exception exception)
+            {
+                throw new InvalidEntityException(exception.Message);
+            }
+        }
 
         public Task<Quiz> GetActiveUserQuiz(Guid userId)
         {

@@ -10,6 +10,8 @@ namespace backend.Services.Interfaces
 
         public Task UpdateQuiz(Guid userId, Quiz newQuiz);
 
+        public Task addEvaluatedQuizToUser(Guid userId, Guid quizId, int score);
+
         public Task<IEnumerable<Answer>> EvaluateQuiz(IEnumerable<Answer> answers);
     }
 }
