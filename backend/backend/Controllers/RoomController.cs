@@ -45,14 +45,14 @@ namespace backend.Controllers
             }
         }
 
-        public async Task<ActionResult<Answer[]>> EvaluateQuiz([FromBody] QuizResponseDTO quiz)
+        public async Task<ActionResult<QuizResponseDTO>> EvaluateQuiz([FromBody] QuizResponseDTO quiz)
         {
             try
             {
-                IEnumerable<Answer> answersWithResults = await _roomService.EvaluateQuiz(quiz.Answers);
+                int score = _roomService.EvaluateQuiz(quiz.Answers).Result;
                 Guid userId = (Guid)HttpContext.Items["userId"]!;
                 await _roomService.AddEvaluatedQuizToUser(userId, quiz.Id, quiz.Score ?? 0);
-                return Ok(answersWithResults);
+                return Ok(quiz);
             }
             catch (RepositoryException repositoryException)
             {

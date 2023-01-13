@@ -60,20 +60,20 @@ namespace backend.Services
             return room;
         }
 
-        public Task<IEnumerable<Answer>> EvaluateQuiz(IEnumerable<Answer> answers)
+        public Task<int> EvaluateQuiz(IEnumerable<Answer> answers)
         {
             int totalScore = 0;
             const int correctAnswerScore = 10;
             const int wrongAnswerScore = 0;
 
-            var answersWithCorrectField = ((Task<IEnumerable<Answer>>)answers.Select(async (answer) =>
+            answers.Select(async (answer) =>
             {
                 var query = await _answerRepository.GetAnswerById(answer.Id);
                 totalScore += query.IsCorrect is true ? correctAnswerScore : wrongAnswerScore;
                 return query;
-            }));
+            });
 
-            return answersWithCorrectField;
+            return Task.FromResult(totalScore);
         }
 
         public async Task AddEvaluatedQuizToUser(Guid userId, Guid quizId, int score = 0)
