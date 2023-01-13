@@ -12,6 +12,11 @@ namespace backend.Services
             _quizRepository = quizRepository;
         }
 
+        public Task<IEnumerable<Answer>> GetCorrectAnswersOfQuiz(Guid quizId)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<Quiz> GetQuizById(Guid quizId)
         {
             return await _quizRepository.GetQuizById(quizId);
