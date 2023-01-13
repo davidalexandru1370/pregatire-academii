@@ -1,8 +1,9 @@
 namespace backend.Model
 {
-    public class QuizDTO
+    public class QuizResponseDTO
     {
         public Guid Id { get; set; }
-        public IEnumerable<Question> Questions { get; set; }
+        public IEnumerable<Answer> Answers { get; set; }
+        public int? Score = 0;
     }
 }

@@ -63,17 +63,20 @@ namespace backend.Services
         public Task<IEnumerable<Answer>> EvaluateQuiz(IEnumerable<Answer> answers)
         {
             int totalScore = 0;
+            const int correctAnswerScore = 10;
+            const int wrongAnswerScore = 0;
+
             var answersWithCorrectField = ((Task<IEnumerable<Answer>>)answers.Select(async (answer) =>
             {
                 var query = await _answerRepository.GetAnswerById(answer.Id);
-                totalScore += query.IsCorrect is true ? 10 : 0;
+                totalScore += query.IsCorrect is true ? correctAnswerScore : wrongAnswerScore;
                 return query;
             }));
 
             return answersWithCorrectField;
         }
 
-        public async Task addEvaluatedQuizToUser(Guid userId, Guid quizId, int score)
+        public async Task AddEvaluatedQuizToUser(Guid userId, Guid quizId, int score = 0)
         {
             try
             {
