@@ -32,6 +32,8 @@ builder.Services.AddScoped<IRoomRepository, RoomRepository>();
 builder.Services.AddScoped<IQuizStatisticsRepository, QuizStatisticsRepository>();
 builder.Services.AddScoped<IAnswerRepository, AnswerRepository>();
 builder.Services.AddScoped<IRoomService, RoomService>();
+builder.Services.AddScoped<IQuizService, QuizService>();
+builder.Services.AddScoped<IAnswerRepository, AnswerRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ICookieUtilities, CookieUtilities>();
 builder.Services.AddScoped<IQuizRepository, QuizRepository>();

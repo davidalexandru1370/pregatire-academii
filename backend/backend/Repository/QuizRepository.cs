@@ -19,6 +19,22 @@ namespace backend.Repository
             return await Task.FromResult(quizzes);
         }
 
+        /*
+        SELECT A.id FROM Answers A
+        inner join Question Q on Q.id = A.questionId
+        inner join Quiz U on U.id = Q.quizId
+        where U.id = @quizId
+        */
+
+        public async Task<IEnumerable<Answer>> GetCorrectAnswersOfQuiz(Guid quizId)
+        {
+            var quiz = await GetQuizById(quizId);
+
+            var answers = quiz.Question.Select(q => q.Answers.ToList()) as IEnumerable<Answer>;
+
+            return answers;
+        }
+
         public async Task<Quiz> GetQuizById(Guid quizId)
         {
             var quiz = await _entitiesDbContext.Quiz.FirstOrDefaultAsync(q => q.Id == quizId);
@@ -30,5 +46,6 @@ namespace backend.Repository
 
             return quiz;
         }
+
     }
 }

@@ -14,12 +14,15 @@ namespace backend.Services
 
         public Task<IEnumerable<Answer>> GetCorrectAnswersOfQuiz(Guid quizId)
         {
-            throw new NotImplementedException();
+            return _quizRepository.GetCorrectAnswersOfQuiz(quizId);
         }
 
         public async Task<Quiz> GetQuizById(Guid quizId)
         {
             return await _quizRepository.GetQuizById(quizId);
         }
+
+
+
     }
 }
