@@ -55,7 +55,7 @@ namespace backend.Controllers
                 int score = _roomService.EvaluateQuiz(quiz.Answers).Result;
                 Guid userId = (Guid)HttpContext.Items["userId"]!;
                 await _roomService.AddEvaluatedQuizToUser(userId, quiz.Id, quiz.Score ?? 0);
-                quiz.Answers = _quizService.GetCorrectAnswersOfQuiz(quiz.Id);
+                quiz.Answers = await _quizService.GetCorrectAnswersOfQuiz(quiz.Id);
                 return Ok(quiz);
             }
             catch (RepositoryException repositoryException)

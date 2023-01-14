@@ -30,9 +30,9 @@ namespace backend.Repository
         {
             var quiz = await GetQuizById(quizId);
 
-            var answers = quiz.Question.Select(q => q.Answers.ToList()) as IEnumerable<Answer>;
+            var answers = quiz.Question!.Select(q => q.Answers!.ToList()) as IEnumerable<Answer>;
 
-            return answers;
+            return answers!;
         }
 
         public async Task<Quiz> GetQuizById(Guid quizId)
