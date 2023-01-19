@@ -24,6 +24,7 @@ interface UserEndpoint {
 
 interface RoomEndpoint {
   StartRoom: string;
+  EvaluateQuiz: string;
 }
 
 export const UserEndpoints: UserEndpoint = {
@@ -38,4 +39,5 @@ export const UserEndpoints: UserEndpoint = {
 
 export const RoomEndpoints: RoomEndpoint = {
   StartRoom: roomController + "start-room",
+  EvaluateQuiz: roomController + "evaluate-quiz",
 };

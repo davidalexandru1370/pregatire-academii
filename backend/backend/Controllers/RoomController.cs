@@ -48,11 +48,12 @@ namespace backend.Controllers
             }
         }
 
+        [HttpPost("evaluate-quiz")]
         public async Task<ActionResult<QuizResponseDTO>> EvaluateQuiz([FromBody] QuizResponseDTO quiz)
         {
             try
             {
-                int score = _roomService.EvaluateQuiz(quiz.Answers).Result;
+                quiz.Score = _roomService.EvaluateQuiz(quiz.Answers).Result;
                 Guid userId = (Guid)HttpContext.Items["userId"]!;
                 await _roomService.AddEvaluatedQuizToUser(userId, quiz.Id, quiz.Score ?? 0);
                 quiz.Answers = await _quizService.GetCorrectAnswersOfQuiz(quiz.Id);
