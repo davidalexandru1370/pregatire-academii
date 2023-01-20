@@ -14,7 +14,7 @@ interface IPlayQuiz {
 interface IState {
   selectedQuestion: ModelQuestion;
   selectedQuestionIndex: number;
-  answeredQuestions: Map<string, string>;
+  answeredQuestions: Map<string, Answer>;
 }
 
 enum QuizActionTypeEnum {
@@ -59,7 +59,8 @@ function handlerQuizReducer(state: IState, action: Action): IState {
 
 export const PlayQuiz: FC<IPlayQuiz> = ({ quiz }): JSX.Element => {
   const initialState: IState = {
-    answeredQuestions: new Map<string, string>(),
+    // key - question id value - answer id
+    answeredQuestions: new Map<string, Answer>(),
     selectedQuestion: quiz?.quizzes?.items[0]!.question[0]!,
     selectedQuestionIndex: 1,
   };
@@ -70,7 +71,6 @@ export const PlayQuiz: FC<IPlayQuiz> = ({ quiz }): JSX.Element => {
 
   const [state, dispatch] = useReducer(handlerQuizReducer, initialState);
   const [showModal, setShowModal] = useState<boolean>(false);
-  const quizAnswers = useRef<Answer[]>([]);
 
   return (
     <div className="quizContent">
@@ -87,7 +87,7 @@ export const PlayQuiz: FC<IPlayQuiz> = ({ quiz }): JSX.Element => {
           onYesClick={async () => {
             await handleSendQuizWithAnswers(
               quiz.quizzes?.items[0]?.id,
-              quizAnswers.current
+              Array.from(initialState.answeredQuestions.values())
             );
           }}
         />
@@ -98,7 +98,6 @@ export const PlayQuiz: FC<IPlayQuiz> = ({ quiz }): JSX.Element => {
           <div className="answersContainer">
             {state.selectedQuestion.answers.map(
               (answer: Answer, index: number) => {
-                quizAnswers.current.push(answer);
                 return (
                   <div
                     key={answer.id}
@@ -109,7 +108,7 @@ export const PlayQuiz: FC<IPlayQuiz> = ({ quiz }): JSX.Element => {
                         payload: {
                           answeredQuestions: new Map().set(
                             state.selectedQuestion.id,
-                            answer.id
+                            answer
                           ),
                         },
                       });
@@ -121,9 +120,8 @@ export const PlayQuiz: FC<IPlayQuiz> = ({ quiz }): JSX.Element => {
                       id={answer.id}
                       name={`answer-${state.selectedQuestion.id}}`}
                       checked={
-                        state.answeredQuestions.get(
-                          state.selectedQuestion.id
-                        ) === answer.id
+                        state.answeredQuestions.get(state.selectedQuestion.id)
+                          ?.id === answer.id
                       }
                     />
                     <label htmlFor={answer.id} className="answerText">

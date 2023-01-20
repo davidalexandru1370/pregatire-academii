@@ -60,7 +60,7 @@ namespace backend.Services
             return room;
         }
 
-        public Task<int> EvaluateQuiz(IEnumerable<Answer> answers)
+        public async Task<int> EvaluateQuiz(IEnumerable<Answer> answers)
         {
             int totalScore = 0;
             const int correctAnswerScore = 10;
@@ -73,7 +73,7 @@ namespace backend.Services
                 return query;
             });
 
-            return Task.FromResult(totalScore);
+            return totalScore;
         }
 
         public async Task AddEvaluatedQuizToUser(Guid userId, Guid quizId, int score = 0)

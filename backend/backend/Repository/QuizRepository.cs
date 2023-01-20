@@ -28,11 +28,16 @@ namespace backend.Repository
 
         public async Task<IEnumerable<Answer>> GetCorrectAnswersOfQuiz(Guid quizId)
         {
-            var quiz = await GetQuizById(quizId);
+            // var answers = await _entitiesDbContext.Set<Answer>().Include(q => q.Question)
+            //     .ThenInclude(q => q.Quiz.Id.CompareTo(quizId) == 0).FirstOrDefaultAsync() as IEnumerable<Answer>;
 
-            var answers = quiz.Question!.Select(q => q.Answers!.ToList()) as IEnumerable<Answer>;
-
-            return answers!;
+            var answers = (from q in _entitiesDbContext.Quiz where q.Id ==  quizId
+                    join b in _entitiesDbContext.Question on q.Id equals b.Quiz.Id
+                    join c in _entitiesDbContext.Answer on b.Id equals c.Question.Id
+                    select c
+                );
+            
+            return answers;
         }
 
         public async Task<Quiz> GetQuizById(Guid quizId)
