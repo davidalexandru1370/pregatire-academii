@@ -93,14 +93,5 @@ namespace backend.Services
             }
         }
 
-        public Task<Quiz> GetActiveUserQuiz(Guid userId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task UpdateQuiz(Guid userId, Quiz newQuiz)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

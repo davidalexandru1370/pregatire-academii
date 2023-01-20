@@ -28,6 +28,7 @@ export const AreYouSureModal: FC<IAreYouSure> = ({
   const wrapperId: string = "areYouSureWrapper";
   const [show, setShow] = useState<boolean>(visibility);
   const wrapperRef = useRef<HTMLDivElement>(null);
+  const [sendButtonClicked, setSendButtonClicked] = useState<boolean>(false);
 
   useEffect(() => {
     const handleClick = (event: any) => {
@@ -36,8 +37,6 @@ export const AreYouSureModal: FC<IAreYouSure> = ({
         !wrapperRef.current.contains(event.target) &&
         show === true
       ) {
-        console.log("aici");
-
         onClose();
         setShow(false);
       }
@@ -88,7 +87,14 @@ export const AreYouSureModal: FC<IAreYouSure> = ({
             <PrimaryButton className={styles.noButton} onClick={onCancelClick}>
               {noMessage ?? "Anuleaza"}
             </PrimaryButton>
-            <PrimaryButton className={styles.yesButton} onClick={onYesClick}>
+            <PrimaryButton
+              className={styles.yesButton}
+              onClick={() => {
+                setSendButtonClicked(true);
+                onYesClick && onYesClick();
+              }}
+              disabled={sendButtonClicked}
+            >
               {yesMessage ?? "Da"}
             </PrimaryButton>
           </div>

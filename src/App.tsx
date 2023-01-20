@@ -1,26 +1,19 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Nav, Navbar } from "react-bootstrap";
+import {Nav, Navbar} from "react-bootstrap";
 import "react-bootstrap-icons";
-import { ChevronDown, EmojiSmileUpsideDown } from "react-bootstrap-icons";
-import { NavLink as NLink, Route, Routes, useNavigate } from "react-router-dom";
+import {ChevronDown} from "react-bootstrap-icons";
+import {NavLink as NLink, Route, Routes, useNavigate} from "react-router-dom";
 import "./App.css";
-import {
-  connectionJandarmLogo,
-  connectionPolitistLogo,
-  connectionPompierLogo,
-} from "./Utilities/index.js";
+import {connectionJandarmLogo, connectionPolitistLogo, connectionPompierLogo,} from "./Utilities/index.js";
 import TextCard from "./Components/TextCard/TextCard.jsx";
 import MainPage from "./pages/MainPage/mainPage";
 import NotFound from "./pages/NotFound/NotFound";
-import Register from "./pages/Register/Register";
-import Login from "./pages/Login/Login";
-import { ProtectedRoute } from "./pages/Authorization/ProtectedRoute";
+import {ProtectedRoute} from "./pages/Authorization/ProtectedRoute";
 import BaseRouter from "./BaseRouter/BaseRouter";
-import { Teste } from "./pages/Teste/Teste";
+import {Teste} from "./pages/Teste/Teste";
 import Authentificate from "./pages/Authentification/Authentificate";
 import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
-import { PlayQuizPage } from "./pages/PlayQuizPage/PlayQuizPage";
-import { AuthentificationContextProvider } from "./Context/AuthentificationContext";
+import {PlayQuizPage} from "./pages/PlayQuizPage/PlayQuizPage";
 
 function App() {
   let navigation = useNavigate();

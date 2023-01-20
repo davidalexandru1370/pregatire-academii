@@ -51,6 +51,7 @@ namespace backend.Controllers
         [HttpPost("evaluate-quiz")]
         public async Task<ActionResult<QuizResponseDTO>> EvaluateQuiz([FromBody] QuizResponseDTO quiz)
         {
+            
             try
             {
                 quiz.Score = _roomService.EvaluateQuiz(quiz.Answers).Result;

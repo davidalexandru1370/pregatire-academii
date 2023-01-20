@@ -1,8 +1,8 @@
-import { FC, useMemo, useReducer, useState } from "react";
+import { FC, useMemo, useReducer, useRef, useState } from "react";
+import { evaluateQuiz } from "../../api/RoomAPI";
 import { GetQuizQuery } from "../../GraphQL/useGetQuiz";
 import { Answer } from "../../Models/Answer";
 import { Question as ModelQuestion } from "../../Models/Question";
-import { Quiz } from "../../Models/Quiz";
 import { AreYouSureModal } from "../AreYouSureModal/AreYouSureModal";
 import { PrimaryButton } from "../PrimaryButton/PrimaryButton";
 import "./PlayQuiz.scss";
@@ -27,7 +27,12 @@ interface Action {
   payload?: Partial<IState>;
 }
 
-function handleSendQuizWithAnswers(answers: Answer[]) {}
+async function handleSendQuizWithAnswers(quizId: string, answers: Answer[]) {
+  return await evaluateQuiz({
+    answers: answers,
+    id: quizId,
+  });
+}
 
 function handlerQuizReducer(state: IState, action: Action): IState {
   switch (action.type) {
@@ -58,11 +63,14 @@ export const PlayQuiz: FC<IPlayQuiz> = ({ quiz }): JSX.Element => {
     selectedQuestion: quiz?.quizzes?.items[0]!.question[0]!,
     selectedQuestionIndex: 1,
   };
+
   const numberOfQuestions = useMemo(() => {
     return quiz.quizzes?.items[0]?.question.length;
   }, [quiz]);
+
   const [state, dispatch] = useReducer(handlerQuizReducer, initialState);
   const [showModal, setShowModal] = useState<boolean>(false);
+  const quizAnswers = useRef<Answer[]>([]);
 
   return (
     <div className="quizContent">
@@ -76,7 +84,12 @@ export const PlayQuiz: FC<IPlayQuiz> = ({ quiz }): JSX.Element => {
           onClose={() => {
             setShowModal(false);
           }}
-          onYesClick={() => {}}
+          onYesClick={async () => {
+            await handleSendQuizWithAnswers(
+              quiz.quizzes?.items[0]?.id,
+              quizAnswers.current
+            );
+          }}
         />
       )}
       <div className="quizContainer">
@@ -85,9 +98,10 @@ export const PlayQuiz: FC<IPlayQuiz> = ({ quiz }): JSX.Element => {
           <div className="answersContainer">
             {state.selectedQuestion.answers.map(
               (answer: Answer, index: number) => {
+                quizAnswers.current.push(answer);
                 return (
                   <div
-                    key={Date.now.toString()}
+                    key={answer.id}
                     className="answerField"
                     onClick={() => {
                       dispatch({
@@ -172,7 +186,7 @@ export const PlayQuiz: FC<IPlayQuiz> = ({ quiz }): JSX.Element => {
           {quiz?.quizzes?.items[0]!.question.map((question, index) => {
             return (
               <p
-                key={Date.now.toString()}
+                key={question.id}
                 className="questionCard"
                 onClick={() => {
                   dispatch({
