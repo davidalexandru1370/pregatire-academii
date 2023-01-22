@@ -85,6 +85,7 @@ export const PlayQuiz: FC<IPlayQuiz> = ({ quiz }): JSX.Element => {
       {showModal && (
         <AreYouSureModal
           visibility={showModal}
+          afterYesMessageClicked="Se trimite..."
           onCancelClick={() => {
             setShowModal(false);
           }}

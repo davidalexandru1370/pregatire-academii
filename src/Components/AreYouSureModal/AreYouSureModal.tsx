@@ -10,6 +10,8 @@ interface IAreYouSure {
   text?: string;
   onClose: () => void;
   yesMessage?: string;
+  afterYesMessageClicked?: string;
+  afterNoMessageClicked?: string;
   noMessage?: string;
   visibility: boolean;
 }
@@ -21,6 +23,8 @@ export const AreYouSureModal: FC<IAreYouSure> = ({
   style,
   text,
   yesMessage,
+  afterYesMessageClicked,
+  afterNoMessageClicked,
   noMessage,
   onClose,
   visibility,
@@ -31,6 +35,9 @@ export const AreYouSureModal: FC<IAreYouSure> = ({
   const [sendButtonClicked, setSendButtonClicked] = useState<boolean>(false);
 
   useEffect(() => {
+    if (sendButtonClicked) {
+      return;
+    }
     const handleClick = (event: any) => {
       if (
         wrapperRef.current !== null &&
@@ -95,7 +102,9 @@ export const AreYouSureModal: FC<IAreYouSure> = ({
               }}
               disabled={sendButtonClicked}
             >
-              {yesMessage ?? "Da"}
+              {sendButtonClicked === false
+                ? yesMessage ?? "Da"
+                : afterYesMessageClicked}
             </PrimaryButton>
           </div>
         </div>

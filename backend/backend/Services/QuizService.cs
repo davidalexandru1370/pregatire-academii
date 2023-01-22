@@ -6,7 +6,7 @@ namespace backend.Services
     public class QuizService : IQuizService
     {
 
-        private IQuizRepository _quizRepository;
+        private readonly IQuizRepository _quizRepository;
         public QuizService(IQuizRepository quizRepository)
         {
             _quizRepository = quizRepository;
@@ -21,8 +21,5 @@ namespace backend.Services
         {
             return await _quizRepository.GetQuizById(quizId);
         }
-
-
-
     }
 }
