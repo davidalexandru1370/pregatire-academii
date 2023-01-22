@@ -34,7 +34,8 @@ namespace backend.Repository
             var answers = (from q in _entitiesDbContext.Quiz where q.Id ==  quizId
                     join b in _entitiesDbContext.Question on q.Id equals b.Quiz.Id
                     join c in _entitiesDbContext.Answer on b.Id equals c.Question.Id
-                    select c
+                    where c.IsCorrect == true
+                    select c 
                 );
             
             return answers;

@@ -15,11 +15,13 @@ interface IState {
   selectedQuestion: ModelQuestion;
   selectedQuestionIndex: number;
   answeredQuestions: Map<string, Answer>;
+  correctedAnswers?: Map<string, Answer>;
 }
 
 enum QuizActionTypeEnum {
   ChangeQuestion,
   ChangeAnswer,
+  EvaluateQuiz,
 }
 
 interface Action {
@@ -54,6 +56,11 @@ function handlerQuizReducer(state: IState, action: Action): IState {
         ]),
       };
     }
+    case QuizActionTypeEnum.EvaluateQuiz: {
+      return {
+        ...state,
+      };
+    }
   }
 }
 
@@ -71,6 +78,7 @@ export const PlayQuiz: FC<IPlayQuiz> = ({ quiz }): JSX.Element => {
 
   const [state, dispatch] = useReducer(handlerQuizReducer, initialState);
   const [showModal, setShowModal] = useState<boolean>(false);
+  const [disabled, setDisabled] = useState<boolean>(false);
 
   return (
     <div className="quizContent">
@@ -89,6 +97,7 @@ export const PlayQuiz: FC<IPlayQuiz> = ({ quiz }): JSX.Element => {
               quiz.quizzes?.items[0]?.id,
               Array.from(initialState.answeredQuestions.values())
             );
+            setShowModal(false);
           }}
         />
       )}
