@@ -19,18 +19,8 @@ namespace backend.Repository
             return await Task.FromResult(quizzes);
         }
 
-        /*
-        SELECT A.id FROM Answers A
-        inner join Question Q on Q.id = A.questionId
-        inner join Quiz U on U.id = Q.quizId
-        where U.id = @quizId
-        */
-
         public async Task<IEnumerable<Answer>> GetCorrectAnswersOfQuiz(Guid quizId)
         {
-            // var answers = await _entitiesDbContext.Set<Answer>().Include(q => q.Question)
-            //     .ThenInclude(q => q.Quiz.Id.CompareTo(quizId) == 0).FirstOrDefaultAsync() as IEnumerable<Answer>;
-
             var answers = (from q in _entitiesDbContext.Quiz where q.Id ==  quizId
                     join b in _entitiesDbContext.Question on q.Id equals b.Quiz.Id
                     join c in _entitiesDbContext.Answer on b.Id equals c.Question.Id
