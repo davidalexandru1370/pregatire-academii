@@ -1,4 +1,4 @@
-import { FC, useMemo, useReducer, useRef, useState } from "react";
+import React, { FC, useMemo, useReducer, useRef, useState } from "react";
 import { evaluateQuiz } from "../../api/RoomAPI";
 import { GetQuizQuery } from "../../GraphQL/useGetQuiz";
 import { Answer } from "../../Models/Answer";
@@ -70,6 +70,7 @@ export const PlayQuiz: FC<IPlayQuiz> = ({ quiz }): JSX.Element => {
     answeredQuestions: new Map<string, Answer>(),
     selectedQuestion: quiz?.quizzes?.items[0]!.question[0]!,
     selectedQuestionIndex: 1,
+    correctedAnswers: undefined,
   };
 
   const numberOfQuestions = useMemo(() => {
@@ -78,7 +79,6 @@ export const PlayQuiz: FC<IPlayQuiz> = ({ quiz }): JSX.Element => {
 
   const [state, dispatch] = useReducer(handlerQuizReducer, initialState);
   const [showModal, setShowModal] = useState<boolean>(false);
-  const [disabled, setDisabled] = useState<boolean>(false);
 
   return (
     <div className="quizContent">
@@ -127,6 +127,8 @@ export const PlayQuiz: FC<IPlayQuiz> = ({ quiz }): JSX.Element => {
                     <input
                       type="radio"
                       value={answer.text}
+                      onClick={(event) => event.preventDefault()}
+                      disabled={initialState.correctedAnswers !== undefined}
                       id={answer.id}
                       name={`answer-${state.selectedQuestion.id}}`}
                       checked={
@@ -134,7 +136,15 @@ export const PlayQuiz: FC<IPlayQuiz> = ({ quiz }): JSX.Element => {
                           ?.id === answer.id
                       }
                     />
-                    <label htmlFor={answer.id} className="answerText">
+                    <label
+                      htmlFor={answer.id}
+                      className="answerText"
+                      onClick={(event) => {
+                        if (initialState.correctedAnswers !== undefined) {
+                          event.stopPropagation();
+                        }
+                      }}
+                    >
                       &nbsp;
                       {answer.text}
                     </label>
@@ -184,6 +194,11 @@ export const PlayQuiz: FC<IPlayQuiz> = ({ quiz }): JSX.Element => {
         </div>
         <div className="allQuestions">
           <PrimaryButton
+            style={{
+              display: `${
+                initialState.correctedAnswers === undefined ? "block" : "none"
+              }`,
+            }}
             className="sendButton"
             onClick={() => {
               setShowModal(true);
