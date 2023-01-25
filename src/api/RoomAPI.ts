@@ -23,7 +23,7 @@ export async function startRoom(quizId: string): Promise<Room | Error> {
 
 export async function evaluateQuiz(
   quizResponse: QuizResponseDTO
-): Promise<QuizResponseDTO | Error> {
+): Promise<QuizResponseDTO> {
   let url = baseUrl + RoomEndpoints.EvaluateQuiz;
   let header = createHeader(Methods.POST, quizResponse);
   return await fetch(url, header)

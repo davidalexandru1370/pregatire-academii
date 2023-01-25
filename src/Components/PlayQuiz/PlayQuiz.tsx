@@ -1,8 +1,9 @@
-import React, { FC, useMemo, useReducer, useRef, useState } from "react";
+import { FC, useMemo, useReducer, useState } from "react";
 import { evaluateQuiz } from "../../api/RoomAPI";
 import { GetQuizQuery } from "../../GraphQL/useGetQuiz";
 import { Answer } from "../../Models/Answer";
 import { Question as ModelQuestion } from "../../Models/Question";
+import { QuizResponseDTO } from "../../Models/QuizResponseDTO";
 import { AreYouSureModal } from "../AreYouSureModal/AreYouSureModal";
 import { PrimaryButton } from "../PrimaryButton/PrimaryButton";
 import "./PlayQuiz.scss";
@@ -15,7 +16,7 @@ interface IState {
   selectedQuestion: ModelQuestion;
   selectedQuestionIndex: number;
   answeredQuestions: Map<string, Answer>;
-  correctedAnswers?: Map<string, Answer>;
+  correctedAnswers?: Answer[];
 }
 
 enum QuizActionTypeEnum {
@@ -59,6 +60,7 @@ function handlerQuizReducer(state: IState, action: Action): IState {
     case QuizActionTypeEnum.EvaluateQuiz: {
       return {
         ...state,
+        correctedAnswers: action.payload!.correctedAnswers,
       };
     }
   }
@@ -94,10 +96,17 @@ export const PlayQuiz: FC<IPlayQuiz> = ({ quiz }): JSX.Element => {
             setShowModal(false);
           }}
           onYesClick={async () => {
-            await handleSendQuizWithAnswers(
-              quiz.quizzes?.items[0]?.id,
-              Array.from(initialState.answeredQuestions.values())
-            );
+            const quizWithCorrectAnswers: QuizResponseDTO =
+              await handleSendQuizWithAnswers(
+                quiz.quizzes?.items[0]?.id,
+                Array.from(initialState.answeredQuestions.values())
+              );
+            dispatch({
+              type: QuizActionTypeEnum.EvaluateQuiz,
+              payload: {
+                correctedAnswers: quizWithCorrectAnswers.answers,
+              },
+            });
             setShowModal(false);
           }}
         />
@@ -128,7 +137,7 @@ export const PlayQuiz: FC<IPlayQuiz> = ({ quiz }): JSX.Element => {
                       type="radio"
                       value={answer.text}
                       onClick={(event) => event.preventDefault()}
-                      disabled={initialState.correctedAnswers !== undefined}
+                      disabled={state.correctedAnswers !== undefined}
                       id={answer.id}
                       name={`answer-${state.selectedQuestion.id}}`}
                       checked={
@@ -140,7 +149,7 @@ export const PlayQuiz: FC<IPlayQuiz> = ({ quiz }): JSX.Element => {
                       htmlFor={answer.id}
                       className="answerText"
                       onClick={(event) => {
-                        if (initialState.correctedAnswers !== undefined) {
+                        if (state.correctedAnswers !== undefined) {
                           event.stopPropagation();
                         }
                       }}
@@ -196,7 +205,7 @@ export const PlayQuiz: FC<IPlayQuiz> = ({ quiz }): JSX.Element => {
           <PrimaryButton
             style={{
               display: `${
-                initialState.correctedAnswers === undefined ? "block" : "none"
+                state.correctedAnswers === undefined ? "block" : "none"
               }`,
             }}
             className="sendButton"
