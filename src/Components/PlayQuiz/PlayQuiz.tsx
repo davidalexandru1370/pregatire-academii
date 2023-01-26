@@ -16,7 +16,7 @@ interface IState {
   selectedQuestion: ModelQuestion;
   selectedQuestionIndex: number;
   answeredQuestions: Map<string, Answer>;
-  correctedAnswers?: Answer[];
+  correctedAnswers?: Map<string, Answer>;
 }
 
 enum QuizActionTypeEnum {
@@ -104,7 +104,13 @@ export const PlayQuiz: FC<IPlayQuiz> = ({ quiz }): JSX.Element => {
             dispatch({
               type: QuizActionTypeEnum.EvaluateQuiz,
               payload: {
-                correctedAnswers: quizWithCorrectAnswers.answers,
+                correctedAnswers: quizWithCorrectAnswers.answers.reduce(
+                  function (map, answer) {
+                    map.set(answer.id, answer);
+                    return map;
+                  },
+                  new Map<string, Answer>()
+                ),
               },
             });
             setShowModal(false);
