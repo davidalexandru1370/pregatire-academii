@@ -226,6 +226,17 @@ export const PlayQuiz: FC<IPlayQuiz> = ({ quiz }): JSX.Element => {
               <p
                 key={question.id}
                 className="questionCard"
+                style={{
+                  backgroundColor:
+                    state.correctedAnswers === undefined
+                      ? "white"
+                      : state.answeredQuestions.has(question.id) === false ||
+                        state.correctedAnswers.has(
+                          state.answeredQuestions.get(question.id)?.id!
+                        ) === false
+                      ? "red"
+                      : "green",
+                }}
                 onClick={() => {
                   dispatch({
                     type: QuizActionTypeEnum.ChangeQuestion,
