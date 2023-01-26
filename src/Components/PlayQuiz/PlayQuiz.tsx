@@ -209,11 +209,7 @@ export const PlayQuiz: FC<IPlayQuiz> = ({ quiz }): JSX.Element => {
         </div>
         <div className="allQuestions">
           <PrimaryButton
-            style={{
-              display: `${
-                state.correctedAnswers === undefined ? "block" : "none"
-              }`,
-            }}
+            disabled={state.answeredQuestions === undefined ? false : true}
             className="sendButton"
             onClick={() => {
               setShowModal(true);
