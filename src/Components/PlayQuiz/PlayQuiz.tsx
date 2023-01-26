@@ -82,6 +82,18 @@ export const PlayQuiz: FC<IPlayQuiz> = ({ quiz }): JSX.Element => {
   const [state, dispatch] = useReducer(handlerQuizReducer, initialState);
   const [showModal, setShowModal] = useState<boolean>(false);
 
+  const checkIfQuestionHasCorrectResponse = (questionId: string): boolean => {
+    if (state.correctedAnswers === undefined) {
+      return false;
+    }
+
+    return (
+      state.answeredQuestions.has(questionId) === false ||
+      state.correctedAnswers.has(
+        state.answeredQuestions.get(questionId)?.id!
+      ) === false
+    );
+  };
   return (
     <div className="quizContent">
       {showModal && (
@@ -126,6 +138,14 @@ export const PlayQuiz: FC<IPlayQuiz> = ({ quiz }): JSX.Element => {
                 return (
                   <div
                     key={answer.id}
+                    style={{
+                      backgroundColor:
+                        state.correctedAnswers === undefined
+                          ? "white"
+                          : state.correctedAnswers.has(answer.id) === true
+                          ? "green"
+                          : "red",
+                    }}
                     className="answerField"
                     onClick={() => {
                       dispatch({
@@ -209,11 +229,11 @@ export const PlayQuiz: FC<IPlayQuiz> = ({ quiz }): JSX.Element => {
         </div>
         <div className="allQuestions">
           <PrimaryButton
-            disabled={state.answeredQuestions === undefined ? false : true}
             className="sendButton"
             onClick={() => {
               setShowModal(true);
             }}
+            disabled={state.correctedAnswers === undefined ? false : true}
           >
             Finalizeaza chestionar
           </PrimaryButton>
@@ -226,10 +246,7 @@ export const PlayQuiz: FC<IPlayQuiz> = ({ quiz }): JSX.Element => {
                   backgroundColor:
                     state.correctedAnswers === undefined
                       ? "white"
-                      : state.answeredQuestions.has(question.id) === false ||
-                        state.correctedAnswers.has(
-                          state.answeredQuestions.get(question.id)?.id!
-                        ) === false
+                      : checkIfQuestionHasCorrectResponse(question.id)
                       ? "red"
                       : "green",
                 }}
