@@ -1,4 +1,5 @@
 ﻿using backend.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace backend.GraphQL
 {
@@ -10,6 +11,7 @@ namespace backend.GraphQL
         [UseFiltering]
         public IQueryable<Quiz> GetQuizzes([Service] EntitiesDbContext dbContext)
         {
+            //return dbContext.Set<Quiz>().Include(dbContext).AsQueryable();
             return dbContext.Quiz.AsQueryable();
         }
     }

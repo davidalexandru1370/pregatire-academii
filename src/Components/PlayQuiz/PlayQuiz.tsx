@@ -94,6 +94,7 @@ export const PlayQuiz: FC<IPlayQuiz> = ({ quiz }): JSX.Element => {
       ) === false
     );
   };
+
   return (
     <div className="quizContent">
       {showModal && (
