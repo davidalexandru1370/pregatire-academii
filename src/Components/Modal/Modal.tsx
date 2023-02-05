@@ -1,5 +1,12 @@
-import React from "react";
+import React, { Ref } from "react";
 
-export const Modal = () => {
-  return <div>Modal</div>;
-};
+interface IModal {
+  className?: string;
+  children?: any;
+}
+
+export const Modal = React.forwardRef<HTMLDivElement, IModal>(
+  ({ children, ...modalProps }, ref: Ref<HTMLDivElement>) => {
+    return <></>;
+  }
+);

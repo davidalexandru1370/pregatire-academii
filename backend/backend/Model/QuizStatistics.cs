@@ -15,7 +15,7 @@ namespace backend.Model
         public virtual User? User { get; set; }
         [ForeignKey("User")]
         public Guid UserId { get; set; }
-
+        
         public int Score { get; set; }
     }
 }
