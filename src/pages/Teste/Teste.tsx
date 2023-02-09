@@ -75,7 +75,11 @@ export const Teste = () => {
               </div>
               <div className="cardItem">
                 <span>Anul</span>
-                <DropDown items={constants.academies} />
+                <DropDown
+                  items={Array.from({ length: 4 }, (_, index) =>
+                    (2018 + index).toString()
+                  )}
+                />
               </div>
               <div className="cardItem d-flex justify-content-center pt-3">
                 <button type="button" className=" text-white filterButton">
