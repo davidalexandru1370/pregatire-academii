@@ -126,7 +126,7 @@ export type QueryQuizzesArgs = {
 
 export type Question = {
   __typename?: "Question";
-  answers: Array<Answer>
+  answers: Array<Answer>;
   id: Scalars["UUID"];
   quiz?: Maybe<Quiz>;
   text: Scalars["String"];
@@ -186,6 +186,7 @@ export type StringOperationFilterInput = {
 export type GetPageQuizzesQueryVariables = Exact<{
   skip?: InputMaybe<Scalars["Int"]>;
   take?: InputMaybe<Scalars["Int"]>;
+  yearGreaterThan?: InputMaybe<Scalars["Int"]>;
 }>;
 
 export type GetPageQuizzesQuery = {
@@ -209,8 +210,12 @@ export type GetPageQuizzesQuery = {
 };
 
 export const GetPageQuizzesDocument = gql`
-  query getPageQuizzes($skip: Int, $take: Int) {
-    quizzes(skip: $skip, take: $take) {
+  query getPageQuizzes($skip: Int, $take: Int, $yearGreaterThan: Int = 0) {
+    quizzes(
+      skip: $skip
+      take: $take
+      where: { year: { gte: $yearGreaterThan } }
+    ) {
       items {
         id
         category

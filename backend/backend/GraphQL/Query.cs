@@ -11,7 +11,6 @@ namespace backend.GraphQL
         [UseFiltering]
         public IQueryable<Quiz> GetQuizzes([Service] EntitiesDbContext dbContext)
         {
-            //return dbContext.Set<Quiz>().Include(dbContext).AsQueryable();
             return dbContext.Quiz.AsQueryable();
         }
     }

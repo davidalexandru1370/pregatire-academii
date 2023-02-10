@@ -99,7 +99,7 @@ export const Teste = () => {
                 {data &&
                   data.quizzes &&
                   data.quizzes.items &&
-                  data.quizzes.items!.map((quiz: Quiz) => {
+                  data.quizzes.items.map((quiz: Quiz) => {
                     return (
                       <TestCard
                         quiz={quiz}
