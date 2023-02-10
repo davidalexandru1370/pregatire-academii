@@ -103,6 +103,7 @@ export const Teste = () => {
                     return (
                       <TestCard
                         quiz={quiz}
+                        key={quiz.id}
                         onClick={async () => {
                           try {
                             const room: Room = (await startRoom(
