@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { startRoom } from "../../api/RoomAPI";
@@ -12,6 +12,25 @@ import { useGetPageQuizzesQuery } from "../../GraphQL/generated/graphql";
 import { Quiz } from "../../Models/Quiz";
 import { Room } from "../../Models/Room";
 import "./Teste.scss";
+
+interface IState {
+  year: number;
+}
+
+enum FilterChangeTypeEnum {
+  ChangeYear,
+  ChangeCategory,
+}
+
+interface IAction {
+  type: FilterChangeTypeEnum;
+  payload?: Partial<IState>;
+}
+
+const handleFilterReducer = (state: IState, action: IAction) => {
+  return state;
+};
+
 export const Teste = () => {
   const maximumNumberOfQuizzesOnPage: number = 12;
   const [skip, setSkip] = useState<number>(0);
@@ -20,8 +39,17 @@ export const Teste = () => {
   const [isLeftMenuVisible, setIsLeftMenuVisible] = useState<boolean>(true);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalCount, setTotalCount] = useState<number>(0);
+  const initialState: IState = {
+    year: 0,
+  };
+  const [state, dispatch] = useReducer(handleFilterReducer, initialState);
+
   const { loading, error, data } = useGetPageQuizzesQuery({
-    variables: { skip: skip, take: take },
+    variables: {
+      skip: skip,
+      take: take,
+      year: 2021,
+    },
   });
 
   useEffect(() => {

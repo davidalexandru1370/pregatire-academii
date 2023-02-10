@@ -186,7 +186,7 @@ export type StringOperationFilterInput = {
 export type GetPageQuizzesQueryVariables = Exact<{
   skip?: InputMaybe<Scalars["Int"]>;
   take?: InputMaybe<Scalars["Int"]>;
-  yearGreaterThan?: InputMaybe<Scalars["Int"]>;
+  year?: InputMaybe<Scalars["Int"]>;
 }>;
 
 export type GetPageQuizzesQuery = {
@@ -210,12 +210,8 @@ export type GetPageQuizzesQuery = {
 };
 
 export const GetPageQuizzesDocument = gql`
-  query getPageQuizzes($skip: Int, $take: Int, $yearGreaterThan: Int = 0) {
-    quizzes(
-      skip: $skip
-      take: $take
-      where: { year: { gte: $yearGreaterThan } }
-    ) {
+  query getPageQuizzes($skip: Int, $take: Int, $year: Int = 0) {
+    quizzes(skip: $skip, take: $take, where: { year: { eq: $year } }) {
       items {
         id
         category
