@@ -126,6 +126,15 @@ $--anim-time: 0.5s;
   justify-content: center;
 }
 
+.deleteFilters {
+  padding: 0;
+  margin: 0;
+  font-size: small;
+  color: rgb(0, 145, 255);
+  cursor: pointer;
+  text-decoration-line: underline;
+}
+
 @media screen and (max-width: 600px) {
   .testePage {
     flex-direction: column;

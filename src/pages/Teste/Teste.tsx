@@ -18,6 +18,7 @@ interface IState {
 }
 
 enum FilterChangeTypeEnum {
+  ClearFilters,
   ChangeYear,
   ChangeCategory,
 }
@@ -51,6 +52,16 @@ export const Teste = () => {
     action: IAction
   ): IState => {
     switch (action.type) {
+      case FilterChangeTypeEnum.ClearFilters: {
+        setSkip(0);
+        refetch({
+          skip: skip,
+          take: take,
+        });
+        return {
+          ...state,
+        };
+      }
       case FilterChangeTypeEnum.ChangeYear: {
         setSkip(0);
         refetch({
@@ -141,6 +152,16 @@ export const Teste = () => {
                 <button type="button" className=" text-white filterButton">
                   Filtreaza
                 </button>
+              </div>
+              <div
+                className="d-flex justify-content-center"
+                onClick={() => {
+                  dispatch({
+                    type: FilterChangeTypeEnum.ClearFilters,
+                  });
+                }}
+              >
+                <p className="deleteFilters">*Sterge filtrele*</p>
               </div>
             </div>
           </div>
