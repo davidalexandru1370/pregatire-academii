@@ -122,7 +122,7 @@ export const Teste = () => {
                     dispatch({
                       type: FilterChangeTypeEnum.ChangeYear,
                       payload: {
-                        year: parseInt(e!),
+                        year: parseInt(e),
                       },
                     });
                   }}
