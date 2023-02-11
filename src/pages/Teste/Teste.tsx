@@ -27,7 +27,15 @@ interface IAction {
   payload?: Partial<IState>;
 }
 
-const handleFilterReducer = (state: IState, action: IAction) => {
+const handleFilterReducer = (state: IState, action: IAction): IState => {
+  switch (action.type) {
+    case FilterChangeTypeEnum.ChangeYear: {
+      return {
+        ...state,
+        year: action.payload?.year!,
+      };
+    }
+  }
   return state;
 };
 
@@ -107,6 +115,17 @@ export const Teste = () => {
                   items={Array.from({ length: 4 }, (_, index) =>
                     (2018 + index).toString()
                   )}
+                  onChange={(e) => {
+                    if (e === undefined) {
+                      return;
+                    }
+                    dispatch({
+                      type: FilterChangeTypeEnum.ChangeYear,
+                      payload: {
+                        year: parseInt(e!),
+                      },
+                    });
+                  }}
                 />
               </div>
               <div className="cardItem d-flex justify-content-center pt-3">

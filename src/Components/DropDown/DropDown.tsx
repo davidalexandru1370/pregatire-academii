@@ -1,12 +1,4 @@
-import React, {
-  FC,
-  MouseEvent,
-  Ref,
-  RefObject,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./DropDown.scss";
 
 export interface IDropDown {
@@ -14,7 +6,7 @@ export interface IDropDown {
   style?: React.CSSProperties;
   items: string[];
   arrowStyle?: React.CSSProperties;
-  onChange?: () => void;
+  onChange?: (text?: string) => void;
 }
 
 const DropDown = React.forwardRef<HTMLDivElement, IDropDown>(
@@ -105,11 +97,12 @@ const DropDown = React.forwardRef<HTMLDivElement, IDropDown>(
               return (
                 <p
                   className="item"
-                  onClick={() => {
-                    console.log("item");
+                  key={element}
+                  onChange={(e) => {}}
+                  onClick={(e) => {
                     setText(element);
                     setShowItems(false);
-                    onChange && onChange();
+                    onChange && onChange(element);
                   }}
                 >
                   {element}
