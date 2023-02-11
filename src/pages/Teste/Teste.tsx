@@ -28,7 +28,28 @@ interface IAction {
 }
 
 export const Teste = () => {
-  const handleFilterReducer = (state: IState, action: IAction): IState => {
+  const maximumNumberOfQuizzesOnPage: number = 12;
+  const [skip, setSkip] = useState<number>(0);
+  const [take, setTake] = useState<number>(maximumNumberOfQuizzesOnPage);
+  const navigate = useNavigate();
+  const [isLeftMenuVisible, setIsLeftMenuVisible] = useState<boolean>(true);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [totalCount, setTotalCount] = useState<number>(0);
+  const initialState: IState = {
+    year: 0,
+  };
+  const { loading, error, data, refetch } = useGetPageQuizzesQuery({
+    variables: {
+      skip: skip,
+      take: take,
+      year: 2021,
+    },
+  });
+
+  let handleFilterReducer: (state: IState, action: IAction) => IState = (
+    state: IState,
+    action: IAction
+  ): IState => {
     switch (action.type) {
       case FilterChangeTypeEnum.ChangeYear: {
         setSkip(0);
@@ -46,25 +67,7 @@ export const Teste = () => {
     return state;
   };
 
-  const maximumNumberOfQuizzesOnPage: number = 12;
-  const [skip, setSkip] = useState<number>(0);
-  const [take, setTake] = useState<number>(maximumNumberOfQuizzesOnPage);
-  const navigate = useNavigate();
-  const [isLeftMenuVisible, setIsLeftMenuVisible] = useState<boolean>(true);
-  const [currentPage, setCurrentPage] = useState<number>(1);
-  const [totalCount, setTotalCount] = useState<number>(0);
-  const initialState: IState = {
-    year: 0,
-  };
   const [state, dispatch] = useReducer(handleFilterReducer, initialState);
-
-  const { loading, error, data, refetch } = useGetPageQuizzesQuery({
-    variables: {
-      skip: skip,
-      take: take,
-      year: 2021,
-    },
-  });
 
   useEffect(() => {
     if (!!error) {
