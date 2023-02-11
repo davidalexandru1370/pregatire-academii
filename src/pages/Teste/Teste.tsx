@@ -1,9 +1,9 @@
-import { useEffect, useReducer, useState } from "react";
+import { useEffect, useReducer, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { startRoom } from "../../api/RoomAPI";
 import ButtonWithDropDown from "../../Components/ButtonWithDropDown/ButtonWithDropDown";
-import DropDown from "../../Components/DropDown/DropDown";
+import DropDown, { DropDownRef } from "../../Components/DropDown/DropDown";
 import LoadingCircle from "../../Components/LoadingCircle/LoadingCircle";
 import { PageList } from "../../Components/PageList/PageList";
 import TestCard from "../../Components/TestCard/TestCard";
@@ -36,6 +36,8 @@ export const Teste = () => {
   const [isLeftMenuVisible, setIsLeftMenuVisible] = useState<boolean>(true);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalCount, setTotalCount] = useState<number>(0);
+
+  const yearsDropDownRef = useRef<DropDownRef>(null);
   const initialState: IState = {
     year: 0,
   };
@@ -43,11 +45,11 @@ export const Teste = () => {
     variables: {
       skip: skip,
       take: take,
-      year: 2021,
+      year: 9999,
     },
   });
 
-  let handleFilterReducer: (state: IState, action: IAction) => IState = (
+  const handleFilterReducer: (state: IState, action: IAction) => IState = (
     state: IState,
     action: IAction
   ): IState => {
@@ -57,6 +59,7 @@ export const Teste = () => {
         refetch({
           skip: skip,
           take: take,
+          year: 9999,
         });
         return {
           ...state,
@@ -132,6 +135,7 @@ export const Teste = () => {
               <div className="cardItem">
                 <span>Anul</span>
                 <DropDown
+                  ref={yearsDropDownRef}
                   items={Array.from({ length: 4 }, (_, index) =>
                     (2018 + index).toString()
                   )}
@@ -156,6 +160,7 @@ export const Teste = () => {
               <div
                 className="d-flex justify-content-center"
                 onClick={() => {
+                  yearsDropDownRef.current!.clear();
                   dispatch({
                     type: FilterChangeTypeEnum.ClearFilters,
                   });

@@ -1,5 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useImperativeHandle, useRef, useState } from "react";
 import "./DropDown.scss";
+
+export type DropDownRef = HTMLDivElement & {
+  clear: () => void;
+};
 
 export interface IDropDown {
   className?: string;
@@ -9,12 +13,25 @@ export interface IDropDown {
   onChange?: (text?: string) => void;
 }
 
-const DropDown = React.forwardRef<HTMLDivElement, IDropDown>(
+const DropDown = React.forwardRef<DropDownRef, IDropDown>(
   ({ className, style, items, arrowStyle, onChange }: IDropDown, ref) => {
     const dropDownClickedRef = useRef<HTMLDivElement>(null);
     const listRef = useRef<HTMLDivElement>(null);
     const [showItems, setShowItems] = useState<boolean>(false);
     const [text, setText] = useState<string>("");
+
+    useImperativeHandle(
+      ref,
+      //@ts-ignore
+      () => {
+        return {
+          clear: () => {
+            setText("");
+          },
+        };
+      },
+      []
+    );
 
     useEffect(() => {
       if (showItems === false) {
