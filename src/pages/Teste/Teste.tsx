@@ -27,19 +27,25 @@ interface IAction {
   payload?: Partial<IState>;
 }
 
-const handleFilterReducer = (state: IState, action: IAction): IState => {
-  switch (action.type) {
-    case FilterChangeTypeEnum.ChangeYear: {
-      return {
-        ...state,
-        year: action.payload?.year!,
-      };
-    }
-  }
-  return state;
-};
-
 export const Teste = () => {
+  const handleFilterReducer = (state: IState, action: IAction): IState => {
+    switch (action.type) {
+      case FilterChangeTypeEnum.ChangeYear: {
+        setSkip(0);
+        refetch({
+          skip: skip,
+          take: take,
+          year: action.payload?.year,
+        });
+        return {
+          ...state,
+          year: action.payload?.year!,
+        };
+      }
+    }
+    return state;
+  };
+
   const maximumNumberOfQuizzesOnPage: number = 12;
   const [skip, setSkip] = useState<number>(0);
   const [take, setTake] = useState<number>(maximumNumberOfQuizzesOnPage);
@@ -52,7 +58,7 @@ export const Teste = () => {
   };
   const [state, dispatch] = useReducer(handleFilterReducer, initialState);
 
-  const { loading, error, data } = useGetPageQuizzesQuery({
+  const { loading, error, data, refetch } = useGetPageQuizzesQuery({
     variables: {
       skip: skip,
       take: take,
