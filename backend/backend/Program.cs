@@ -38,6 +38,7 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ICookieUtilities, CookieUtilities>();
 builder.Services.AddScoped<IQuizRepository, QuizRepository>();
 builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddScoped<IRoomRepository, RoomRepository>();
 builder.Services.AddScoped<IChangePasswordAvailableRepository, ChangePasswordLinkAvailableRepository>();
 builder.Services.AddSingleton<IConnectionMultiplexer>(options =>
     ConnectionMultiplexer.Connect(new ConfigurationOptions
@@ -47,7 +48,6 @@ builder.Services.AddSingleton<IConnectionMultiplexer>(options =>
     })
 );
 builder.Services.AddGraphQLServer().AddQueryType<Query>().AddProjections().AddFiltering().AddSorting();
-builder.Services.AddScoped<IRoomRepository, RoomRepository>();
 //for identity
 
 //builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<UserDbContext>().AddDefaultTokenProviders();

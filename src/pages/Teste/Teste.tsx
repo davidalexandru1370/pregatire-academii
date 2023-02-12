@@ -45,7 +45,6 @@ export const Teste = () => {
     variables: {
       skip: skip,
       take: take,
-      year: 9999,
     },
   });
 
@@ -59,7 +58,6 @@ export const Teste = () => {
         refetch({
           skip: skip,
           take: take,
-          year: 9999,
         });
         return {
           ...state,
@@ -70,7 +68,6 @@ export const Teste = () => {
         refetch({
           skip: skip,
           take: take,
-          year: action.payload?.year,
         });
         return {
           ...state,
@@ -81,7 +78,7 @@ export const Teste = () => {
     return state;
   };
 
-  const [state, dispatch] = useReducer(handleFilterReducer, initialState);
+  const [_, dispatch] = useReducer(handleFilterReducer, initialState);
 
   useEffect(() => {
     if (!!error) {

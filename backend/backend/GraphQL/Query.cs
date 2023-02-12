@@ -9,8 +9,12 @@ namespace backend.GraphQL
         [UseProjection]
         [UseSorting]
         [UseFiltering]
-        public IQueryable<Quiz> GetQuizzes([Service] EntitiesDbContext dbContext)
+        public IQueryable<Quiz> GetQuizzes([Service] EntitiesDbContext dbContext, int? yearFilter)
         {
+            if (yearFilter == 9999)
+            {
+                return dbContext.Set<Quiz>().AsQueryable();
+            }
             return dbContext.Quiz.AsQueryable();
         }
     }

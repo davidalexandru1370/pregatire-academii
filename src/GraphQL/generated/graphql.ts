@@ -210,7 +210,7 @@ export type GetPageQuizzesQuery = {
 };
 
 export const GetPageQuizzesDocument = gql`
-  query getPageQuizzes($skip: Int, $take: Int, $year: Int = 0) {
+  query getPageQuizzes($skip: Int, $take: Int, $year: Int) {
     quizzes(skip: $skip, take: $take, where: { year: { eq: $year } }) {
       items {
         id
