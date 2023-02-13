@@ -10,10 +10,8 @@ import TestCard from "../../Components/TestCard/TestCard";
 import constants from "../../Constants/constants.json";
 import { Category } from "../../Enums/Category";
 import { useGetPageQuizzesQuery } from "../../GraphQL/generated/graphql";
-import {
-  FilterConcreteBuilder,
-  IFilterBuilder,
-} from "../../GraphQL/GetFilteredQuiz/FilterBuilder";
+import { useGetQuizFilteredQuery } from "../../GraphQL/useGetFilteredQuiz";
+
 import { Quiz } from "../../Models/Quiz";
 import { Room } from "../../Models/Room";
 import "./Teste.scss";
@@ -42,15 +40,12 @@ export const Teste = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalCount, setTotalCount] = useState<number>(0);
 
-  const [year, setYear] = useState<number | undefined>(undefined);
-  const [category, setCategory] = useState<Category | undefined>(undefined);
-  const filterBuider: IFilterBuilder = new FilterConcreteBuilder();
-
   const yearsDropDownRef = useRef<DropDownRef>(null);
   const initialState: IState = {
     year: 0,
   };
-  const { loading, error, data, refetch } = useGetPageQuizzesQuery({
+
+  const { loading, error, data, refetch } = useGetQuizFilteredQuery({
     variables: {
       skip: skip,
       take: take,
@@ -64,15 +59,21 @@ export const Teste = () => {
     switch (action.type) {
       case FilterChangeTypeEnum.ClearFilters: {
         setSkip(0);
-        filterBuider.filterYear(undefined);
-        filterBuider.filterCategory(undefined);
+        refetch({
+          skip: 0,
+          take: maximumNumberOfQuizzesOnPage,
+        });
         return {
           ...state,
         };
       }
       case FilterChangeTypeEnum.ChangeYear: {
         setSkip(0);
-        filterBuider.filterYear(action.payload?.year);
+        refetch({
+          skip: 0,
+          take: maximumNumberOfQuizzesOnPage,
+          year: action.payload?.year,
+        });
         return {
           ...state,
           year: action.payload?.year!,
