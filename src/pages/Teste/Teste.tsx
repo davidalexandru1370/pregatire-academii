@@ -35,8 +35,6 @@ export const Teste = () => {
   const maximumNumberOfQuizzesOnPage: number = 12;
   const [skip, setSkip] = useState<number>(0);
   const [take, setTake] = useState<number>(maximumNumberOfQuizzesOnPage);
-  const [year, setYear] = useState<number | undefined>(undefined);
-  const [category, setCategory] = useState<Category | undefined>(undefined);
 
   const navigate = useNavigate();
   const [isLeftMenuVisible, setIsLeftMenuVisible] = useState<boolean>(true);
@@ -46,17 +44,9 @@ export const Teste = () => {
   const yearsDropDownRef = useRef<DropDownRef>(null);
   const categoryDropDownRef = useRef<DropDownRef>(null);
   const initialState: IState = {
-    year: 0,
+    year: undefined,
+    category: undefined,
   };
-
-  const { loading, error, data } = useGetQuizFilteredQuery({
-    variables: {
-      year: year,
-      category: category,
-      skip: skip,
-      take: take,
-    },
-  });
 
   const handleFilterReducer: (state: IState, action: IAction) => IState = (
     state: IState,
@@ -67,22 +57,17 @@ export const Teste = () => {
       case FilterChangeTypeEnum.ClearFilters: {
         yearsDropDownRef.current?.clear();
         categoryDropDownRef.current?.clear();
-        setYear(undefined);
-        setCategory(undefined);
         return {
           ...state,
         };
       }
       case FilterChangeTypeEnum.ChangeYear: {
-        setYear(action.payload?.year);
-
         return {
           ...state,
           year: action.payload?.year!,
         };
       }
       case FilterChangeTypeEnum.ChangeCategory: {
-        setCategory(action.payload?.category);
         return {
           ...state,
           category: action.payload?.category,
@@ -91,7 +76,19 @@ export const Teste = () => {
     }
   };
 
-  const [_, dispatch] = useReducer(handleFilterReducer, initialState);
+  const [filteredState, dispatch] = useReducer(
+    handleFilterReducer,
+    initialState
+  );
+
+  const { loading, error, data, refetch } = useGetQuizFilteredQuery({
+    variables: {
+      year: filteredState.year,
+      category: filteredState.category,
+      skip: skip,
+      take: take,
+    },
+  });
 
   useEffect(() => {
     if (!!error) {
@@ -141,7 +138,11 @@ export const Teste = () => {
               <div className="cardItem">
                 <span>Categoria</span>
                 <DropDown
-                  items={constants.academies}
+                  items={constants.academies.map(
+                    (academy) =>
+                      academy[0].toUpperCase() +
+                      academy.substring(1).toLowerCase()
+                  )}
                   onChange={(e) => {
                     if (e === undefined) {
                       return;
@@ -176,7 +177,17 @@ export const Teste = () => {
                 />
               </div>
               <div className="cardItem d-flex justify-content-center pt-3">
-                <button type="button" className=" text-white filterButton">
+                <button
+                  type="button"
+                  className=" text-white filterButton"
+                  onClick={() => {
+                    refetch({
+                      skip: skip,
+                      category: filteredState.category,
+                      year: filteredState.year,
+                    });
+                  }}
+                >
                   Filtreaza
                 </button>
               </div>
