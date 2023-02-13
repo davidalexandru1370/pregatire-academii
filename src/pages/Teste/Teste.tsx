@@ -120,7 +120,7 @@ export const Teste = () => {
               </span>
               <span className="filterText">&nbsp;Filter</span>
             </button>
-            <ButtonWithDropDown title="Sort by" />
+            <ButtonWithDropDown title="Sorteaza" />
           </div>
           {loading === false && (
             <p className="totalCount">
@@ -150,7 +150,7 @@ export const Teste = () => {
                     dispatch({
                       type: FilterChangeTypeEnum.ChangeCategory,
                       payload: {
-                        category: e as Category,
+                        category: e.toUpperCase() as Category,
                       },
                     });
                   }}
@@ -211,7 +211,10 @@ export const Teste = () => {
               </div>
             ) : (
               <div className="testCards">
-                {data &&
+                {data?.quizzes?.totalCount === 0 ? (
+                  <p>Nu a fost gasit niciun rezultat.</p>
+                ) : (
+                  data &&
                   data.quizzes &&
                   data.quizzes.items &&
                   data.quizzes.items.map((quiz: Quiz) => {
@@ -236,7 +239,8 @@ export const Teste = () => {
                         }}
                       />
                     );
-                  })}
+                  })
+                )}
               </div>
             )}
             <PageList
