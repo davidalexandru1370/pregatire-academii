@@ -1,7 +1,6 @@
-import { DocumentNode, gql } from "@apollo/client";
-import { Category } from "./generated/graphql";
 import * as Apollo from "@apollo/client";
-import { GetQuizQuery } from "./useGetQuiz";
+import { gql } from "@apollo/client";
+import { Category } from "./generated/graphql";
 
 type GetQuizFilteredVariable = Partial<{
   skip: number;
@@ -41,7 +40,7 @@ export function useGetQuizFilteredQuery(
         ${baseOptions?.variables?.year !== undefined ? ",$year: Int" : ""}
         ${
           baseOptions?.variables?.category !== undefined
-            ? ",category: Category"
+            ? ",$category: Category"
             : ""
         }
         ) {
@@ -73,6 +72,7 @@ export function useGetQuizFilteredQuery(
         }
       }
     `;
+
   const queryOptions = { ...baseOptions };
 
   return Apollo.useQuery<GetQuizFilteredQuery, GetQuizFilteredVariable>(

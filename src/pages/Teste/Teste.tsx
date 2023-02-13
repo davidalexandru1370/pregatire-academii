@@ -8,8 +8,7 @@ import LoadingCircle from "../../Components/LoadingCircle/LoadingCircle";
 import { PageList } from "../../Components/PageList/PageList";
 import TestCard from "../../Components/TestCard/TestCard";
 import constants from "../../Constants/constants.json";
-import { Category } from "../../Enums/Category";
-import { useGetPageQuizzesQuery } from "../../GraphQL/generated/graphql";
+import { Category } from "../../GraphQL/generated/graphql";
 import { useGetQuizFilteredQuery } from "../../GraphQL/useGetFilteredQuiz";
 
 import { Quiz } from "../../Models/Quiz";
@@ -17,7 +16,8 @@ import { Room } from "../../Models/Room";
 import "./Teste.scss";
 
 interface IState {
-  year: number;
+  year?: number;
+  category?: Category;
 }
 
 enum FilterChangeTypeEnum {
@@ -35,18 +35,24 @@ export const Teste = () => {
   const maximumNumberOfQuizzesOnPage: number = 12;
   const [skip, setSkip] = useState<number>(0);
   const [take, setTake] = useState<number>(maximumNumberOfQuizzesOnPage);
+  const [year, setYear] = useState<number | undefined>(undefined);
+  const [category, setCategory] = useState<Category | undefined>(undefined);
+
   const navigate = useNavigate();
   const [isLeftMenuVisible, setIsLeftMenuVisible] = useState<boolean>(true);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalCount, setTotalCount] = useState<number>(0);
 
   const yearsDropDownRef = useRef<DropDownRef>(null);
+  const categoryDropDownRef = useRef<DropDownRef>(null);
   const initialState: IState = {
     year: 0,
   };
 
-  const { loading, error, data, refetch } = useGetQuizFilteredQuery({
+  const { loading, error, data } = useGetQuizFilteredQuery({
     variables: {
+      year: year,
+      category: category,
       skip: skip,
       take: take,
     },
@@ -56,31 +62,33 @@ export const Teste = () => {
     state: IState,
     action: IAction
   ): IState => {
+    setSkip(0);
     switch (action.type) {
       case FilterChangeTypeEnum.ClearFilters: {
-        setSkip(0);
-        refetch({
-          skip: 0,
-          take: maximumNumberOfQuizzesOnPage,
-        });
+        yearsDropDownRef.current?.clear();
+        categoryDropDownRef.current?.clear();
+        setYear(undefined);
+        setCategory(undefined);
         return {
           ...state,
         };
       }
       case FilterChangeTypeEnum.ChangeYear: {
-        setSkip(0);
-        refetch({
-          skip: 0,
-          take: maximumNumberOfQuizzesOnPage,
-          year: action.payload?.year,
-        });
+        setYear(action.payload?.year);
+
         return {
           ...state,
           year: action.payload?.year!,
         };
       }
+      case FilterChangeTypeEnum.ChangeCategory: {
+        setCategory(action.payload?.category);
+        return {
+          ...state,
+          category: action.payload?.category,
+        };
+      }
     }
-    return state;
   };
 
   const [_, dispatch] = useReducer(handleFilterReducer, initialState);
@@ -132,7 +140,20 @@ export const Teste = () => {
             <div className="filterCard">
               <div className="cardItem">
                 <span>Categoria</span>
-                <DropDown items={constants.academies} />
+                <DropDown
+                  items={constants.academies}
+                  onChange={(e) => {
+                    if (e === undefined) {
+                      return;
+                    }
+                    dispatch({
+                      type: FilterChangeTypeEnum.ChangeCategory,
+                      payload: {
+                        category: e as Category,
+                      },
+                    });
+                  }}
+                />
               </div>
               <div className="cardItem">
                 <span>Anul</span>
@@ -162,7 +183,6 @@ export const Teste = () => {
               <div
                 className="d-flex justify-content-center"
                 onClick={() => {
-                  yearsDropDownRef.current!.clear();
                   dispatch({
                     type: FilterChangeTypeEnum.ClearFilters,
                   });
