@@ -56,6 +56,7 @@ $--anim-time: 0.5s;
 
 .testCards {
   width: 100%;
+  min-height: 50vh;
   --auto-grid-min-size: 16rem;
   display: grid;
   grid-template-columns: repeat(
