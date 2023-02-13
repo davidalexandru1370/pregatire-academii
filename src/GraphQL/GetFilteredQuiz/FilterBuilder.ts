@@ -1,33 +1,54 @@
+import { DocumentNode, gql } from "@apollo/client";
 import { Category } from "../generated/graphql";
 
-interface IFilterBuilder {
-  filterYear: (year: number) => void;
-  filterCategory: (category: Category) => void;
+export interface IFilterBuilder {
+  filterYear: (year?: number) => void;
+  filterCategory: (category?: Category) => void;
+  useGetQuizFilteredQuery: () => DocumentNode;
 }
 
-class FilterConcreteBuilder implements IFilterBuilder {
-  private query: String;
-  private year: number;
-  private category: Category;
+export class FilterConcreteBuilder implements IFilterBuilder {
+  private year?: number;
+  private category?: Category;
 
-  constructor() {
-    this.reset();
-  }
-
-  public reset(): void {
-    this.query = new String();
-  }
-
-  public filterYear = (year: number) => {
+  public filterYear = (year?: number) => {
     this.year = year;
   };
 
-  public filterCategory = (category: Category) => {
+  public filterCategory = (category?: Category) => {
     this.category = category;
   };
 
-  public getQuery = (): String => {
-    return this.query;
+  public useGetQuizFilteredQuery = () => {
+    return gql`
+      query getPageQuizzes($skip: Int, $take: Int 
+        ${this.year !== undefined ? ",$year: Int" : ""}
+        ${this.category !== undefined ? ",category: Category" : ""}
+        ) {
+        quizzes(skip: $skip, take: $take, where: { 
+            and: [
+                ${this.year !== undefined ? "{year : {eq: $year}}" : ""}
+                ${
+                  this.category !== undefined
+                    ? "{category : {eq: $category}}"
+                    : ""
+                }
+            ]
+         }) {
+          items {
+            id
+            category
+            year
+            subject
+          }
+          pageInfo {
+            hasNextPage
+            hasPreviousPage
+          }
+          totalCount
+        }
+      }
+    `;
   };
 }
 
