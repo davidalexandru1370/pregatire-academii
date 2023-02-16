@@ -70,9 +70,8 @@ $--anim-time: 0.5s;
 }
 
 .noResultText {
-  width: inherit;
+  position: absolute;
   display: flex;
-  flex-basis: 1;
   justify-content: center;
 }
 
