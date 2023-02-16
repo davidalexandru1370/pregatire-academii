@@ -6,8 +6,8 @@ namespace backend.Services.Interfaces
     {
         public Task<Room> AddRoom(Guid userId, Guid quizId);
 
-        public Task<Quiz> GetActiveUserQuiz(Guid userId);
+        public Task AddEvaluatedQuizToUser(Guid userId, Guid quizId, int score);
 
-        public Task UpdateQuiz(Guid userId, Quiz newQuiz);
+        public Task<int> EvaluateQuiz(IEnumerable<Answer> answers);
     }
 }

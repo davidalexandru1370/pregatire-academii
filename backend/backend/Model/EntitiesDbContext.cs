@@ -11,14 +11,22 @@ namespace backend.Model
         public virtual DbSet<Question> Question { get; set; }
         public virtual DbSet<Answer> Answer { get; set; }
         public virtual DbSet<Room> Room { get; set; }
+        public virtual DbSet<QuizStatistics> QuizStatistics { get; set; }
 
         public EntitiesDbContext(DbContextOptions<EntitiesDbContext> options) : base(options)
         {
-            
+
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder){
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
             optionsBuilder.UseNpgsql(@"Host=localhost;Username=postgres;Password=postgres;Database=Academii");
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<QuizStatistics>().Property(p => p.Score).HasDefaultValue(0);
         }
     }
 }

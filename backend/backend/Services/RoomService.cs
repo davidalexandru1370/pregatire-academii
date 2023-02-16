@@ -1,4 +1,5 @@
-﻿using backend.Model;
+﻿using backend.Exceptions;
+using backend.Model;
 using backend.Repository;
 using backend.Services.Interfaces;
 using HotChocolate.Language;
@@ -11,13 +12,21 @@ namespace backend.Services
         IUserRepository _userRepository;
         IRoomRepository _roomRepository;
         IQuizRepository _quizRepository;
+        IAnswerRepository _answerRepository;
+        IQuizStatisticsRepository _quizStatisticsRepository;
 
-
-        public RoomService(IUserRepository userRepository, IRoomRepository roomRepository, IQuizRepository quizRepository)
+        public RoomService(
+            IUserRepository userRepository,
+            IRoomRepository roomRepository,
+            IQuizRepository quizRepository,
+            IAnswerRepository answerRepository,
+            IQuizStatisticsRepository quizStatisticsRepository)
         {
             _userRepository = userRepository;
             _roomRepository = roomRepository;
             _quizRepository = quizRepository;
+            _answerRepository = answerRepository;
+            _quizStatisticsRepository = quizStatisticsRepository;
         }
 
         public async Task<Room> AddRoom(Guid userId, Guid quizId)
@@ -41,7 +50,6 @@ namespace backend.Services
 
             try
             {
-                
                 await _roomRepository.Add(room);
             }
             catch (RepositoryException)
@@ -52,14 +60,38 @@ namespace backend.Services
             return room;
         }
 
-        public Task<Quiz> GetActiveUserQuiz(Guid userId)
+        public async Task<int> EvaluateQuiz(IEnumerable<Answer> answers)
         {
-            throw new NotImplementedException();
+            int totalScore = 0;
+            const int correctAnswerScore = 10;
+            const int wrongAnswerScore = 0;
+
+            answers.Select(async (answer) =>
+            {
+                var query = await _answerRepository.GetAnswerById(answer.Id);
+                totalScore += query.IsCorrect is true ? correctAnswerScore : wrongAnswerScore;
+                return query;
+            });
+
+            return totalScore;
         }
 
-        public Task UpdateQuiz(Guid userId, Quiz newQuiz)
+        public async Task AddEvaluatedQuizToUser(Guid userId, Guid quizId, int score = 0)
         {
-            throw new NotImplementedException();
+            try
+            {
+                await _quizStatisticsRepository.AddSample(new QuizStatistics
+                {
+                    QuizId = quizId,
+                    UserId = userId,
+                    Score = score,
+                });
+            }
+            catch (Exception exception)
+            {
+                throw new InvalidEntityException(exception.Message);
+            }
         }
+
     }
 }

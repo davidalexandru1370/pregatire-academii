@@ -1,0 +1,17 @@
+.primaryButton {
+  width: 120px;
+  background-color: rgb(29, 141, 247);
+  border: 2px solid rgb(0, 130, 236);
+  border-radius: 5px;
+  min-height: 40px;
+  height: auto;
+}
+
+.primaryButton:hover {
+  background-color: rgb(38, 198, 247);
+}
+
+.primaryButton:disabled {
+  background-color: rgb(6, 59, 83);
+  border: 2px solid rgb(29, 92, 121);
+}

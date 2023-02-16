@@ -1,6 +1,7 @@
 ﻿using backend.Model;
 using backend.Model.DTOs;
 using backend.Repository;
+using backend.Services;
 using backend.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,10 +13,12 @@ namespace backend.Controllers
     public class RoomController : ControllerBase
     {
         private IRoomService _roomService;
+        private IQuizService _quizService;
 
-        public RoomController(IRoomService roomService)
+        public RoomController(IRoomService roomService, IQuizService quizService)
         {
             _roomService = roomService;
+            _quizService = quizService;
         }
 
         [HttpPost]
@@ -38,6 +41,23 @@ namespace backend.Controllers
                     QuizId = room.QuizId,
                     RoomId = room.RoomId
                 });
+            }
+            catch (RepositoryException repositoryException)
+            {
+                return BadRequest(repositoryException.Message);
+            }
+        }
+
+        [HttpPost("evaluate-quiz")]
+        public async Task<ActionResult<QuizResponseDTO>> EvaluateQuiz([FromBody] QuizResponseDTO quiz)
+        {
+            try
+            {
+                quiz.Score =  _roomService.EvaluateQuiz(quiz.Answers).Result;
+                Guid userId = (Guid)HttpContext.Items["userId"]!;
+                await _roomService.AddEvaluatedQuizToUser(userId, quiz.Id, quiz.Score ?? 0);
+                quiz.Answers = await _quizService.GetCorrectAnswersOfQuiz(quiz.Id);
+                return Ok(quiz);
             }
             catch (RepositoryException repositoryException)
             {

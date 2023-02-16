@@ -28,7 +28,7 @@ namespace backend.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<bool>("IsCorrect")
+                    b.Property<bool?>("IsCorrect")
                         .HasColumnType("boolean");
 
                     b.Property<Guid>("QuestionId")
@@ -103,6 +103,32 @@ namespace backend.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Quiz");
+                });
+
+            modelBuilder.Entity("backend.Model.QuizStatistics", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("QuizId")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("Score")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasDefaultValue(0);
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("QuizId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("QuizStatistics");
                 });
 
             modelBuilder.Entity("backend.Model.Room", b =>
@@ -208,6 +234,25 @@ namespace backend.Migrations
                         .HasForeignKey("QuizId");
 
                     b.Navigation("Quiz");
+                });
+
+            modelBuilder.Entity("backend.Model.QuizStatistics", b =>
+                {
+                    b.HasOne("backend.Model.Quiz", "Quiz")
+                        .WithMany()
+                        .HasForeignKey("QuizId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("backend.Model.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Quiz");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("backend.Model.Room", b =>

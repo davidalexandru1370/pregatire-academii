@@ -8,5 +8,7 @@ namespace backend.Repository
         public Task<Quiz> GetQuizById(Guid quizId);
 
         public Task<IEnumerable<Quiz>> GetAllQuizzes();
+
+        public Task<IEnumerable<Answer>> GetCorrectAnswersOfQuiz(Guid quizId);
     }
 }

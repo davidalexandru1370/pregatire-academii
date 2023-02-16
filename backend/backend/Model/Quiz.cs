@@ -7,7 +7,6 @@ namespace backend.Model
     [Table("Quiz")]
     public class Quiz
     {
-
         [Key]
         public Guid Id { get; set; }
         public Category Category { get; set; }
