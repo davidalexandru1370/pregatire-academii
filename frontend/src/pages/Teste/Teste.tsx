@@ -212,7 +212,9 @@ export const Teste = () => {
             ) : (
               <div className="testCards">
                 {data?.quizzes?.totalCount === 0 ? (
-                  <p>Nu a fost gasit niciun rezultat.</p>
+                  <span className="noResultText">
+                    Nu a fost gasit niciun rezultat.
+                  </span>
                 ) : (
                   data &&
                   data.quizzes &&

@@ -69,6 +69,13 @@ $--anim-time: 0.5s;
   position: relative;
 }
 
+.noResultText {
+  width: inherit;
+  display: flex;
+  flex-basis: 1;
+  justify-content: center;
+}
+
 .totalCount {
   user-select: none;
 }
