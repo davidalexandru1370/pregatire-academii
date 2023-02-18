@@ -120,7 +120,10 @@ export const Teste = () => {
               </span>
               <span className="filterText">&nbsp;Filter</span>
             </button>
-            <ButtonWithDropDown title="Sorteaza" />
+            <ButtonWithDropDown
+              title="Sorteaza"
+              options={["Rezolvate", "Nerezolvate"]}
+            />
           </div>
           {loading === false && (
             <p className="totalCount">

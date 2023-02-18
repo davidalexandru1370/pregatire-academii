@@ -79,7 +79,7 @@ const ButtonWithDropDown: FC<IButtonWithDropDown> = ({
         <DropDown
           ref={dropDownRef}
           style={dropDownStyle}
-          items={["da"]}
+          items={options || []}
           arrowStyle={dropDownArrowStyle}
           onChange={() => {
             setClicked(false);
