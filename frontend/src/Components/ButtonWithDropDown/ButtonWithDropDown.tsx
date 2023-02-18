@@ -72,7 +72,7 @@ const ButtonWithDropDown: FC<IButtonWithDropDown> = ({
         className="dropDownSpace"
         onClick={(event) => {
           event.stopPropagation();
-          dropDownRef.current!.click();
+          dropDownRef.current?.click();
           event.stopPropagation();
         }}
       >

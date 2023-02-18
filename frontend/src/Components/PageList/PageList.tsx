@@ -38,6 +38,7 @@ export const PageList: FC<IPageList> = ({
           if (page >= 1 && page <= totalNumberOfPages) {
             return (
               <p
+                key={page}
                 className={`pageNumber ${
                   page === currentPage ? "activePageNumber" : ""
                 }`}
