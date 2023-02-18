@@ -96,7 +96,7 @@ export const Teste = () => {
         type: "error",
       });
     } else {
-      data && data.quizzes && setTotalCount(data!.quizzes!.totalCount);
+      data && data.quizzes && setTotalCount(data.quizzes?.totalCount || 0);
     }
   }, [error, data]);
 
