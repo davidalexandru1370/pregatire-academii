@@ -1,4 +1,3 @@
-import React from "react";
 import { Button } from "react-bootstrap";
 import FlipBox from "../../Components/FlipBox/FlipBox";
 import {
@@ -7,10 +6,10 @@ import {
   connectionPompierLogo,
   connectionTestLogo,
 } from "../../Utilities/index";
-import "./mainPage.scss";
+import "./MainPage.scss";
 
 function MainPage() {
-  let currentYear = new Date();
+  let currentYear: Date = new Date();
 
   return (
     <div className="mainPageContent">
@@ -22,7 +21,7 @@ function MainPage() {
           <div className="card-body ms-2 me-2">
             <p>Din data crearii contului si pana acum ai obtinut:</p>
             <p className="mt-2">
-              <span class="material-symbols-outlined">quiz</span>{" "}
+              <span className="material-symbols-outlined">quiz</span>{" "}
               <span>
                 <span>x teste completate</span>
               </span>

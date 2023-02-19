@@ -10,7 +10,7 @@ import {
   connectionPompierLogo,
 } from "./Utilities/index.js";
 import TextCard from "./Components/TextCard/TextCard.jsx";
-import MainPage from "./Pages/MainPage/mainPage";
+import MainPage from "./Pages/MainPage/MainPage";
 import NotFound from "./Pages/NotFound/NotFound";
 import { ProtectedRoute } from "./Pages/Authorization/ProtectedRoute";
 import BaseRouter from "./BaseRouter/BaseRouter";
