@@ -5,10 +5,10 @@ $--main-color: rgb(239, 231, 231);
   font-family: "Tahoma", "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif;
   flex-direction: column;
-  background-image: linear-gradient(to bottom right, #3f2a45, #803dbe);
-  //background-color: rgb(98, 104, 95);
+  background-color: rgb(56, 56, 56);
   color: rgb(27, 27, 27);
   border-radius: 10px;
+  border: 1px solid transparent;
   position: relative;
   transition: background-color 0.25s ease-in-out;
 }
@@ -19,8 +19,17 @@ $--main-color: rgb(239, 231, 231);
   text-align: center;
   font-size: 26px;
   font-weight: 500;
-  border-bottom: 1px solid black;
   color: $--main-color;
+}
+
+.testTitle::before {
+  width: 3%;
+  height: 2%;
+  bottom: 0;
+
+  content: "";
+  position: absolute;
+  background-color: rgb(217, 53, 24);
 }
 
 .testContent {
@@ -83,6 +92,6 @@ $--main-color: rgb(239, 231, 231);
   }
 
   .testCard:hover {
-    background-color: rgb(209, 209, 209);
+    border: 1px solid white;
   }
 }

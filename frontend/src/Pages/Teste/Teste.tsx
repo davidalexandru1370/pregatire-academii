@@ -261,11 +261,7 @@ export const Teste = () => {
               }
               onPageClick={(page: number) => {
                 const difference = currentPage - page;
-                if (difference < 0) {
-                  setSkip(skip - maximumNumberOfQuizzesOnPage * difference);
-                } else {
-                  setSkip(skip - maximumNumberOfQuizzesOnPage * difference);
-                }
+                setSkip(skip - maximumNumberOfQuizzesOnPage * difference);
                 setCurrentPage(page);
               }}
               onNextPageClick={() => {
