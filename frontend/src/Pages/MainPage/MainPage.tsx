@@ -1,4 +1,5 @@
 import { Button } from "react-bootstrap";
+import { NavigateFunction, useNavigate } from "react-router-dom";
 import FlipBox from "../../Components/FlipBox/FlipBox";
 import {
   connectionJandarmLogo,
@@ -10,7 +11,7 @@ import "./MainPage.scss";
 
 function MainPage() {
   let currentYear: Date = new Date();
-
+  const navigate: NavigateFunction = useNavigate();
   return (
     <div className="mainPageContent">
       <div className="col p-3 d-flex " style={{ backgroundColor: "#2a2d2f" }}>
@@ -33,7 +34,13 @@ function MainPage() {
               </span>
             </p>
             <p>Continua sa te pregatesti!</p>
-            <Button variant="primary" className="mt-3 border">
+            <Button
+              variant="primary"
+              className="mt-3 border"
+              onClick={() => {
+                navigate("/teste");
+              }}
+            >
               Incepe un nou test!
             </Button>
           </div>
