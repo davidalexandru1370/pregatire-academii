@@ -23,7 +23,7 @@ $--main-color: rgb(239, 231, 231);
 }
 
 .testTitle::before {
-  width: 40%;
+  width: 38%;
   height: 2%;
   top: 17%;
   content: "";
@@ -41,9 +41,9 @@ $--main-color: rgb(239, 231, 231);
   top: 17%;
   content: "";
   position: absolute;
-  background-color: rgb(127, 127, 127);
-  border-top-right-radius: 50px;
-  border-bottom-right-radius: 50px;
+  border-top: 2px solid transparent;
+  border-left: 10px solid rgb(127, 127, 127);
+  border-bottom: 2px solid transparent;
 }
 
 .testContent {
