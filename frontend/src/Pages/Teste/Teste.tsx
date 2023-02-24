@@ -100,16 +100,6 @@ export const Teste = () => {
       data && data.quizzes && setTotalCount(data.quizzes?.totalCount || 0);
     }
   }, [error, data]);
-  console.log(filteredState);
-
-  console.log(
-    Object.keys(filteredState).reduce((first, second) => {
-      return (
-        first ||
-        (filteredState[second as keyof IState] !== undefined ? true : false)
-      );
-    }, false) === true
-  );
 
   return (
     <div className="testePage">
