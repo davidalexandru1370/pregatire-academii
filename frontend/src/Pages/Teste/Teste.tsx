@@ -82,7 +82,7 @@ export const Teste = () => {
     initialState
   );
 
-  const { loading, error, data, refetch } = useGetQuizFilteredQuery({
+  const { loading, error, data } = useGetQuizFilteredQuery({
     variables: {
       year: filteredState.year,
       category: filteredState.category,
@@ -181,21 +181,7 @@ export const Teste = () => {
                   }}
                 />
               </div>
-              <div className="cardItem d-flex justify-content-center pt-3">
-                <button
-                  type="button"
-                  className=" text-white filterButton"
-                  onClick={() => {
-                    refetch({
-                      skip: skip,
-                      category: filteredState.category,
-                      year: filteredState.year,
-                    });
-                  }}
-                >
-                  Filtreaza
-                </button>
-              </div>
+              <div className="cardItem d-flex justify-content-center pt-3"></div>
               <div
                 className="d-flex justify-content-center"
                 onClick={() => {
