@@ -202,7 +202,25 @@ export const Teste = () => {
                   });
                 }}
               >
-                <p className="deleteFilters">*Sterge filtrele*</p>
+                <p
+                  className="deleteFilters"
+                  style={{
+                    display: `${
+                      Object.keys(initialState).reduce((first, second) => {
+                        return (
+                          first &&
+                          (initialState[second as keyof IState] === null
+                            ? true
+                            : false)
+                        );
+                      }, true) === true
+                        ? "block"
+                        : "none"
+                    }`,
+                  }}
+                >
+                  *Sterge filtrele*
+                </p>
               </div>
             </div>
           </div>
