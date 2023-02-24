@@ -6,16 +6,16 @@ import "./mobileNavBarStyle.scss";
 interface INavigationItem {
   icon: string;
   name: string;
-  path: string;
+  path: string[];
 }
 
 const MobileNavBar = () => {
   const navigate = useNavigate();
   const clickItemClass: string = "navBarItemClicked";
   const navigationBarItems = useRef<INavigationItem[]>([
-    { icon: "home", name: "Acasa", path: "/mainpage" },
-    { icon: "article", name: "Teste", path: "/teste" },
-    { icon: "person", name: "Cont", path: "/contul_meu" },
+    { icon: "home", name: "Acasa", path: ["/mainpage"] },
+    { icon: "article", name: "Teste", path: ["/teste", "/playquiz"] },
+    { icon: "person", name: "Cont", path: ["/contul_meu"] },
   ]);
   const previousLIElement = useRef<HTMLLIElement | null>(null);
   const [distance, setDistance] = useState<number>(0);
@@ -66,7 +66,6 @@ const MobileNavBar = () => {
     initializedNavBar.current = true;
     return clickItemClass;
   };
-
   return (
     <div className="mobileNavigationBar">
       <ul className="listNoDecoration navBar">
@@ -83,17 +82,15 @@ const MobileNavBar = () => {
                     toggleClassAtItemClick(htmlElem.currentTarget, index);
                   }}
                   ref={
-                    element.path.localeCompare(location) === 0
-                      ? previousLIElement
-                      : null
+                    element.path.includes(location) ? previousLIElement : null
                   }
                   className={`material-symbols-outlined navBarIcon navBarItem ${
-                    element.path.localeCompare(location) === 0
+                    element.path.includes(location)
                       ? initializeNavBar(computeNavItemsIndex(index))
                       : ""
                   }`}
                   onClickCapture={() => {
-                    navigate(element.path, { replace: true });
+                    navigate(element.path[0], { replace: true });
                   }}
                 >
                   {element.icon}

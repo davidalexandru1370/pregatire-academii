@@ -47,13 +47,7 @@ $--bs-dark-rgb: rgb(36, 39, 43);
   border-radius: 10px;
   padding: 0.5rem;
   width: 50vw;
-  height: 6vw;
-}
-
-@media screen and (max-width: 768px) {
-  .quizContainer {
-    justify-content: column;
-  }
+  height: auto;
 }
 
 .w-color {
@@ -103,4 +97,26 @@ $--bs-dark-rgb: rgb(36, 39, 43);
 .sendButton {
   width: 13vw;
   margin-bottom: 10px;
+}
+
+@media screen and (max-width: 768px) {
+  .quizContent {
+    flex-direction: column;
+  }
+
+  .quizContainer {
+    flex-direction: column;
+  }
+
+  .allQuestions {
+    width: 100%;
+  }
+
+  .questionText {
+    width: 100%;
+  }
+
+  .answerField {
+    width: 100%;
+  }
 }

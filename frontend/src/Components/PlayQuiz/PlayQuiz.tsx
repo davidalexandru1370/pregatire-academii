@@ -167,6 +167,7 @@ export const PlayQuiz: FC<IPlayQuiz> = ({ quiz }): JSX.Element => {
                       disabled={state.correctedAnswers !== undefined}
                       id={answer.id}
                       name={`answer-${state.selectedQuestion.id}}`}
+                      onChange={() => {}}
                       checked={
                         state.answeredQuestions.get(state.selectedQuestion.id)
                           ?.id === answer.id
