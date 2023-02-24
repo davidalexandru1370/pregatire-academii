@@ -59,6 +59,7 @@ export const Teste = () => {
         categoryDropDownRef.current?.clear();
         return {
           ...state,
+          ...action.payload,
         };
       }
       case FilterChangeTypeEnum.ChangeYear: {
@@ -99,6 +100,16 @@ export const Teste = () => {
       data && data.quizzes && setTotalCount(data.quizzes?.totalCount || 0);
     }
   }, [error, data]);
+  console.log(filteredState);
+
+  console.log(
+    Object.keys(filteredState).reduce((first, second) => {
+      return (
+        first ||
+        (filteredState[second as keyof IState] === undefined ? false : true)
+      );
+    }, true) === true
+  );
 
   return (
     <div className="testePage">
@@ -141,6 +152,7 @@ export const Teste = () => {
               <div className="cardItem">
                 <span>Categoria</span>
                 <DropDown
+                  ref={categoryDropDownRef}
                   items={constants.academies.map(
                     (academy) =>
                       academy[0].toUpperCase() +
@@ -199,23 +211,27 @@ export const Teste = () => {
                 onClick={() => {
                   dispatch({
                     type: FilterChangeTypeEnum.ClearFilters,
+                    payload: {
+                      category: undefined,
+                      year: undefined,
+                    },
                   });
                 }}
               >
                 <p
                   className="deleteFilters"
                   style={{
-                    display: `${
-                      Object.keys(initialState).reduce((first, second) => {
+                    visibility: `${
+                      Object.keys(filteredState).reduce((first, second) => {
                         return (
-                          first &&
-                          (initialState[second as keyof IState] === null
-                            ? true
-                            : false)
+                          first ||
+                          (filteredState[second as keyof IState] === null
+                            ? false
+                            : true)
                         );
                       }, true) === true
-                        ? "block"
-                        : "none"
+                        ? "visible"
+                        : "hidden"
                     }`,
                   }}
                 >
