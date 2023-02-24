@@ -106,9 +106,9 @@ export const Teste = () => {
     Object.keys(filteredState).reduce((first, second) => {
       return (
         first ||
-        (filteredState[second as keyof IState] === undefined ? false : true)
+        (filteredState[second as keyof IState] !== undefined ? true : false)
       );
-    }, true) === true
+    }, false) === true
   );
 
   return (
@@ -225,11 +225,11 @@ export const Teste = () => {
                       Object.keys(filteredState).reduce((first, second) => {
                         return (
                           first ||
-                          (filteredState[second as keyof IState] === null
-                            ? false
-                            : true)
+                          (filteredState[second as keyof IState] !== undefined
+                            ? true
+                            : false)
                         );
-                      }, true) === true
+                      }, false) === true
                         ? "visible"
                         : "hidden"
                     }`,
