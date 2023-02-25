@@ -30,7 +30,6 @@ $--bs-dark-rgb: rgb(36, 39, 43);
 }
 
 .quizContainer {
-  min-height: 100vh;
   display: flex;
   flex-direction: row;
   padding: 1rem;
@@ -178,18 +177,24 @@ $--bs-dark-rgb: rgb(36, 39, 43);
   .allQuestions {
     min-height: 30vh;
   }
+}
 
+@media screen and (max-width: 355px) {
   .sendButton {
     margin-top: 3rem;
   }
 }
 
-@media screen and (max-width: 850px) and (max-height: 400px) {
+@media screen and (max-width: 930px) and (max-height: 430px) {
   .allQuestions {
     min-height: 55vh;
   }
 
   .rightSection {
     margin-bottom: 0;
+  }
+
+  .quizContainer {
+    min-height: 125vh;
   }
 }
