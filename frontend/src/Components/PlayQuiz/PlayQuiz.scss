@@ -39,7 +39,7 @@ $--bs-dark-rgb: rgb(36, 39, 43);
 
 .questionContainer {
   max-height: 20vh;
-  margin-inline: 1rem;
+  margin-inline: 0.5rem;
 }
 
 .questionText {
@@ -134,6 +134,7 @@ $--bs-dark-rgb: rgb(36, 39, 43);
   }
 
   .allQuestions {
+    position: relative;
     display: grid;
     width: 100%;
     gap: 0.25rem;
