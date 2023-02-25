@@ -93,7 +93,7 @@ $--main-color: rgb(239, 231, 231);
   margin-right: 5px;
 }
 
-@media screen and (min-width: 480px) {
+@media screen and (min-width: 1000px) {
   .testCard .startButton {
     transition: opacity 0.25s ease-in-out, transform 0.25s ease-in-out,
       box-shadow 0.25s ease-in-out;

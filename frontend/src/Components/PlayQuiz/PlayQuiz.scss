@@ -30,7 +30,7 @@ $--bs-dark-rgb: rgb(36, 39, 43);
 }
 
 .quizContainer {
-  height: 100%;
+  min-height: 100vh;
   display: flex;
   flex-direction: row;
   padding: 1rem;
@@ -110,7 +110,7 @@ $--bs-dark-rgb: rgb(36, 39, 43);
   height: 1vh;
 }
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 890px) {
   .questionContainer {
     max-height: none;
   }
@@ -171,6 +171,7 @@ $--bs-dark-rgb: rgb(36, 39, 43);
 
 @media screen and (max-height: 600px) {
   .questionAction {
+    min-width: fit-content;
     width: 2vw;
   }
 
@@ -180,5 +181,15 @@ $--bs-dark-rgb: rgb(36, 39, 43);
 
   .sendButton {
     margin-top: 3rem;
+  }
+}
+
+@media screen and (max-width: 850px) and (max-height: 400px) {
+  .allQuestions {
+    min-height: 55vh;
+  }
+
+  .rightSection {
+    margin-bottom: 0;
   }
 }
