@@ -120,6 +120,11 @@ $--bs-dark-rgb: rgb(36, 39, 43);
     flex-direction: column;
   }
 
+  .questionAction {
+    min-width: fit-content;
+    max-width: 85px;
+  }
+
   .quizContainer {
     height: 100%;
     flex-direction: column;
