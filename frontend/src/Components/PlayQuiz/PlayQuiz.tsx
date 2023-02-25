@@ -230,15 +230,17 @@ export const PlayQuiz: FC<IPlayQuiz> = ({ quiz }): JSX.Element => {
           </div>
         </div>
         <div className="allQuestions">
-          <PrimaryButton
-            className="sendButton"
-            onClick={() => {
-              setShowModal(true);
-            }}
-            disabled={state.correctedAnswers === undefined ? false : true}
-          >
-            Finalizeaza chestionar
-          </PrimaryButton>
+          <div className="sendButton">
+            <PrimaryButton
+              className="sendButton"
+              onClick={() => {
+                setShowModal(true);
+              }}
+              disabled={state.correctedAnswers === undefined ? false : true}
+            >
+              Finalizeaza chestionar
+            </PrimaryButton>
+          </div>
           {quiz?.quizzes?.items[0]!.question.map((question, index) => {
             return (
               <p

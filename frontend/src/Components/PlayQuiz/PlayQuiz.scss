@@ -100,23 +100,41 @@ $--bs-dark-rgb: rgb(36, 39, 43);
 }
 
 @media screen and (max-width: 768px) {
+  .questionContainer {
+    max-height: none;
+  }
+
   .quizContent {
+    height: 100%;
     flex-direction: column;
   }
 
   .quizContainer {
+    height: 100%;
     flex-direction: column;
+    padding: 0;
+    padding-top: 1rem;
+  }
+  .allQuestions,
+  .questionText,
+  .answerField {
+    width: 100%;
   }
 
   .allQuestions {
+    display: grid;
     width: 100%;
+    gap: 0;
+    grid-template-columns: repeat(auto-fill, minmax(2.75rem, 1fr));
+    justify-items: center;
+    position: relative;
   }
 
-  .questionText {
-    width: 100%;
-  }
-
-  .answerField {
-    width: 100%;
+  .sendButton {
+    position: fixed;
+    bottom: 0;
+    order: 1;
+    width: max-content;
+    padding-inline: 1em;
   }
 }
