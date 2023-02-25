@@ -16,14 +16,12 @@ export const PrimaryButton = React.forwardRef<
   IPrimaryButton
 >(({ children, ...buttonProps }, ref: Ref<HTMLButtonElement>) => {
   return (
-    <div>
-      <button
-        {...buttonProps}
-        className={`primaryButton ${buttonProps.className}`}
-        ref={ref}
-      >
-        {children}
-      </button>
-    </div>
+    <button
+      {...buttonProps}
+      className={`primaryButton ${buttonProps.className}`}
+      ref={ref}
+    >
+      {children}
+    </button>
   );
 });

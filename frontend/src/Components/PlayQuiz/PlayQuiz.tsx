@@ -229,45 +229,45 @@ export const PlayQuiz: FC<IPlayQuiz> = ({ quiz }): JSX.Element => {
             </PrimaryButton>
           </div>
         </div>
-        <div className="allQuestions">
-          <div className="sendButton">
-            <PrimaryButton
-              className="sendButton"
-              onClick={() => {
-                setShowModal(true);
-              }}
-              disabled={state.correctedAnswers === undefined ? false : true}
-            >
-              Finalizeaza chestionar
-            </PrimaryButton>
+        <div className="rightSection">
+          <PrimaryButton
+            className="sendButton"
+            onClick={() => {
+              setShowModal(true);
+            }}
+            disabled={state.correctedAnswers === undefined ? false : true}
+          >
+            Finalizeaza chestionar
+          </PrimaryButton>
+          <div className="allQuestions">
+            {quiz?.quizzes?.items[0]!.question.map((question, index) => {
+              return (
+                <p
+                  key={question.id}
+                  className="questionCard"
+                  style={{
+                    backgroundColor:
+                      state.correctedAnswers === undefined
+                        ? "white"
+                        : checkIfQuestionHasCorrectResponse(question.id)
+                        ? "red"
+                        : "green",
+                  }}
+                  onClick={() => {
+                    dispatch({
+                      type: QuizActionTypeEnum.ChangeQuestion,
+                      payload: {
+                        selectedQuestion: question,
+                        selectedQuestionIndex: index + 1,
+                      },
+                    });
+                  }}
+                >
+                  {index + 1}
+                </p>
+              );
+            })}
           </div>
-          {quiz?.quizzes?.items[0]!.question.map((question, index) => {
-            return (
-              <p
-                key={question.id}
-                className="questionCard"
-                style={{
-                  backgroundColor:
-                    state.correctedAnswers === undefined
-                      ? "white"
-                      : checkIfQuestionHasCorrectResponse(question.id)
-                      ? "red"
-                      : "green",
-                }}
-                onClick={() => {
-                  dispatch({
-                    type: QuizActionTypeEnum.ChangeQuestion,
-                    payload: {
-                      selectedQuestion: question,
-                      selectedQuestionIndex: index + 1,
-                    },
-                  });
-                }}
-              >
-                {index + 1}
-              </p>
-            );
-          })}
         </div>
       </div>
     </div>
