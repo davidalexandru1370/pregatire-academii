@@ -192,6 +192,7 @@ export const PlayQuiz: FC<IPlayQuiz> = ({ quiz }): JSX.Element => {
           </div>
           <div className="footerContainer">
             <PrimaryButton
+              className="questionAction"
               disabled={state.selectedQuestionIndex === 1}
               onClick={() => {
                 dispatch({
@@ -212,6 +213,7 @@ export const PlayQuiz: FC<IPlayQuiz> = ({ quiz }): JSX.Element => {
               {quiz.quizzes?.items[0]?.question.length}
             </p>
             <PrimaryButton
+              className="questionAction"
               disabled={state.selectedQuestionIndex === numberOfQuestions}
               onClick={() => {
                 dispatch({

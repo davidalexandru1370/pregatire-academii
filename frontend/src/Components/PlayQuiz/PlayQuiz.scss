@@ -9,10 +9,6 @@ $--bs-dark-rgb: rgb(36, 39, 43);
   max-height: 10px;
 }
 
-.allQuestions > .questionCard {
-  order: 2;
-}
-
 .questionCard {
   box-sizing: content-box;
   text-align: center;
@@ -34,7 +30,7 @@ $--bs-dark-rgb: rgb(36, 39, 43);
 }
 
 .quizContainer {
-  height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: row;
   padding: 1rem;
@@ -110,6 +106,10 @@ $--bs-dark-rgb: rgb(36, 39, 43);
   height: min-content;
 }
 
+.questionAction {
+  height: 1vh;
+}
+
 @media screen and (max-width: 900px) {
   .questionContainer {
     max-height: none;
@@ -136,8 +136,8 @@ $--bs-dark-rgb: rgb(36, 39, 43);
   .allQuestions {
     display: grid;
     width: 100%;
-    gap: 0;
-    max-width: 400px;
+    gap: 0.25rem;
+    max-width: 300px;
     grid-template-columns: repeat(auto-fill, minmax(2.75rem, 1fr));
     justify-items: center;
     position: relative;
@@ -145,8 +145,20 @@ $--bs-dark-rgb: rgb(36, 39, 43);
 
   .sendButton {
     bottom: 0;
-    order: 0;
     width: max-content;
     padding-inline: 1em;
+  }
+
+  .numberOfQuestions {
+    font-size: 15px;
+  }
+
+  .rightSection {
+    height: 100%;
+    position: relative;
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 }
