@@ -1,4 +1,4 @@
-import { FC, useMemo, useReducer, useState } from "react";
+import { FC, useEffect, useMemo, useReducer, useState } from "react";
 import { evaluateQuiz } from "../../api/RoomAPI";
 import { GetQuizQuery } from "../../GraphQL/useGetQuiz";
 import { Answer } from "../../Models/Answer";
@@ -67,6 +67,18 @@ function handlerQuizReducer(state: IState, action: Action): IState {
 }
 
 export const PlayQuiz: FC<IPlayQuiz> = ({ quiz }): JSX.Element => {
+  useEffect(() => {
+    const handleBeforeUnload = (event: BeforeUnloadEvent) => {
+      event.preventDefault();
+      event.returnValue = "";
+      return "";
+    };
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, []);
+
   const initialState: IState = {
     // key - question id value - answer id
     answeredQuestions: new Map<string, Answer>(),
@@ -99,6 +111,7 @@ export const PlayQuiz: FC<IPlayQuiz> = ({ quiz }): JSX.Element => {
     <div className="quizContent">
       {showModal && (
         <AreYouSureModal
+          style={{ maxWidth: "30vw" }}
           visibility={showModal}
           afterYesMessageClicked="Se trimite..."
           onCancelClick={() => {
