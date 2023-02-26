@@ -250,7 +250,9 @@ export const PlayQuiz: FC<IPlayQuiz> = ({ quiz }): JSX.Element => {
                   style={{
                     backgroundColor:
                       state.correctedAnswers === undefined
-                        ? "white"
+                        ? state.answeredQuestions.has(question.id) === false
+                          ? "white"
+                          : "grey"
                         : checkIfQuestionHasCorrectResponse(question.id)
                         ? "red"
                         : "green",
