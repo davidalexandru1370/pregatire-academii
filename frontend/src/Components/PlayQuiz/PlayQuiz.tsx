@@ -93,6 +93,7 @@ export const PlayQuiz: FC<IPlayQuiz> = ({ quiz }): JSX.Element => {
 
   const [state, dispatch] = useReducer(handlerQuizReducer, initialState);
   const [showModal, setShowModal] = useState<boolean>(false);
+  const [timer, setTimer] = useState<number>(3600);
 
   const checkIfQuestionHasCorrectResponse = (questionId: string): boolean => {
     if (state.correctedAnswers === undefined) {
@@ -106,6 +107,14 @@ export const PlayQuiz: FC<IPlayQuiz> = ({ quiz }): JSX.Element => {
       ) === false
     );
   };
+
+  useEffect(() => {
+    const intervalId: NodeJS.Timer = setInterval(() => {
+      setTimer((prevTime) => prevTime - 1);
+    }, 3600);
+
+    return () => clearInterval(intervalId);
+  }, []);
 
   return (
     <div className="quizContent">
@@ -143,9 +152,20 @@ export const PlayQuiz: FC<IPlayQuiz> = ({ quiz }): JSX.Element => {
           }}
         />
       )}
+      <div className="timerContainer">
+        <p className="timerParagraph">
+          {Math.floor(timer / 3600) +
+            ":" +
+            Math.floor((timer / 60) % 60) +
+            ":" +
+            (timer % 60)}
+        </p>
+      </div>
+
       <div className="quizContainer">
         <div className="questionContainer">
           <p className="questionText">{state.selectedQuestion.text}</p>
+
           <div className="answersContainer">
             {state.selectedQuestion.answers.map(
               (answer: Answer, index: number) => {
