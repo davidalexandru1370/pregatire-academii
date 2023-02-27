@@ -111,7 +111,7 @@ export const PlayQuiz: FC<IPlayQuiz> = ({ quiz }): JSX.Element => {
   useEffect(() => {
     const intervalId: NodeJS.Timer = setInterval(() => {
       setTimer((prevTime) => prevTime - 1);
-    }, 3600);
+    }, 1000);
 
     return () => clearInterval(intervalId);
   }, []);
