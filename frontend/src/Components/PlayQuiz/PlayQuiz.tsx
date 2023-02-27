@@ -95,6 +95,27 @@ export const PlayQuiz: FC<IPlayQuiz> = ({ quiz }): JSX.Element => {
   const [showModal, setShowModal] = useState<boolean>(false);
   const [timer, setTimer] = useState<number>(3600);
 
+  const evaluateQuiz = async () => {
+    const quizWithCorrectAnswers: QuizResponseDTO =
+      await handleSendQuizWithAnswers(
+        quiz.quizzes?.items[0]?.id,
+        Array.from(initialState.answeredQuestions.values())
+      );
+    dispatch({
+      type: QuizActionTypeEnum.EvaluateQuiz,
+      payload: {
+        correctedAnswers: quizWithCorrectAnswers.answers.reduce(function (
+          map,
+          answer
+        ) {
+          map.set(answer.id, answer);
+          return map;
+        },
+        new Map<string, Answer>()),
+      },
+    });
+  };
+
   const checkIfQuestionHasCorrectResponse = (questionId: string): boolean => {
     if (state.correctedAnswers === undefined) {
       return false;
@@ -109,12 +130,22 @@ export const PlayQuiz: FC<IPlayQuiz> = ({ quiz }): JSX.Element => {
   };
 
   useEffect(() => {
+    if (timer === 0 || state.correctedAnswers !== undefined) {
+      const asyncWrapper = async () => await evaluateQuiz();
+      asyncWrapper();
+      return;
+    }
+
     const intervalId: NodeJS.Timer = setInterval(() => {
-      setTimer((prevTime) => prevTime - 1);
+      if (timer > 0) {
+        setTimer((prevTime) => prevTime - 1);
+      } else {
+        clearInterval(intervalId);
+      }
     }, 1000);
 
     return () => clearInterval(intervalId);
-  }, []);
+  }, [timer]);
 
   return (
     <div className="quizContent">
@@ -131,28 +162,17 @@ export const PlayQuiz: FC<IPlayQuiz> = ({ quiz }): JSX.Element => {
             setShowModal(false);
           }}
           onYesClick={async () => {
-            const quizWithCorrectAnswers: QuizResponseDTO =
-              await handleSendQuizWithAnswers(
-                quiz.quizzes?.items[0]?.id,
-                Array.from(initialState.answeredQuestions.values())
-              );
-            dispatch({
-              type: QuizActionTypeEnum.EvaluateQuiz,
-              payload: {
-                correctedAnswers: quizWithCorrectAnswers.answers.reduce(
-                  function (map, answer) {
-                    map.set(answer.id, answer);
-                    return map;
-                  },
-                  new Map<string, Answer>()
-                ),
-              },
-            });
+            await evaluateQuiz();
             setShowModal(false);
           }}
         />
       )}
-      <div className="timerContainer">
+      <div
+        className="timerContainer"
+        style={{
+          display: `${state.correctedAnswers === undefined ? "flex" : "none"}`,
+        }}
+      >
         <p className="timerParagraph">
           {Math.floor(timer / 3600) +
             ":" +
@@ -165,7 +185,6 @@ export const PlayQuiz: FC<IPlayQuiz> = ({ quiz }): JSX.Element => {
       <div className="quizContainer">
         <div className="questionContainer">
           <p className="questionText">{state.selectedQuestion.text}</p>
-
           <div className="answersContainer">
             {state.selectedQuestion.answers.map(
               (answer: Answer, index: number) => {
