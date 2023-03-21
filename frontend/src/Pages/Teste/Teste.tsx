@@ -59,6 +59,7 @@ export const Teste = () => {
         categoryDropDownRef.current?.clear();
         return {
           ...state,
+          ...action.payload,
         };
       }
       case FilterChangeTypeEnum.ChangeYear: {
@@ -81,7 +82,7 @@ export const Teste = () => {
     initialState
   );
 
-  const { loading, error, data, refetch } = useGetQuizFilteredQuery({
+  const { loading, error, data } = useGetQuizFilteredQuery({
     variables: {
       year: filteredState.year,
       category: filteredState.category,
@@ -96,7 +97,7 @@ export const Teste = () => {
         type: "error",
       });
     } else {
-      data && data.quizzes && setTotalCount(data!.quizzes!.totalCount);
+      data && data.quizzes && setTotalCount(data.quizzes?.totalCount || 0);
     }
   }, [error, data]);
 
@@ -120,7 +121,10 @@ export const Teste = () => {
               </span>
               <span className="filterText">&nbsp;Filter</span>
             </button>
-            <ButtonWithDropDown title="Sorteaza" />
+            <ButtonWithDropDown
+              title="Sorteaza"
+              options={["Rezolvate", "Nerezolvate"]}
+            />
           </div>
           {loading === false && (
             <p className="totalCount">
@@ -138,6 +142,7 @@ export const Teste = () => {
               <div className="cardItem">
                 <span>Categoria</span>
                 <DropDown
+                  ref={categoryDropDownRef}
                   items={constants.academies.map(
                     (academy) =>
                       academy[0].toUpperCase() +
@@ -176,30 +181,38 @@ export const Teste = () => {
                   }}
                 />
               </div>
-              <div className="cardItem d-flex justify-content-center pt-3">
-                <button
-                  type="button"
-                  className=" text-white filterButton"
-                  onClick={() => {
-                    refetch({
-                      skip: skip,
-                      category: filteredState.category,
-                      year: filteredState.year,
-                    });
-                  }}
-                >
-                  Filtreaza
-                </button>
-              </div>
+              <div className="cardItem d-flex justify-content-center pt-3"></div>
               <div
                 className="d-flex justify-content-center"
                 onClick={() => {
                   dispatch({
                     type: FilterChangeTypeEnum.ClearFilters,
+                    payload: {
+                      category: undefined,
+                      year: undefined,
+                    },
                   });
                 }}
               >
-                <p className="deleteFilters">*Sterge filtrele*</p>
+                <p
+                  className="deleteFilters"
+                  style={{
+                    visibility: `${
+                      Object.keys(filteredState).reduce((first, second) => {
+                        return (
+                          first ||
+                          (filteredState[second as keyof IState] !== undefined
+                            ? true
+                            : false)
+                        );
+                      }, false) === true
+                        ? "visible"
+                        : "hidden"
+                    }`,
+                  }}
+                >
+                  *Sterge filtrele*
+                </p>
               </div>
             </div>
           </div>
@@ -258,11 +271,7 @@ export const Teste = () => {
               }
               onPageClick={(page: number) => {
                 const difference = currentPage - page;
-                if (difference < 0) {
-                  setSkip(skip - maximumNumberOfQuizzesOnPage * difference);
-                } else {
-                  setSkip(skip - maximumNumberOfQuizzesOnPage * difference);
-                }
+                setSkip(skip - maximumNumberOfQuizzesOnPage * difference);
                 setCurrentPage(page);
               }}
               onNextPageClick={() => {

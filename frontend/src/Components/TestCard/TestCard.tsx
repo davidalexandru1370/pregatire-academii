@@ -18,7 +18,7 @@ const TestCard: FC<ITestCard> = ({ quiz, onClick }: ITestCard) => {
         <p>Proba: {quiz.subject}</p>
         <p>Timp: 60 minute</p>
         <p>Punctaj maxim: 100</p>
-        <p>Punctajul tau: 0</p>
+        <p>Punctajele tale: </p>
       </div>
       <div ref={parentPlayButton} className="play">
         <button type="button" className="startButton" onClick={() => onClick()}>

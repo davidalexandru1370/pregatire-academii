@@ -1,4 +1,4 @@
-import { FC, useMemo, useReducer, useState } from "react";
+import { FC, useEffect, useMemo, useReducer, useState } from "react";
 import { evaluateQuiz } from "../../api/RoomAPI";
 import { GetQuizQuery } from "../../GraphQL/useGetQuiz";
 import { Answer } from "../../Models/Answer";
@@ -67,6 +67,18 @@ function handlerQuizReducer(state: IState, action: Action): IState {
 }
 
 export const PlayQuiz: FC<IPlayQuiz> = ({ quiz }): JSX.Element => {
+  useEffect(() => {
+    const handleBeforeUnload = (event: BeforeUnloadEvent) => {
+      event.preventDefault();
+      event.returnValue = "";
+      return "";
+    };
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, []);
+
   const initialState: IState = {
     // key - question id value - answer id
     answeredQuestions: new Map<string, Answer>(),
@@ -81,6 +93,28 @@ export const PlayQuiz: FC<IPlayQuiz> = ({ quiz }): JSX.Element => {
 
   const [state, dispatch] = useReducer(handlerQuizReducer, initialState);
   const [showModal, setShowModal] = useState<boolean>(false);
+  const [timer, setTimer] = useState<number>(3600);
+
+  const evaluateQuiz = async () => {
+    const quizWithCorrectAnswers: QuizResponseDTO =
+      await handleSendQuizWithAnswers(
+        quiz.quizzes?.items[0]?.id,
+        Array.from(initialState.answeredQuestions.values())
+      );
+    dispatch({
+      type: QuizActionTypeEnum.EvaluateQuiz,
+      payload: {
+        correctedAnswers: quizWithCorrectAnswers.answers.reduce(function (
+          map,
+          answer
+        ) {
+          map.set(answer.id, answer);
+          return map;
+        },
+        new Map<string, Answer>()),
+      },
+    });
+  };
 
   const checkIfQuestionHasCorrectResponse = (questionId: string): boolean => {
     if (state.correctedAnswers === undefined) {
@@ -95,10 +129,29 @@ export const PlayQuiz: FC<IPlayQuiz> = ({ quiz }): JSX.Element => {
     );
   };
 
+  useEffect(() => {
+    if (timer === 0 || state.correctedAnswers !== undefined) {
+      const asyncWrapper = async () => await evaluateQuiz();
+      asyncWrapper();
+      return;
+    }
+
+    const intervalId: NodeJS.Timer = setInterval(() => {
+      if (timer > 0) {
+        setTimer((prevTime) => prevTime - 1);
+      } else {
+        clearInterval(intervalId);
+      }
+    }, 1000);
+
+    return () => clearInterval(intervalId);
+  }, [timer]);
+
   return (
     <div className="quizContent">
       {showModal && (
         <AreYouSureModal
+          style={{ maxWidth: "30vw" }}
           visibility={showModal}
           afterYesMessageClicked="Se trimite..."
           onCancelClick={() => {
@@ -109,27 +162,26 @@ export const PlayQuiz: FC<IPlayQuiz> = ({ quiz }): JSX.Element => {
             setShowModal(false);
           }}
           onYesClick={async () => {
-            const quizWithCorrectAnswers: QuizResponseDTO =
-              await handleSendQuizWithAnswers(
-                quiz.quizzes?.items[0]?.id,
-                Array.from(initialState.answeredQuestions.values())
-              );
-            dispatch({
-              type: QuizActionTypeEnum.EvaluateQuiz,
-              payload: {
-                correctedAnswers: quizWithCorrectAnswers.answers.reduce(
-                  function (map, answer) {
-                    map.set(answer.id, answer);
-                    return map;
-                  },
-                  new Map<string, Answer>()
-                ),
-              },
-            });
+            await evaluateQuiz();
             setShowModal(false);
           }}
         />
       )}
+      <div
+        className="timerContainer"
+        style={{
+          display: `${state.correctedAnswers === undefined ? "flex" : "none"}`,
+        }}
+      >
+        <p className="timerParagraph">
+          {Math.floor(timer / 3600) +
+            ":" +
+            Math.floor((timer / 60) % 60) +
+            ":" +
+            (timer % 60)}
+        </p>
+      </div>
+
       <div className="quizContainer">
         <div className="questionContainer">
           <p className="questionText">{state.selectedQuestion.text}</p>
@@ -167,6 +219,7 @@ export const PlayQuiz: FC<IPlayQuiz> = ({ quiz }): JSX.Element => {
                       disabled={state.correctedAnswers !== undefined}
                       id={answer.id}
                       name={`answer-${state.selectedQuestion.id}}`}
+                      onChange={() => {}}
                       checked={
                         state.answeredQuestions.get(state.selectedQuestion.id)
                           ?.id === answer.id
@@ -191,6 +244,7 @@ export const PlayQuiz: FC<IPlayQuiz> = ({ quiz }): JSX.Element => {
           </div>
           <div className="footerContainer">
             <PrimaryButton
+              className="questionAction"
               disabled={state.selectedQuestionIndex === 1}
               onClick={() => {
                 dispatch({
@@ -211,6 +265,7 @@ export const PlayQuiz: FC<IPlayQuiz> = ({ quiz }): JSX.Element => {
               {quiz.quizzes?.items[0]?.question.length}
             </p>
             <PrimaryButton
+              className="questionAction"
               disabled={state.selectedQuestionIndex === numberOfQuestions}
               onClick={() => {
                 dispatch({
@@ -228,7 +283,7 @@ export const PlayQuiz: FC<IPlayQuiz> = ({ quiz }): JSX.Element => {
             </PrimaryButton>
           </div>
         </div>
-        <div className="allQuestions">
+        <div className="rightSection">
           <PrimaryButton
             className="sendButton"
             onClick={() => {
@@ -238,33 +293,37 @@ export const PlayQuiz: FC<IPlayQuiz> = ({ quiz }): JSX.Element => {
           >
             Finalizeaza chestionar
           </PrimaryButton>
-          {quiz?.quizzes?.items[0]!.question.map((question, index) => {
-            return (
-              <p
-                key={question.id}
-                className="questionCard"
-                style={{
-                  backgroundColor:
-                    state.correctedAnswers === undefined
-                      ? "white"
-                      : checkIfQuestionHasCorrectResponse(question.id)
-                      ? "red"
-                      : "green",
-                }}
-                onClick={() => {
-                  dispatch({
-                    type: QuizActionTypeEnum.ChangeQuestion,
-                    payload: {
-                      selectedQuestion: question,
-                      selectedQuestionIndex: index + 1,
-                    },
-                  });
-                }}
-              >
-                {index + 1}
-              </p>
-            );
-          })}
+          <div className="allQuestions">
+            {quiz?.quizzes?.items[0]!.question.map((question, index) => {
+              return (
+                <p
+                  key={question.id}
+                  className="questionCard"
+                  style={{
+                    backgroundColor:
+                      state.correctedAnswers === undefined
+                        ? state.answeredQuestions.has(question.id) === false
+                          ? "white"
+                          : "grey"
+                        : checkIfQuestionHasCorrectResponse(question.id)
+                        ? "red"
+                        : "green",
+                  }}
+                  onClick={() => {
+                    dispatch({
+                      type: QuizActionTypeEnum.ChangeQuestion,
+                      payload: {
+                        selectedQuestion: question,
+                        selectedQuestionIndex: index + 1,
+                      },
+                    });
+                  }}
+                >
+                  {index + 1}
+                </p>
+              );
+            })}
+          </div>
         </div>
       </div>
     </div>

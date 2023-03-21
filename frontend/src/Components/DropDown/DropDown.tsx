@@ -19,18 +19,22 @@ const DropDown = React.forwardRef<DropDownRef, IDropDown>(
     const listRef = useRef<HTMLDivElement>(null);
     const [showItems, setShowItems] = useState<boolean>(false);
     const [text, setText] = useState<string>("");
+    const mainRef = useRef<HTMLDivElement>(null);
 
     useImperativeHandle(
       ref,
-      //@ts-ignore
-      () => {
+      (): DropDownRef => {
         return {
           clear: () => {
             setText("");
           },
+          ...mainRef.current!,
+          click: () => {
+            mainRef.current?.click();
+          },
         };
       },
-      []
+      [mainRef]
     );
 
     useEffect(() => {
@@ -75,7 +79,7 @@ const DropDown = React.forwardRef<DropDownRef, IDropDown>(
 
     return (
       <div
-        ref={ref}
+        ref={mainRef}
         className={`dropDown ${className}`}
         style={style}
         onClick={() => {

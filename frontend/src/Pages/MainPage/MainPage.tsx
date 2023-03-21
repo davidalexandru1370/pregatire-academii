@@ -1,5 +1,5 @@
-import React from "react";
 import { Button } from "react-bootstrap";
+import { NavigateFunction, useNavigate } from "react-router-dom";
 import FlipBox from "../../Components/FlipBox/FlipBox";
 import {
   connectionJandarmLogo,
@@ -7,11 +7,11 @@ import {
   connectionPompierLogo,
   connectionTestLogo,
 } from "../../Utilities/index";
-import "./mainPage.scss";
+import "./MainPage.scss";
 
 function MainPage() {
-  let currentYear = new Date();
-
+  let currentYear: Date = new Date();
+  const navigate: NavigateFunction = useNavigate();
   return (
     <div className="mainPageContent">
       <div className="col p-3 d-flex " style={{ backgroundColor: "#2a2d2f" }}>
@@ -22,7 +22,7 @@ function MainPage() {
           <div className="card-body ms-2 me-2">
             <p>Din data crearii contului si pana acum ai obtinut:</p>
             <p className="mt-2">
-              <span class="material-symbols-outlined">quiz</span>{" "}
+              <span className="material-symbols-outlined">quiz</span>{" "}
               <span>
                 <span>x teste completate</span>
               </span>
@@ -34,7 +34,13 @@ function MainPage() {
               </span>
             </p>
             <p>Continua sa te pregatesti!</p>
-            <Button variant="primary" className="mt-3 border">
+            <Button
+              variant="primary"
+              className="mt-3 border"
+              onClick={() => {
+                navigate("/teste");
+              }}
+            >
               Incepe un nou test!
             </Button>
           </div>

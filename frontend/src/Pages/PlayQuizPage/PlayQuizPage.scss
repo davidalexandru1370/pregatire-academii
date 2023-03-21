@@ -1,6 +1,6 @@
 $--bs-dark-rgb: rgb(36, 39, 43);
 
 .playQuizContent {
-  height: 92vh;
+  min-height: 100vh;
   background-color: $--bs-dark-rgb;
 }

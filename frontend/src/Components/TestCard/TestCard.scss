@@ -5,10 +5,10 @@ $--main-color: rgb(239, 231, 231);
   font-family: "Tahoma", "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif;
   flex-direction: column;
-  background-image: linear-gradient(to bottom right, #3f2a45, #803dbe);
-  //background-color: rgb(98, 104, 95);
+  background-color: rgb(56, 56, 56);
   color: rgb(27, 27, 27);
   border-radius: 10px;
+  border: 1px solid transparent;
   position: relative;
   transition: background-color 0.25s ease-in-out;
 }
@@ -19,8 +19,31 @@ $--main-color: rgb(239, 231, 231);
   text-align: center;
   font-size: 26px;
   font-weight: 500;
-  border-bottom: 1px solid black;
   color: $--main-color;
+}
+
+.testTitle::before {
+  width: 38.5%;
+  height: 2%;
+  top: 17%;
+  content: "";
+  position: absolute;
+  background-image: linear-gradient(
+    90deg,
+    rgb(204, 51, 4) 5%,
+    rgb(238, 235, 38) 5%
+  );
+}
+
+.testTitle::after {
+  width: 3%;
+  height: 2%;
+  top: 17%;
+  content: "";
+  position: absolute;
+  border-top: 2px solid transparent;
+  border-left: 10px solid rgb(127, 127, 127);
+  border-bottom: 2px solid transparent;
 }
 
 .testContent {
@@ -70,7 +93,7 @@ $--main-color: rgb(239, 231, 231);
   margin-right: 5px;
 }
 
-@media screen and (min-width: 480px) {
+@media screen and (min-width: 1000px) {
   .testCard .startButton {
     transition: opacity 0.25s ease-in-out, transform 0.25s ease-in-out,
       box-shadow 0.25s ease-in-out;
@@ -83,6 +106,6 @@ $--main-color: rgb(239, 231, 231);
   }
 
   .testCard:hover {
-    background-color: rgb(209, 209, 209);
+    border: 1px solid white;
   }
 }

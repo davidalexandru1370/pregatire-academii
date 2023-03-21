@@ -1,7 +1,5 @@
 import React, { FC, useEffect, useRef, useState } from "react";
-import { IDropDown } from "../DropDown/DropDown";
-//@ts-ignore
-import DropDown from "../DropDown/DropDown.tsx";
+import DropDown, { DropDownRef } from "../DropDown/DropDown";
 import "./ButtonWithDropDown.scss";
 
 interface IButtonWithDropDown {
@@ -34,17 +32,17 @@ const ButtonWithDropDown: FC<IButtonWithDropDown> = ({
   initialValue,
 }: IButtonWithDropDown) => {
   const buttonWithDropDownRef = useRef<HTMLDivElement>(null);
-  const dropDownRef = useRef<HTMLDivElement>(null);
+  const dropDownRef = useRef<DropDownRef>(null);
   const [clicked, setClicked] = useState<boolean>(false);
   const dropDownWrapperRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleClick = (event: MouseEvent) => {
       if (
-        dropDownWrapperRef.current!.contains(event.target as Node) === false &&
-        buttonWithDropDownRef.current!.contains(event.target as Node) === true
+        dropDownWrapperRef.current?.contains(event.target as Node) === false &&
+        buttonWithDropDownRef.current?.contains(event.target as Node) === true
       ) {
-        dropDownWrapperRef.current!.click();
+        dropDownWrapperRef.current?.click();
       }
     };
 
@@ -72,14 +70,14 @@ const ButtonWithDropDown: FC<IButtonWithDropDown> = ({
         className="dropDownSpace"
         onClick={(event) => {
           event.stopPropagation();
-          dropDownRef.current!.click();
+          dropDownRef.current?.click();
           event.stopPropagation();
         }}
       >
         <DropDown
           ref={dropDownRef}
           style={dropDownStyle}
-          items={["da"]}
+          items={options || []}
           arrowStyle={dropDownArrowStyle}
           onChange={() => {
             setClicked(false);
